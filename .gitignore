@@ -1,2 +1,5 @@
 .gitmodules
 .dotRC_Backup/
+bundle/
+autoload/
+colors/
