@@ -36,9 +36,9 @@ setup() {
 	while IFS= read <&3 line || [ -n "$line" ];
 	do
 		echo -n ". "
-		git submodule add --quiet $line
+		git submodule add --quiet --force $line > /dev/null 2>&1
 		git submodule init && git submodule update
-	done 3< vim/plugin_list > /dev/null 2>&1
+	done 3< vim/plugin_list
 	echo "Done!"
 	
 	. ~/.bashrc
