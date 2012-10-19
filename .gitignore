@@ -1,0 +1,6 @@
+.gitmodules
+vim/autoload/*
+vim/colors/*
+vim/bundle/*
+bash/home.bashrc
+bash/office.bashrc
