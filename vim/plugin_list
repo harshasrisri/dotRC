@@ -9,5 +9,5 @@ http://github.com/vim-scripts/taglist.vim vim/bundle/Taglist
 http://github.com/tpope/vim-commentary vim/bundle/Commentary
 http://github.com/vim-scripts/matrix.vim--Yang vim/bundle/Matrix
 http://github.com/scrooloose/vim-statline vim/bundle/Statline
-http://github.com/vim-scripts/peaksea vim/colors/Peaksea
-http://github.com/vim-scripts/lettuce.vim vim/colors/Lettuce
+http://github.com/vim-scripts/peaksea vim/bundle/Peaksea
+http://github.com/vim-scripts/lettuce.vim vim/bundle/Lettuce
