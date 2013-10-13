@@ -2,4 +2,4 @@
 .dotRC_Backup/
 bundle/
 autoload/
-sshnopass
+sshnopass.sh

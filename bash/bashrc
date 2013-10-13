@@ -22,4 +22,7 @@ shopt -s checkwinsize
 
 ## Location Specific customizations here
 export BashDir=$(dirname $(readlink ~/.bashrc))
-source $BashDir/*
+
+for i in $(ls $BashDir/*.sh); do
+	source $i
+done
