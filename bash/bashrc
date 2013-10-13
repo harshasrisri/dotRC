@@ -3,7 +3,7 @@
 
 #PS1='\u@\h:\W \$ '
 #PS1=': \w >> '
-PS1='\[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
+PS1='\[\033[1;36m\][\T]\[\033[00m\] \[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
 
 # don't put duplicate lines in the history and force ignoredups and ignorespace
 export HISTCONTROL=ignoredups:erasedups:ignorespace
@@ -20,52 +20,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-export PATH=$PATH:~/bin
-export CSCOPE_DIR=~/.autotags/byhash
-
-alias ll='ls --color=auto -lFht'
-alias la='ls --color=auto -a'
-alias lr='ls --color=auto -R'
-alias l='ls --color=auto -CF'
-alias ls='ls --color=auto -CF'
-
-alias a='./a.out'
-alias ..='cd ..; ls'
-alias .b='vi ~/.bashrc'
-alias ..b='. ~/.bashrc'
-alias .h='vi ~/.bash_history'
-alias .v='vi ~/.vimrc'
-alias x='exit'
-
-md() {
-	mkdir -p $1
-	cd $1
-}
-
-## All git related stuff here
-alias ga='git add'
-alias gp='git push'
-alias gl='git log --oneline --decorate --date=short --graph'
-alias gs='git status'
-alias gd='git diff'
-alias gdt='git difftool'
-alias gdc='git diff --cached'
-alias gm='git commit -m'
-alias gma='git commit -am'
-alias gb='git branch'
-alias gc='git checkout'
-alias gra='git remote add'
-alias grr='git remote rm'
-alias gpu='git pull'
-alias gcl='git clone'
-
 ## Location Specific customizations here
-BashDir=$(dirname $(readlink ~/.bashrc))
-
-if [ -e "$BashDir/home.bashrc" ];
-then
-	source $BashDir/home.bashrc 
-elif [ -e "$BashDir/office.bashrc" ];
-then
-	source $BashDir/office.bashrc
-fi
+export BashDir=$(dirname $(readlink ~/.bashrc))
+source $BashDir/*
