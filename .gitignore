@@ -1,6 +1,4 @@
-bundle
-Pathogen
-autoload
+vim
 *.swp
 .gitmodules
 .bkup
