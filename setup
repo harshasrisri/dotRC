@@ -13,8 +13,8 @@ main() {
 		install )
 			bkup
 			make_links
-			pathogen
 			submodules
+			pathogen
 			;;
 
 		reset ) reset
@@ -64,6 +64,7 @@ make_links () {
 
 pathogen () {
 	echo -n "Pathogen setup... "
+	mkdir -p $vim_dir/autoload 
 	# git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen
 	ln --force $vim_dir/Pathogen/autoload/pathogen.vim $vim_dir/autoload/pathogen.vim
 	echo "Done!"
@@ -72,7 +73,6 @@ pathogen () {
 submodules () {
 
 	mkdir -p $vim_dir/bundle
-	mkdir -p $vim_dir/autoload 
 
 	echo -n "Installing Plugins . . . "
 
