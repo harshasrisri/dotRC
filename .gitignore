@@ -3,3 +3,4 @@ Pathogen
 autoload
 *.swp
 .gitmodules
+.bkup

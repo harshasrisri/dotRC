@@ -1,3 +1,4 @@
+http://github.com/tpope/vim-pathogen dotstuff/vim/Pathogen
 http://github.com/mileszs/ack.vim dotstuff/vim/bundle/AckVim
 http://github.com/basilgor/vim-autotags dotstuff/vim/bundle/Autotags
 http://github.com/kien/ctrlp.vim dotstuff/vim/bundle/Ctrlp

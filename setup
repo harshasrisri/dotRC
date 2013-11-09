@@ -64,8 +64,7 @@ make_links () {
 
 pathogen () {
 	echo -n "Pathogen setup... "
-	mkdir -p $vim_dir/autoload 
-	git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen
+	# git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen
 	ln --force $vim_dir/Pathogen/autoload/pathogen.vim $vim_dir/autoload/pathogen.vim
 	echo "Done!"
 }
@@ -73,8 +72,9 @@ pathogen () {
 submodules () {
 
 	mkdir -p $vim_dir/bundle
+	mkdir -p $vim_dir/autoload 
 
-	echo -n "Fetching Plugins . . . "
+	echo -n "Installing Plugins . . . "
 
 	while read line; do
 		echo -n ". "
@@ -83,9 +83,9 @@ submodules () {
 
 	echo "Done!"
 
-	echo "Installing Plugins ..."
-	git submodule init && git submodule update
-	echo "Done!"
+	# echo "Installing Plugins ..."
+	# git submodule init && git submodule update
+	# echo "Done!"
 }
 
 reset() {
@@ -108,7 +108,7 @@ reset() {
 
 update() {
 	git pull
-	git submodule foreach git pull
+	git submodule foreach git pull origin master
 }
 
 fatal () {
