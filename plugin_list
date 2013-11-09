@@ -1,0 +1,13 @@
+http://github.com/tpope/vim-pathogen $dot_dir/vim/Pathogen
+http://github.com/mileszs/ack.vim $dot_dir/vim/bundle/AckVim
+http://github.com/basilgor/vim-autotags $dot_dir/vim/bundle/Autotags
+http://github.com/kien/ctrlp.vim $dot_dir/vim/bundle/Ctrlp
+http://github.com/vim-scripts/fly.vim $dot_dir/vim/bundle/Fly
+http://github.com/scrooloose/nerdtree $dot_dir/vim/bundle/Nerdtree
+http://github.com/ervandew/supertab $dot_dir/vim/bundle/SuperTab
+http://github.com/vim-scripts/taglist.vim $dot_dir/vim/bundle/Taglist
+http://github.com/tpope/vim-commentary $dot_dir/vim/bundle/Commentary
+http://github.com/vim-scripts/matrix.vim--Yang $dot_dir/vim/bundle/Matrix
+http://github.com/scrooloose/vim-statline $dot_dir/vim/bundle/Statline
+http://github.com/vim-scripts/peaksea $dot_dir/vim/bundle/Peaksea
+http://github.com/vim-scripts/lettuce.vim $dot_dir/vim/bundle/Lettuce

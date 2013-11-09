@@ -3,7 +3,7 @@
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
 main() {
-	dot_dir="dotstuff"
+	dot_dir="dot"
 	vim_dir="$dot_dir/vim"
 	home_dir=$HOME
 
@@ -12,9 +12,9 @@ main() {
 	case $1 in
 		install )
 			bkup
-			make_links
 			submodules
 			pathogen
+			make_links
 			;;
 
 		reset ) reset
