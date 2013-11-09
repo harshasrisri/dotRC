@@ -21,10 +21,8 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 ## Location Specific customizations here
-cd $(dirname $(readlink ~/.bashrc))
-cd ..
-export DotDir=$PWD
-export BashDir=$PWD/bash
+export DotDir=$(dirname $(readlink ~/.bashrc))/..
+export BashDir=$DotDir/bash
 
 for i in $(ls $BashDir/*.sh); do
 	source $i
