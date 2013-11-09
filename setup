@@ -1,0 +1,120 @@
+#!/bin/bash
+# Script to setup my Working Environment.
+# Sriharsha Mucheli : harshasrisri@gmail.com
+
+main() {
+	dot_dir="dotstuff"
+	vim_dir="$dot_dir/vim"
+	home_dir=$HOME
+
+	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!!"; fi
+
+	case $1 in
+		install )
+			bkup
+			make_links
+			pathogen
+			submodules
+			;;
+
+		reset ) reset
+			;;
+
+		update ) 
+			update
+			bkup
+			make_links
+			;;
+
+		* ) echo "Usage : $0 [install | reset | update]"
+			;;
+	esac
+}
+
+bkup () {
+	BackupDir=".bkup"
+
+	mkdir -p $BackupDir
+	echo -n "Back up start... "
+
+	for i in $(ls $dot_dir); do
+
+		if [ -e $BackupDir/$i ]; then continue; fi
+
+		if [ -e $home_dir/.$i ]; then
+			echo -n "$i "
+			mv $home_dir/.$i $BackupDir
+		fi
+	done
+
+	echo "... Done!"
+}
+
+make_links () {
+
+	echo -n "Copying files... "
+
+	for i in $(ls $dot_dir/); do
+		echo -n "$home_dir/.$i "
+		ln -sf $PWD/$dot_dir/$i $home_dir/.$i
+	done
+
+	echo "... Done!"
+}
+
+pathogen () {
+	echo -n "Pathogen setup... "
+	mkdir -p $vim_dir/autoload 
+	git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen
+	ln --force $vim_dir/Pathogen/autoload/pathogen.vim $vim_dir/autoload/pathogen.vim
+	echo "Done!"
+}
+
+submodules () {
+
+	mkdir -p $vim_dir/bundle
+
+	echo -n "Fetching Plugins . . . "
+
+	while read line; do
+		echo -n ". "
+		git submodule add --quiet --force $line &> /dev/null
+	done < $vim_dir/plugin_list
+
+	echo "Done!"
+
+	echo "Installing Plugins ..."
+	git submodule init && git submodule update
+	echo "Done!"
+}
+
+reset() {
+	if [ ! -e $BackupDir ]; then
+		echo "No backups present!!"
+		exit
+	fi
+
+	shopt -s dotglob
+
+	for i in $(ls $dot_dir); do
+		rm $home_dir/.$i
+		mv $dot_dir/$i $home_dir/.i
+	done
+
+	rm -rf $BackupDir
+
+	echo "Reset Complete. Back to your old Setup!"
+}
+
+update() {
+	git pull
+	git submodule foreach git pull
+}
+
+fatal () {
+	echo -n "FATAL: "
+	echo $1 >3
+	exit
+}
+
+main $@
