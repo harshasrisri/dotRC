@@ -79,7 +79,7 @@ submodules () {
 	while read line; do
 		echo -n ". "
 		git submodule add --quiet --force $line &> /dev/null
-	done < $vim_dir/plugin_list
+	done < plugin_list
 
 	echo "Done!"
 
