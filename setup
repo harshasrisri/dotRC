@@ -11,9 +11,9 @@ main() {
 
 	case $1 in
 		install )
-			bkup
 			submodules
 			pathogen
+			bkup
 			make_links
 			;;
 

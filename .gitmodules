@@ -1,0 +1,39 @@
+[submodule "dot/vim/Pathogen"]
+	path = dot/vim/Pathogen
+	url = http://github.com/tpope/vim-pathogen
+[submodule "dot/vim/bundle/AckVim"]
+	path = dot/vim/bundle/AckVim
+	url = http://github.com/mileszs/ack.vim
+[submodule "dot/vim/bundle/Autotags"]
+	path = dot/vim/bundle/Autotags
+	url = http://github.com/basilgor/vim-autotags
+[submodule "dot/vim/bundle/Ctrlp"]
+	path = dot/vim/bundle/Ctrlp
+	url = http://github.com/kien/ctrlp.vim
+[submodule "dot/vim/bundle/Fly"]
+	path = dot/vim/bundle/Fly
+	url = http://github.com/vim-scripts/fly.vim
+[submodule "dot/vim/bundle/Nerdtree"]
+	path = dot/vim/bundle/Nerdtree
+	url = http://github.com/scrooloose/nerdtree
+[submodule "dot/vim/bundle/SuperTab"]
+	path = dot/vim/bundle/SuperTab
+	url = http://github.com/ervandew/supertab
+[submodule "dot/vim/bundle/Taglist"]
+	path = dot/vim/bundle/Taglist
+	url = http://github.com/vim-scripts/taglist.vim
+[submodule "dot/vim/bundle/Commentary"]
+	path = dot/vim/bundle/Commentary
+	url = http://github.com/tpope/vim-commentary
+[submodule "dot/vim/bundle/Matrix"]
+	path = dot/vim/bundle/Matrix
+	url = http://github.com/vim-scripts/matrix.vim--Yang
+[submodule "dot/vim/bundle/Statline"]
+	path = dot/vim/bundle/Statline
+	url = http://github.com/scrooloose/vim-statline
+[submodule "dot/vim/bundle/Peaksea"]
+	path = dot/vim/bundle/Peaksea
+	url = http://github.com/vim-scripts/peaksea
+[submodule "dot/vim/bundle/Lettuce"]
+	path = dot/vim/bundle/Lettuce
+	url = http://github.com/vim-scripts/lettuce.vim
