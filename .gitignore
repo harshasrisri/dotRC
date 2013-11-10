@@ -1,4 +1,4 @@
-vim
+dot/vim/*
 *.swp
 .gitmodules
 .bkup
