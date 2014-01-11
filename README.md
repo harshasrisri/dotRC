@@ -1,28 +1,29 @@
 dotRC
--------
-My Linux Environment. Can't live without it.
+=====
 
-I use Linux and Vim extensively at work and home. I've created this repo:
-->Because I want my Bash and Vim environment to be seamless wherever I go.
-->I simply use the dotRC script to backup existing env with my own. When I'm done, the same script will let me restore the originals.
-->To show off at work that I have a ready-to-use Linux env. ;-)
+My Linux Environment and Vim environment.
 
-To Install :
+* Because I want my Bash and Vim environment to be seamless wherever I go.
+* I simply use the dotRC script to backup existing env with my own. When I'm done, the same script will let me restore the originals.
+* To show off at work that I have a ready-to-use Linux env. ;-)
+
+To Install
 -----
 It backs up existing bashrc, vimrc and .vim to replace them with my files. It is a simple way to setup my environment.
 ~~~
 git clone http://github.com/harshasrisri/dotRC.git
 cd dotRC
-./dotRC setup
+./setup install
 ~~~
 
 
 To Uninstall
 -----
-It can restore the previous .RCs and .vim to leave the environment the way it was before with this command:
+It can restore the previous .RCs and .vim to leave the environment the way it was before with this command.
+(haven't tested this well enough yet)
 ~~~
 cd dotRC
-./dotRC reset
+./setup reset
 ~~~
 
 To Update
@@ -30,9 +31,35 @@ To Update
 It can update itself as well as all the submodules that are a part of it with this command:
 ~~~
 cd dotRC
-./dotRC update
+./setup update
 ~~~
 
-Disclaimer : I've tested the dotRC setup file enough, but be careful. It might eat up a few of your .RCs.
-
 Please Backup whatever is important ALWAYS!
+
+Plugins
+-------
+Pathogen: The next best thing in Vim after Vim itself. Very useful to manage plugins.
+
+AckVim: Searching for expressions in a directory. Like Grep inside Vim.
+
+Ctrlp: Search for files in PWD and below.
+
+Fly: Little known plugin for using cscope dbs. Life Changing!!
+
+Autotags: Manage the tags file and cscope dbs for all the projects in one central location.
+
+Nerdtree: File explorer in a sidebar.
+
+SuperTab: Awesome Auto-completion.
+
+Taglist: Sidebar containing tags in the opened file, list all open buffers.
+
+Commentary: Awesome plugin to comment/uncomment any amount of code, in many languages.
+
+Matrix: Matrix screen saver for Vim. I even made an awesome wallpaper using it.
+
+Statline : Customizable status bar that adapts to the colorscheme.
+
+Peaksea : Colorscheme used to view diffs.
+
+Lettuce : Default colorscheme.
