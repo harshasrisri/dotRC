@@ -2,3 +2,4 @@ dot/vim/*
 *.swp
 .gitmodules
 .bkup
+ssh*
