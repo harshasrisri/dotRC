@@ -3,11 +3,12 @@
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
 main() {
-	dot_dir="dot"
-	vim_dir="$dot_dir/vim"
+	root_dir=$PWD
 	home_dir=$HOME
+	dot_dir="$root_dir/dot"
+	vim_dir="$dot_dir/vim"
 
-	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!!"; fi
+	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
 
 	case $1 in
 		install )
@@ -31,14 +32,35 @@ main() {
 	esac
 }
 
+submodules () {
+	mkdir -p $vim_dir/bundle
+	echo -n "Installing Plugins . . . "
+
+	while read line; do
+		plugin=${line##*/}
+		if [ -d $vim_dir/bundle/$plugin ]; then continue; fi
+		echo -n "$plugin "
+		git submodule add --quiet --force $line $vim_dir/bundle/$plugin &> /dev/null
+	done < $root_dir/plugin_list
+
+	echo "Done!"
+}
+
+pathogen () {
+	echo -n "Setting up Pathogen . . . "
+	git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen &> /dev/null
+	mkdir -p $vim_dir/autoload 
+	ln --force $vim_dir/Pathogen/autoload/pathogen.vim $vim_dir/autoload/pathogen.vim
+	echo "Done!"
+}
+
 bkup () {
-	BackupDir=".bkup"
+	BackupDir="$root_dir/.bkup"
 
 	mkdir -p $BackupDir
 	echo -n "Back up start... "
 
 	for i in $(ls $dot_dir); do
-
 		if [ -e $BackupDir/$i ]; then continue; fi
 
 		if [ -e $home_dir/.$i ]; then
@@ -51,41 +73,14 @@ bkup () {
 }
 
 make_links () {
-
 	echo -n "Copying files... "
 
 	for i in $(ls $dot_dir/); do
 		echo -n "$home_dir/.$i "
-		ln -sf $PWD/$dot_dir/$i $home_dir/.$i
+		ln -sf $dot_dir/$i $home_dir/.$i
 	done
 
 	echo "... Done!"
-}
-
-pathogen () {
-	echo -n "Pathogen setup... "
-	mkdir -p $vim_dir/autoload 
-	# git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen
-	ln --force $vim_dir/Pathogen/autoload/pathogen.vim $vim_dir/autoload/pathogen.vim
-	echo "Done!"
-}
-
-submodules () {
-
-	mkdir -p $vim_dir/bundle
-
-	echo -n "Installing Plugins . . . "
-
-	while read line; do
-		echo -n ". "
-		git submodule add --quiet --force $line &> /dev/null
-	done < plugin_list
-
-	echo "Done!"
-
-	# echo "Installing Plugins ..."
-	# git submodule init && git submodule update
-	# echo "Done!"
 }
 
 reset() {
@@ -98,11 +93,10 @@ reset() {
 
 	for i in $(ls $dot_dir); do
 		rm $home_dir/.$i
-		mv $dot_dir/$i $home_dir/.i
+		mv $BackupDir/.$i $home_dir/
 	done
 
 	rm -rf $BackupDir
-
 	echo "Reset Complete. Back to your old Setup!"
 }
 
