@@ -47,6 +47,9 @@
 		nmap \\v :source ~/.vimrc<CR>
 	endif
 
+"" To save as sudo
+	cmap w!! w !sudo tee %
+
 "" To control fold behavior
 	set foldmethod=indent
 	set nofoldenable
