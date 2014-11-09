@@ -1,5 +1,8 @@
 dot/vim/
+dot/vim/bundle/
+dot/vim/bundle/*
 *.swp
 .gitmodules
 .bkup
 ssh*
+sh/sshnopass.sh

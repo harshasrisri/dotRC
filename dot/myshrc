@@ -3,7 +3,7 @@
 
 #PS1='\u@\h:\W \$ '
 #PS1=': \w >> '
-PS1='\[\033[1;36m\][\T]\[\033[00m\] \[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
+# PS1='\[\033[1;36m\][\T]\[\033[00m\] \[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
 
 # don't put duplicate lines in the history and force ignoredups and ignorespace
 export HISTCONTROL=ignoredups:erasedups:ignorespace
@@ -21,9 +21,9 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 ## Location Specific customizations here
-export DotDir=$(dirname $(readlink ~/.bashrc))/..
-export BashDir=$DotDir/bash
+export DotDir=$(dirname $(readlink ~/.myshrc))/..
+export shDir=$DotDir/sh
 
-for i in $(ls $BashDir/*.sh); do
+for i in $(ls $shDir/*.sh); do
 	source $i
 done
