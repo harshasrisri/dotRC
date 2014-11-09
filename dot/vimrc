@@ -67,12 +67,15 @@
 	map <C-K> <C-w>k
 	map <C-L> <C-w>l
 
+	map <C-n> :bprevious<CR>
+	map <C-m> :bnext<CR>
+
 	"" Mapping to maximise the current horizontal split
 	map <C-x> <C-w>_
 
 	"" Maps Ctrl+arrow keys to resize the window splits
-	map <C-Up> <C-w>+ 
-	map <C-Down> <C-W>-
+	map <C-Down> <C-w>+ 
+	map <C-Up> <C-W>-
 	map <C-Left> <C-W><
 	map <C-Right> <C-w>>
 
@@ -103,9 +106,17 @@
 	nmap <C-Space> :!vim +Matrix<CR>
 
 "" Autotags Maps
-	map <leader>au :call AutotagsUpdate()<CR>
-	map <leader>aa :call AutotagsAdd()<CR>
+	nmap <leader>au :call AutotagsUpdate()<CR>
+	nmap <leader>aa :call AutotagsAdd()<CR>
 	let g:autotags_pathhash_humanreadable = 1
 
 "" Vim Airline Settings
 	let g:airline#extensions#tabline#enabled = 1
+
+"" Cycling through buffers
+	nnoremap <C-Tab> :bnext<CR>
+	nnoremap <C-S-Tab> :bprevious<CR>
+
+"" Ctrl-P settings
+	let g:ctrlp_map = '<c-p>'
+	let g:ctrlp_cmd = 'CtrlPMixed'
