@@ -9,8 +9,3 @@ function sshnopass () {
 	echo "alias $name='ssh $1@$2 -o ForwardX11=yes'" >> $keys_file;
 	source $keys_file;
 }
-
-md() {
-	mkdir -p $1
-	cd $1
-}
