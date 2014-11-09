@@ -11,14 +11,26 @@ export HISTIGNORE="x:cd:ps:ls:pwd:..:fg:bg:.b:..b:.v:.c"
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+which shopt &> /dev/null
+if [ $? -eq "0" ]; then
+	# append to the history file, don't overwrite it
+	shopt -s histappend
+	
+	# check the window size after each command and, if necessary, and update the values of LINES and COLUMNS.
+	shopt -s checkwinsize
+fi
 
-# check the window size after each command and, if necessary, and update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+which setopt &> /dev/null
+if [ $? -eq "0" ]; then
+	setopt appendhistory autocd nomatch autopushd pushdignoredups promptsubst
+fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+export EDITOR=/usr/bin/vim
+export BROWSER=/usr/bin/firefox
+export CSCOPE_DIR=~/.autotags
 
 ## Location Specific customizations here
 export DotDir=$(dirname $(readlink ~/.myshrc))/..
