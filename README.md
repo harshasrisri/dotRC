@@ -10,6 +10,7 @@ It backs up existing bashrc, vimrc and .vim to replace them with my files. It is
 git clone http://github.com/harshasrisri/dotRC.git
 cd dotRC
 ./setup install
+source //your shell's rc file//
 ~~~
 
 To Uninstall
@@ -19,6 +20,7 @@ It can restore the previous .RCs and .vim to leave the environment the way it wa
 ~~~
 cd dotRC
 ./setup reset
+source //your shell's rc file//
 ~~~
 
 To Update
@@ -27,6 +29,7 @@ It can update itself as well as all the submodules that are a part of it with th
 ~~~
 cd dotRC
 ./setup update
+source //your shell's rc file//
 ~~~
 
 Please Backup whatever is important ALWAYS!
