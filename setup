@@ -32,7 +32,6 @@ main() {
 		* ) echo "Usage : $0 [install | restore | update]"
 			;;
 	esac
-	reset
 }
 
 submodules () {
