@@ -113,10 +113,6 @@
 "" Vim Airline Settings
 	let g:airline#extensions#tabline#enabled = 1
 
-"" Cycling through buffers
-	nnoremap <C-Tab> :bnext<CR>
-	nnoremap <C-S-Tab> :bprevious<CR>
-
 "" Ctrl-P settings
 	let g:ctrlp_map = '<c-p>'
 	let g:ctrlp_cmd = 'CtrlPMixed'

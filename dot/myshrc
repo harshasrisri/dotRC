@@ -33,8 +33,7 @@ export BROWSER=/usr/bin/firefox
 export CSCOPE_DIR=~/.autotags
 
 ## Location Specific customizations here
-export DotDir=$(dirname $(readlink ~/.myshrc))/..
-export shDir=$DotDir/sh
+export shDir=$(dirname $(readlink ~/.myshrc))/../sh/
 
 for i in $(ls $shDir/*.sh); do
 	source $i

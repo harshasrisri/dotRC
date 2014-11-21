@@ -16,20 +16,23 @@ main() {
 			pathogen
 			bkup
 			make_links
+			myshrc
 			;;
 
-		reset ) reset
+		restore ) restore
 			;;
 
 		update ) 
 			update
 			bkup
 			make_links
+			myshrc
 			;;
 
-		* ) echo "Usage : $0 [install | reset | update]"
+		* ) echo "Usage : $0 [install | restore | update]"
 			;;
 	esac
+	reset
 }
 
 submodules () {
@@ -57,6 +60,11 @@ pathogen () {
 bkup () {
 	BackupDir="$root_dir/.bkup"
 
+	if [ -d $BackupDir ]; then 
+		echo "Backup already present";
+		return; 
+	fi
+
 	mkdir -p $BackupDir
 	echo -n "Back up start... "
 
@@ -72,6 +80,16 @@ bkup () {
 	echo "... Done!"
 }
 
+myshrc () {
+	for i in bashrc zshrc fishrc; do
+		if [ -e "$HOME/.$i" ]; then
+			grep myshrc $HOME/.$i &> /dev/null
+			if [ $? -eq "0" ]; then continue; fi
+			echo "source $HOME/.myshrc" >> $HOME/.$i
+		fi
+	done
+}
+
 make_links () {
 	echo -n "Copying files... "
 
@@ -83,7 +101,7 @@ make_links () {
 	echo "... Done!"
 }
 
-reset() {
+restore() {
 	if [ ! -e $BackupDir ]; then
 		echo "No backups present!!"
 		exit
