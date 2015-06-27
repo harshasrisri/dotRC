@@ -28,13 +28,11 @@ fi
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-export EDITOR=/usr/bin/vim
-export BROWSER=/usr/bin/firefox
-export CSCOPE_DIR=~/.autotags
-
 ## Location Specific customizations here
 export shDir=$(dirname $(readlink ~/.myshrc))/../sh/
 
 for i in $(ls $shDir/*.sh); do
 	source $i
 done
+
+[[ -x $(which autojump) ]] && [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh

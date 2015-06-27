@@ -22,7 +22,7 @@
 	" set mouse=a 					" Enable mouse to behave properly in vim
 	set ofu=syntaxcomplete#Complete " for omnicompletion
 	set completeopt=longest,menuone " for omnicompletion
-	let mapleader=";" 				" For setting the leader
+	let mapleader="\<Space>"		" For setting the leader
 	syntax on 						" Enable syntax highlighting
 	filetype on 					" Enable detecting filetype automatically
 	filetype plugin on 				" Enable use of plugins for specific filetypes
@@ -47,8 +47,31 @@
 		nmap \\v :source ~/.vimrc<CR>
 	endif
 
-"" To save as sudo
-	cmap w!! w !sudo tee %
+"" Copy-Paste-Fu
+	" Copy selection to clipboard in visual mode
+	vmap <Leader>y "+y
+	" Cut  selection to clipboard in visual mode
+	vmap <Leader>d "+d
+	" Paste from clipboard after  position in visual mode
+	vmap <Leader>p "+p
+	" Paste from clipboard before position in visual mode
+	vmap <Leader>P "+P
+	" Paste from clipboard after  position in normal mode
+	nmap <Leader>p "+p
+	" Paste from clipboard before position in normal mode
+	nmap <Leader>P "+P
+	" start after copying position in Visual mode
+	vnoremap <silent> y y`]
+	" start after pasting position in Visual mode
+	vnoremap <silent> p p`]
+	" start after pasting position in Normal mode
+	nnoremap <silent> p p`]
+
+"" W-Q-X-Fu
+	nnoremap <Leader>w :w<CR> 	" Easy Save
+	nnoremap <Leader>q :q<CR> 	" Easy Close
+	nnoremap <Leader>x :x<CR> 	" Easy Save and Close
+	" cnoremap w!! w !sudo tee % 	" Easy save as sudo
 
 "" To control fold behavior
 	set foldmethod=indent
@@ -69,9 +92,6 @@
 
 	map <C-n> :bprevious<CR>
 	map <C-m> :bnext<CR>
-
-	"" Mapping to maximise the current horizontal split
-	map <C-x> <C-w>_
 
 	"" Maps Ctrl+arrow keys to resize the window splits
 	map <C-Down> <C-w>+ 
@@ -103,7 +123,7 @@
     let g:NERDTreeHighlightCursorline = 1 	" Highlight the cursor line
 
 "" Enter the Matrix
-	nmap <C-Space> :!vim +Matrix<CR>
+	nmap <leader><Tab> :Matrix<CR>
 
 "" Autotags Maps
 	nmap <leader>au :call AutotagsUpdate()<CR>
