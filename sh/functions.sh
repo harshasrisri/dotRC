@@ -16,6 +16,7 @@ function sshnopass () {
 	# create an alias for this connection
 	echo "Enter a name for this connection";
 	read name;
+	[ -z $name ] && echo "No alias created for this connection" && exit
 	echo "alias $name='ssh $PORT $1@$2 -o ForwardX11=yes'" >> $keys_file;
 	source $keys_file;
 }
