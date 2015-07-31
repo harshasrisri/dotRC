@@ -45,7 +45,7 @@ call plug#end()
 	filetype on 						" Enable detecting filetype automatically
 	filetype plugin on 					" Enable use of plugins for specific filetypes
 	filetype plugin indent on 			" Enable Filetype indent plugin
-	colorscheme solarized 				" Set colorscheme to Solarized-dark
+	silent! colorscheme solarized 		" Set colorscheme to Solarized-dark
 
 	if has("autocmd")
 		"" Vim jumps to the last known position when reopening a file
