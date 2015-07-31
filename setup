@@ -13,6 +13,7 @@ main() {
 	case $1 in
 		update ) 
 			update
+			;&
 		install )
 			plug
 			bkup
