@@ -5,7 +5,6 @@ alias lr='ls --color=auto -R'
 alias l='ls --color=auto -CF'
 alias ls='ls --color=auto -CF'
 alias l.='ls  --color=auto -d .*'
-alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias ..='cd ..; ls'
 alias .b='vi ~/.bashrc'
 alias .v='vi ~/.vimrc'
@@ -14,7 +13,10 @@ alias ..b='. ~/.bashrc'
 alias ..z='. ~/.zshrc'
 alias x='exit'
 alias wget='wget -c'
+alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias pgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias scpnoverify="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+alias sshnoverify="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 alias ga='git add'
 alias gpu='git push'

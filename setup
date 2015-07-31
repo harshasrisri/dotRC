@@ -11,9 +11,10 @@ main() {
 	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
 
 	case $1 in
+		update ) 
+			update
 		install )
-			submodules
-			pathogen
+			plug
 			bkup
 			make_links
 			myshrc
@@ -22,38 +23,19 @@ main() {
 		restore ) restore
 			;;
 
-		update ) 
-			update
-			bkup
-			make_links
-			myshrc
-			;;
-
 		* ) echo "Usage : $0 [install | restore | update]"
 			;;
 	esac
 }
 
-submodules () {
-	mkdir -p $vim_dir/bundle
-	echo -n "Installing Plugins . . . "
-
-	while read line; do
-		plugin=${line##*/}
-		if [ -d $vim_dir/bundle/$plugin ]; then continue; fi
-		echo -n "$plugin "
-		git submodule add --quiet --force $line $vim_dir/bundle/$plugin &> /dev/null
-	done < $root_dir/plugin_list
-
-	echo "Done!"
-}
-
-pathogen () {
-	echo -n "Setting up Pathogen . . . "
-	git submodule add --quiet --force http://github.com/tpope/vim-pathogen $vim_dir/Pathogen &> /dev/null
-	mkdir -p $vim_dir/autoload 
-	ln --force $vim_dir/Pathogen/autoload/pathogen.vim $vim_dir/autoload/pathogen.vim
-	echo "Done!"
+plug () {
+	vimPlug_path="$vim_dir/autoload/plug.vim"
+	vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+	which curl &> /dev/null
+	[ $? -eq "0" ] && curl -fLo $vimPlug_path --create-dirs $vimPlug_url && return
+	which wget &> /dev/null
+	[ $? -eq "0" ] && wget --force-directories -O $vimPlug_path $vimPlug_url && return
+	fatal "Vim Plug installation failed. Aborting."
 }
 
 bkup () {
@@ -72,7 +54,7 @@ bkup () {
 
 		if [ -e $home_dir/.$i ]; then
 			echo -n "$i "
-			mv $home_dir/.$i $BackupDir
+			mv $home_dir/.$i $BackupDir/$i
 		fi
 	done
 
@@ -110,7 +92,7 @@ restore() {
 
 	for i in $(ls $dot_dir); do
 		rm $home_dir/.$i
-		mv $BackupDir/.$i $home_dir/
+		mv $BackupDir/$i $home_dir/.$i
 	done
 
 	rm -rf $BackupDir
@@ -118,8 +100,12 @@ restore() {
 }
 
 update() {
+	echo -n "Updating Repo . . . "
 	git pull
-	git submodule foreach git pull origin master
+	echo " Done"
+	echo -n "Updating vim plugins . . . "
+	vim +PlugUpdate +qa!
+	echo " Done"
 }
 
 fatal () {
