@@ -91,8 +91,8 @@ call plug#end()
 	noremap <C-k> <C-w>k
 	noremap <C-l> <C-w>l
 
-	noremap <CR> :bnext<CR>
-	noremap <S-CR> :bprevious<CR>
+	noremap <CR> :bnext<CR> 				" Buffer movements
+	noremap <S-CR> :bprevious<CR> 			" Buffer movements
 
 	"" Maps Ctrl+arrow keys to resize the window splits
 	map <C-Down> <C-w>+ 
@@ -100,6 +100,16 @@ call plug#end()
 	map <C-Left> <C-W><
 	map <C-Right> <C-w>>
 
+"" Terminal mappings
+	if has('nvim')
+		tnoremap jj <C-\><C-n>
+		autocmd WinEnter term://* startinsert
+		" move from the neovim terminal window to somewhere else
+		tnoremap <C-h> <C-\><C-n><C-w>h
+		tnoremap <C-j> <C-\><C-n><C-w>j
+		tnoremap <C-k> <C-\><C-n><C-w>k
+		tnoremap <C-l> <C-\><C-n><C-w>l
+	endif
 
 "" TagList Settings
 	nmap <leader>6  :TlistToggle<CR>		" Open and close the taglist.vim separately
@@ -119,9 +129,6 @@ call plug#end()
     let g:NERDTreeWinPos = "left" 			" Set the window position
     let g:NERDTreeAutoCenter = 0 			" Auto centre
     let g:NERDTreeHighlightCursorline = 1 	" Highlight the cursor line
-
-"" Enter the Matrix
-	nmap <leader><Tab> :Matrix<CR>
 
 "" Autotags Maps
 	nmap <leader>au :call AutotagsUpdate()<CR>
