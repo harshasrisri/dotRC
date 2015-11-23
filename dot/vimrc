@@ -9,8 +9,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/taglist.vim'
 Plug 'kien/ctrlp.vim', {'on' : 'CtrlP'}
 Plug 'scrooloose/nerdtree', {'on' : 'NERDTreeToggle'}
-Plug 'vim-scripts/fly.vim', {'for' : ['c', 'cpp', 'h'], 'on' : 'SW'}
-Plug 'basilgor/vim-autotags', {'for' : ['c', 'cpp', 'h'], 'on' : 'SW'}
+Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
+Plug 'basilgor/vim-autotags'
 Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
 call plug#end()
 
@@ -45,6 +45,8 @@ call plug#end()
 	filetype on 						" Enable detecting filetype automatically
 	filetype plugin on 					" Enable use of plugins for specific filetypes
 	filetype plugin indent on 			" Enable Filetype indent plugin
+
+	let g:solarized_termtrans=1 		" Adjusts to terminal colors by itself
 	silent! colorscheme solarized 		" Set colorscheme to Solarized-dark
 
 	if has("autocmd")
@@ -53,6 +55,9 @@ call plug#end()
 		" Apply .vimrc on the fly after saving
 		autocmd! bufwritepost .vimrc source $MYVIMRC
 	endif
+
+	" Opens help in a vertical split rather than horizontal
+	cnoremap help vert help
 
 "" Copy-Paste-Fu
 	" Copy selection to clipboard in visual mode
@@ -137,7 +142,13 @@ call plug#end()
 
 "" Vim Airline Settings
 	let g:airline#extensions#tabline#enabled = 1
+	let g:airline_powerline_fonts = 1
+	let g:airline_theme = 'wombat'
 
 "" Ctrl-P settings
 	let g:ctrlp_map = '<C-p>'
 	let g:ctrlp_cmd = 'CtrlPMixed'
+
+"" Misc
+	nnoremap <leader>y :SW<CR>
+	nnoremap <leader>5 :NERDTreeToggle<CR>
