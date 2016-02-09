@@ -18,12 +18,14 @@ call plug#end()
 "" Initializations
 	set nocompatible 					" No comatibility with old Vi
 	set tabstop=4 						" Show a tabstop as 4 spaces
-	set shiftwidth=4 					" Insert 4 spaces when Tab is pressed
+	set shiftwidth=4 					" Auto indent shifts 4 spaces
+	set expandtab 						" Insert 4 spaces when Tab is pressed
 	set number 							" Display line numbers
 	set incsearch 						" Incremental Search
 	set hlsearch 						" Highlight searches
 	set smartcase 						" Ignore case if searching lowercase, not otherwise
 	set cursorline 						" Horizontal line to indicate cursor
+	set colorcolumn=80 					" 80-column marker
 	set scrolloff=5 					" Number of lines to keep at the top and bottom of a window while scrolling
 	set updatetime=500 					" Time interval to update windows
 	set wildmenu 						" Pressing tab in command mode shows options on status bar
@@ -84,7 +86,8 @@ call plug#end()
 	nnoremap <leader>w :w<CR> 	" Easy Save
 	nnoremap <leader>q :q<CR> 	" Easy Close
 	nnoremap <leader>x :x<CR> 	" Easy Save and Close
-	cnoremap w!! w !sudo tee % 	" Easy save as sudo
+    " Easy save as sudo
+	cnoremap w!! w !sudo tee %
 
 "" Navigation mappings
 	inoremap jj <Esc>			"" press j twice instead of <ESC> in INSERT mode
