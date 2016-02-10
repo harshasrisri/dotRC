@@ -42,6 +42,7 @@ call plug#end()
 	set splitbelow 						" Open a new split below the current one
 	set splitright 						" Open a new vertical split to the right of the current one
 	set autoread 						" Auto reload files changed outside vim
+    set mouse=a
 
 	let mapleader="\<Space>"			" For setting the leader
 	syntax on 							" Enable syntax highlighting
