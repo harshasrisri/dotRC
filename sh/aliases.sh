@@ -19,7 +19,7 @@ alias .t='vi ~/.tmux.conf'
 alias ..t='tmux source-file ~/.tmux.conf'
 
 alias ..='cd ..; ls'
-alias .rc='cd $(dirname $(readlink ~/.vimrc))..'
+alias .rc='cd $(dirname $(readlink ~/.vimrc))/..'
 
 alias x='exit'
 
