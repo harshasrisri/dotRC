@@ -36,21 +36,16 @@ Please Backup whatever is important ALWAYS!
 
 Plugins
 -------
-To add new plugins, just add the link of the git repo where the plugin can be found, to the plugin_list file and run
-~~~
-cd dotRC
-./setup install
-~~~
-
 The plugins that are a part of this repo right now are:
-* Ctrlp: Search for files in PWD and below.
-* Fly: Little known plugin for using cscope dbs. Life Changing!!
-* Autotags: Manage the tags file and cscope dbs for all the projects in one central location.
-* Nerdtree: File explorer in a sidebar.
-* SuperTab: for Auto-completion.
-* Taglist: Sidebar containing tags in the opened file, list all open buffers.
-* Commentary: Awesome plugin to comment/uncomment any amount of code, in many languages.
-* Matrix: Matrix screen saver for Vim. I even made an awesome wallpaper using it.
-* Solarized Colors: Default color scheme.
-* Vim-Airlin: A great status line plugin.
-* TagBar: Still experimenting with it. Let's see how it goes.
+* [Solarized Color Scheme](https://github.com/altercation/vim-colors-solarized)
+* [Vim Airline](https://github.com/bling/vim-airline)
+* [Vim Commentery](https://github.com/tpope/vim-commentary)
+* [SuperTab](https://github.com/ervandew/supertab)
+* [Vim Peekaboo](https://github.com/junegunn/vim-peekaboo)
+* [Vim Multiple Cursors](https://github.com/terryma/vim-multiple-cursors)
+* [Taglist](https://github.com/vim-scripts/taglist.vim)
+* [CtrlP](https://github.com/kien/ctrlp.vim)
+* [NERDTree](https://github.com/scrooloose/nerdtree)
+* [Fly.vim](https://github.com/vim-scripts/fly.vim) (hidden gem! best cscope navigation)
+* [Vim Autotags](https://github.com/basilgor/vim-autotags) (In conjunction with fly.vim)
+* [Matrix Vim Screensaver](https://github.com/vim-scripts/matrix.vim--Yang) (Bling!)

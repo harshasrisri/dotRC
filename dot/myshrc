@@ -29,8 +29,7 @@ fi
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 ## Location Specific customizations here
-export shDir=$(dirname $(readlink ~/.myshrc))/../sh/
-
+shDir=$(dirname $(readlink ~/.myshrc))/../sh/
 for i in $(ls $shDir/*.sh); do
 	source $i
 done
