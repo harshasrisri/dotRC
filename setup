@@ -64,7 +64,7 @@ bkup () {
 }
 
 myshrc () {
-	for i in bashrc zshrc fishrc; do
+	for i in bashrc fishrc; do
 		if [ -e "$HOME/.$i" ]; then
 			grep myshrc $HOME/.$i &> /dev/null
 			if [ $? -eq "0" ]; then continue; fi
