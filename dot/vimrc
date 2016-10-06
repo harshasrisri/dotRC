@@ -3,7 +3,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
-Plug 'scroolose/syntastic'
 Plug 'ervandew/supertab'
 Plug 'junegunn/vim-peekaboo'
 Plug 'terryma/vim-multiple-cursors'
@@ -153,15 +152,6 @@ call plug#end()
 "" Ctrl-P settings
 	let g:ctrlp_map = '<C-p>'
 	let g:ctrlp_cmd = 'CtrlPMixed'
-
-"" Syntastic settings
-	set statusline+=%#warningmsg#
-	set statusline+=%{SyntasticStatuslineFlag()}
-	set statusline+=%*
-	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_auto_loc_list = 1
-	let g:syntastic_check_on_open = 1
-	let g:syntastic_check_on_wq = 0
 
 "" Misc
 	nnoremap <leader>y :SW<CR>

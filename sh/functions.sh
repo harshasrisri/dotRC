@@ -20,3 +20,9 @@ function sshnopass () {
 	echo "alias $name='ssh $PORT $1@$2 -o ForwardX11=yes'" >> $keys_file;
 	source $keys_file;
 }
+
+functions rmbg () {
+    tmp_dir=.rmdir_$RANDOM
+    mv $@ $tmp_dir > /dev/null 2>&1
+    rm -rf $tmp_dir > /dev/null 2>&1 &
+}
