@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/plugins')
 Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
 Plug 'ervandew/supertab'
