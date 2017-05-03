@@ -3,13 +3,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
-Plug 'majutsushi/tagbar'
 Plug 'ervandew/supertab'
 Plug 'junegunn/vim-peekaboo'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/taglist.vim'
-Plug 'kien/ctrlp.vim', {'on' : 'CtrlP'}
-Plug 'scrooloose/nerdtree', {'on' : 'NERDTreeToggle'}
 Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
 Plug 'basilgor/vim-autotags'
 Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
@@ -101,8 +97,8 @@ call plug#end()
 	noremap <C-k> <C-w>k
 	noremap <C-l> <C-w>l
 
-	noremap <CR> :bnext<CR> 				" Buffer movements
-	noremap <S-CR> :bprevious<CR> 			" Buffer movements
+	noremap <C-n> :bnext<CR> 				" Buffer movements
+	noremap <C-p> :bprevious<CR> 			" Buffer movements
 
 	"" Maps Ctrl+arrow keys to resize the window splits
 	map <C-Down> <C-w>+ 

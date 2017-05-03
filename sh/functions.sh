@@ -21,7 +21,7 @@ function sshnopass () {
 	source $keys_file;
 }
 
-functions rmbg () {
+function rmbg () {
     tmp_dir=.rmdir_$RANDOM
     mv $@ $tmp_dir > /dev/null 2>&1
     rm -rf $tmp_dir > /dev/null 2>&1 &
