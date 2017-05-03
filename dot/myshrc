@@ -1,34 +1,19 @@
-# If not running interactively, don't do anything
-[ -z "$PS1" ] && return
-
-#PS1='\u@\h:\W \$ '
-#PS1=': \w >> '
-# PS1='\[\033[1;36m\][\T]\[\033[00m\] \[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
-
-# don't put duplicate lines in the history and force ignoredups and ignorespace
-export HISTCONTROL=ignoredups:erasedups:ignorespace
-export HISTIGNORE="x:cd:ps:ls:pwd:..:fg:bg:.b:..b:.v:.c"
-export HISTSIZE=5000
-export HISTFILESIZE=5000
-
-which shopt &> /dev/null
-if [ $? -eq "0" ]; then
-	# append to the history file, don't overwrite it
-	shopt -s histappend
-	
-	# check the window size after each command and, if necessary, and update the values of LINES and COLUMNS.
-	shopt -s checkwinsize
-fi
-
-which setopt &> /dev/null
-if [ $? -eq "0" ]; then
-	setopt appendhistory autocd nomatch autopushd pushdignoredups promptsubst
-fi
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 ## Location Specific customizations here
+if [ -e ~/.myshrc.local ]; then
+    source ~/.myshrc.local
+fi
+
+PS1='\[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
+
+# export PATH=$(prepended with my PATHs | break paths into newlines | remove duplicates without sorting | join newlines with colon)
+[ -d "$HOME/pkg/sbin" ] && PATH=$HOME/pkg/sbin:$PATH
+[ -d "$HOME/pkg/bin" ] && PATH=$HOME/pkg/bin:$PATH
+export PATH=$( echo "$PATH" | tr : '\n' | awk '!x[$0]++' | tr '\n' : )
+
+if [ "$TERM" != "xterm-256color" ]; then 
+    export TERM='xterm-256color'
+fi
+
 shDir=$(dirname $(readlink ~/.myshrc))/../sh/
 for i in $(ls $shDir/*.sh); do
 	source $i
