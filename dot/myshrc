@@ -6,8 +6,6 @@ fi
 PS1='\[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '
 
 # export PATH=$(prepended with my PATHs | break paths into newlines | remove duplicates without sorting | join newlines with colon)
-[ -d "$HOME/pkg/sbin" ] && PATH=$HOME/pkg/sbin:$PATH
-[ -d "$HOME/pkg/bin" ] && PATH=$HOME/pkg/bin:$PATH
 export PATH=$( echo "$PATH" | tr : '\n' | awk '!x[$0]++' | tr '\n' : )
 
 if [ "$TERM" != "xterm-256color" ]; then 
