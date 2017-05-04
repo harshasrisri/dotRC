@@ -1,3 +1,12 @@
+shDir=$(dirname $(readlink ~/.myshrc))/../sh/
+for i in $(ls $shDir/*.sh); do
+	source $i
+done
+
+if [ "$TERM" != "xterm-256color" ]; then 
+    export TERM='xterm-256color'
+fi
+
 ## Location Specific customizations here
 if [ -e ~/.myshrc.local ]; then
     source ~/.myshrc.local
@@ -7,12 +16,3 @@ PS1='\[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\
 
 # export PATH=$(prepended with my PATHs | break paths into newlines | remove duplicates without sorting | join newlines with colon)
 export PATH=$( echo "$PATH" | tr : '\n' | awk '!x[$0]++' | tr '\n' : )
-
-if [ "$TERM" != "xterm-256color" ]; then 
-    export TERM='xterm-256color'
-fi
-
-shDir=$(dirname $(readlink ~/.myshrc))/../sh/
-for i in $(ls $shDir/*.sh); do
-	source $i
-done
