@@ -10,10 +10,8 @@ alias .v='vi ~/.vimrc'
 alias .m='vi ~/.myshrc'
 alias .z='vi ~/.zshrc'
 alias .t='vi ~/.tmux.conf'
-alias .rc='cd $(dirname $(readlink ~/.vimrc))/..'
-
-alias ..z='. ~/.zshrc'
 alias ..t='tmux source-file ~/.tmux.conf'
+alias .rc='cd $(dirname $(readlink ~/.vimrc))/..'
 
 alias x='exit'
 alias wget='wget -c'
