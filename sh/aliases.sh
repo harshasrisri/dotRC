@@ -26,3 +26,10 @@ alias gs='git status'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gdc='git diff --cached'
+
+alias ff='find -type f -name'
+alias fd='find -type d -name'
+
+alias tml='tmux ls'
+alias tma='tmux attach -t'
+alias tmn='tmux new -s'
