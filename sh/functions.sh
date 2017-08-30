@@ -23,6 +23,7 @@ function sshnopass () {
 
 function rmbg () {
     tmp_dir=.rmdir_$RANDOM
+    mkdir -p $tmp_dir
     mv $@ $tmp_dir > /dev/null 2>&1
     rm -rf $tmp_dir > /dev/null 2>&1 &
 }
