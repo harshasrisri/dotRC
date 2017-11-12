@@ -1,3 +1,10 @@
+# EXPORTS
+export CSCOPE_DIR=~/.autotags/byhash
+export EDITOR=vim
+export GREP_OPTIONS=
+export PATH="$(dirname $(readlink ~/.vimrc))/../bin/"
+
+# ALIASES
 alias ls='ls --color=auto -CF'
 alias ll='ls -lFht'
 alias la='ls -a'
@@ -21,6 +28,7 @@ alias pgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias scpnoverify="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias sshnoverify="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
+alias ga='git add'
 alias gl='git log --oneline --decorate --date=short --graph'
 alias gs='git status'
 alias gd='git diff'
