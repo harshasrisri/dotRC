@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# script to share ssh keys to a remote server and store the connection as an alias
+# Generate RSA key if it is not there already
+[ ! -f ~/.ssh/id_rsa.pub ] && ssh-keygen -t rsa;
+
+# Use the port if specified as 3rd argument
+if [ ! -z "$3" ]; then PORT="-p $3"; else PORT=""; fi
+
+# copy your public key to the authorized keys file on remote
+cat ~/.ssh/id_rsa.pub | ssh $PORT $1@$2 'mkdir -p ~/.ssh; cat >> ~/.ssh/authorized_keys';

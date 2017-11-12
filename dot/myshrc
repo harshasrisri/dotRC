@@ -1,8 +1,3 @@
-shDir=$(dirname $(readlink ~/.myshrc))/../sh/
-for i in $(ls $shDir/*.sh); do
-	source $i
-done
-
 if [ "$TERM" != "xterm-256color" ]; then 
     export TERM='xterm-256color'
 fi
@@ -10,6 +5,11 @@ fi
 ## Location Specific customizations here
 if [ -e ~/.myshrc.local ]; then
     source ~/.myshrc.local
+fi
+
+## Location Specific customizations here
+if [ -e ~/.myenv ]; then
+    source ~/.myenv
 fi
 
 PS1='\[\033[01;35m\]\h\[\033[00m\] \[\033[01;34m\]:\[\033[00m\] \[\033[01;31m\]\w\[\033[00m\] \[\033[01;34m\]>>\[\033[00m\] '

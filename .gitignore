@@ -4,5 +4,3 @@ dot/vim/bundle/*
 *.swp
 .gitmodules
 .bkup
-ssh*
-sh/sshnopass.sh
