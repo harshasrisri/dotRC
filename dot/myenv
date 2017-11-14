@@ -2,7 +2,7 @@
 export CSCOPE_DIR=~/.autotags/byhash
 export EDITOR=vim
 export GREP_OPTIONS=
-export PATH="$(dirname $(readlink ~/.vimrc))/../bin/"
+export PATH="$(dirname $(readlink ~/.vimrc))/../bin/":$PATH
 
 # ALIASES
 alias ls='ls --color=auto -CF'
