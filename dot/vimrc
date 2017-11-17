@@ -4,6 +4,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'ervandew/supertab'
+Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/vim-peekaboo'
 Plug 'vim-scripts/taglist.vim'
 Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
@@ -12,144 +13,149 @@ Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
 call plug#end()
 
 "" Initializations
-	set nocompatible 					" No comatibility with old Vi
-	set tabstop=4 						" Show a tabstop as 4 spaces
-	set shiftwidth=4 					" Auto indent shifts 4 spaces
-	set expandtab 						" Insert 4 spaces when Tab is pressed
-	set number 							" Display line numbers
-	set incsearch 						" Incremental Search
-	set hlsearch 						" Highlight searches
-	set smartcase 						" Ignore case if searching lowercase, not otherwise
-	set cursorline 						" Horizontal line to indicate cursor
-	set colorcolumn=80 					" 80-column marker
-	set scrolloff=5 					" Number of lines to keep at the top and bottom of a window while scrolling
-	set updatetime=500 					" Time interval to update windows
-	set wildmenu 						" Pressing tab in command mode shows options on status bar
-	set ruler 							" Display Ruler always.
-	set laststatus=2					" Display Statusbar always.
-	set hidden							" Hide closed buffers instead of closing them.
-	set ofu=syntaxcomplete#Complete 	" for omnicompletion
-	set completeopt=longest,menuone 	" for omnicompletion
-	set backspace=indent,eol,start 		" Backspace works over whitespaces also
-	set t_Co=256 						" Set terminal to 256 colors
-	set background=dark 				" Set dark colorschemes
-	set tags=tags; 						" Set vim to look for tags file recursively upwards
-	set pastetoggle=<F2> 				" Toggle prevent unnecessary autoindent on mouse click paste
-	set splitbelow 						" Open a new split below the current one
-	set splitright 						" Open a new vertical split to the right of the current one
-	set autoread 						" Auto reload files changed outside vim
+    set nocompatible                       " No comatibility with old Vi
+    set tabstop=4                          " Show a tabstop as 4 spaces
+    set shiftwidth=4                       " Auto indent shifts 4 spaces
+    set expandtab                          " Insert 4 spaces when Tab is pressed
+    set number                             " Display line numbers
+    set incsearch                          " Incremental Search
+    set hlsearch                           " Highlight searches
+    set smartcase                          " Ignore case if searching lowercase, not otherwise
+    set cursorline                         " Horizontal line to indicate cursor
+    set colorcolumn=80                     " 80-column marker
+    set scrolloff=5                        " Number of lines to keep at the top and bottom of a window while scrolling
+    set updatetime=500                     " Time interval to update windows
+    set wildmenu                           " Pressing tab in command mode shows options on status bar
+    set ruler                              " Display Ruler always.
+    set laststatus=2                       " Display Statusbar always.
+    set hidden                             " Hide closed buffers instead of closing them.
+    set ofu=syntaxcomplete#Complete        " for omnicompletion
+    set completeopt=longest,menuone        " for omnicompletion
+    set backspace=indent,eol,start         " Backspace works over whitespaces also
+    set t_Co=256                           " Set terminal to 256 colors
+    set background=dark                    " Set dark colorschemes
+    set tags=tags;                         " Set vim to look for tags file recursively upwards
+    set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
+    set splitbelow                         " Open a new split below the current one
+    set splitright                         " Open a new vertical split to the right of the current one
+    set autoread                           " Auto reload files changed outside vim
     set mouse=a
 
-	let mapleader="\<Space>"			" For setting the leader
-	syntax on 							" Enable syntax highlighting
-	filetype on 						" Enable detecting filetype automatically
-	filetype plugin on 					" Enable use of plugins for specific filetypes
-	filetype plugin indent on 			" Enable Filetype indent plugin
+    let mapleader="\<Space>"               " For setting the leader
+    syntax on                              " Enable syntax highlighting
+    filetype on                            " Enable detecting filetype automatically
+    filetype plugin on                     " Enable use of plugins for specific filetypes
+    filetype plugin indent on              " Enable Filetype indent plugin
 
-	let g:solarized_termtrans=1 		" Adjusts to terminal colors by itself
-	silent! colorscheme solarized 		" Set colorscheme to Solarized-dark
+    let g:solarized_termtrans=1            " Adjusts to terminal colors by itself
+    silent! colorscheme solarized          " Set colorscheme to Solarized-dark
 
-	if has("autocmd")
-		"" Vim jumps to the last known position when reopening a file
-		au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-		" Apply .vimrc on the fly after saving
-		autocmd! bufwritepost .vimrc source $MYVIMRC
-	endif
+    if has("autocmd")
+        "" Vim jumps to the last known position when reopening a file
+        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+        " Apply .vimrc on the fly after saving
+        autocmd! bufwritepost .vimrc source $MYVIMRC
+    endif
 
-	" Opens help in a vertical split rather than horizontal
-	cnoremap help vert help
+    " Opens help in a vertical split rather than horizontal
+    cnoremap help vert help
 
 "" Copy-Paste-Fu
-	" Copy selection to clipboard in visual mode
-	vnoremap <leader>y "+y
-	" Cut  selection to clipboard in visual mode
-	vnoremap <leader>d "+d
-	" Replace from clipboard after  position in visual mode
-	vnoremap <leader>p "+p
-	" Replace from clipboard before position in visual mode
-	vnoremap <leader>P "+P
-	" Paste from clipboard after  position in normal mode
-	nnoremap <leader>p "+p
-	" Paste from clipboard before position in normal mode
-	nnoremap <leader>P "+P
-	" start after copying position in Visual mode
-	vnoremap <silent> y y`]
-	" start after pasting position in Visual mode
-	vnoremap <silent> p p`]
-	" start after pasting position in Normal mode
-	nnoremap <silent> p p`]
+    " Copy selection to clipboard in visual mode
+    vnoremap <leader>y "+y
+    " Cut  selection to clipboard in visual mode
+    vnoremap <leader>d "+d
+    " Replace from clipboard after  position in visual mode
+    vnoremap <leader>p "+p
+    " Replace from clipboard before position in visual mode
+    vnoremap <leader>P "+P
+    " Paste from clipboard after  position in normal mode
+    nnoremap <leader>p "+p
+    " Paste from clipboard before position in normal mode
+    nnoremap <leader>P "+P
+    " start after copying position in Visual mode
+    vnoremap <silent> y y`]
+    " start after pasting position in Visual mode
+    vnoremap <silent> p p`]
+    " start after pasting position in Normal mode
+    nnoremap <silent> p p`]
 
-"" W-Q-X-Fu
-	nnoremap <leader>w :w<CR> 	" Easy Save
-	nnoremap <leader>q :q<CR> 	" Easy Close
-	nnoremap <leader>x :x<CR> 	" Easy Save and Close
-    " Easy save as sudo
-	cnoremap w!! w !sudo tee %
+" Easy save as sudo
+    cnoremap w!! w !sudo tee %
 
 "" Navigation mappings
-	inoremap jj <Esc>			"" press j twice instead of <ESC> in INSERT mode
-	nnoremap j gj				" Go between lines in wrapped lines.
-	nnoremap k gk				" Go between lines in wrapped lines.
+    "" press j twice instead of <ESC> in INSERT mode
+    inoremap jj <Esc>
+    " Go between lines in wrapped lines.
+    nnoremap j gj
+    " Go between lines in wrapped lines.
+    nnoremap k gk
 
-	"" Maps Ctrl+[h,j,k,l] to move between window splits
-	noremap <C-h> <C-w>h
-	noremap <C-j> <C-w>j
-	noremap <C-k> <C-w>k
-	noremap <C-l> <C-w>l
+    "" Maps Ctrl+[h,j,k,l] to move between window splits
+    noremap <C-h> <C-w>h
+    noremap <C-j> <C-w>j
+    noremap <C-k> <C-w>k
+    noremap <C-l> <C-w>l
 
-	noremap <C-n> :bnext<CR> 				" Buffer movements
-	noremap <C-p> :bprevious<CR> 			" Buffer movements
+" Buffer movements
+    noremap <C-n> :bnext<CR>
+    noremap <C-p> :bprevious<CR>
 
-	"" Maps Ctrl+arrow keys to resize the window splits
-	map <C-Down> <C-w>+ 
-	map <C-Up> <C-W>-
-	map <C-Left> <C-W><
-	map <C-Right> <C-w>>
+    "" Maps Ctrl+arrow keys to resize the window splits
+    map <C-Down> <C-w>+ 
+    map <C-Up> <C-W>-
+    map <C-Left> <C-W><
+    map <C-Right> <C-w>>
 
 "" Terminal mappings
-	if has('nvim')
-		tnoremap jj <C-\><C-n>
-		autocmd WinEnter term://* startinsert
-		" move from the neovim terminal window to somewhere else
-		tnoremap <C-h> <C-\><C-n><C-w>h
-		tnoremap <C-j> <C-\><C-n><C-w>j
-		tnoremap <C-k> <C-\><C-n><C-w>k
-		tnoremap <C-l> <C-\><C-n><C-w>l
-	endif
+    if has('nvim')
+        tnoremap jj <C-\><C-n>
+        autocmd WinEnter term://* startinsert
+        " move from the neovim terminal window to somewhere else
+        tnoremap <C-h> <C-\><C-n><C-w>h
+        tnoremap <C-j> <C-\><C-n><C-w>j
+        tnoremap <C-k> <C-\><C-n><C-w>k
+        tnoremap <C-l> <C-\><C-n><C-w>l
+    endif
 
 "" TagList Settings
-	nmap <leader>6  :TlistToggle<CR>		" Open and close the taglist.vim separately
-	let g:Tlist_Auto_Open = 1             	" always show the tag file
-    let g:Tlist_Exit_OnlyWindow = 1		  	" If you are the last, kill yourself
-    let g:Tlist_Enable_Fold_Column = 0	  	" Showing folding tree
-	let g:Tlist_File_Fold_Auto_Close = 1  	" automatically fold hidden buffers
-    let g:Tlist_Use_Right_Window = 1	  	" Split to the right side of the screen
-    let g:Tlist_WinWidth = 33			  	" Set the window width
-    let g:Tlist_Compact_Format = 1		  	" Do not display the help info
-    let g:Tlist_File_Fold_Auto_Close = 1  	" Do not close tags for other files
-    let g:Tlist_Show_One_File = 0         	" Always display one file tags
+    let g:Tlist_Auto_Open = 1              " always show the tag file
+    let g:Tlist_Exit_OnlyWindow = 1        " If you are the last, kill yourself
+    let g:Tlist_Enable_Fold_Column = 0     " Showing folding tree
+    let g:Tlist_File_Fold_Auto_Close = 1   " automatically fold hidden buffers
+    let g:Tlist_Use_Right_Window = 1       " Split to the right side of the screen
+    let g:Tlist_WinWidth = 33              " Set the window width
+    let g:Tlist_Compact_Format = 1         " Do not display the help info
+    let g:Tlist_File_Fold_Auto_Close = 1   " Do not close tags for other files
+    let g:Tlist_Show_One_File = 0          " Always display one file tags
 
 "" NERD_tree Settings
-	nmap <leader>7 :NERDTreeToggle<CR> 		" Toggle NERDTree
-    let g:NERDTreeWinSize = 33 				" Set the window width
-    let g:NERDTreeWinPos = "left" 			" Set the window position
-    let g:NERDTreeAutoCenter = 0 			" Auto centre
-    let g:NERDTreeHighlightCursorline = 1 	" Highlight the cursor line
+    let g:NERDTreeWinSize = 33             " Set the window width
+    let g:NERDTreeWinPos = "left"          " Set the window position
+    let g:NERDTreeAutoCenter = 0           " Auto centre
+    let g:NERDTreeHighlightCursorline = 1  " Highlight the cursor line
 
 "" Autotags Maps
-	nmap <leader>au :call AutotagsUpdate()<CR>
-	nmap <leader>aa :call AutotagsAdd()<CR>
-	let g:autotags_pathhash_humanreadable = 1
+    nmap <leader>au :call AutotagsUpdate()<CR>
+    nmap <leader>aa :call AutotagsAdd()<CR>
+    let g:autotags_pathhash_humanreadable = 1
 
 "" Vim Airline Settings
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline_powerline_fonts = 1
-	let g:airline_theme = 'wombat'
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline_powerline_fonts = 1
+    let g:airline_theme = 'wombat'
 
-"" Ctrl-P settings
-	let g:ctrlp_map = '<C-p>'
-	let g:ctrlp_cmd = 'CtrlPMixed'
+"" Toggle Plugin Splits
+    nnoremap <leader>5 :SW<CR>
+    nnoremap <leader>6 :TlistToggle<CR>
+    nnoremap <leader>7 :SyntasticToggleMode<CR>
+    nnoremap <leader>8 :NERDTreeToggle<CR>
 
-"" Misc
-	nnoremap <leader>y :SW<CR>
-	nnoremap <leader>5 :NERDTreeToggle<CR>
+"" Syntastic Settings
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_wq = 0
