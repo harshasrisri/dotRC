@@ -32,6 +32,7 @@ call plug#end()
     set ofu=syntaxcomplete#Complete        " for omnicompletion
     set completeopt=longest,menuone        " for omnicompletion
     set backspace=indent,eol,start         " Backspace works over whitespaces also
+    set formatoptions+=j                   " Join lines works well with comments
     set t_Co=256                           " Set terminal to 256 colors
     set background=dark                    " Set dark colorschemes
     set tags=tags;                         " Set vim to look for tags file recursively upwards
@@ -40,6 +41,8 @@ call plug#end()
     set splitright                         " Open a new vertical split to the right of the current one
     set autoread                           " Auto reload files changed outside vim
     set mouse=a
+    set directory=~/.vim/swapfiles//
+    set backupdir=~/.vim/swapfiles
 
     let mapleader="\<Space>"               " For setting the leader
     syntax on                              " Enable syntax highlighting
@@ -139,6 +142,8 @@ call plug#end()
     nmap <leader>au :call AutotagsUpdate()<CR>
     nmap <leader>aa :call AutotagsAdd()<CR>
     let g:autotags_pathhash_humanreadable = 1
+    let g:autotags_ctags_exe = "echo"
+    let g:autotags_ctags_opts = ""
 
 "" Vim Airline Settings
     let g:airline#extensions#tabline#enabled = 1
@@ -159,3 +164,7 @@ call plug#end()
     let g:syntastic_auto_loc_list = 1
     let g:syntastic_check_on_open = 0
     let g:syntastic_check_on_wq = 0
+
+"" SuperTab Settings
+    let g:SuperTabDefaultCompletionType = "context"
+    let g:SuperTabContextDefaultCompletionType = "user"

@@ -1,8 +1,7 @@
 # EXPORTS
 export CSCOPE_DIR=~/.autotags/byhash
-export EDITOR=vim
+if [ -z "$(which nvim)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
 export GREP_OPTIONS=
-export PATH="$(dirname $(readlink ~/.vimrc))/../bin/":$PATH
 
 # ALIASES
 alias ls='ls --color=auto -CF'
@@ -13,6 +12,7 @@ alias lr='ls -R'
 alias l.='ls -d .*'
 alias ll.='ls -lFhtd .*'
 
+if [ -z "$(which nvim)" ]; then alias vi='vim'; else alias vi='nvim'; fi
 alias .v='vi ~/.vimrc'
 alias .m='vi ~/.myshrc'
 alias .z='vi ~/.zshrc'
@@ -34,6 +34,13 @@ alias gs='git status'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gdc='git diff --cached'
+alias gdn='git diff --name-only'
+alias gcm='git commit -m'
+alias gcma='git commit -am'
+alias gwta='git worktree add'
+alias gwtp='git worktree prune'
+alias gwtl='git worktree list'
+alias gco='git checkout'
 
 alias ff='find -type f -name'
 alias fd='find -type d -name'
