@@ -1,10 +1,14 @@
 #!/bin/sh
 # script which compares hexdumps of multiple files
 
-cmd="vi -d "
+cmd="vi -d"
 
-for i in $@; do cmd="${cmd} <(xxd $i)"; done
+for i in $@; do 
+    file="/tmp/vxd_${RANDOM}"
+    xxd $i > ${file}
+    cmd="${cmd} $file"
+done
 
 echo "Running command : ${cmd}"
 
-bash -c "${cmd}"
+${cmd}
