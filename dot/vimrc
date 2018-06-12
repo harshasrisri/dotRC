@@ -7,6 +7,7 @@ Plug 'ervandew/supertab'
 Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/vim-peekaboo'
 Plug 'vim-scripts/taglist.vim'
+Plug 'godlygeek/tabular'
 Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
 Plug 'basilgor/vim-autotags'
 Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
@@ -167,4 +168,7 @@ call plug#end()
 
 "" SuperTab Settings
     let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabContextDefaultCompletionType = "user"
+    " let g:SuperTabContextDefaultCompletionType = user
+
+"" FLY settings
+    let g:FlyCscopeCase = 1

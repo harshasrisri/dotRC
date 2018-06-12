@@ -1,6 +1,6 @@
 # EXPORTS
 export CSCOPE_DIR=~/.autotags/byhash
-if [ -z "$(which nvim)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
+if [ -z "$(which nvim 2>/dev/null)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
 export GREP_OPTIONS=
 
 # ALIASES
@@ -12,7 +12,7 @@ alias lr='ls -R'
 alias l.='ls -d .*'
 alias ll.='ls -lFhtd .*'
 
-if [ -z "$(which nvim)" ]; then alias vi='vim'; else alias vi='nvim'; fi
+if [ -z "$(which nvim 2>/dev/null)" ]; then alias vi='vim'; else alias vi='nvim'; fi
 alias .v='vi ~/.vimrc'
 alias .m='vi ~/.myshrc'
 alias .z='vi ~/.zshrc'
@@ -29,12 +29,13 @@ alias scpnoverify="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=
 alias sshnoverify="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 alias ga='git add'
-alias gl='git log --oneline --decorate --date=short --graph'
+alias gl='git log --oneline --decorate --date=short --graph -10'
 alias gs='git status'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gdc='git diff --cached'
 alias gdn='git diff --name-only'
+alias gdns='git diff --name-status'
 alias gcm='git commit -m'
 alias gcma='git commit -am'
 alias gwta='git worktree add'
