@@ -1,0 +1,10 @@
+#!/bin/sh
+# script which compares hexdumps of multiple files
+
+cmd="vi -d "
+
+for i in $@; do cmd="${cmd} <(xxd $i)"; done
+
+echo "Running command : ${cmd}"
+
+bash -c "${cmd}"
