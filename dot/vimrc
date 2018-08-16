@@ -10,6 +10,7 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'godlygeek/tabular'
 Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
 Plug 'basilgor/vim-autotags'
+Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
 call plug#end()
 
