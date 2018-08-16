@@ -1,0 +1,4 @@
+#!/bin/sh
+file_list="$(git diff --name-only --relative $@)"
+[ -z "${file_list}" ] && echo "Nothing to diff" && exit
+vim -p ${file_list} -c "tabdo Gdiff $@"
