@@ -4,13 +4,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'ervandew/supertab'
-Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/vim-peekaboo'
 Plug 'vim-scripts/taglist.vim'
 Plug 'godlygeek/tabular'
 Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
 Plug 'basilgor/vim-autotags'
 Plug 'tpope/vim-fugitive'
+Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
 call plug#end()
 
@@ -173,3 +173,8 @@ call plug#end()
 
 "" FLY settings
     let g:FlyCscopeCase = 1
+
+"" Ack.vim settings
+    let g:ackprg = 'rg --vimgrep --no-heading'
+    nnoremap <leader>/ :Ack! <C-R><C-W>
+    nnoremap <leader><leader>/ :Ack! <C-R><C-W><CR>
