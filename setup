@@ -2,65 +2,32 @@
 # Script to setup my Working Environment.
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
-main() {
-	root_dir=$PWD
-	home_dir=$HOME
-	dot_dir="$root_dir/dot"
-	vim_dir="$dot_dir/vim"
-
-	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
-
-	case $1 in
-		update ) 
-			update
-			;;
-		install )
-			plug
-			bkup
-			make_links
-			myshrc
-			;;
-
-		restore ) restore
-			;;
-
-		* ) echo "Usage : $0 [install | restore | update]"
-			;;
-	esac
-}
-
-plug () {
+install_vim_plugins() {
 	vimPlug_path="$vim_dir/autoload/plug.vim"
 	vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
 	which curl &> /dev/null
 	[ $? -eq "0" ] && [ ! -e $vimPlug_path ] && curl -fLo $vimPlug_path --create-dirs $vimPlug_url
+
 	which wget &> /dev/null
 	[ $? -eq "0" ] && [ ! -e $vimPlug_path ] && wget --force-directories -O $vimPlug_path $vimPlug_url
+
 	[ ! -e $vimPlug_path ] && fatal "Vim Plug installation failed. Aborting."
-	vim +PlugInstall +qa!
+
+	echo -n "Updating vim plugins . . . "
+	vim +PlugUpdate +qa!
+	echo " Done"
 }
 
-bkup () {
-	BackupDir="$root_dir/.bkup"
-
-	if [ -d $BackupDir ]; then 
-		echo "Backup already present";
-		return; 
-	fi
-
-	mkdir -p $BackupDir
-	echo -n "Back up start... "
-
-	for i in $(ls $dot_dir); do
-		if [ -e $BackupDir/$i ]; then continue; fi
-
-		if [ -e $home_dir/.$i ]; then
-			echo -n "$i "
-			mv $home_dir/.$i $BackupDir/$i
-		fi
-	done
-
-	echo "... Done!"
+install_tmux_plugins () {
+    export tpm_path="$tmux_dir/plugins/tpm"
+    if [ -e ${tpm_path} ]; then
+        git -C ${tpm_path} pull --quiet
+        echo -n "updating tmux plugins: " && ${tpm_path}/bin/update_plugins all
+    else
+        git clone https://github.com/tmux-plugins/tpm ${tpm_path} --quiet
+        echo -n "installing tmux plugins: " && ${tpm_path}/bin/install_plugins
+    fi
 }
 
 myshrc () {
@@ -74,40 +41,15 @@ myshrc () {
 }
 
 make_links () {
-	echo -n "Copying files... "
+    mkdir -p $vim_dir $tmux_dir
+	echo -n "Linking files... "
 
 	for i in $(ls $dot_dir/); do
-		echo -n "$home_dir/.$i "
-		ln -sf $dot_dir/$i $home_dir/.$i
+		echo -n "$HOME/.$i "
+		ln -snf $dot_dir/$i $HOME/.$i
 	done
 
 	echo "... Done!"
-}
-
-restore() {
-	if [ ! -e $BackupDir ]; then
-		echo "No backups present!!"
-		exit
-	fi
-
-	shopt -s dotglob
-
-	for i in $(ls $dot_dir); do
-		rm $home_dir/.$i
-		mv $BackupDir/$i $home_dir/.$i
-	done
-
-	rm -rf $BackupDir
-	echo "Reset Complete. Back to your old Setup!"
-}
-
-update() {
-	echo -n "Updating Repo . . . "
-	git pull
-	echo " Done"
-	echo -n "Updating vim plugins . . . "
-	vim +PlugUpdate +qa!
-	echo " Done"
 }
 
 fatal () {
@@ -116,4 +58,22 @@ fatal () {
 	exit
 }
 
+main() {
+	root_dir=$PWD
+	dot_dir="$root_dir/dot"
+	vim_dir="$dot_dir/vim"
+	tmux_dir="$dot_dir/tmux"
+
+	echo -n "Updating Repo . . . " && git pull --quiet && echo " Done"
+	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
+
+    make_links
+
+    install_vim_plugins
+    install_tmux_plugins
+    myshrc
+}
+
+pushd $(dirname $0) &> /dev/null
 main $@
+popd &> /dev/null
