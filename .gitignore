@@ -1,6 +1,8 @@
 dot/vim/
 dot/vim/bundle/
 dot/vim/bundle/*
+dot/tmux/
+dot/tmux/*
 *.swp
 .gitmodules
 .bkup
