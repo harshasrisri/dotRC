@@ -50,4 +50,4 @@ alias tml='tmux ls'
 alias tma='tmux attach -t'
 alias tmn='tmux new -s'
 
-gri() { [ -z "${1}" ] && echo "Usage: gri <number of commits>" && return; git rebase -i @~${1} }
+function gri () { [ -z "${1}" ] && echo "Usage: gri <number of commits>" && return; git rebase -i @~${1} }
