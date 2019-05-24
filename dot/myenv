@@ -2,6 +2,8 @@
 export CSCOPE_DIR=~/.autotags/byhash
 if [ -z "$(which nvim 2>/dev/null)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
 export GREP_OPTIONS=
+export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
+export PATH=${_MY_RC_DIR}/../bin:${PATH}
 
 # ALIASES
 alias ls='ls --color=auto -CF'
@@ -18,7 +20,7 @@ alias .m='vi ~/.myshrc'
 alias .z='vi ~/.zshrc'
 alias .t='vi ~/.tmux.conf'
 alias ..t='tmux source-file ~/.tmux.conf'
-alias .rc='cd $(dirname $(readlink ~/.vimrc))/..'
+alias .rc='cd ${_MY_RC_DIR}'
 
 alias x='exit'
 alias wget='wget -c'
