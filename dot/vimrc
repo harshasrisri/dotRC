@@ -1,57 +1,73 @@
 call plug#begin('~/.vim/plugins')
+"" Eye Candy
 Plug 'altercation/vim-colors-solarized'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-commentary'
-Plug 'ervandew/supertab'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+
+"" Common Utilities
 Plug 'junegunn/vim-peekaboo'
-Plug 'vim-scripts/taglist.vim'
-Plug 'godlygeek/tabular'
-Plug 'vim-scripts/fly.vim', {'on' : 'SW'}
-Plug 'basilgor/vim-autotags'
-Plug 'tpope/vim-fugitive'
-Plug 'mileszs/ack.vim'
-Plug 'vim-scripts/matrix.vim--Yang', {'on' : 'Matrix'}
+Plug 'wincent/ferret'
+Plug 'godlygeek/tabular', {'on' : 'Tab'}
+
+"" Common Programming Utilities
+Plug 'tpope/vim-commentary'
+Plug 'lifepillar/vim-mucomplete'
+Plug 'majutsushi/tagbar', {'on' : 'TagbarToggle'}
+
+"" C/C++ specific Utilities
+Plug 'vim-scripts/fly.vim', {'on' : 'SW', 'for' : ['c', 'cpp']}
+Plug 'basilgor/vim-autotags', {'for' : ['c', 'cpp']}
+
+"" Rust specific Utilities
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh', 'for' : 'rust'}
+
+"" Utilities in the Garage
+" Plug 'tpope/vim-fugitive'
 call plug#end()
 
 "" Initializations
     set nocompatible                       " No comatibility with old Vi
-    set tabstop=4                          " Show a tabstop as 4 spaces
-    set shiftwidth=4                       " Auto indent shifts 4 spaces
-    set expandtab                          " Insert 4 spaces when Tab is pressed
-    set number                             " Display line numbers
-    set incsearch                          " Incremental Search
-    set hlsearch                           " Highlight searches
-    set smartcase                          " Ignore case if searching lowercase, not otherwise
-    set cursorline                         " Horizontal line to indicate cursor
-    set colorcolumn=80                     " 80-column marker
-    set scrolloff=5                        " Number of lines to keep at the top and bottom of a window while scrolling
-    set updatetime=500                     " Time interval to update windows
-    set wildmenu                           " Pressing tab in command mode shows options on status bar
-    set ruler                              " Display Ruler always.
-    set laststatus=2                       " Display Statusbar always.
+    set ruler                              " Display line info in status line
+    set number                             " Display line numbers on the left side
     set hidden                             " Hide closed buffers instead of closing them.
-    set ofu=syntaxcomplete#Complete        " for omnicompletion
-    set completeopt=longest,menuone        " for omnicompletion
-    set backspace=indent,eol,start         " Backspace works over whitespaces also
-    set formatoptions+=j                   " Join lines works well with comments
-    set t_Co=256                           " Set terminal to 256 colors
-    set background=dark                    " Set dark colorschemes
-    set tags=tags;                         " Set vim to look for tags file recursively upwards
-    set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
+    set cursorline                         " Horizontal line to indicate cursor
+    set wildmenu                           " Pressing tab in command mode shows options on status bar
+    set noshowmode                         " Don't show mode on command line
     set splitbelow                         " Open a new split below the current one
     set splitright                         " Open a new vertical split to the right of the current one
     set autoread                           " Auto reload files changed outside vim
-    set mouse=a
-    set directory=~/.vim/swapfiles//
-    set backupdir=~/.vim/swapfiles
-
+    set colorcolumn=80                     " 80-column marker
+    set scrolloff=5                        " Number of lines to keep at the top and bottom of a window while scrolling
+    set updatetime=500                     " Time interval to update windows
+    set laststatus=2                       " Display Statusbar always.
+    set showtabline=2                      " Display tabline always.
+    set backspace=indent,eol,start         " Backspace works over whitespaces also
+    set formatoptions+=jcron               " Join lines works well with comments
+    set tags=tags;                         " Set vim to look for tags file recursively upwards
+    set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
+    set mouse=a                            " Enable Mouse in all modes
     let mapleader="\<Space>"               " For setting the leader
     syntax on                              " Enable syntax highlighting
-    filetype on                            " Enable detecting filetype automatically
-    filetype plugin on                     " Enable use of plugins for specific filetypes
     filetype plugin indent on              " Enable Filetype indent plugin
 
+    set tabstop=4                          " Show a tabstop as 4 spaces
+    set shiftwidth=4                       " Auto indent shifts 4 spaces
+    set expandtab                          " Insert 4 spaces when Tab is pressed
+
+    set incsearch                          " Incremental Search
+    set hlsearch                           " Highlight searches
+    set smartcase                          " Ignore case if searching lowercase, not otherwise
+
+    set directory=~/.vim/tempfiles/
+    set backupdir=~/.vim/tempfiles/
+    set undodir=~/.vim/tempfiles/
+    set undofile
+    set undolevels=1000
+    set undoreload=1000
+
+
+    set t_Co=256                           " Set terminal to 256 colors
+    set background=dark                    " Set dark colorschemes
     let g:solarized_termtrans=1            " Adjusts to terminal colors by itself
     silent! colorscheme solarized          " Set colorscheme to Solarized-dark
 
@@ -62,119 +78,114 @@ call plug#end()
         autocmd! bufwritepost .vimrc source $MYVIMRC
     endif
 
-    " Opens help in a vertical split rather than horizontal
-    cnoremap help vert help
-
 "" Copy-Paste-Fu
-    " Copy selection to clipboard in visual mode
-    vnoremap <leader>y "+y
-    " Cut  selection to clipboard in visual mode
+    " Cut/Copy/Replace selection to clipboard in visual mode
     vnoremap <leader>d "+d
-    " Replace from clipboard after  position in visual mode
+    vnoremap <leader>y "+y
     vnoremap <leader>p "+p
-    " Replace from clipboard before position in visual mode
     vnoremap <leader>P "+P
-    " Paste from clipboard after  position in normal mode
-    nnoremap <leader>p "+p
-    " Paste from clipboard before position in normal mode
+    " Paste from clipboard before/after position in normal mode
     nnoremap <leader>P "+P
-    " start after copying position in Visual mode
+    nnoremap <leader>p "+p
+    " Place cursor after copy/paste position in Normal/Visual mode
     vnoremap <silent> y y`]
-    " start after pasting position in Visual mode
     vnoremap <silent> p p`]
-    " start after pasting position in Normal mode
     nnoremap <silent> p p`]
 
 " Easy save as sudo
     cnoremap w!! w !sudo tee %
 
-"" Navigation mappings
-    "" press j twice instead of <ESC> in INSERT mode
+" Opens help in a vertical split rather than horizontal
+    cnoremap vh vert help
+
+"" Easy <ESC> in INSERT mode
     inoremap jj <Esc>
+    inoremap jk <Esc>
+    inoremap kj <Esc>
+
+"" Navigation mappings
     " Go between lines in wrapped lines.
     nnoremap j gj
-    " Go between lines in wrapped lines.
     nnoremap k gk
 
-    "" Maps Ctrl+[h,j,k,l] to move between window splits
+    " Buffer movements
+    noremap <C-n> :bnext<CR>
+    noremap <C-p> :bprevious<CR>
+
+    " Maps Ctrl+[h,j,k,l] to move between window splits
     noremap <C-h> <C-w>h
     noremap <C-j> <C-w>j
     noremap <C-k> <C-w>k
     noremap <C-l> <C-w>l
 
-" Buffer movements
-    noremap <C-n> :bnext<CR>
-    noremap <C-p> :bprevious<CR>
-
-    "" Maps Ctrl+arrow keys to resize the window splits
+    " Maps Ctrl+arrow keys to resize the window splits
     map <C-Down> <C-w>+ 
     map <C-Up> <C-W>-
     map <C-Left> <C-W><
     map <C-Right> <C-w>>
 
-"" Terminal mappings
-    if has('nvim')
-        tnoremap jj <C-\><C-n>
-        autocmd WinEnter term://* startinsert
-        " move from the neovim terminal window to somewhere else
-        tnoremap <C-h> <C-\><C-n><C-w>h
-        tnoremap <C-j> <C-\><C-n><C-w>j
-        tnoremap <C-k> <C-\><C-n><C-w>k
-        tnoremap <C-l> <C-\><C-n><C-w>l
-    endif
-
-"" TagList Settings
-    let g:Tlist_Auto_Open = 1              " always show the tag file
-    let g:Tlist_Exit_OnlyWindow = 1        " If you are the last, kill yourself
-    let g:Tlist_Enable_Fold_Column = 0     " Showing folding tree
-    let g:Tlist_File_Fold_Auto_Close = 1   " automatically fold hidden buffers
-    let g:Tlist_Use_Right_Window = 1       " Split to the right side of the screen
-    let g:Tlist_WinWidth = 33              " Set the window width
-    let g:Tlist_Compact_Format = 1         " Do not display the help info
-    let g:Tlist_File_Fold_Auto_Close = 1   " Do not close tags for other files
-    let g:Tlist_Show_One_File = 0          " Always display one file tags
-
-"" NERD_tree Settings
-    let g:NERDTreeWinSize = 33             " Set the window width
-    let g:NERDTreeWinPos = "left"          " Set the window position
-    let g:NERDTreeAutoCenter = 0           " Auto centre
-    let g:NERDTreeHighlightCursorline = 1  " Highlight the cursor line
-
-"" Autotags Maps
+"" Autotags Settings
     nmap <leader>au :call AutotagsUpdate()<CR>
-    nmap <leader>aa :call AutotagsAdd()<CR>
     let g:autotags_pathhash_humanreadable = 1
     let g:autotags_ctags_exe = "echo"
     let g:autotags_ctags_opts = ""
 
-"" Vim Airline Settings
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'wombat'
+"" Lightline+Bufferline settings
+    let g:lightline#bufferline#unnamed = '[new]'
+    let g:lightline#bufferline#show_number = 1
+    let g:lightline = {
+        \ 'colorscheme': 'deus',
+        \ 'component': { 'lineinfo': ' %3l:%-2v' },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '', 'right': '' },
+        \ 'component_function': {
+        \     'readonly': 'LightlineReadonly',
+        \     'fugitive': 'LightlineFugitive'
+        \   },
+        \ 'tabline': { 'left': [['buffers']], 'right': [['close']] },
+        \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
+        \ 'component_type': { 'buffers': 'tabsel', },
+        \ }
 
-"" Toggle Plugin Splits
-    nnoremap <leader>5 :SW<CR>
-    nnoremap <leader>6 :TlistToggle<CR>
-    nnoremap <leader>7 :SyntasticToggleMode<CR>
-    nnoremap <leader>8 :NERDTreeToggle<CR>
+    function! LightlineReadonly()
+        return &readonly ? '' : ''
+    endfunction
 
-"" Syntastic Settings
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_check_on_wq = 0
-
-"" SuperTab Settings
-    let g:SuperTabDefaultCompletionType = "context"
-    " let g:SuperTabContextDefaultCompletionType = user
+    function! LightlineFugitive()
+        if exists('*fugitive#head')
+            let branch = fugitive#head()
+            return branch !=# '' ? ''.branch : ''
+        endif
+        return ''
+    endfunction
 
 "" FLY settings
     let g:FlyCscopeCase = 1
+    nnoremap <leader>5 :SW<CR>
 
-"" Ack.vim settings
-    let g:ackprg = 'rg --vimgrep --no-heading'
-    nnoremap <leader>/ :Ack! <C-R><C-W>
-    nnoremap <leader><leader>/ :Ack! <C-R><C-W><CR>
+"" MuComplete settings
+    let g:mucomplete#enable_auto_at_startup = 1
+    set shortmess+=c   " Shut off completion messages
+    set belloff+=ctrlg " If Vim beeps during completion
+    set completeopt+=menuone
+    set completeopt+=noselect
+    set completeopt+=noinsert
+    set completeopt-=preview
+    set noinfercase
+
+"" Tagbar settings
+    let g:tagbar_width = 30
+    let g:tagbar_indent = 1
+    let g:tagbar_autoshowtag = 1
+    let g:tagbar_foldlevel = 9
+    let g:tagbar_sort = 0
+    let g:tagbar_case_insensitive = 1
+    let g:tagbar_singleclick = 1
+    nnoremap <leader>6 :TagbarToggle<CR>
+
+"" LanguageClient settings
+    let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_serverCommands = { 'rust' : ['rustup', 'run', 'stable', 'rls'] }
+    set completefunc+=LanguageClient#complete
+    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
