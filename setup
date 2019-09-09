@@ -15,7 +15,7 @@ install_vim_plugins() {
 	[ ! -e $vimPlug_path ] && fatal "Vim Plug installation failed. Aborting."
 
 	echo -n "Updating vim plugins . . . "
-	vim +PlugUpdate +qa!
+	vim +PluUprade +PlugUpdate +UpdateRemotePlugins +PlugClean +qa!
 	echo " Done"
 }
 
