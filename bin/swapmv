@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ "$#" != "2" ] && echo "Usage swapmv <path1> <path2>" && exit 1
+
+PATH1="$1"
+PATH2="$2"
+TMP=".swapmv_${RANDOM}"
+
+mv ${PATH1} ${TMP} && mv ${PATH2} ${PATH1} && mv ${TMP} ${PATH2}
