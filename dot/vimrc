@@ -8,21 +8,22 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'junegunn/vim-peekaboo'
 Plug 'wincent/ferret'
 Plug 'godlygeek/tabular', {'on' : 'Tab'}
+Plug 'tpope/vim-fugitive'
 
 "" Common Programming Utilities
 Plug 'tpope/vim-commentary'
+Plug 'cohama/lexima.vim'
+Plug 'chaoren/vim-wordmotion'
+Plug 'Yggdroot/indentLine'
 Plug 'lifepillar/vim-mucomplete'
 Plug 'majutsushi/tagbar', {'on' : 'TagbarToggle'}
 
 "" C/C++ specific Utilities
-Plug 'vim-scripts/fly.vim', {'on' : 'SW', 'for' : ['c', 'cpp']}
-Plug 'basilgor/vim-autotags', {'for' : ['c', 'cpp']}
+Plug 'vim-scripts/fly.vim', {'on' : 'SW' }
+Plug 'basilgor/vim-autotags'
 
 "" Rust specific Utilities
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh', 'for' : 'rust'}
-
-"" Utilities in the Garage
-" Plug 'tpope/vim-fugitive'
 call plug#end()
 
 "" Initializations
@@ -46,37 +47,30 @@ call plug#end()
     set tags=tags;                         " Set vim to look for tags file recursively upwards
     set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
     set mouse=a                            " Enable Mouse in all modes
-    let mapleader="\<Space>"               " For setting the leader
-    syntax on                              " Enable syntax highlighting
-    filetype plugin indent on              " Enable Filetype indent plugin
-
     set tabstop=4                          " Show a tabstop as 4 spaces
     set shiftwidth=4                       " Auto indent shifts 4 spaces
     set expandtab                          " Insert 4 spaces when Tab is pressed
-
     set incsearch                          " Incremental Search
     set hlsearch                           " Highlight searches
     set smartcase                          " Ignore case if searching lowercase, not otherwise
-
-    set directory=~/.vim/tempfiles/
-    set backupdir=~/.vim/tempfiles/
-    set undodir=~/.vim/tempfiles/
-    set undofile
-    set undolevels=1000
-    set undoreload=1000
-
-
+    set directory=~/.vim/tempfiles/        " Central directory for swap files
+    set backupdir=~/.vim/tempfiles/        " Central directory for backup files
+    set undodir=~/.vim/tempfiles/          " Central directory for file undo history
+    set undofile                           " Remember undo history for closed files
     set t_Co=256                           " Set terminal to 256 colors
     set background=dark                    " Set dark colorschemes
-    let g:solarized_termtrans=1            " Adjusts to terminal colors by itself
-    silent! colorscheme solarized          " Set colorscheme to Solarized-dark
 
-    if has("autocmd")
-        "" Vim jumps to the last known position when reopening a file
-        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-        " Apply .vimrc on the fly after saving
-        autocmd! bufwritepost .vimrc source $MYVIMRC
-    endif
+    syntax on                              " Enable syntax highlighting
+    filetype plugin indent on              " Enable Filetype indent plugin
+    silent! colorscheme solarized          " Set colorscheme to Solarized-dark
+    let g:solarized_termtrans=1            " Adjusts to terminal colors by itself
+    let mapleader="\<Space>"               " For setting the leader
+
+    "" Vim jumps to the last known position when reopening a file
+    au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+    " Apply .vimrc on the fly after saving
+    au! bufwritepost .vimrc source $MYVIMRC
 
 "" Copy-Paste-Fu
     " Cut/Copy/Replace selection to clipboard in visual mode
@@ -92,37 +86,36 @@ call plug#end()
     vnoremap <silent> p p`]
     nnoremap <silent> p p`]
 
-" Easy save as sudo
-    cnoremap w!! w !sudo tee %
-
-" Opens help in a vertical split rather than horizontal
-    cnoremap vh vert help
-
-"" Easy <ESC> in INSERT mode
-    inoremap jj <Esc>
-    inoremap jk <Esc>
-    inoremap kj <Esc>
-
 "" Navigation mappings
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
 
     " Buffer movements
-    noremap <C-n> :bnext<CR>
-    noremap <C-p> :bprevious<CR>
+    nnoremap <CR> :bnext<CR>
+    nnoremap <Backspace> :bprevious<CR>
 
     " Maps Ctrl+[h,j,k,l] to move between window splits
-    noremap <C-h> <C-w>h
-    noremap <C-j> <C-w>j
-    noremap <C-k> <C-w>k
-    noremap <C-l> <C-w>l
+    nnoremap <leader>h <C-w>h
+    nnoremap <leader>j <C-w>j
+    nnoremap <leader>k <C-w>k
+    nnoremap <leader>l <C-w>l
 
     " Maps Ctrl+arrow keys to resize the window splits
-    map <C-Down> <C-w>+ 
-    map <C-Up> <C-W>-
-    map <C-Left> <C-W><
-    map <C-Right> <C-w>>
+    nnoremap <C-h> <C-w>< 
+    nnoremap <C-j> <C-W>-
+    nnoremap <C-k> <C-W>+
+    nnoremap <C-l> <C-w>>
+
+"" Miscellaneous
+    " Easy save as sudo
+    cnoremap w!! w !sudo tee %
+
+    " Opens help in a vertical split rather than horizontal
+    cnoremap vh vert help
+
+    "" Easy <ESC> in INSERT mode
+    inoremap jj <Esc>
 
 "" Autotags Settings
     nmap <leader>au :call AutotagsUpdate()<CR>
@@ -159,6 +152,10 @@ call plug#end()
         return ''
     endfunction
 
+"" indentLine settings
+    let g:indentLine_char = "│"
+    let g:indentLine_faster = 1
+
 "" FLY settings
     let g:FlyCscopeCase = 1
     nnoremap <leader>5 :SW<CR>
@@ -184,8 +181,14 @@ call plug#end()
     nnoremap <leader>6 :TagbarToggle<CR>
 
 "" LanguageClient settings
-    let g:LanguageClient_autoStart = 1
     let g:LanguageClient_serverCommands = { 'rust' : ['rustup', 'run', 'stable', 'rls'] }
-    set completefunc+=LanguageClient#complete
-    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    function! LC_maps()
+      if has_key(g:LanguageClient_serverCommands, &filetype)
+        set completefunc=LanguageClient#complete
+        set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+        nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+      endif
+    endfunction
+    autocmd FileType * call LC_maps()
