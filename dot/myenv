@@ -3,7 +3,7 @@ export CSCOPE_DIR=~/.autotags/byhash
 if [ -z "$(which nvim 2>/dev/null)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
 export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
-export PATH=${_MY_RC_DIR}/../bin:${PATH}
+export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
 
 # ALIASES
 alias ls='ls --color=auto -CF'
@@ -52,4 +52,10 @@ alias tml='tmux ls'
 alias tma='tmux attach -t'
 alias tmn='tmux new -s'
 
-function gri () { [ -z "${1}" ] && echo "Usage: gri <number of commits>" && return; git rebase -i @~${1} }
+gri () { 
+    if [ -z "${1}" ]; then
+        echo "Usage: gri <number of commits>" 
+        return
+    fi
+    git rebase -i @~"${1}"
+}
