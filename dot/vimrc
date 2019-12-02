@@ -6,6 +6,8 @@ Plug 'mengelbrecht/lightline-bufferline'
 
 "" Common Utilities
 Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
 Plug 'godlygeek/tabular', {'on' : 'Tab'}
 Plug 'tpope/vim-fugitive'
@@ -23,7 +25,7 @@ Plug 'vim-scripts/fly.vim', {'on' : 'SW' }
 Plug 'basilgor/vim-autotags'
 
 "" Rust specific Utilities
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh', 'for' : 'rust'}
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 call plug#end()
 
 "" Initializations
@@ -92,8 +94,8 @@ call plug#end()
     nnoremap k gk
 
     " Buffer movements
-    nnoremap <CR> :bnext<CR>
-    nnoremap <Backspace> :bprevious<CR>
+    nnoremap <C-n> :bnext<CR>
+    nnoremap <C-p> :bprevious<CR>
 
     " Maps Ctrl+[h,j,k,l] to move between window splits
     nnoremap <leader>h <C-w>h
@@ -161,17 +163,23 @@ call plug#end()
     nnoremap <leader>5 :SW<CR>
 
 "" MuComplete settings
-    let g:mucomplete#enable_auto_at_startup = 1
     set shortmess+=c   " Shut off completion messages
     set belloff+=ctrlg " If Vim beeps during completion
+    set complete=.,w,b,u,k
     set completeopt+=menuone
     set completeopt+=noselect
     set completeopt+=noinsert
     set completeopt-=preview
     set noinfercase
+    let g:mucomplete#enable_auto_at_startup = 1
+    let g:mucomplete#chains = {}
+    let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'dict']
+    let s:cpp_cond = { t -> t =~# '\%(->\|::\|\.\)$' }
+    let g:mucomplete#can_complete = {}
+    let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
 
 "" Tagbar settings
-    let g:tagbar_width = 30
+    let g:tagbar_width = 40
     let g:tagbar_indent = 1
     let g:tagbar_autoshowtag = 1
     let g:tagbar_foldlevel = 9
@@ -181,14 +189,26 @@ call plug#end()
     nnoremap <leader>6 :TagbarToggle<CR>
 
 "" LanguageClient settings
-    let g:LanguageClient_serverCommands = { 'rust' : ['rustup', 'run', 'stable', 'rls'] }
+    let g:LanguageClient_settingsPath = '/home/sriharsham/.config/nvim/langClient.json'
+    let g:LanguageClient_serverCommands = {
+        \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
+        \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
+        \ 'cpp': ['ccls', '--log-file=/tmp/ccls.log'],
+        \ }
     function! LC_maps()
       if has_key(g:LanguageClient_serverCommands, &filetype)
         set completefunc=LanguageClient#complete
         set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-        nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-        nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+        nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+        nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+        nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+        nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+        nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+        nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+        nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+        nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+        nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
       endif
     endfunction
     autocmd FileType * call LC_maps()
