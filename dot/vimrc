@@ -14,6 +14,7 @@ Plug 'tpope/vim-fugitive'
 
 "" Common Programming Utilities
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim'
 Plug 'chaoren/vim-wordmotion'
 Plug 'Yggdroot/indentLine'
@@ -96,6 +97,8 @@ call plug#end()
     " Buffer movements
     nnoremap <C-n> :bnext<CR>
     nnoremap <C-p> :bprevious<CR>
+    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>f :Files<CR>
 
     " Maps Ctrl+[h,j,k,l] to move between window splits
     nnoremap <leader>h <C-w>h
@@ -160,7 +163,6 @@ call plug#end()
 
 "" FLY settings
     let g:FlyCscopeCase = 1
-    nnoremap <leader>5 :SW<CR>
 
 "" MuComplete settings
     set shortmess+=c   " Shut off completion messages
@@ -186,10 +188,9 @@ call plug#end()
     let g:tagbar_sort = 0
     let g:tagbar_case_insensitive = 1
     let g:tagbar_singleclick = 1
-    nnoremap <leader>6 :TagbarToggle<CR>
 
 "" LanguageClient settings
-    let g:LanguageClient_settingsPath = '/home/sriharsham/.config/nvim/langClient.json'
+    let g:LanguageClient_settingsPath = '~/.config/nvim/langClient.json'
     let g:LanguageClient_serverCommands = {
         \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
         \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
