@@ -4,6 +4,7 @@ if [ -z "$(which nvim 2>/dev/null)" ]; then export EDITOR="vim"; else export EDI
 export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
 export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
+export PATH=$PATH:$_MY_BIN_DIR
 
 # ALIASES
 alias ls='ls --color=auto -CF'
