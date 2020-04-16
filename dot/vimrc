@@ -10,6 +10,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/fzf.vim'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
+    Plug 'mbbill/undotree'
+    Plug 'tpope/vim-rsi'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
