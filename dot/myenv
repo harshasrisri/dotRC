@@ -25,10 +25,10 @@ alias .rc='cd ${_MY_RC_DIR}'
 alias x='exit'
 alias wget='wget -c'
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
-alias pgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias pgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
 
-alias scpnoverify="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-alias sshnoverify="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+alias scpnoverify='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+alias sshnoverify='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
 alias ga='git add'
 alias gl='git log --oneline --decorate --date=short --graph -10'
@@ -44,6 +44,11 @@ alias gwta='git worktree add'
 alias gwtp='git worktree prune'
 alias gwtl='git worktree list'
 alias gco='git checkout'
+alias gbr='git branch'
+alias gpl='git pull'
+alias gps='git push'
+alias gcp='git cherry-pick'
+alias gf='git fetch'
 
 alias ff='find -type f -name'
 alias fd='find -type d -name'
