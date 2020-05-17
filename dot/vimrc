@@ -1,32 +1,26 @@
 call plug#begin('~/.vim/plugins')
-"" Eye Candy
-Plug 'altercation/vim-colors-solarized'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-
-"" Common Utilities
-Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'wincent/ferret'
-Plug 'godlygeek/tabular', {'on' : 'Tab'}
-Plug 'tpope/vim-fugitive'
-
-"" Common Programming Utilities
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'cohama/lexima.vim'
-Plug 'chaoren/vim-wordmotion'
-Plug 'Yggdroot/indentLine'
-Plug 'lifepillar/vim-mucomplete'
-Plug 'majutsushi/tagbar', {'on' : 'TagbarToggle'}
-
-"" C/C++ specific Utilities
-Plug 'vim-scripts/fly.vim', {'on' : 'SW' }
-Plug 'basilgor/vim-autotags'
-
-"" Rust specific Utilities
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+    "" Eye Candy
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'itchyny/lightline.vim'
+    Plug 'mengelbrecht/lightline-bufferline'
+    
+    "" Common Utilities
+    Plug 'junegunn/vim-peekaboo'
+    Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'wincent/ferret'
+    Plug 'godlygeek/tabular', {'on' : 'Tab'}
+    Plug 'tpope/vim-fugitive'
+    
+    "" Common Programming Utilities
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
+    Plug 'cohama/lexima.vim'
+    Plug 'chaoren/vim-wordmotion'
+    Plug 'Yggdroot/indentLine'
+    Plug 'lifepillar/vim-mucomplete'
+    Plug 'liuchengxu/vista.vim'
+    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 call plug#end()
 
 "" Initializations
@@ -47,7 +41,6 @@ call plug#end()
     set showtabline=2                      " Display tabline always.
     set backspace=indent,eol,start         " Backspace works over whitespaces also
     set formatoptions+=jcron               " Join lines works well with comments
-    set tags=tags;                         " Set vim to look for tags file recursively upwards
     set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
     set mouse=a                            " Enable Mouse in all modes
     set tabstop=4                          " Show a tabstop as 4 spaces
@@ -66,16 +59,19 @@ call plug#end()
     syntax on                              " Enable syntax highlighting
     filetype plugin indent on              " Enable Filetype indent plugin
     silent! colorscheme solarized          " Set colorscheme to Solarized-dark
-    let g:solarized_termtrans=1            " Adjusts to terminal colors by itself
     let mapleader="\<Space>"               " For setting the leader
+
+    "" make the vertical split bar a slim line with no background
+    set fillchars+=vert:│                  " add a bar for vertical splits
+    hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
 
     "" Vim jumps to the last known position when reopening a file
     au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
     " Apply .vimrc on the fly after saving
-    au! bufwritepost .vimrc source $MYVIMRC
+    au! BufWritePost .vimrc ++nested source $MYVIMRC
 
-"" Copy-Paste-Fu
+"" Copy Paste
     " Cut/Copy/Replace selection to clipboard in visual mode
     vnoremap <leader>d "+d
     vnoremap <leader>y "+y
@@ -89,7 +85,7 @@ call plug#end()
     vnoremap <silent> p p`]
     nnoremap <silent> p p`]
 
-"" Navigation mappings
+"" Navigation
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
@@ -97,8 +93,6 @@ call plug#end()
     " Buffer movements
     nnoremap <C-n> :bnext<CR>
     nnoremap <C-p> :bprevious<CR>
-    nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>f :Files<CR>
 
     " Maps Ctrl+[h,j,k,l] to move between window splits
     nnoremap <leader>h <C-w>h
@@ -122,23 +116,24 @@ call plug#end()
     "" Easy <ESC> in INSERT mode
     inoremap jj <Esc>
 
-"" Autotags Settings
-    nmap <leader>au :call AutotagsUpdate()<CR>
-    let g:autotags_pathhash_humanreadable = 1
-    let g:autotags_ctags_exe = "echo"
-    let g:autotags_ctags_opts = ""
+"" FZF
+    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>f :Files<CR>
+    nnoremap <leader>r :Rg<Space>
 
-"" Lightline+Bufferline settings
+"" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
     let g:lightline#bufferline#show_number = 1
     let g:lightline = {
         \ 'colorscheme': 'deus',
+        \ 'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified' , 'fugitive', 'filename', 'method' ] ] },
         \ 'component': { 'lineinfo': ' %3l:%-2v' },
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '', 'right': '' },
         \ 'component_function': {
         \     'readonly': 'LightlineReadonly',
-        \     'fugitive': 'LightlineFugitive'
+        \     'fugitive': 'LightlineFugitive',
+        \     'method'  : 'NearestMethodOrFunction',
         \   },
         \ 'tabline': { 'left': [['buffers']], 'right': [['close']] },
         \ 'component_expand': { 'buffers': 'lightline#bufferline#buffers' },
@@ -150,21 +145,31 @@ call plug#end()
     endfunction
 
     function! LightlineFugitive()
-        if exists('*fugitive#head')
-            let branch = fugitive#head()
-            return branch !=# '' ? ''.branch : ''
-        endif
-        return ''
+        let branch = FugitiveHead()
+        return branch !=# '' ? ' '.branch : ''
     endfunction
 
-"" indentLine settings
+    function! NearestMethodOrFunction() abort
+        return get(b:, 'vista_nearest_method_or_function', '')
+    endfunction
+
+"" Vista
+    autocmd CursorMoved,VimEnter * sil call vista#RunForNearestMethodOrFunction()
+    let g:vista_icon_indent = ["┗ ", "┣ "]
+    let g:vista_default_executive = 'lcn'
+    let g:vista_fzf_preview = ['right:50%']
+    let g:vista_sidebar_width = 50
+    let g:vista_executive_for = {
+        \ 'vimwiki': 'markdown',
+        \ 'pandoc': 'markdown',
+        \ 'markdown': 'toc',
+        \ }
+
+"" indentLine
     let g:indentLine_char = "│"
     let g:indentLine_faster = 1
 
-"" FLY settings
-    let g:FlyCscopeCase = 1
-
-"" MuComplete settings
+"" MuComplete
     set shortmess+=c   " Shut off completion messages
     set belloff+=ctrlg " If Vim beeps during completion
     set complete=.,w,b,u,k
@@ -180,17 +185,7 @@ call plug#end()
     let g:mucomplete#can_complete = {}
     let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
 
-"" Tagbar settings
-    let g:tagbar_width = 40
-    let g:tagbar_indent = 1
-    let g:tagbar_autoshowtag = 1
-    let g:tagbar_foldlevel = 9
-    let g:tagbar_sort = 0
-    let g:tagbar_case_insensitive = 1
-    let g:tagbar_singleclick = 1
-
-"" LanguageClient settings
-    let g:LanguageClient_settingsPath = '~/.config/nvim/langClient.json'
+"" LanguageClient
     let g:LanguageClient_serverCommands = {
         \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
         \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
@@ -200,16 +195,27 @@ call plug#end()
       if has_key(g:LanguageClient_serverCommands, &filetype)
         set completefunc=LanguageClient#complete
         set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-        nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-        nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-        nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-        nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-        nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
-        nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-        nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-        nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-        nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+        nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>                                          " Go to symbol definition
+        nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>                                      " Go to definition of type of symbol
+        nnoremap <leader>lb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<cr>                      " Show all base class definitions
+        nnoremap <leader>lD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<cr>     " Show all derived class definitions
+        nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>                                          " Find all references to the symbol
+        nnoremap <leader>lc :call LanguageClient#findLocations({'method':'$ccls/call'})<cr>                             " Find all the callers of a method
+        nnoremap <leader>lC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<cr>             " Find all the callees of a method
+        nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>                                               " Trigger hover action over a symbol for additional context
+        nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>                                                      " Menu opening all available LangServer options
+        nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>                                              " Rename Symbol
       endif
     endfunction
+
+    augroup LanguageClient_config
+        au!
+        au BufEnter * let b:Plugin_LanguageClient_started = 0
+        au User LanguageClientStarted setl signcolumn=yes
+        au User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
+        au User LanguageClientStopped setl signcolumn=auto
+        au User LanguageClientStopped let b:Plugin_LanguageClient_started = 0
+        au CursorMoved * if b:Plugin_LanguageClient_started | sil call LanguageClient#textDocument_documentHighlight() | endif
+    augroup END
+
     autocmd FileType * call LC_maps()
