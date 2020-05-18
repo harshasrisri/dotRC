@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/vim-peekaboo'
     Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    Plug 'wincent/ferret'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
     

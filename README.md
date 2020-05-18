@@ -24,7 +24,6 @@ The vim plugins that are a part of this repo right now are:
 | [vim-peekaboo         ](https://github.com/junegunn/vim-peekaboo            )  | Peek at registers before running macro or paste |
 | [fzf                  ](https://github.com/junegunn/fzf                     )  | Vim-only Fuzzy finder installer                 |
 | [fzf.vim              ](https://github.com/junegunn/fzf.vim                 )  | Plugin to use the fuzzy finder                  |
-| [ferret               ](https://github.com/wincent/ferret                   )  | Search and/or replace tool                      |
 | [tabular              ](https://github.com/godlygeek/tabular                )  | Text alignment                                  |
 | [vim-fugitive         ](https://github.com/tpope/vim-fugitive               )  | Fantastic git integration                       |
 | [vim-commentary       ](https://github.com/tpope/vim-commentary             )  | Bulk commenting with repeat support             |
