@@ -52,7 +52,6 @@ alias gcp='git cherry-pick'
 alias gf='git fetch'
 
 alias ff='find -type f -name'
-alias fd='find -type d -name'
 
 alias tml='tmux ls'
 alias tma='tmux attach -t'

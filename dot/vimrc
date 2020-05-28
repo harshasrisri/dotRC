@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-fugitive'
     Plug 'mbbill/undotree'
     Plug 'tpope/vim-rsi'
+    Plug 'psliwka/vim-smoothie'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
@@ -22,6 +23,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'lifepillar/vim-mucomplete'
     Plug 'liuchengxu/vista.vim'
     Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+    Plug 'terryma/vim-expand-region'
+    Plug 'majutsushi/tagbar'
 call plug#end()
 
 "" Initializations
@@ -118,9 +121,13 @@ call plug#end()
     inoremap jj <Esc>
 
 "" FZF
-    nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>f :Files<CR>
-    nnoremap <leader>r :Rg<Space>
+    nnoremap <leader>fb :Buffers<CR>
+    nnoremap <leader>f/ :BLines<CR>
+    nnoremap <leader>fh :History<CR>
+    nnoremap <leader>fc :Commands<CR>
+    nnoremap <leader>fm :Maps<CR>
+    nnoremap <leader>ff :Files<CR>
+    nnoremap <leader>fr :Rg<Space>
 
 "" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
@@ -155,11 +162,13 @@ call plug#end()
     endfunction
 
 "" Vista
-    autocmd CursorMoved,VimEnter * sil call vista#RunForNearestMethodOrFunction()
+    au! CursorMoved,VimEnter * sil call vista#RunForNearestMethodOrFunction()
     let g:vista_icon_indent = ["┗ ", "┣ "]
     let g:vista_default_executive = 'lcn'
     let g:vista_fzf_preview = ['right:50%']
     let g:vista_sidebar_width = 50
+    let g:vista_echo_cursor_strategy = 'both'
+    let g:vista_highlight_whole_line = 0
     let g:vista_executive_for = {
         \ 'vimwiki': 'markdown',
         \ 'pandoc': 'markdown',
@@ -186,6 +195,15 @@ call plug#end()
     let g:mucomplete#can_complete = {}
     let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
 
+"" Tagbar settings
+    let g:tagbar_width = 50
+    let g:tagbar_indent = 1
+    let g:tagbar_autoshowtag = 1
+    let g:tagbar_foldlevel = 9
+    let g:tagbar_sort = 0
+    let g:tagbar_case_insensitive = 1
+    let g:tagbar_singleclick = 1
+
 "" LanguageClient
     let g:LanguageClient_serverCommands = {
         \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
@@ -195,28 +213,35 @@ call plug#end()
     function! LC_maps()
       if has_key(g:LanguageClient_serverCommands, &filetype)
         set completefunc=LanguageClient#complete
-        set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-        nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>                                          " Go to symbol definition
-        nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>                                      " Go to definition of type of symbol
-        nnoremap <leader>lb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<cr>                      " Show all base class definitions
-        nnoremap <leader>lD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<cr>     " Show all derived class definitions
-        nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>                                          " Find all references to the symbol
-        nnoremap <leader>lc :call LanguageClient#findLocations({'method':'$ccls/call'})<cr>                             " Find all the callers of a method
-        nnoremap <leader>lC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<cr>             " Find all the callees of a method
-        nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>                                               " Trigger hover action over a symbol for additional context
-        nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>                                                      " Menu opening all available LangServer options
-        nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>                                              " Rename Symbol
+        set formatexpr=LanguageClient#textDocument_rangeFormatting()
+        " Go to symbol definition
+        nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+        " Go to definition of type of symbol
+        nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+        " Show all base class definitions
+        nnoremap <leader>lb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<CR>
+        " Show all derived class definitions
+        nnoremap <leader>lD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<CR>
+        " Find all references to the symbol
+        nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+        " Find all the callers of a method
+        nnoremap <leader>lc :call LanguageClient#findLocations({'method':'$ccls/call'})<CR>
+        " Find all the callees of a method
+        nnoremap <leader>lC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<CR>
+        " Trigger hover action over a symbol for additional context
+        nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+        " Menu opening all available LangServer options
+        nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+        " Rename Symbol
+        nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+        " Find all the implementations
+        nnoremap <leader>li :call :LanguageClient#textDocument_implementation()<CR>
       endif
     endfunction
 
     augroup LanguageClient_config
         au!
-        au BufEnter * let b:Plugin_LanguageClient_started = 0
-        au User LanguageClientStarted setl signcolumn=yes
-        au User LanguageClientStarted let b:Plugin_LanguageClient_started = 1
-        au User LanguageClientStopped setl signcolumn=auto
-        au User LanguageClientStopped let b:Plugin_LanguageClient_started = 0
-        au CursorMoved * if b:Plugin_LanguageClient_started | sil call LanguageClient#textDocument_documentHighlight() | endif
+        au FileType * call LanguageClient#isAlive(LC_maps())
+        au CursorMoved,CursorMovedI * call LanguageClient#isAlive(LanguageClient#textDocument_documentHighlight())
     augroup END
 
-    autocmd FileType * call LC_maps()
