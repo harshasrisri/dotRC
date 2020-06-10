@@ -163,7 +163,6 @@ call plug#end()
     endfunction
 
 "" Vista
-    au! CursorMoved,VimEnter * sil call vista#RunForNearestMethodOrFunction()
     let g:vista_icon_indent = ["┗ ", "┣ "]
     let g:vista_default_executive = 'lcn'
     let g:vista_fzf_preview = ['right:50%']
@@ -211,8 +210,7 @@ call plug#end()
         \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
         \ 'cpp': ['ccls', '--log-file=/tmp/ccls.log'],
         \ }
-    function! LC_maps()
-      if has_key(g:LanguageClient_serverCommands, &filetype)
+    function! LCN_Mappings()
         set completefunc=LanguageClient#complete
         set formatexpr=LanguageClient#textDocument_rangeFormatting()
         " Go to symbol definition
@@ -237,12 +235,17 @@ call plug#end()
         nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
         " Find all the implementations
         nnoremap <leader>li :call :LanguageClient#textDocument_implementation()<CR>
-      endif
     endfunction
 
-    augroup LanguageClient_config
-        au!
-        au FileType * call LanguageClient#isAlive(LC_maps())
-        au CursorMoved,CursorMovedI * call LanguageClient#isAlive(LanguageClient#textDocument_documentHighlight())
-    augroup END
+    function! LCN_Highlighting(running) abort
+        if a:running.result
+            call LanguageClient#textDocument_documentHighlight()
+            call vista#RunForNearestMethodOrFunction()
+        endif
+    endfunction
 
+    augroup LCN_AutoCommands
+        au!
+        au FileType rust,c,cpp silent call LCN_Mappings()
+        au CursorMoved,CursorMovedI * silent call LanguageClient#isAlive(function('LCN_Highlighting'))
+    augroup END
