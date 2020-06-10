@@ -1,5 +1,13 @@
 # EXPORTS
-if [ -z "$(which nvim 2>/dev/null)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
+if [ -z "$(which nvim 2>/dev/null)" ]; then 
+    export EDITOR="vim"; 
+    alias vi=vim
+else 
+    export EDITOR="nvim"; 
+    export MANPAGER='nvim +Man!'
+    alias vi=nvim
+fi
+
 export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
 export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
@@ -14,15 +22,14 @@ alias lr='ls -R'
 alias l.='ls -d .*'
 alias ll.='ls -lFhtd .*'
 
-if [ -z "$(which nvim 2>/dev/null)" ]; then alias vi='vim'; else alias vi='nvim'; fi
-alias .v='vi ~/.vimrc'
-alias .m='vi ~/.myshrc'
-alias .z='vi ~/.zshrc'
-alias .t='vi ~/.tmux.conf'
-alias ..t='tmux source-file ~/.tmux.conf'
-alias .rc='cd ${_MY_RC_DIR}'
+alias .ml='vi ~/.myshrc.local'
+alias .m='vi ${_MY_RC_DIR}/myshrc'
+alias .me='vi ${_MY_RC_DIR}/myenv'
+alias .v='vi ${_MY_RC_DIR}/vimrc'
+alias .z='vi ${_MY_RC_DIR}/zimrc'
+alias .t='vi ${_MY_RC_DIR}/tmux.conf'
+alias .rc='cd ${_MY_RC_DIR}/..'
 
-alias x='exit'
 alias wget='wget -c'
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias pgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
@@ -33,6 +40,7 @@ alias sshnoverify='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=
 alias ga='git add'
 alias gl='git log --oneline --decorate --date=short --graph -10'
 alias gs='git status'
+alias gss='git status --short'
 alias gd='git diff'
 alias gdt='git difftool'
 alias gdc='git diff --cached'
@@ -63,3 +71,5 @@ gri () {
     fi
     git rebase -i @~"${1}"
 }
+
+# vim: ft=sh

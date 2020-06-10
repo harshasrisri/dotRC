@@ -12,3 +12,5 @@ fi
 
 # export PATH=$(prepended with my PATHs | break paths into newlines | remove duplicates without sorting | remove blank lines | join newlines with colon | remove trailing colon )
 export PATH=$( echo "$PATH" | tr : '\n' | awk '!x[$0]++' | sed '/^$/d' | tr '\n' : | sed 's/.$//' )
+
+# vim: ft=sh
