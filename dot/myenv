@@ -1,5 +1,4 @@
 # EXPORTS
-export CSCOPE_DIR=~/.autotags/byhash
 if [ -z "$(which nvim 2>/dev/null)" ]; then export EDITOR="vim"; else export EDITOR="nvim"; fi
 export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"

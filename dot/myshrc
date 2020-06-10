@@ -1,7 +1,3 @@
-if [ "$TERM" != "xterm-256color" ]; then 
-    export TERM='xterm-256color'
-fi
-
 ## Global customizations here
 if [ -e ~/.myenv ]; then
     source ~/.myenv
