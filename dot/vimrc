@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugins')
     "" Eye Candy
-    Plug 'altercation/vim-colors-solarized'
+    Plug 'lifepillar/vim-solarized8'
     Plug 'itchyny/lightline.vim'
     Plug 'mengelbrecht/lightline-bufferline'
     
@@ -57,16 +57,17 @@ call plug#end()
     set backupdir=~/.vim/tempfiles/        " Central directory for backup files
     set undodir=~/.vim/tempfiles/          " Central directory for file undo history
     set undofile                           " Remember undo history for closed files
-    set t_Co=256                           " Set terminal to 256 colors
+
+    set termguicolors                      " Set terminal to true colors
     set background=dark                    " Set dark colorschemes
+    silent! colorscheme solarized8_high    " Set colorscheme to Solarized-dark
 
     syntax on                              " Enable syntax highlighting
     filetype plugin indent on              " Enable Filetype indent plugin
-    silent! colorscheme solarized          " Set colorscheme to Solarized-dark
     let mapleader="\<Space>"               " For setting the leader
 
     "" make the vertical split bar a slim line with no background
-    set fillchars+=vert:│                  " add a bar for vertical splits
+    set fillchars+=vert:▎                  " add a bar for vertical splits
     hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
 
     "" Vim jumps to the last known position when reopening a file
