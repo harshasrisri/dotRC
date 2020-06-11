@@ -233,14 +233,18 @@ call plug#end()
     let g:tagbar_singleclick = 1
 
 "" LanguageClient
-    let g:LanguageClient_serverCommands = {
-        \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
-        \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
-        \ 'cpp': ['ccls', '--log-file=/tmp/ccls.log'],
-        \ }
     function! LCN_Mappings()
+        let g:LanguageClient_fzfOptions = fzf#vim#with_preview().options
+        let g:LanguageClient_serverCommands = {
+                    \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
+                    \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
+                    \ 'cpp': ['ccls', '--log-file=/tmp/ccls.log'],
+                    \ }
+
         set completefunc=LanguageClient#complete
         set formatexpr=LanguageClient#textDocument_rangeFormatting()
+        set signcolumn=yes
+
         " Go to symbol definition
         nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
         " Go to definition of type of symbol
