@@ -160,7 +160,8 @@ call plug#end()
 
 "" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
-    let g:lightline#bufferline#show_number = 1
+    let g:lightline#bufferline#filename_modifier = ':t'
+    let g:lightline#bufferline#unicode_symbols = 1
     let g:lightline = {
         \ 'colorscheme': 'deus',
         \ 'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified' , 'fugitive', 'filename', 'method' ] ] },
@@ -193,10 +194,10 @@ call plug#end()
 "" Vista
     let g:vista_icon_indent = ["┗ ", "┣ "]
     let g:vista_default_executive = 'lcn'
-    let g:vista_fzf_preview = ['right:50%']
+    let g:vista_disable_statusline = 1
+    let g:vista_update_on_text_changed = 1
+    let g:vista_update_on_text_changed_delay = 200
     let g:vista_sidebar_width = 50
-    let g:vista_echo_cursor_strategy = 'both'
-    let g:vista_highlight_whole_line = 0
     let g:vista_executive_for = {
         \ 'vimwiki': 'markdown',
         \ 'pandoc': 'markdown',
