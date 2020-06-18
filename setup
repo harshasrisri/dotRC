@@ -5,6 +5,7 @@
 install_vim_plugins() {
 	vimPlug_path="$vim_dir/autoload/plug.vim"
 	vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    mkdir -p $vim_dir/tempfiles
 
 	which curl &> /dev/null
 	[ $? -eq "0" ] && [ ! -e $vimPlug_path ] && curl -fLo $vimPlug_path --create-dirs $vimPlug_url
@@ -31,7 +32,7 @@ install_tmux_plugins () {
 }
 
 myshrc () {
-	for i in bashrc fishrc; do
+	for i in bashrc zshrc; do
 		if [ -e "$HOME/.$i" ]; then
 			grep myshrc $HOME/.$i &> /dev/null
 			if [ $? -eq "0" ]; then continue; fi
