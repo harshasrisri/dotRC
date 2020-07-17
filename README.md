@@ -17,25 +17,32 @@ Please Backup whatever is important ALWAYS!
 ## Plugins
 
 ### Vim Plugins
-| Name                                                                           | Description                                     |
-|--------------------------------------------------------------------------------|-------------------------------------------------|
-| [vim-plug             ](https://github.com/junegunn/vim/plug                )  | Plugin Manager. Bootstrapped at setup           |
-| [vim-colors-solarized ](https://github.com/altercation/vim-colors-solarized )  | Colorscheme                                     |
-| [lightline.vim        ](https://github.com/itchyny/lightline.vim            )  | Light weight, fancy status line                 |
-| [lightline-bufferline ](https://github.com/mengelbrecht/lightline-bufferline)  | Buffer line addon to the status line            |
-| [vim-peekaboo         ](https://github.com/junegunn/vim-peekaboo            )  | Peek at registers before running macro or paste |
-| [fzf                  ](https://github.com/junegunn/fzf                     )  | Vim-only Fuzzy finder installer                 |
-| [fzf.vim              ](https://github.com/junegunn/fzf.vim                 )  | Plugin to use the fuzzy finder                  |
-| [tabular              ](https://github.com/godlygeek/tabular                )  | Text alignment                                  |
-| [vim-fugitive         ](https://github.com/tpope/vim-fugitive               )  | Fantastic git integration                       |
-| [vim-commentary       ](https://github.com/tpope/vim-commentary             )  | Bulk commenting with repeat support             |
-| [vim-surround         ](https://github.com/tpope/vim-surround               )  | Insert quotes/brackets around vim objects       |
-| [lexima.vim           ](https://github.com/cohama/lexima.vim                )  | Auto close quotes/brackets                      |
-| [vim-wordmotion       ](https://github.com/chaoren/vim-wordmotion           )  | Handle CamelCase, snake_case or pascalCase      |
-| [indentLine           ](https://github.com/Yggdroot/indentLine              )  | Show a visual indent line                       |
-| [vim-mucomplete       ](https://github.com/lifepillar/vim-mucomplete        )  | LSP aware light weight completion               |
-| [vista.vim            ](https://github.com/liuchengxu/vista.vim             )  | LSP aware tag browser                           |
-| [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim   )  | LSP provider with a Rust backend                |
+| Name                                                                          | Description                                     |
+|-------------------------------------------------------------------------------|-------------------------------------------------|
+| [vim-plug             ](https://github.com/junegunn/vim/plug                ) | Plugin Manager. Bootstrapped at setup           |
+| [vim--solarized8      ](https://github.com/lifepillar/vim--solarized8       ) | Truecolor compatible Solarized Colorscheme      |
+| [lightline.vim        ](https://github.com/itchyny/lightline.vim            ) | Light weight, fancy status line                 |
+| [lightline-bufferline ](https://github.com/mengelbrecht/lightline-bufferline) | Buffer line addon to the status line            |
+| [vim-peekaboo         ](https://github.com/junegunn/vim-peekaboo            ) | Peek at registers before running macro or paste |
+| [fzf                  ](https://github.com/junegunn/fzf                     ) | Vim-only Fuzzy finder installer                 |
+| [fzf.vim              ](https://github.com/junegunn/fzf.vim                 ) | Plugin to use the fuzzy finder                  |
+| [tabular              ](https://github.com/godlygeek/tabular                ) | Text alignment                                  |
+| [vim-fugitive         ](https://github.com/tpope/vim-fugitive               ) | Fantastic git integration                       |
+| [vim-wordmotion       ](https://github.com/chaoren/vim-wordmotion           ) | Handle CamelCase, snake_case or pascalCase      |
+| [vim-rsi              ](https://github.com/tpope/vim-rsi'                   ) | Use readline shortcuts in insert/command modes  |
+| [targets.vim          ](https://github.com/wellle/targets.vim'              ) | More target definitions for compound actions    |
+| [vim-expand-region    ](https://github.com/terryma/vim-expand-region'       ) | Incrementally expand scope of visual selection  |
+| [vim-multiple-cursors ](https://github.com/terryma/vim-multiple-cursors'    ) | Perform edits at multiple cursor locations      |
+| [sexy_scroller        ](https://github.com/joeytwiddle/sexy_scroller.vim'   ) | Smooth scrolling in terminal buffers            |
+| [vim-commentary       ](https://github.com/tpope/vim-commentary             ) | Bulk commenting with repeat support             |
+| [vim-surround         ](https://github.com/tpope/vim-surround               ) | Insert quotes/brackets around vim objects       |
+| [lexima.vim           ](https://github.com/cohama/lexima.vim                ) | Auto close quotes/brackets                      |
+| [indentLine           ](https://github.com/Yggdroot/indentLine              ) | Show a visual indent line                       |
+| [vim-mucomplete       ](https://github.com/lifepillar/vim-mucomplete        ) | LSP aware light weight completion               |
+| [vista.vim            ](https://github.com/liuchengxu/vista.vim             ) | LSP aware tag browser                           |
+| [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim   ) | LSP provider with a Rust backend                |
+| [tagbar               ](https://github.com/majutsushi/tagbar                ) | Ctags based tag sidebar                         |
+| [vimspector           ](https://github.com/puremourning/vimspector          ) | Debugger interface using LSP-like DAP           |
 
 ### TMUX Plugins
 | Name                                                                   | Description                              |
