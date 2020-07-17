@@ -10,71 +10,81 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/fzf.vim'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
-    Plug 'mbbill/undotree'
     Plug 'tpope/vim-rsi'
-    Plug 'psliwka/vim-smoothie'
+    Plug 'chaoren/vim-wordmotion'
+    Plug 'wellle/targets.vim'
+    Plug 'terryma/vim-expand-region'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'joeytwiddle/sexy_scroller.vim'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
     Plug 'cohama/lexima.vim'
-    Plug 'chaoren/vim-wordmotion'
     Plug 'Yggdroot/indentLine'
     Plug 'lifepillar/vim-mucomplete'
     Plug 'liuchengxu/vista.vim'
     Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-    Plug 'terryma/vim-expand-region'
     Plug 'majutsushi/tagbar'
+    Plug 'puremourning/vimspector'
 call plug#end()
+
+" NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
 
 "" Initializations
     set nocompatible                       " No comatibility with old Vi
     set ruler                              " Display line info in status line
     set number                             " Display line numbers on the left side
     set hidden                             " Hide closed buffers instead of closing them.
-    set cursorline                         " Horizontal line to indicate cursor
-    set wildmenu                           " Pressing tab in command mode shows options on status bar
     set noshowmode                         " Don't show mode on command line
     set splitbelow                         " Open a new split below the current one
     set splitright                         " Open a new vertical split to the right of the current one
-    set autoread                           " Auto reload files changed outside vim
-    set colorcolumn=80                     " 80-column marker
-    set scrolloff=5                        " Number of lines to keep at the top and bottom of a window while scrolling
+    set scrolloff=5                        " Nun lines to keep top and bottom of a window while scrolling
+
     set updatetime=500                     " Time interval to update windows
+    set backspace=indent,eol,start         " Backspace works over whitespaces also
+    set formatoptions+=jcrn                " Join lines works well with comments
+    set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
+    set autoread                           " Auto reload files changed outside vim
+    set mouse=a                            " Enable Mouse in all modes
+
+    set wildmenu                           " Pressing tab in command mode shows options on status bar
     set laststatus=2                       " Display Statusbar always.
     set showtabline=2                      " Display tabline always.
-    set backspace=indent,eol,start         " Backspace works over whitespaces also
-    set formatoptions+=jcron               " Join lines works well with comments
-    set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
-    set mouse=a                            " Enable Mouse in all modes
+
     set tabstop=4                          " Show a tabstop as 4 spaces
     set shiftwidth=4                       " Auto indent shifts 4 spaces
     set expandtab                          " Insert 4 spaces when Tab is pressed
+
     set incsearch                          " Incremental Search
     set hlsearch                           " Highlight searches
     set smartcase                          " Ignore case if searching lowercase, not otherwise
+
     set directory=~/.vim/tempfiles/        " Central directory for swap files
     set backupdir=~/.vim/tempfiles/        " Central directory for backup files
     set undodir=~/.vim/tempfiles/          " Central directory for file undo history
     set undofile                           " Remember undo history for closed files
 
+    set cursorline                         " Horizontal line to indicate cursor
+    set colorcolumn=80                     " 80-column marker
     set termguicolors                      " Set terminal to true colors
     set background=dark                    " Set dark colorschemes
     silent! colorscheme solarized8_high    " Set colorscheme to Solarized-dark
+    set guifont=Fira\ Code\ Retina:h10
+    set fillchars+=vert:▎                  " make the vertical split bar a slim line with no background
+    hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
 
     syntax on                              " Enable syntax highlighting
     filetype plugin indent on              " Enable Filetype indent plugin
     let mapleader="\<Space>"               " For setting the leader
 
-    "" make the vertical split bar a slim line with no background
-    set fillchars+=vert:▎                  " add a bar for vertical splits
-    hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
-
-    "" Vim jumps to the last known position when reopening a file
-    au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
-    " Apply .vimrc on the fly after saving
-    au! BufWritePost .vimrc ++nested source $MYVIMRC
+    augroup Initializations
+        autocmd!
+        "" Vim jumps to the last known position when reopening a file
+        au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+        " Apply .vimrc on the fly after saving
+        au! BufWritePost .vimrc ++nested source $MYVIMRC
+    augroup END
 
 "" Copy Paste
     " Cut/Copy/Replace selection to clipboard in visual mode
@@ -94,17 +104,14 @@ call plug#end()
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
-
-    " Buffer movements
-    nnoremap <C-n> :bnext<CR>
-    nnoremap <C-p> :bprevious<CR>
-
+    " Go to first/last non-blank character
+    nnoremap 0 ^
+    nnoremap $ g_
     " Maps Ctrl+[h,j,k,l] to move between window splits
     nnoremap <leader>h <C-w>h
     nnoremap <leader>j <C-w>j
     nnoremap <leader>k <C-w>k
     nnoremap <leader>l <C-w>l
-
     " Maps Ctrl+arrow keys to resize the window splits
     nnoremap <C-h> <C-w>< 
     nnoremap <C-j> <C-W>-
@@ -114,13 +121,11 @@ call plug#end()
 "" Miscellaneous
     " Easy save as sudo
     cnoremap w!! w !sudo tee %
-
     " Opens help in a vertical split rather than horizontal
-    cnoremap vh vert help
-
+    cnoremap h  vert help
+    cnoremap hh help
     "" Easy <ESC> in INSERT mode
     inoremap jj <Esc>
-
     "" Easy enter command mode
     nnoremap ; :
 
@@ -132,31 +137,12 @@ call plug#end()
     nnoremap <leader>fm :Maps<CR>
     nnoremap <leader>ff :Files<CR>
     nnoremap <leader>fr :Rg<Space>
-    let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
     let $FZF_DEFAULT_OPTS="--preview=bat --reverse "
-
-    " floating fzf window with borders
-    function! CreateCenteredFloatingWindow()
-        let width = min([&columns - 4, max([80, &columns - 20])])
-        let height = min([&lines - 4, max([20, &lines - 10])])
-        let top = ((&lines - height) / 2) - 1
-        let left = (&columns - width) / 2
-        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-        let top = "╭" . repeat("─", width - 2) . "╮"
-        let mid = "│" . repeat(" ", width - 2) . "│"
-        let bot = "╰" . repeat("─", width - 2) . "╯"
-        let lines = [top] + repeat([mid], height - 2) + [bot]
-        let s:buf = nvim_create_buf(v:false, v:true)
-        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-        call nvim_open_win(s:buf, v:true, opts)
-        set winhl=Normal:Floating
-        let opts.row += 1
-        let opts.height -= 2
-        let opts.col += 2
-        let opts.width -= 4
-        call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-        au BufWipeout <buffer> exe 'bw '.s:buf
-    endfunction
+    command! -nargs=? -complete=dir AF
+                \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+                \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+                \ })))
 
 "" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
@@ -282,3 +268,22 @@ call plug#end()
         au FileType rust,c,cpp silent call LCN_Mappings()
         au CursorMoved,CursorMovedI * silent call LanguageClient#isAlive(function('LCN_Highlighting'))
     augroup END
+
+" Vim Sexy Scroller
+    let g:SexyScroller_MaxTime = 200
+    let g:SexyScroller_EasingStyle = 3
+
+" Vimspector
+    " Debugger continue, stop, restart and pause
+    nmap <leader>dc <Plug>VimspectorContinue
+    nmap <leader>ds <Plug>VimspectorStop
+    nmap <leader>dr <Plug>VimspectorRestart
+    nmap <leader>dp <Plug>VimspectorPause
+    " Regular, conditional and functional breakpoints
+    nmap <leader>bp <Plug>VimspectorToggleBreakpoint
+    nmap <leader>bc <Plug>VimspectorToggleConditionalBreakpoint
+    nmap <leader>bf <Plug>VimspectorAddFunctionBreakpoint
+    " Next line, Step Into and Step Out of functions
+    nmap <leader>sn <Plug>VimspectorStepOver
+    nmap <leader>si <Plug>VimspectorStepInto
+    nmap <leader>so <Plug>VimspectorStepOut
