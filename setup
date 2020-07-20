@@ -2,40 +2,38 @@
 # Script to setup my Working Environment.
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
-set -e
-
 download_file () {
     download_from=$1
     download_to=$2
 
-	which curl &> /dev/null
-	[ $? -eq "0" ] && [ ! -e $download_to ] && curl -fLo $download_to --create-dirs $download_from
+    which curl &> /dev/null
+    [ $? -eq "0" ] && [ ! -e $download_to ] && curl -fLo $download_to --create-dirs $download_from
 
-	which wget &> /dev/null
-	[ $? -eq "0" ] && [ ! -e $download_to ] && wget --force-directories -O $download_to $download_from
+    which wget &> /dev/null
+    [ $? -eq "0" ] && [ ! -e $download_to ] && wget --force-directories -O $download_to $download_from
 
-	[ ! -e $download_to ] && fatal "Failed to download from $download_from to $download_to"
+    [ ! -e $download_to ] && fatal "Failed to download from $download_from to $download_to"
 }
 
 install_vim_plugins() {
-	vimPlug_path="$vim_dir/autoload/plug.vim"
-	vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    vimPlug_path="$vim_dir/autoload/plug.vim"
+    vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
     download_file $vimPlug_url $vimPlug_path
 
-	echo -n "Updating vim plugins . . . "
-	vim +PluUprade +PlugUpdate +UpdateRemotePlugins +PlugClean +qa!
-	echo " Done"
+    echo -n "Updating vim plugins . . . "
+    vim +PlugUpgrade +PlugUpdate +PlugClean +qa!
+    echo " Done"
 }
 
 install_tmux_plugins () {
     export tpm_path="$tmux_dir/plugins/tpm"
     if [ -e ${tpm_path} ]; then
         git -C ${tpm_path} pull --quiet
-        echo -n "updating tmux plugins: " && ${tpm_path}/bin/update_plugins all
+        echo -n "TMUX: " && ${tpm_path}/bin/update_plugins all
     else
         git clone https://github.com/tmux-plugins/tpm ${tpm_path} --quiet
-        echo -n "installing tmux plugins: " && ${tpm_path}/bin/install_plugins
+        echo -n "TMUX: " && ${tpm_path}/bin/install_plugins
     fi
 }
 
@@ -53,32 +51,32 @@ install_zsh_plugins () {
 
 make_links () {
     mkdir -p $vim_dir $tmux_dir
-	echo -n "Linking files... "
+    echo -n "Linking files... "
 
-	for file in $(git ls-files $dot_dir/); do
-        dotfile="~/.${file#$(basename ${dot_dir})/}"
-		echo -n "${dotfile} "
+    for file in $(git ls-files $dot_dir/); do
+        dotfile="$HOME/.${file#$(basename ${dot_dir})/}"
+        echo -n "${dotfile} "
         mkdir -p $(dirname $dotfile)
-		ln -snf ${file} ${dotfile}
-	done
+        ln -snf $PWD/${file} ${dotfile}
+    done
 
-	echo "... Done!"
+    echo "... Done!"
 }
 
 fatal () {
-	echo -n "FATAL: "
-	echo $1 >3
-	exit
+    echo -n "FATAL: "
+    echo $1 >3
+    exit
 }
 
 main() {
-	root_dir=$PWD
-	dot_dir="$root_dir/dot"
-	vim_dir="$dot_dir/vim"
-	tmux_dir="$dot_dir/tmux"
+    root_dir=$PWD
+    dot_dir="$root_dir/dot"
+    vim_dir="$dot_dir/vim"
+    tmux_dir="$dot_dir/tmux"
 
-	echo -n "Updating Repo . . . " && git pull --quiet && echo " Done"
-	if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
+    echo -n "Updating Repo . . . " && git pull --quiet && echo " Done"
+    if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
 
     make_links
 
