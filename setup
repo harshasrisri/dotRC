@@ -2,24 +2,26 @@
 # Script to setup my Working Environment.
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
+set -e
+
+download_file () {
+    download_from=$1
+    download_to=$2
+
+	which curl &> /dev/null
+	[ $? -eq "0" ] && [ ! -e $download_to ] && curl -fLo $download_to --create-dirs $download_from
+
+	which wget &> /dev/null
+	[ $? -eq "0" ] && [ ! -e $download_to ] && wget --force-directories -O $download_to $download_from
+
+	[ ! -e $download_to ] && fatal "Failed to download from $download_from to $download_to"
+}
+
 install_vim_plugins() {
 	vimPlug_path="$vim_dir/autoload/plug.vim"
 	vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    mkdir -p $vim_dir/tempfiles ~/.config/nvim
-    [ -d ~/.config/nvim ] && cat >> ~/.config/nvim/init.vim <<- __EOF__
-    set runtimepath^=~/.vim runtimepath+=~/.vim/after
-    let &packpath=&runtimepath
-    source ~/.vimrc
-    __EOF__
-
-	which curl &> /dev/null
-	[ $? -eq "0" ] && [ ! -e $vimPlug_path ] && curl -fLo $vimPlug_path --create-dirs $vimPlug_url
-
-	which wget &> /dev/null
-	[ $? -eq "0" ] && [ ! -e $vimPlug_path ] && wget --force-directories -O $vimPlug_path $vimPlug_url
-
-	[ ! -e $vimPlug_path ] && fatal "Vim Plug installation failed. Aborting."
+    download_file $vimPlug_url $vimPlug_path
 
 	echo -n "Updating vim plugins . . . "
 	vim +PluUprade +PlugUpdate +UpdateRemotePlugins +PlugClean +qa!
@@ -37,23 +39,27 @@ install_tmux_plugins () {
     fi
 }
 
-myshrc () {
-	for i in bashrc zshrc; do
-		if [ -e "$HOME/.$i" ]; then
-			grep myshrc $HOME/.$i &> /dev/null
-			if [ $? -eq "0" ]; then continue; fi
-			echo "source $HOME/.myshrc" >> $HOME/.$i
-		fi
-	done
+install_zsh_plugins () {
+    zimfw_installer="zimfw.zsh"
+    zimfw_url="https://raw.githubusercontent.com/zimfw/install/master/install.zsh"
+
+    download_file $zimfw_url $zimfw_installer
+
+    echo -n "Installing zimfw . . . "
+    cat $zimfw_installer | zsh
+    ln -snf $dot_dir/config/zimrc ~/.zimrc
+    exec zsh -l -c "cd && zimfw install"
 }
 
 make_links () {
     mkdir -p $vim_dir $tmux_dir
 	echo -n "Linking files... "
 
-	for i in $(ls $dot_dir/); do
-		echo -n "$HOME/.$i "
-		ln -snf $dot_dir/$i $HOME/.$i
+	for file in $(git ls-files $dot_dir/); do
+        dotfile="~/.${file#$(basename ${dot_dir})/}"
+		echo -n "${dotfile} "
+        mkdir -p $(dirname $dotfile)
+		ln -snf ${file} ${dotfile}
 	done
 
 	echo "... Done!"
@@ -78,7 +84,6 @@ main() {
 
     install_vim_plugins
     install_tmux_plugins
-    myshrc
 }
 
 pushd $(dirname $0) &> /dev/null

@@ -11,6 +11,7 @@ fi
 export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
 export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
+# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10"
 export PATH=$PATH:$_MY_BIN_DIR
 
 # ALIASES
@@ -34,9 +35,6 @@ alias .rc='cd ${_MY_RC_DIR}/..'
 alias wget='wget -c'
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias pgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
-
-alias scpnoverify='scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-alias sshnoverify='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
 alias ga='git add'
 alias gl='git log --oneline --decorate --date=short --graph -10'
