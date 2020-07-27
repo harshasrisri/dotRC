@@ -1,5 +1,6 @@
 #!/bin/bash
 # Script to delete a lot of big/small things in the background
+[ $# -eq 0 ] && echo "$0 takes at least one argument" && exit 1
 tmp_dir=.rmdir_$RANDOM
 mkdir -p $tmp_dir
 mv $@ $tmp_dir > /dev/null 2>&1
