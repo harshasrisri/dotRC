@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugins')
     
     "" Common Utilities
     Plug 'junegunn/vim-peekaboo'
-    Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all --no-update-rc' }
     Plug 'junegunn/fzf.vim'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'chaoren/vim-wordmotion'
     Plug 'wellle/targets.vim'
     Plug 'terryma/vim-expand-region'
-    Plug 'terryma/vim-multiple-cursors'
     Plug 'joeytwiddle/sexy_scroller.vim'
     
     "" Common Programming Utilities
@@ -22,10 +21,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-surround'
     Plug 'cohama/lexima.vim'
     Plug 'Yggdroot/indentLine'
-    Plug 'lifepillar/vim-mucomplete'
-    Plug 'liuchengxu/vista.vim'
-    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-    Plug 'majutsushi/tagbar'
+    Plug 'lifepillar/vim-mucomplete', { 'for': ['rust','c','cpp'] }
+    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh', 'for': ['rust','c','cpp'] }
+    Plug 'majutsushi/tagbar', { 'for': ['rust','c','cpp'] }
     Plug 'puremourning/vimspector'
 call plug#end()
 
@@ -122,7 +120,7 @@ call plug#end()
     " Easy save as sudo
     cnoremap w!! w !sudo tee %
     " Opens help in a vertical split rather than horizontal
-    cnoremap h  vert help
+    cnoremap vh  vert help
     cnoremap hh help
     "" Easy <ESC> in INSERT mode
     inoremap jj <Esc>
@@ -177,31 +175,15 @@ call plug#end()
         return get(b:, 'vista_nearest_method_or_function', '')
     endfunction
 
-"" Vista
-    let g:vista_icon_indent = ["┗ ", "┣ "]
-    let g:vista_default_executive = 'lcn'
-    let g:vista_disable_statusline = 1
-    let g:vista_update_on_text_changed = 1
-    let g:vista_update_on_text_changed_delay = 200
-    let g:vista_sidebar_width = 50
-    let g:vista_executive_for = {
-        \ 'vimwiki': 'markdown',
-        \ 'pandoc': 'markdown',
-        \ 'markdown': 'toc',
-        \ }
-
 "" indentLine
     let g:indentLine_char = "│"
     let g:indentLine_faster = 1
 
 "" MuComplete
-    set shortmess+=c   " Shut off completion messages
-    set belloff+=ctrlg " If Vim beeps during completion
-    set complete=.,w,b,u,k
-    set completeopt+=menuone
-    set completeopt+=noselect
-    set completeopt+=noinsert
+    set shortmess+=c
+    set belloff+=ctrlg
     set completeopt-=preview
+    set completeopt+=menuone,noselect,noinsert
     set noinfercase
     let g:mucomplete#enable_auto_at_startup = 1
     let g:mucomplete#chains = {}
@@ -224,10 +206,11 @@ call plug#end()
         let g:LanguageClient_fzfOptions = fzf#vim#with_preview().options
         let g:LanguageClient_serverCommands = {
                     \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
-                    \ 'c': ['ccls', '--log-file=/tmp/ccls.log'],
-                    \ 'cpp': ['ccls', '--log-file=/tmp/ccls.log'],
+                    \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log'],
+                    \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log'],
                     \ }
 
+        set omnifunc=LanguageClient#complete
         set completefunc=LanguageClient#complete
         set formatexpr=LanguageClient#textDocument_rangeFormatting()
         set signcolumn=yes
@@ -259,14 +242,13 @@ call plug#end()
     function! LCN_Highlighting(running) abort
         if a:running.result
             call LanguageClient#textDocument_documentHighlight()
-            call vista#RunForNearestMethodOrFunction()
         endif
     endfunction
 
     augroup LCN_AutoCommands
         au!
         au FileType rust,c,cpp silent call LCN_Mappings()
-        au CursorMoved,CursorMovedI * silent call LanguageClient#isAlive(function('LCN_Highlighting'))
+        au CursorMoved,CursorMovedI *.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
     augroup END
 
 " Vim Sexy Scroller

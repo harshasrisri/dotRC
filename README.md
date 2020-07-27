@@ -32,14 +32,12 @@ Please Backup whatever is important ALWAYS!
 | [vim-rsi              ](https://github.com/tpope/vim-rsi'                   ) | Use readline shortcuts in insert/command modes  |
 | [targets.vim          ](https://github.com/wellle/targets.vim'              ) | More target definitions for compound actions    |
 | [vim-expand-region    ](https://github.com/terryma/vim-expand-region'       ) | Incrementally expand scope of visual selection  |
-| [vim-multiple-cursors ](https://github.com/terryma/vim-multiple-cursors'    ) | Perform edits at multiple cursor locations      |
 | [sexy_scroller        ](https://github.com/joeytwiddle/sexy_scroller.vim'   ) | Smooth scrolling in terminal buffers            |
 | [vim-commentary       ](https://github.com/tpope/vim-commentary             ) | Bulk commenting with repeat support             |
 | [vim-surround         ](https://github.com/tpope/vim-surround               ) | Insert quotes/brackets around vim objects       |
 | [lexima.vim           ](https://github.com/cohama/lexima.vim                ) | Auto close quotes/brackets                      |
 | [indentLine           ](https://github.com/Yggdroot/indentLine              ) | Show a visual indent line                       |
 | [vim-mucomplete       ](https://github.com/lifepillar/vim-mucomplete        ) | LSP aware light weight completion               |
-| [vista.vim            ](https://github.com/liuchengxu/vista.vim             ) | LSP aware tag browser                           |
 | [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim   ) | LSP provider with a Rust backend                |
 | [tagbar               ](https://github.com/majutsushi/tagbar                ) | Ctags based tag sidebar                         |
 | [vimspector           ](https://github.com/puremourning/vimspector          ) | Debugger interface using LSP-like DAP           |
