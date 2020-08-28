@@ -85,6 +85,12 @@ call plug#end()
         au! BufWritePost .vimrc ++nested source $MYVIMRC
     augroup END
 
+    if (!has('nvim'))
+        let &t_ZH="\e[3m"
+        let &t_ZR="\e[23m"
+        hi Comment cterm=italic
+    endif
+
 "" Copy Paste
     " Cut/Copy/Replace selection to clipboard in visual mode
     vnoremap <leader>d "+d
