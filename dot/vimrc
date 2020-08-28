@@ -22,8 +22,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'cohama/lexima.vim'
     Plug 'Yggdroot/indentLine'
     Plug 'lifepillar/vim-mucomplete', { 'for': ['rust','c','cpp'] }
-    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh', 'for': ['rust','c','cpp'] }
-    Plug 'majutsushi/tagbar', { 'for': ['rust','c','cpp'] }
+    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
+    Plug 'majutsushi/tagbar'
+    Plug 'm-pilia/vim-ccls'
     Plug 'puremourning/vimspector'
 call plug#end()
 
@@ -102,6 +103,9 @@ call plug#end()
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
+    " Move between buffers easily
+    nnoremap <C-n> :bnext<CR>
+    nnoremap <C-p> :bprev<CR>
     " Go to first/last non-blank character
     nnoremap 0 ^
     nnoremap $ g_
@@ -172,7 +176,7 @@ call plug#end()
     endfunction
 
     function! NearestMethodOrFunction() abort
-        return get(b:, 'vista_nearest_method_or_function', '')
+        return tagbar#currenttag('%s', '', 'f')
     endfunction
 
 "" indentLine
@@ -203,7 +207,7 @@ call plug#end()
 
 "" LanguageClient
     function! LCN_Mappings()
-        let g:LanguageClient_fzfOptions = fzf#vim#with_preview().options
+        let g:LanguageClient_fzfOptions = fzf#vim#with_preview('right:50%', '?').options
         let g:LanguageClient_serverCommands = {
                     \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
                     \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log'],
