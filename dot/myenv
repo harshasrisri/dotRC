@@ -37,7 +37,7 @@ alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-di
 alias pgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
 
 alias ga='git add'
-alias gl='git log --oneline --decorate --date=short --graph -10'
+alias gl='git log --oneline --decorate --date=relative --graph -10 --pretty=format:"%C(yellow)%h %Cred%>(12,trunc)%ad %Cblue%<(12)%aN%Cgreen%d%Creset %s"'
 alias gs='git status'
 alias gss='git status --short'
 alias gd='git diff'
