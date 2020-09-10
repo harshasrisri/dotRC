@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugins')
     "" Eye Candy
-    Plug 'lifepillar/vim-solarized8'
+    Plug 'joshdick/onedark.vim'
     Plug 'itchyny/lightline.vim'
     Plug 'mengelbrecht/lightline-bufferline'
     
@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'chaoren/vim-wordmotion'
     Plug 'wellle/targets.vim'
     Plug 'terryma/vim-expand-region'
-    Plug 'joeytwiddle/sexy_scroller.vim'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
@@ -48,6 +47,7 @@ call plug#end()
     set mouse=a                            " Enable Mouse in all modes
 
     set wildmenu                           " Pressing tab in command mode shows options on status bar
+    set wildmode=longest:full,full         " Longest completion in wildmenu
     set laststatus=2                       " Display Statusbar always.
     set showtabline=2                      " Display tabline always.
 
@@ -68,7 +68,8 @@ call plug#end()
     set colorcolumn=80                     " 80-column marker
     set termguicolors                      " Set terminal to true colors
     set background=dark                    " Set dark colorschemes
-    silent! colorscheme solarized8_high    " Set colorscheme to Solarized-dark
+    silent! colorscheme onedark            " Set colorscheme to Solarized-dark
+    let g:onedark_terminal_italics=1
     set guifont=Fira\ Code\ Retina:h10
     set fillchars+=vert:▎                  " make the vertical split bar a slim line with no background
     hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
@@ -104,6 +105,8 @@ call plug#end()
     vnoremap <silent> y y`]
     vnoremap <silent> p p`]
     nnoremap <silent> p p`]
+    nnoremap Y y$
+    nnoremap x "_x
 
 "" Navigation
     " Go between lines in wrapped lines.
@@ -140,13 +143,14 @@ call plug#end()
 "" FZF
     nnoremap <leader>fb :Buffers<CR>
     nnoremap <leader>f/ :BLines<CR>
+    nnoremap <leader>fl :Lines<CR>
     nnoremap <leader>fh :History<CR>
     nnoremap <leader>fc :Commands<CR>
     nnoremap <leader>fm :Maps<CR>
     nnoremap <leader>ff :Files<CR>
     nnoremap <leader>fr :Rg<Space>
     let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
-    let $FZF_DEFAULT_OPTS="--preview=bat --reverse "
+    let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899'"
     command! -nargs=? -complete=dir AF
                 \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
                 \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
@@ -157,7 +161,7 @@ call plug#end()
     let g:lightline#bufferline#filename_modifier = ':t'
     let g:lightline#bufferline#unicode_symbols = 1
     let g:lightline = {
-        \ 'colorscheme': 'deus',
+        \ 'colorscheme': 'onedark',
         \ 'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified' , 'fugitive', 'filename', 'method' ] ] },
         \ 'component': { 'lineinfo': ' %3l:%-2v' },
         \ 'separator': { 'left': '', 'right': '' },
@@ -192,15 +196,16 @@ call plug#end()
 "" MuComplete
     set shortmess+=c
     set belloff+=ctrlg
+    set complete=.,w,b,u,k
     set completeopt-=preview
     set completeopt+=menuone,noselect,noinsert
     set noinfercase
     let g:mucomplete#enable_auto_at_startup = 1
-    let g:mucomplete#chains = {}
-    let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'dict']
-    let s:cpp_cond = { t -> t =~# '\%(->\|::\|\.\)$' }
+    let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
     let g:mucomplete#can_complete = {}
     let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+    let g:mucomplete#chains = {}
+    let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'uspl']
 
 "" Tagbar settings
     let g:tagbar_width = 50
@@ -260,10 +265,6 @@ call plug#end()
         au FileType rust,c,cpp silent call LCN_Mappings()
         au CursorMoved,CursorMovedI *.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
     augroup END
-
-" Vim Sexy Scroller
-    let g:SexyScroller_MaxTime = 200
-    let g:SexyScroller_EasingStyle = 3
 
 " Vimspector
     " Debugger continue, stop, restart and pause

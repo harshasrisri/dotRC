@@ -20,7 +20,7 @@ Please Backup whatever is important ALWAYS!
 | Name                                                                          | Description                                     |
 |-------------------------------------------------------------------------------|-------------------------------------------------|
 | [vim-plug             ](https://github.com/junegunn/vim/plug                ) | Plugin Manager. Bootstrapped at setup           |
-| [vim--solarized8      ](https://github.com/lifepillar/vim--solarized8       ) | Truecolor compatible Solarized Colorscheme      |
+| [onedark.vim          ](https://github.com/joshdick/onedark.vim             ) | Truecolor compatible Onedark Colorscheme        |
 | [lightline.vim        ](https://github.com/itchyny/lightline.vim            ) | Light weight, fancy status line                 |
 | [lightline-bufferline ](https://github.com/mengelbrecht/lightline-bufferline) | Buffer line addon to the status line            |
 | [vim-peekaboo         ](https://github.com/junegunn/vim-peekaboo            ) | Peek at registers before running macro or paste |
@@ -32,7 +32,6 @@ Please Backup whatever is important ALWAYS!
 | [vim-rsi              ](https://github.com/tpope/vim-rsi'                   ) | Use readline shortcuts in insert/command modes  |
 | [targets.vim          ](https://github.com/wellle/targets.vim'              ) | More target definitions for compound actions    |
 | [vim-expand-region    ](https://github.com/terryma/vim-expand-region'       ) | Incrementally expand scope of visual selection  |
-| [sexy_scroller        ](https://github.com/joeytwiddle/sexy_scroller.vim'   ) | Smooth scrolling in terminal buffers            |
 | [vim-commentary       ](https://github.com/tpope/vim-commentary             ) | Bulk commenting with repeat support             |
 | [vim-surround         ](https://github.com/tpope/vim-surround               ) | Insert quotes/brackets around vim objects       |
 | [lexima.vim           ](https://github.com/cohama/lexima.vim                ) | Auto close quotes/brackets                      |
