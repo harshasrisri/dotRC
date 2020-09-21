@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-surround'
     Plug 'cohama/lexima.vim'
     Plug 'Yggdroot/indentLine'
-    Plug 'lifepillar/vim-mucomplete', { 'for': ['rust','c','cpp'] }
+    Plug 'lifepillar/vim-mucomplete'
     Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
     Plug 'majutsushi/tagbar'
     Plug 'm-pilia/vim-ccls'
@@ -147,14 +147,12 @@ call plug#end()
     nnoremap <leader>fh :History<CR>
     nnoremap <leader>fc :Commands<CR>
     nnoremap <leader>fm :Maps<CR>
-    nnoremap <leader>ff :Files<CR>
+    nnoremap <leader>ff :Fd<CR>
     nnoremap <leader>fr :Rg<Space>
     let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
     let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899'"
-    command! -nargs=? -complete=dir AF
-                \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
-                \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
-                \ })))
+    command! -nargs=? -complete=dir Fd call fzf#run(fzf#wrap(fzf#vim#with_preview({
+        \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>) })))
 
 "" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
@@ -204,6 +202,7 @@ call plug#end()
     let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
     let g:mucomplete#can_complete = {}
     let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+    let g:mucomplete#can_complete.VimspectorPrompt = { 'omni': s:cpp_cond }
     let g:mucomplete#chains = {}
     let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'uspl']
 
@@ -218,9 +217,9 @@ call plug#end()
 
 "" LanguageClient
     function! LCN_Mappings()
-        let g:LanguageClient_fzfOptions = fzf#vim#with_preview('right:50%', '?').options
+        let g:LanguageClient_fzfOptions = fzf#vim#with_preview().options
         let g:LanguageClient_serverCommands = {
-                    \ 'rust' : ['rustup', 'run', 'stable', 'rls'],
+                    \ 'rust' : ['rust-analyzer'],
                     \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log'],
                     \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log'],
                     \ }
