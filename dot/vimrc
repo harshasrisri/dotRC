@@ -14,6 +14,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'chaoren/vim-wordmotion'
     Plug 'wellle/targets.vim'
     Plug 'terryma/vim-expand-region'
+    Plug 't9md/vim-choosewin'
+    Plug 'mhinz/vim-signify'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
@@ -22,7 +24,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'Yggdroot/indentLine'
     Plug 'lifepillar/vim-mucomplete'
     Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
-    Plug 'majutsushi/tagbar'
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
+    Plug 'liuchengxu/vista.vim'
     Plug 'm-pilia/vim-ccls'
     Plug 'puremourning/vimspector'
 call plug#end()
@@ -66,13 +69,13 @@ call plug#end()
 
     set cursorline                         " Horizontal line to indicate cursor
     set colorcolumn=80                     " 80-column marker
+    set fillchars+=vert:▎                  " make the vertical split bar a slim line with no background
+    hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
+
     set termguicolors                      " Set terminal to true colors
     set background=dark                    " Set dark colorschemes
     silent! colorscheme onedark            " Set colorscheme to Solarized-dark
-    let g:onedark_terminal_italics=1
-    set guifont=Fira\ Code\ Retina:h10
-    set fillchars+=vert:▎                  " make the vertical split bar a slim line with no background
-    hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
+    let g:onedark_terminal_italics=1       " Enable italics in comments in OneDark Theme
 
     syntax on                              " Enable syntax highlighting
     filetype plugin indent on              " Enable Filetype indent plugin
@@ -83,7 +86,7 @@ call plug#end()
         "" Vim jumps to the last known position when reopening a file
         au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
         " Apply .vimrc on the fly after saving
-        au! BufWritePost .vimrc ++nested source $MYVIMRC
+        au! BufWritePost $MYVIMRC ++nested source $MYVIMRC
     augroup END
 
     if (!has('nvim'))
@@ -152,7 +155,7 @@ call plug#end()
     let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
     let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899'"
     command! -nargs=? -complete=dir Fd call fzf#run(fzf#wrap(fzf#vim#with_preview({
-        \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>) })))
+        \   'source': 'fd --type f --follow . '.expand(<q-args>) })))
 
 "" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
@@ -184,8 +187,20 @@ call plug#end()
     endfunction
 
     function! NearestMethodOrFunction() abort
-        return tagbar#currenttag('%s', '', 'f')
+        return get(b:, 'vista_nearest_method_or_function', '')
     endfunction
+
+"" Vista
+    let g:vista_update_on_text_changed = 1
+    let g:vista_sidebar_width = 50
+    let g:vista_echo_cursor_strategy = 'both'
+    let g:vista_stay_on_open = 0
+
+"" ChooseWin
+    nmap - <Plug>(choosewin)
+    let g:choosewin_overlay_enable = 1
+	let g:choosewin_color_overlay = { 'gui': ['DodgerBlue3', 'DodgerBlue3'], 'cterm': [25, 25] }
+	let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
 
 "" indentLine
     let g:indentLine_char = "│"
@@ -206,22 +221,13 @@ call plug#end()
     let g:mucomplete#chains = {}
     let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'uspl']
 
-"" Tagbar settings
-    let g:tagbar_width = 50
-    let g:tagbar_indent = 1
-    let g:tagbar_autoshowtag = 1
-    let g:tagbar_foldlevel = 9
-    let g:tagbar_sort = 0
-    let g:tagbar_case_insensitive = 1
-    let g:tagbar_singleclick = 1
-
 "" LanguageClient
     function! LCN_Mappings()
         let g:LanguageClient_fzfOptions = fzf#vim#with_preview().options
         let g:LanguageClient_serverCommands = {
                     \ 'rust' : ['rust-analyzer'],
-                    \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log'],
-                    \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log'],
+                    \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
+                    \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
                     \ }
 
         set omnifunc=LanguageClient#complete
