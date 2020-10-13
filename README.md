@@ -29,16 +29,20 @@ Please Backup whatever is important ALWAYS!
 | [tabular              ](https://github.com/godlygeek/tabular                ) | Text alignment                                  |
 | [vim-fugitive         ](https://github.com/tpope/vim-fugitive               ) | Fantastic git integration                       |
 | [vim-wordmotion       ](https://github.com/chaoren/vim-wordmotion           ) | Handle CamelCase, snake_case or pascalCase      |
-| [vim-rsi              ](https://github.com/tpope/vim-rsi'                   ) | Use readline shortcuts in insert/command modes  |
-| [targets.vim          ](https://github.com/wellle/targets.vim'              ) | More target definitions for compound actions    |
-| [vim-expand-region    ](https://github.com/terryma/vim-expand-region'       ) | Incrementally expand scope of visual selection  |
+| [vim-rsi              ](https://github.com/tpope/vim-rsi                    ) | Use readline shortcuts in insert/command modes  |
+| [targets.vim          ](https://github.com/wellle/targets.vim               ) | More target definitions for compound actions    |
+| [vim-expand-region    ](https://github.com/terryma/vim-expand-region        ) | Incrementally expand scope of visual selection  |
+| [vim-choosewin        ](https://github.com/t9md/vim-choosewin               ) | Overlay hints to choose a window among many     |
+| [vim-signify          ](https://github.com/mhinz/signify                    ) | Show VCS change-hints in the gutter of a buffer |
 | [vim-commentary       ](https://github.com/tpope/vim-commentary             ) | Bulk commenting with repeat support             |
 | [vim-surround         ](https://github.com/tpope/vim-surround               ) | Insert quotes/brackets around vim objects       |
 | [lexima.vim           ](https://github.com/cohama/lexima.vim                ) | Auto close quotes/brackets                      |
 | [indentLine           ](https://github.com/Yggdroot/indentLine              ) | Show a visual indent line                       |
 | [vim-mucomplete       ](https://github.com/lifepillar/vim-mucomplete        ) | LSP aware light weight completion               |
 | [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim   ) | LSP provider with a Rust backend                |
-| [tagbar               ](https://github.com/majutsushi/tagbar                ) | Ctags based tag sidebar                         |
+| [vim-lsp-cxx-highlight](https://github.com/jackguo380/vim-lsp-cxx-highlight ) | Semantic highlighting for C++ code using LSP    |
+| [vista.vim            ](https://github.com/liuchengxu/vista.vim             ) | Async tagbar plugin with ctags/LSP backend      |
+| [vim-ccls             ](https://github.com/m-pilia/vim-ccls                 ) | Browse class/function hierarchies using ccls    |
 | [vimspector           ](https://github.com/puremourning/vimspector          ) | Debugger interface using LSP-like DAP           |
 
 ### TMUX Plugins
