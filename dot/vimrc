@@ -105,9 +105,10 @@ call plug#end()
     nnoremap <leader>P "+P
     nnoremap <leader>p "+p
     " Place cursor after copy/paste position in Normal/Visual mode
-    vnoremap <silent> y y`]
-    vnoremap <silent> p p`]
-    nnoremap <silent> p p`]
+    " and automatically indent the pasted region as per context
+    vnoremap <silent>y y`]
+    nnoremap <silent>p p`[v`]=
+    nnoremap <silent>P P`[v`]=
     nnoremap Y y$
     nnoremap x "_x
 
@@ -214,6 +215,8 @@ call plug#end()
     set completeopt+=menuone,noselect,noinsert
     set noinfercase
     let g:mucomplete#enable_auto_at_startup = 1
+    let g:mucomplete#completion_delay = 50
+	let g:mucomplete#reopen_immediately = 0
     let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
     let g:mucomplete#can_complete = {}
     let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
@@ -232,6 +235,7 @@ call plug#end()
                     \ 'rust' : ['rust-analyzer'],
                     \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
                     \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
+                    \ 'java' : ['jdtls', '-data', getcwd(), '-Dlog.level=ALL'],
                     \ }
 
         set omnifunc=LanguageClient#complete
@@ -271,8 +275,8 @@ call plug#end()
 
     augroup LCN_AutoCommands
         au!
-        au FileType rust,c,cpp silent call LCN_Mappings()
-        au CursorMoved,CursorMovedI *.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
+        au FileType rust,c,cpp,java silent call LCN_Mappings()
+        au CursorMoved,CursorMovedI *.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
     augroup END
 
 " Vimspector
