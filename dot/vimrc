@@ -113,6 +113,9 @@ call plug#end()
     nnoremap x "_x
 
 "" Navigation
+    " Easy buffer navigation
+    nnoremap <C-n> :bnext<CR>
+    nnoremap <C-p> :bprevious<CR>
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
@@ -154,7 +157,7 @@ call plug#end()
     nnoremap <leader>ff :Fd<CR>
     nnoremap <leader>fr :Rg<Space>
     let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
-    let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899' --delimiter ':' --preview-window '+{2}-20'"
+    let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899' --delimiter ':' --preview-window '+{2}-/3'"
     command! -nargs=? -complete=dir Fd call fzf#run(fzf#wrap(fzf#vim#with_preview({
         \   'source': 'fd --type f --follow . '.expand(<q-args>) })))
 
