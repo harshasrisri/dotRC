@@ -28,12 +28,13 @@ Please Backup whatever is important ALWAYS!
 | [fzf.vim              ](https://github.com/junegunn/fzf.vim                 ) | Plugin to use the fuzzy finder                  |
 | [tabular              ](https://github.com/godlygeek/tabular                ) | Text alignment                                  |
 | [vim-fugitive         ](https://github.com/tpope/vim-fugitive               ) | Fantastic git integration                       |
-| [vim-wordmotion       ](https://github.com/chaoren/vim-wordmotion           ) | Handle CamelCase, snake_case or pascalCase      |
 | [vim-rsi              ](https://github.com/tpope/vim-rsi                    ) | Use readline shortcuts in insert/command modes  |
+| [vim-wordmotion       ](https://github.com/chaoren/vim-wordmotion           ) | Handle CamelCase, snake_case or pascalCase      |
 | [targets.vim          ](https://github.com/wellle/targets.vim               ) | More target definitions for compound actions    |
 | [vim-expand-region    ](https://github.com/terryma/vim-expand-region        ) | Incrementally expand scope of visual selection  |
 | [vim-choosewin        ](https://github.com/t9md/vim-choosewin               ) | Overlay hints to choose a window among many     |
 | [vim-signify          ](https://github.com/mhinz/signify                    ) | Show VCS change-hints in the gutter of a buffer |
+| [vim-markdown-toc     ](https://github.com/mzlogin/vim-markdown-toc         ) | Create/Update table of contents for Markdown    |
 | [vim-commentary       ](https://github.com/tpope/vim-commentary             ) | Bulk commenting with repeat support             |
 | [vim-surround         ](https://github.com/tpope/vim-surround               ) | Insert quotes/brackets around vim objects       |
 | [lexima.vim           ](https://github.com/cohama/lexima.vim                ) | Auto close quotes/brackets                      |

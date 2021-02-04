@@ -16,6 +16,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'terryma/vim-expand-region'
     Plug 't9md/vim-choosewin'
     Plug 'mhinz/vim-signify'
+    Plug 'mzlogin/vim-markdown-toc'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
