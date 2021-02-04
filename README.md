@@ -1,18 +1,19 @@
 # dotRC
 My shell environment to setup and manage The Text Triumvirate : Vim + Tmux + Zsh.
+![Screenshot](screenshot.png)
 
 ## Install
-1. Updates this repository if necessary.
-2. Makes links to the [dot files](dot) in the $HOME directory.
-3. Installs plugin managers and plugins for each tool.
-
-~~~
-git clone http://github.com/harshasrisri/dotRC.git
-cd dotRC
+```sh
+git clone http://github.com/harshasrisri/dotRC.git ~/.rc
+cd ~/.rc
 ./setup
-~~~
+```
+Running `./setup` does the following:
+1. Clones / updates this repository if necessary.
+2. Makes links to the [dot files](dot) in the $HOME directory.
+3. Installs plugin managers and plugins for each tool. (except Zim)
 
-Please Backup whatever is important ALWAYS!
+Needless to say, please Backup whatever is important ALWAYS!
 
 ## Plugins
 
