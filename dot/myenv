@@ -71,4 +71,9 @@ gri () {
     git rebase -i @~"${1}"
 }
 
+fzkill () {
+    [ -z "$1" ] && echo "$0: requires one argument" && return
+    ps aux | grep -e ${USER:0:7} -e "$1" | fzf | awk '{ print $2 }' | xargs -I {} kill -9 {}
+}
+
 # vim: ft=sh
