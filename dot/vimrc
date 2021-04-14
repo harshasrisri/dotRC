@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugins')
     Plug 't9md/vim-choosewin'
     Plug 'mhinz/vim-signify'
     Plug 'mzlogin/vim-markdown-toc'
+    Plug 'euclio/vim-markdown-composer'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
@@ -240,6 +241,7 @@ call plug#end()
                     \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
                     \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
                     \ 'java' : ['jdtls', '-data', getcwd(), '-Dlog.level=ALL'],
+                    \ 'go'   : ['gopls'],
                     \ }
 
         set omnifunc=LanguageClient#complete
@@ -279,8 +281,8 @@ call plug#end()
 
     augroup LCN_AutoCommands
         au!
-        au FileType rust,c,cpp,java silent call LCN_Mappings()
-        au CursorMoved,CursorMovedI *.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
+        au FileType rust,c,cpp,java,go silent call LCN_Mappings()
+        au CursorMoved,CursorMovedI *go,*.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
     augroup END
 
 " Vimspector
