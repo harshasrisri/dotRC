@@ -1,0 +1,68 @@
+env:
+  TERM: xterm-256color
+
+window:
+  decorations: buttonless
+  startup_mode: Maximized
+
+font:
+  antialias: false
+  rgba: full
+
+  normal:
+    # family: "Source Code Pro for Powerline"
+    family: "MesloLGS NF"
+    style: Regular
+
+  bold:
+    family: "MesloLGS NF"
+    style: Bold
+
+  italic:
+    family: "MesloLGS NF"
+    style: Italic
+
+  bold_italic:
+    family: "MesloLGS NF"
+    style: Bold Italic
+
+  size: 11
+
+colors:
+  # Oxide
+  primary:
+    background: '#212121'
+    foreground: '#c0c5ce'
+    bright_foreground: '#f3f4f5'
+
+  cursor:
+    text: '#212121'
+    cursor: '#c0c5ce'
+
+  normal:
+    black:   '#212121'
+    red:     '#e57373'
+    green:   '#a6bc69'
+    yellow:  '#fac863'
+    blue:    '#6699cc'
+    magenta: '#c594c5'
+    cyan:    '#5fb3b3'
+    white:   '#c0c5ce'
+
+  bright:
+    black:   '#5c5c5c'
+    red:     '#e57373'
+    green:   '#a6bc69'
+    yellow:  '#fac863'
+    blue:    '#6699cc'
+    magenta: '#c594c5'
+    cyan:    '#5fb3b3'
+    white:   '#f3f4f5'
+
+  indexed_colors: []
+
+live_config_reload: true
+draw_bold_text_with_bright_colors: false
+
+mouse:
+  hide_when_typing: true
