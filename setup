@@ -29,11 +29,15 @@ install_vim_plugins() {
 install_tmux_plugins () {
     export tpm_path="$tmux_dir/plugins/tpm"
     if [ -e ${tpm_path} ]; then
-        git -C ${tpm_path} pull --quiet
-        echo -n "TMUX: " && ${tpm_path}/bin/update_plugins all
+        git -C ${tpm_path} pull --quiet \
+            && echo "TMUX - Updating plugins:" \
+            && ${tpm_path}/bin/update_plugins all \
+            && return
     else
-        git clone https://github.com/tmux-plugins/tpm ${tpm_path} --quiet
-        echo -n "TMUX: " && ${tpm_path}/bin/install_plugins
+        git clone https://github.com/tmux-plugins/tpm ${tpm_path} --quiet \
+            && echo "TMUX - Installing plugins:" \
+            && ${tpm_path}/bin/install_plugins \
+            && return
     fi
 }
 
