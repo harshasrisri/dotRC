@@ -1,4 +1,3 @@
-# EXPORTS
 if [ -z "$(which nvim 2>/dev/null)" ]; then 
     export EDITOR="vim"; 
     alias vi=vim
@@ -11,10 +10,8 @@ fi
 export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
 export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
-# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10"
 export PATH=$PATH:$_MY_BIN_DIR
 
-# ALIASES
 alias ls='ls --color=auto -CF'
 alias ll='ls -lFht'
 alias la='ls -a'
@@ -30,7 +27,11 @@ alias .v='vi ~/.vimrc'
 alias .n='vi ~/.config/nvim/init.vim'
 alias .z='vi ~/.zimrc'
 alias .t='vi ~/.tmux.conf'
+alias .gc='vi ~/.gitconfig'
+alias .gi='vi ~/.gitignore'
+alias .gl='vi ~/.gitconfig.local'
 alias .rc='cd ${_MY_RC_DIR}/..'
+alias .x='exec zsh -l'
 
 alias wget='wget -c'
 alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'

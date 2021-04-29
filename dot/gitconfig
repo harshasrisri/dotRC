@@ -1,0 +1,43 @@
+[user]
+    name = Sriharsha Mucheli
+
+[include]
+    path = ~/.gitconfig.local
+
+[diff]
+    tool = nvimdiff
+
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
+[core]
+	excludesFile = ~/.gitignore
+    pager = delta
+
+[delta]
+    features = side-by-side line-numbers decorations
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow ul ol 
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+    line-numbers-left-style = cyan
+    line-numbers-right-style = cyan
+
+[interactive]
+    diffFilter = delta --color-only
+
+[alias]
+    wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
+
+[pull]
+	rebase = false
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
+[init]
+	defaultBranch = main
