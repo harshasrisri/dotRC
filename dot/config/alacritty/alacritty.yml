@@ -2,8 +2,9 @@ env:
   TERM: xterm-256color
 
 window:
-  decorations: buttonless
-  startup_mode: Maximized
+  decorations: full
+  startup_mode: Windowed
+  dynamic_padding: true
 
 font:
   antialias: false
@@ -26,7 +27,7 @@ font:
     family: "MesloLGS NF"
     style: Bold Italic
 
-  size: 11
+  size: 10.5
 
 colors:
   # Oxide
@@ -62,7 +63,7 @@ colors:
   indexed_colors: []
 
 live_config_reload: true
-draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 mouse:
   hide_when_typing: true
