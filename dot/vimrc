@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/fzf.vim'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
+    Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-rsi'
     Plug 'chaoren/vim-wordmotion'
     Plug 'wellle/targets.vim'
@@ -242,6 +243,7 @@ call plug#end()
                     \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
                     \ 'java' : ['jdtls', '-data', getcwd(), '-Dlog.level=ALL'],
                     \ 'go'   : ['gopls'],
+                    \ 'python' : ['pyls'],
                     \ }
 
         set omnifunc=LanguageClient#complete
@@ -281,8 +283,8 @@ call plug#end()
 
     augroup LCN_AutoCommands
         au!
-        au FileType rust,c,cpp,java,go silent call LCN_Mappings()
-        au CursorMoved,CursorMovedI *go,*.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
+        au FileType rust,c,cpp,java,go,python silent call LCN_Mappings()
+        au CursorMoved,CursorMovedI *.py,*.go,*.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
     augroup END
 
 " Vimspector
@@ -299,3 +301,8 @@ call plug#end()
     nmap <leader>sn <Plug>VimspectorStepOver
     nmap <leader>si <Plug>VimspectorStepInto
     nmap <leader>so <Plug>VimspectorStepOut
+
+" Blamer - GitLens for Vim
+let g:blamer_enabled = 1
+let g:blamer_prefix = '     '
+let g:blamer_delay = 500
