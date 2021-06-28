@@ -7,19 +7,26 @@ else
     alias vi=nvim
 fi
 
-export GREP_OPTIONS=
 export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
 export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
 export PATH=$PATH:$_MY_BIN_DIR
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 
-alias ls='ls --color=auto -CF'
-alias ll='ls -lFht'
+if [ ! -z "$(which exa)" ]; then
+    # using exa
+    alias ls='exa'
+    alias ll='ls -lFhrs time'
+else 
+    # using ls
+    alias ls='ls --color=auto -CF'
+    alias ll='ls -lFht'
+fi
+
 alias la='ls -a'
-alias lla='ls -lFhta'
-alias lr='ls -R'
+alias lla='ll -a'
 alias l.='ls -d .*'
-alias ll.='ls -lFhtd .*'
+alias ll.='ll .*'
+alias lr='ls -R'
 
 alias .ml='vi ~/.myshrc.local'
 alias .m='vi ~/.myshrc'
@@ -36,13 +43,14 @@ alias .gl='vi ~/.gitconfig.local'
 alias .rc='cd ${_MY_RC_DIR}/..'
 alias .x='exec zsh -l'
 
-alias wget='wget -c'
-alias grep='grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
+alias wget='wget --continue'
+alias grep='GREP_OPTIONS= grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias pgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
 
 alias -g ga='git add'
 alias -g gl='git log --oneline --decorate --date=relative --graph -10 --pretty=format:"%C(yellow)%h %Cred%>(12,trunc)%ad %Cblue%<(12)%aN%Cgreen%d%Creset %s"'
 alias -g gs='git status'
+alias -g gsi='git status --ignored'
 alias -g gss='git status --short'
 alias -g gd='git diff'
 alias -g gdt='git difftool'
@@ -61,8 +69,6 @@ alias -g gps='git push'
 alias -g gcp='git cherry-pick'
 alias -g gf='git fetch'
 
-alias ff='find -type f -name'
-
 alias tml='tmux ls'
 alias tma='tmux attach -t'
 alias tmn='tmux new -s'
@@ -73,11 +79,6 @@ gri () {
         return
     fi
     git rebase -i @~"${1}"
-}
-
-fzkill () {
-    [ -z "$1" ] && echo "$0: requires one argument" && return
-    ps aux | grep -e ${USER:0:7} -e "$1" | fzf | awk '{ print $2 }' | xargs -I {} kill -9 {}
 }
 
 # vim: ft=sh
