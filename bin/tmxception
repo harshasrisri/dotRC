@@ -4,8 +4,10 @@ popup_name="tmxception-${1:-scratch}"
 shift
 exec_cmd=${@:-zsh -l}
 
+alias tmux='tmux -L default'
 if [ "$(tmux display-message -p -F "#{session_name}")" = "${popup_name}" ];then
     tmux detach-client
 else
     tmux popup -d '#{pane_current_path}' -xC -yC -w80% -h80% -E "tmux attach -t ${popup_name} || tmux new -s ${popup_name} ${exec_cmd}"
 fi
+unalias tmux
