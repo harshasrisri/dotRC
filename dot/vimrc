@@ -8,6 +8,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'junegunn/vim-peekaboo'
     Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all --no-update-rc' }
     Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/limelight.vim'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
     Plug 'APZelos/blamer.nvim'
@@ -303,6 +305,11 @@ call plug#end()
     nmap <leader>so <Plug>VimspectorStepOut
 
 " Blamer - GitLens for Vim
-let g:blamer_enabled = 1
-let g:blamer_prefix = '     '
-let g:blamer_delay = 500
+    let g:blamer_enabled = 1
+    let g:blamer_prefix = '     '
+    let g:blamer_delay = 500
+
+" Goyo and Limelight
+    let g:goyo_width = "80%"
+    let g:goyo_height = "90%"
+    let g:goyo_linenr = 1
