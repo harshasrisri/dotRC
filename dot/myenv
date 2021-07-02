@@ -71,8 +71,8 @@ alias -g gcp='git cherry-pick'
 alias -g gf='git fetch'
 
 alias tml='tmux -L default ls'
-alias tma='tmux -L default attach -t'
-alias tmn='tmux -L default new -s'
+alias tma='exec tmux -L default attach -t'
+alias tmn='exec tmux -L default new -s'
 
 gri () { 
     if [ -z "${1}" ]; then
