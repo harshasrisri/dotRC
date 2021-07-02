@@ -33,7 +33,8 @@ alias .m='vi ~/.myshrc'
 alias .me='vi ~/.myenv'
 alias .v='vi ~/.vimrc'
 alias .n='vi ~/.config/nvim/init.vim'
-alias .z='vi ~/.zimrc'
+alias .z='vi ~/.zshrc'
+alias .zm='vi ~/.zimrc'
 alias .t='vi ~/.tmux.conf'
 alias .p='vi ~/.p10k.zsh'
 alias .a='vi ~/.config/alacritty/alacritty.yml'
@@ -69,9 +70,9 @@ alias -g gps='git push'
 alias -g gcp='git cherry-pick'
 alias -g gf='git fetch'
 
-alias tml='tmux ls'
-alias tma='tmux attach -t'
-alias tmn='tmux new -s'
+alias tml='tmux -L default ls'
+alias tma='tmux -L default attach -t'
+alias tmn='tmux -L default new -s'
 
 gri () { 
     if [ -z "${1}" ]; then
@@ -80,5 +81,15 @@ gri () {
     fi
     git rebase -i @~"${1}"
 }
+
+# make ZSH fzf-tab plugin use tmux popup for auto completion workflows
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-pad 120 80
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
 
 # vim: ft=sh
