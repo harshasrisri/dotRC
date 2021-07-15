@@ -11,6 +11,7 @@ export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
 export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
 export PATH=$PATH:$_MY_BIN_DIR
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+export RUSTC_WRAPPER=$(which sccache 2>/dev/null)
 
 if [ ! -z "$(which exa)" ]; then
     # using exa
@@ -70,6 +71,7 @@ alias -g gps='git push'
 alias -g gcp='git cherry-pick'
 alias -g gf='git fetch'
 
+alias tab='exec tabmux'
 alias tml='tmux -L default ls'
 alias tma='exec tmux -L default attach -t'
 alias tmn='exec tmux -L default new -s'
