@@ -5,22 +5,22 @@ call plug#begin('~/.vim/plugins')
     Plug 'mengelbrecht/lightline-bufferline'
     
     "" Common Utilities
-    Plug 'junegunn/vim-peekaboo'
+    " Plug 'junegunn/vim-peekaboo'
     " Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all --no-update-rc' }
     " Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/goyo.vim'
-    Plug 'junegunn/limelight.vim'
-    Plug 'godlygeek/tabular', {'on' : 'Tab'}
+    " Plug 'junegunn/goyo.vim'
+    " Plug 'junegunn/limelight.vim'
+    " Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
-    Plug 'APZelos/blamer.nvim'
+    " Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-rsi'
-    Plug 'chaoren/vim-wordmotion'
+    " Plug 'chaoren/vim-wordmotion'
     Plug 'wellle/targets.vim'
-    Plug 'terryma/vim-expand-region'
+    " Plug 'terryma/vim-expand-region'
     Plug 't9md/vim-choosewin'
     Plug 'mhinz/vim-signify'
-    Plug 'mzlogin/vim-markdown-toc'
-    Plug 'euclio/vim-markdown-composer'
+    " Plug 'mzlogin/vim-markdown-toc'
+    " Plug 'euclio/vim-markdown-composer'
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
@@ -29,17 +29,13 @@ call plug#begin('~/.vim/plugins')
     Plug 'Yggdroot/indentLine'
     " Plug 'lifepillar/vim-mucomplete'
     " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
-    Plug 'jackguo380/vim-lsp-cxx-highlight'
-    Plug 'liuchengxu/vista.vim'
-    Plug 'm-pilia/vim-ccls'
-    Plug 'puremourning/vimspector'
+    " Plug 'jackguo380/vim-lsp-cxx-highlight'
+    " Plug 'liuchengxu/vista.vim'
+    " Plug 'm-pilia/vim-ccls'
+    " Plug 'puremourning/vimspector'
 
     "" Lua based config
     Plug 'neovim/nvim-lspconfig'
-    Plug 'glepnir/lspsaga.nvim'
-    Plug 'nvim-lua/completion-nvim'
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -211,10 +207,10 @@ call plug#end()
     endfunction
 
 "" Vista
-    let g:vista_update_on_text_changed = 1
-    let g:vista_sidebar_width = 50
-    let g:vista_echo_cursor_strategy = 'both'
-    let g:vista_stay_on_open = 0
+    " let g:vista_update_on_text_changed = 1
+    " let g:vista_sidebar_width = 50
+    " let g:vista_echo_cursor_strategy = 'both'
+    " let g:vista_stay_on_open = 0
 
 "" ChooseWin
     nmap - <Plug>(choosewin)
@@ -301,19 +297,19 @@ call plug#end()
     " augroup END
 
 " Vimspector
-    " Debugger continue, stop, restart and pause
-    nmap <leader>dc <Plug>VimspectorContinue
-    nmap <leader>ds <Plug>VimspectorStop
-    nmap <leader>dr <Plug>VimspectorRestart
-    nmap <leader>dp <Plug>VimspectorPause
-    " Regular, conditional and functional breakpoints
-    nmap <leader>bp <Plug>VimspectorToggleBreakpoint
-    nmap <leader>bc <Plug>VimspectorToggleConditionalBreakpoint
-    nmap <leader>bf <Plug>VimspectorAddFunctionBreakpoint
-    " Next line, Step Into and Step Out of functions
-    nmap <leader>sn <Plug>VimspectorStepOver
-    nmap <leader>si <Plug>VimspectorStepInto
-    nmap <leader>so <Plug>VimspectorStepOut
+    " " Debugger continue, stop, restart and pause
+    " nmap <leader>dc <Plug>VimspectorContinue
+    " nmap <leader>ds <Plug>VimspectorStop
+    " nmap <leader>dr <Plug>VimspectorRestart
+    " nmap <leader>dp <Plug>VimspectorPause
+    " " Regular, conditional and functional breakpoints
+    " nmap <leader>bp <Plug>VimspectorToggleBreakpoint
+    " nmap <leader>bc <Plug>VimspectorToggleConditionalBreakpoint
+    " nmap <leader>bf <Plug>VimspectorAddFunctionBreakpoint
+    " " Next line, Step Into and Step Out of functions
+    " nmap <leader>sn <Plug>VimspectorStepOver
+    " nmap <leader>si <Plug>VimspectorStepInto
+    " nmap <leader>so <Plug>VimspectorStepOut
 
 " Blamer - GitLens for Vim
     let g:blamer_enabled = 1
