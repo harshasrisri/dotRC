@@ -10,17 +10,52 @@ augroup highlight_yank
 augroup END
 
 let g:vimsyn_embed = 'l'
-" -------------------- LSP ---------------------------------
+
 lua << EOF
+------------------------- Git Signs -----------------------
+require('gitsigns').setup({ current_line_blame = true, current_line_blame_delay = 500 })
+vim.api.nvim_exec([[ hi! link GitSignsCurrentLineBlame Comment ]], false)
+
+--------------------- Indent Blankline --------------------
+require('indent_blankline').setup({ 
+    use_tresitter = true, 
+    char_list = {'|', '¦', '┆', '┊'} 
+})
+
+----------------------- ToDo Comments ---------------------
+require('todo-comments').setup()
+
+-- Mappings
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
 local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
--- Mappings.
 local opts = { noremap=true, silent=true }
 
+---------------------------- Telescope -------------------------
+buf_set_keymap('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opts)
+buf_set_keymap('n', '<leader>f:', '<cmd>Telescope commands<cr>', opts)
+buf_set_keymap('n', '<leader>f?', '<cmd>Telescope search_history<cr>', opts)
+buf_set_keymap('n', '<leader>fK', '<cmd>Telescope man_pages<cr>', opts)
+buf_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opts)
+buf_set_keymap('n', '<leader>fe', '<cmd>Telescope file_browser<cr>', opts)
+buf_set_keymap('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
+buf_set_keymap('n', '<leader>fh', '<cmd>Telescope oldfiles<cr>', opts)
+buf_set_keymap('n', '<leader>fj', '<cmd>Telescope jumplist<cr>', opts)
+buf_set_keymap('n', '<leader>fl', '<cmd>Telescope live_grep<cr>', opts)
+buf_set_keymap('n', '<leader>fm', '<cmd>Telescope builtin<cr>', opts)
+buf_set_keymap('n', '<leader>fo', '<cmd>Telescope vim_options<cr>', opts)
+buf_set_keymap('n', '<leader>fq', '<cmd>Telescope command_history<cr>', opts)
+buf_set_keymap('n', '<leader>fr', '<cmd>Telescope grep_string<cr>', opts)
+buf_set_keymap('n', '<leader>ft', '<cmd>Telescope treesitter<cr>', opts)
+buf_set_keymap('n', '<leader>gC', '<cmd>Telescope git_commits<cr>', opts)
+buf_set_keymap('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', opts)
+buf_set_keymap('n', '<leader>gc', '<cmd>Telescope git_bcommits<cr>', opts)
+buf_set_keymap('n', '<leader>gf', '<cmd>Telescope git_files<cr>', opts)
+buf_set_keymap('n', '<leader>gs', '<cmd>Telescope git_status<cr>', opts)
+
+--------------------------- LSP ---------------------------
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 buf_set_keymap('n', '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 buf_set_keymap('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -70,28 +105,5 @@ require'nvim-treesitter.configs'.setup {
     enable = true
     },
 }
-EOF
-" -------------------- LSP ---------------------------------
 
-" -------------------- Telescope ---------------------------------
-nnoremap <leader>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <leader>f: <cmd>Telescope commands<cr>
-nnoremap <leader>f? <cmd>Telescope search_history<cr>
-nnoremap <leader>fK <cmd>Telescope man_pages<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fe <cmd>Telescope file_browser<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fh <cmd>Telescope oldfiles<cr>
-nnoremap <leader>fj <cmd>Telescope jumplist<cr>
-nnoremap <leader>fl <cmd>Telescope live_grep<cr>
-nnoremap <leader>fm <cmd>Telescope builtin<cr>
-nnoremap <leader>fo <cmd>Telescope vim_options<cr>
-nnoremap <leader>fq <cmd>Telescope command_history<cr>
-nnoremap <leader>fr <cmd>Telescope grep_string<cr>
-nnoremap <leader>ft <cmd>Telescope treesitter<cr>
-nnoremap <leader>gC <cmd>Telescope git_commits<cr>
-nnoremap <leader>gb <cmd>Telescope git_branches<cr>
-nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
-nnoremap <leader>gf <cmd>Telescope git_files<cr>
-nnoremap <leader>gs <cmd>Telescope git_status<cr>
-" -------------------- Telescope ---------------------------------
+EOF

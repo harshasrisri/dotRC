@@ -6,19 +6,14 @@ call plug#begin('~/.vim/plugins')
     
     "" Common Utilities
     " Plug 'junegunn/vim-peekaboo'
-    " Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all --no-update-rc' }
-    " Plug 'junegunn/fzf.vim'
     " Plug 'junegunn/goyo.vim'
     " Plug 'junegunn/limelight.vim'
     " Plug 'godlygeek/tabular', {'on' : 'Tab'}
     Plug 'tpope/vim-fugitive'
-    " Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-rsi'
     " Plug 'chaoren/vim-wordmotion'
     Plug 'wellle/targets.vim'
-    " Plug 'terryma/vim-expand-region'
     Plug 't9md/vim-choosewin'
-    Plug 'mhinz/vim-signify'
     " Plug 'mzlogin/vim-markdown-toc'
     " Plug 'euclio/vim-markdown-composer'
     
@@ -26,9 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
     Plug 'cohama/lexima.vim'
-    Plug 'Yggdroot/indentLine'
     " Plug 'lifepillar/vim-mucomplete'
-    " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
     " Plug 'jackguo380/vim-lsp-cxx-highlight'
     " Plug 'liuchengxu/vista.vim'
     " Plug 'm-pilia/vim-ccls'
@@ -40,6 +33,10 @@ call plug#begin('~/.vim/plugins')
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'lewis6991/gitsigns.nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'folke/todo-comments.nvim'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -159,20 +156,6 @@ call plug#end()
     "" Easy enter command mode
     nnoremap ; :
 
-"" FZF
-    " nnoremap <leader>fb :Buffers<CR>
-    " nnoremap <leader>f/ :BLines<CR>
-    " nnoremap <leader>fl :Lines<CR>
-    " nnoremap <leader>fh :History<CR>
-    " nnoremap <leader>fc :Commands<CR>
-    " nnoremap <leader>fm :Maps<CR>
-    " nnoremap <leader>ff :Fd<CR>
-    " nnoremap <leader>fr :Rg<Space>
-    " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
-    " let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899' --delimiter ':' --preview-window '+{2}-/3'"
-    " command! -nargs=? -complete=dir Fd call fzf#run(fzf#wrap(fzf#vim#with_preview({
-    "     \   'source': 'fd --type f --follow . '.expand(<q-args>) })))
-
 "" Lightline+Bufferline
     let g:lightline#bufferline#unnamed = '[new]'
     let g:lightline#bufferline#filename_modifier = ':t'
@@ -218,84 +201,6 @@ call plug#end()
 	let g:choosewin_color_overlay = { 'gui': ['DodgerBlue3', 'DodgerBlue3'], 'cterm': [25, 25] }
 	let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
 
-"" indentLine
-    let g:indentLine_char = "│"
-    let g:indentLine_faster = 1
-
-"" MuComplete
-    " set shortmess+=c
-    " set belloff+=ctrlg
-    " set complete=.,w,b,u,k
-    " set completeopt-=preview
-    " set completeopt+=menuone,noselect,noinsert
-    " set noinfercase
-    " let g:mucomplete#enable_auto_at_startup = 1
-    " let g:mucomplete#completion_delay = 50
-	" let g:mucomplete#reopen_immediately = 0
-    " let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
-    " let g:mucomplete#can_complete = {}
-    " let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
-    " let g:mucomplete#can_complete.VimspectorPrompt = { 'omni': s:cpp_cond }
-    " let g:mucomplete#chains = {}
-    " let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'uspl']
-
-"" LanguageClient
-	" function! LcnFzfSelectionUI(source, sink) abort
-	" 	return fzf#run(fzf#wrap(fzf#vim#with_preview({'source': a:source, 'sink': a:sink})))
-	" endfunction
-
-    " function! LCN_Mappings()
-        " let g:LanguageClient_selectionUI = function('LcnFzfSelectionUI')
-        " let g:LanguageClient_serverCommands = {
-                    " \ 'rust' : ['rust-analyzer'],
-                    " \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
-                    " \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
-                    " \ 'java' : ['jdtls', '-data', getcwd(), '-Dlog.level=ALL'],
-                    " \ 'go'   : ['gopls'],
-                    " \ 'python' : ['pyls'],
-                    " \ }
-
-        " set omnifunc=LanguageClient#complete
-        " set completefunc=LanguageClient#complete
-        " set formatexpr=LanguageClient#textDocument_rangeFormatting()
-        " set signcolumn=yes
-
-        " " Go to symbol definition
-        " nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-        " " Go to definition of type of symbol
-        " nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-        " " Show all base class definitions
-        " nnoremap <leader>lb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<CR>
-        " " Show all derived class definitions
-        " nnoremap <leader>lD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<CR>
-        " " Find all references to the symbol
-        " nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-        " " Find all the callers of a method
-        " nnoremap <leader>lc :call LanguageClient#findLocations({'method':'$ccls/call'})<CR>
-        " " Find all the callees of a method
-        " nnoremap <leader>lC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<CR>
-        " " Trigger hover action over a symbol for additional context
-        " nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-        " " Menu opening all available LangServer options
-        " nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
-        " " Rename Symbol
-        " nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-        " " Find all the implementations
-        " nnoremap <leader>li :call :LanguageClient#textDocument_implementation()<CR>
-    " endfunction
-
-    " function! LCN_Highlighting(running) abort
-        " if a:running.result
-            " call LanguageClient#textDocument_documentHighlight()
-        " endif
-    " endfunction
-
-    " augroup LCN_AutoCommands
-        " au!
-        " au FileType rust,c,cpp,java,go,python silent call LCN_Mappings()
-        " au CursorMoved,CursorMovedI *.py,*.go,*.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
-    " augroup END
-
 " Vimspector
     " " Debugger continue, stop, restart and pause
     " nmap <leader>dc <Plug>VimspectorContinue
@@ -311,15 +216,7 @@ call plug#end()
     " nmap <leader>si <Plug>VimspectorStepInto
     " nmap <leader>so <Plug>VimspectorStepOut
 
-" Blamer - GitLens for Vim
-    let g:blamer_enabled = 1
-    let g:blamer_prefix = '     '
-    let g:blamer_delay = 500
-
 " Goyo and Limelight
     let g:goyo_width = "80%"
     let g:goyo_height = "90%"
     let g:goyo_linenr = 1
-
-" Snippet support
-let g:completion_enable_snippet = 'UltiSnips'
