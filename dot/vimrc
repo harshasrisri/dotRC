@@ -1,29 +1,23 @@
 call plug#begin('~/.vim/plugins')
-    "" Eye Candy
-    Plug 'joshdick/onedark.vim'
+    Plug 'cohama/lexima.vim'
+    Plug 'euclio/vim-markdown-composer'
     Plug 'itchyny/lightline.vim'
+    Plug 'joshdick/onedark.vim'
+    Plug 'liuchengxu/vista.vim'
     Plug 'mengelbrecht/lightline-bufferline'
-    
-    "" Common Utilities
+    Plug 'mzlogin/vim-markdown-toc'
+    Plug 't9md/vim-choosewin'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-rsi'
+    Plug 'tpope/vim-surround'
+    Plug 'wellle/targets.vim'
     " Plug 'junegunn/vim-peekaboo'
     " Plug 'junegunn/goyo.vim'
     " Plug 'junegunn/limelight.vim'
     " Plug 'godlygeek/tabular', {'on' : 'Tab'}
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-rsi'
     " Plug 'chaoren/vim-wordmotion'
-    Plug 'wellle/targets.vim'
-    Plug 't9md/vim-choosewin'
-    " Plug 'mzlogin/vim-markdown-toc'
-    " Plug 'euclio/vim-markdown-composer'
-    
-    "" Common Programming Utilities
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-surround'
-    Plug 'cohama/lexima.vim'
-    " Plug 'lifepillar/vim-mucomplete'
-    " Plug 'jackguo380/vim-lsp-cxx-highlight'
-    " Plug 'liuchengxu/vista.vim'
     " Plug 'm-pilia/vim-ccls'
     " Plug 'puremourning/vimspector'
 
@@ -37,6 +31,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'folke/todo-comments.nvim'
+    Plug 'hrsh7th/nvim-compe'
+    Plug 'onsails/lspkind-nvim'
+    Plug 'ray-x/lsp_signature.nvim'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -190,10 +187,10 @@ call plug#end()
     endfunction
 
 "" Vista
-    " let g:vista_update_on_text_changed = 1
-    " let g:vista_sidebar_width = 50
-    " let g:vista_echo_cursor_strategy = 'both'
-    " let g:vista_stay_on_open = 0
+    let g:vista_update_on_text_changed = 1
+    let g:vista_sidebar_width = 50
+    let g:vista_echo_cursor_strategy = 'both'
+    let g:vista_stay_on_open = 0
 
 "" ChooseWin
     nmap - <Plug>(choosewin)

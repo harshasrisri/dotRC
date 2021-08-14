@@ -14,4 +14,5 @@ lua << EOF
 require('config/telescope')
 require('config/lsp')
 require('config/misc')
+require('config/compe')
 EOF
