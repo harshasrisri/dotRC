@@ -19,3 +19,10 @@ require'nvim-treesitter.configs'.setup {
         enable = true
     },
 }
+
+-------------------------- LSP Kind -----------------------
+require('lspkind').init()
+
+
+---------------------- LSP Signature ----------------------
+require('lsp_signature').setup()
