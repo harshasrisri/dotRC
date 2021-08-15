@@ -62,3 +62,9 @@ require('zen-mode').setup {
         tmux = { enabled = false }     -- disables tmux statusline
     },
 }
+
+----------------------- Which Key -------------------------
+require('which-key').setup()
+
+------------------Treesitter Context ----------------------
+require('treesitter-context').setup()
