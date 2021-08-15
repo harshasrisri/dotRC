@@ -12,12 +12,9 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-rsi'
     Plug 'tpope/vim-surround'
     Plug 'wellle/targets.vim'
-    " Plug 'junegunn/vim-peekaboo'
-    " Plug 'junegunn/goyo.vim'
-    " Plug 'junegunn/limelight.vim'
+    Plug 'chaoren/vim-wordmotion'
+    Plug 'm-pilia/vim-ccls'
     " Plug 'godlygeek/tabular', {'on' : 'Tab'}
-    " Plug 'chaoren/vim-wordmotion'
-    " Plug 'm-pilia/vim-ccls'
     " Plug 'puremourning/vimspector'
 
     "" Lua based config
@@ -37,6 +34,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'simrat39/symbols-outline.nvim'
     Plug 'folke/zen-mode.nvim'
     Plug 'folke/twilight.nvim'
+    Plug 'folke/which-key.nvim'
+    Plug 'romgrk/nvim-treesitter-context'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -202,8 +201,3 @@ call plug#end()
     " nmap <leader>sn <Plug>VimspectorStepOver
     " nmap <leader>si <Plug>VimspectorStepInto
     " nmap <leader>so <Plug>VimspectorStepOut
-
-" Goyo and Limelight
-    let g:goyo_width = "80%"
-    let g:goyo_height = "90%"
-    let g:goyo_linenr = 1
