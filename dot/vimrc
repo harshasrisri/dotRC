@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'itchyny/lightline.vim'
     Plug 'joshdick/onedark.vim'
     Plug 'liuchengxu/vista.vim'
-    Plug 'mengelbrecht/lightline-bufferline'
     Plug 'mzlogin/vim-markdown-toc'
     Plug 't9md/vim-choosewin'
     Plug 'tpope/vim-commentary'
@@ -34,6 +33,10 @@ call plug#begin('~/.vim/plugins')
     Plug 'hrsh7th/nvim-compe'
     Plug 'onsails/lspkind-nvim'
     Plug 'ray-x/lsp_signature.nvim'
+    Plug 'akinsho/nvim-bufferline.lua'
+    Plug 'simrat39/symbols-outline.nvim'
+    Plug 'folke/zen-mode.nvim'
+    Plug 'folke/twilight.nvim'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -126,8 +129,8 @@ call plug#end()
     nnoremap j gj
     nnoremap k gk
     " Move between buffers easily
-    nnoremap <C-n> :bnext<CR>
-    nnoremap <C-p> :bprev<CR>
+    " nnoremap <C-n> :bnext<CR>
+    " nnoremap <C-p> :bprev<CR>
     " Go to first/last non-blank character
     nnoremap 0 ^
     nnoremap $ g_
@@ -153,10 +156,7 @@ call plug#end()
     "" Easy enter command mode
     nnoremap ; :
 
-"" Lightline+Bufferline
-    let g:lightline#bufferline#unnamed = '[new]'
-    let g:lightline#bufferline#filename_modifier = ':t'
-    let g:lightline#bufferline#unicode_symbols = 1
+"" Lightline
     let g:lightline = {
         \ 'colorscheme': 'onedark',
         \ 'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified' , 'fugitive', 'filename', 'method' ] ] },
@@ -181,16 +181,6 @@ call plug#end()
         let branch = FugitiveHead()
         return branch !=# '' ? ' '.branch : ''
     endfunction
-
-    function! NearestMethodOrFunction() abort
-        return get(b:, 'vista_nearest_method_or_function', '')
-    endfunction
-
-"" Vista
-    let g:vista_update_on_text_changed = 1
-    let g:vista_sidebar_width = 50
-    let g:vista_echo_cursor_strategy = 'both'
-    let g:vista_stay_on_open = 0
 
 "" ChooseWin
     nmap - <Plug>(choosewin)

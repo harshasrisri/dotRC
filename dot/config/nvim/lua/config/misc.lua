@@ -23,6 +23,42 @@ require'nvim-treesitter.configs'.setup {
 -------------------------- LSP Kind -----------------------
 require('lspkind').init()
 
+--------------------- Symbols Outline ---------------------
+require('symbols-outline').setup()
 
 ---------------------- LSP Signature ----------------------
 require('lsp_signature').setup()
+
+--------------------- Nvim Bufferline ---------------------
+vim.opt.termguicolors = true
+require('bufferline').setup {
+    options = {
+        show_tab_indicators = true,
+        separator_style = 'slant'
+    }
+}
+utils.map('n', 'C-n', ':BufferLineCycleNext<CR>')
+utils.map('n', 'C-p', ':BufferLineCyclePrev<CR>')
+
+------------------- Zen Mode & Twilight -------------------
+require('twilight').setup {
+    context = 0,
+}
+
+require('zen-mode').setup {
+    window = {
+        backdrop = 1,
+        width = 0.8,
+        height = 0.9,
+        options = {
+            number = false,         -- disable number column
+            relativenumber = false, -- disable relative numbers
+            foldcolumn = "0",       -- disable fold column
+            list = false,           -- disable whitespace characters
+        },
+    },
+    plugins = {
+        gitsigns = { enabled = true }, -- disables git signs
+        tmux = { enabled = false }     -- disables tmux statusline
+    },
+}
