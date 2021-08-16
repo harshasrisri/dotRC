@@ -7,7 +7,8 @@ vim.api.nvim_exec([[ hi! link GitSignsCurrentLineBlame Comment ]], false)
 --------------------- Indent Blankline --------------------
 require('indent_blankline').setup({ 
     use_tresitter = true, 
-    char_list = {'|', '¦', '┆', '┊'} 
+    char_list = { '┊' , '┆' , '¦', '|' },
+    show_first_indent_level = false,
 })
 
 ----------------------- ToDo Comments ---------------------
@@ -76,3 +77,6 @@ require("nvim-autopairs.completion.compe").setup({
   map_complete = true, -- it will auto insert `(` after select function or method item
   auto_select = false,  -- auto select first item
 })
+
+--------------------- Smooth Scroll -----------------------
+require('neoscroll').setup()

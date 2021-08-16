@@ -2,7 +2,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'euclio/vim-markdown-composer'
     Plug 'itchyny/lightline.vim'
     Plug 'joshdick/onedark.vim'
-    Plug 'liuchengxu/vista.vim'
     Plug 'mzlogin/vim-markdown-toc'
     Plug 't9md/vim-choosewin'
     Plug 'tpope/vim-commentary'
@@ -13,7 +12,6 @@ call plug#begin('~/.vim/plugins')
     Plug 'wellle/targets.vim'
     Plug 'chaoren/vim-wordmotion'
     Plug 'm-pilia/vim-ccls'
-    " Plug 'cohama/lexima.vim'
     " Plug 'godlygeek/tabular', {'on' : 'Tab'}
     " Plug 'puremourning/vimspector'
 
@@ -37,6 +35,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'folke/which-key.nvim'
     Plug 'romgrk/nvim-treesitter-context'
     Plug 'windwp/nvim-autopairs'
+    Plug 'karb94/neoscroll.nvim'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
