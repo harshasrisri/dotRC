@@ -38,10 +38,8 @@ require'compe'.setup {
 
 vim.api.nvim_exec([[
     highlight link CompeDocumentation NormalFloat
-    let g:lexima_no_default_rules = v:true
-    call lexima#set_default_rules()
     inoremap <silent><expr> <C-Space> compe#complete()
-    inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+    inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
     inoremap <silent><expr> <C-e>     compe#close('<C-e>')
     inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
     inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
@@ -85,4 +83,3 @@ utils.map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 utils.map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 utils.map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 utils.map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-utils.map("i", "<CR>", "compe#confirm({ 'keys': '<CR>', 'select': v:true })", { expr = true })
