@@ -37,6 +37,8 @@ call plug#begin('~/.vim/plugins')
     Plug 'windwp/nvim-autopairs'
     Plug 'karb94/neoscroll.nvim'
     Plug 'mizlan/iswap.nvim'
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
