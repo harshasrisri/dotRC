@@ -41,8 +41,8 @@ require('bufferline').setup {
         separator_style = 'slant'
     }
 }
-utils.map('n', 'C-n', ':BufferLineCycleNext<CR>')
-utils.map('n', 'C-p', ':BufferLineCyclePrev<CR>')
+utils.map('n', '<C-n>', ':BufferLineCycleNext<CR>')
+utils.map('n', '<C-p>', ':BufferLineCyclePrev<CR>')
 
 ------------------- Zen Mode & Twilight -------------------
 require('twilight').setup { context = 0 }
