@@ -1,8 +1,6 @@
 call plug#begin('~/.vim/plugins')
-    Plug 'euclio/vim-markdown-composer'
     Plug 'itchyny/lightline.vim'
     Plug 'joshdick/onedark.vim'
-    Plug 'mzlogin/vim-markdown-toc'
     Plug 't9md/vim-choosewin'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
@@ -11,8 +9,10 @@ call plug#begin('~/.vim/plugins')
     Plug 'tpope/vim-surround'
     Plug 'wellle/targets.vim'
     Plug 'chaoren/vim-wordmotion'
-    Plug 'm-pilia/vim-ccls'
-    " Plug 'godlygeek/tabular', {'on' : 'Tab'}
+    Plug 'm-pilia/vim-ccls', { 'for' : ['c', 'cpp']}
+    Plug 'godlygeek/tabular', {'on' : 'Tab'}
+    Plug 'euclio/vim-markdown-composer', { 'for' : 'markdown'}
+    Plug 'mzlogin/vim-markdown-toc', { 'for' : 'markdown'}
     " Plug 'puremourning/vimspector'
 
     "" Lua based config
@@ -36,6 +36,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'romgrk/nvim-treesitter-context'
     Plug 'windwp/nvim-autopairs'
     Plug 'karb94/neoscroll.nvim'
+    Plug 'mizlan/iswap.nvim'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -93,8 +94,6 @@ call plug#end()
         autocmd!
         "" Vim jumps to the last known position when reopening a file
         au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-        " Apply .vimrc on the fly after saving
-        au! BufWritePost $MYVIMRC ++nested source $MYVIMRC
     augroup END
 
     if (!has('nvim'))
@@ -127,9 +126,6 @@ call plug#end()
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
-    " Move between buffers easily
-    " nnoremap <C-n> :bnext<CR>
-    " nnoremap <C-p> :bprev<CR>
     " Go to first/last non-blank character
     nnoremap 0 ^
     nnoremap $ g_

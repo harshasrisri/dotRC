@@ -1,15 +1,18 @@
 local utils = require('utils')
 
 ------------------------- Git Signs -----------------------
-require('gitsigns').setup({ current_line_blame = true, current_line_blame_delay = 500 })
+require('gitsigns').setup { 
+    current_line_blame = true, 
+    current_line_blame_delay = 500,
+}
 vim.api.nvim_exec([[ hi! link GitSignsCurrentLineBlame Comment ]], false)
 
 --------------------- Indent Blankline --------------------
-require('indent_blankline').setup({ 
+require('indent_blankline').setup { 
     use_tresitter = true, 
     char_list = { '┊' , '┆' , '¦', '|' },
     show_first_indent_level = false,
-})
+}
 
 ----------------------- ToDo Comments ---------------------
 require('todo-comments').setup()
@@ -42,9 +45,7 @@ utils.map('n', 'C-n', ':BufferLineCycleNext<CR>')
 utils.map('n', 'C-p', ':BufferLineCyclePrev<CR>')
 
 ------------------- Zen Mode & Twilight -------------------
-require('twilight').setup {
-    context = 0,
-}
+require('twilight').setup { context = 0 }
 
 require('zen-mode').setup {
     window = {
@@ -80,3 +81,7 @@ require("nvim-autopairs.completion.compe").setup({
 
 --------------------- Smooth Scroll -----------------------
 require('neoscroll').setup()
+
+----------------------- ISwap Nvim ------------------------
+utils.map('n', '<leader>gS', ':ISwap<CR>')
+utils.map('n', '<leader>gs', ':ISwapWith<CR>')
