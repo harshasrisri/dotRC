@@ -1,6 +1,5 @@
 call plug#begin('~/.vim/plugins')
     Plug 'itchyny/lightline.vim'
-    Plug 'joshdick/onedark.vim'
     Plug 't9md/vim-choosewin'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
@@ -39,6 +38,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'mizlan/iswap.nvim'
     Plug 'L3MON4D3/LuaSnip'
     Plug 'rafamadriz/friendly-snippets'
+    Plug 'EdenEast/nightfox.nvim'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -155,7 +155,7 @@ call plug#end()
 
 "" Lightline
     let g:lightline = {
-        \ 'colorscheme': 'onedark',
+        \ 'colorscheme': 'nightfox',
         \ 'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified' , 'fugitive', 'filename', 'method' ] ] },
         \ 'component': { 'lineinfo': ' %3l:%-2v' },
         \ 'separator': { 'left': '', 'right': '' },
