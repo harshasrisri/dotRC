@@ -85,3 +85,9 @@ require('neoscroll').setup()
 ----------------------- ISwap Nvim ------------------------
 utils.map('n', '<leader>gS', ':ISwap<CR>')
 utils.map('n', '<leader>gs', ':ISwapWith<CR>')
+
+------------------- NightFox Colorscheme ------------------
+vim.g.nightfox_terminal_colors    = true
+vim.g.nightfox_italic_comments    = true
+vim.g.nightfox_italic_strings     = true
+require('nightfox').set()
