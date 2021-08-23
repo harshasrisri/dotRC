@@ -6,3 +6,5 @@ dot/tmux/*
 *.swp
 .gitmodules
 .bkup
+plugins
+tempfiles

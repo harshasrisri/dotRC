@@ -1,44 +1,38 @@
 call plug#begin('~/.vim/plugins')
+    "" Eye Candy
+    Plug 'joshdick/onedark.vim'
     Plug 'itchyny/lightline.vim'
-    Plug 't9md/vim-choosewin'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-rsi'
-    Plug 'tpope/vim-surround'
-    Plug 'wellle/targets.vim'
-    Plug 'chaoren/vim-wordmotion'
-    Plug 'm-pilia/vim-ccls', { 'for' : ['c', 'cpp']}
+    Plug 'mengelbrecht/lightline-bufferline'
+    
+    "" Common Utilities
+    Plug 'junegunn/vim-peekaboo'
+    Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all --no-update-rc' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/limelight.vim'
     Plug 'godlygeek/tabular', {'on' : 'Tab'}
-    Plug 'euclio/vim-markdown-composer', { 'for' : 'markdown'}
-    Plug 'mzlogin/vim-markdown-toc', { 'for' : 'markdown'}
-    " Plug 'puremourning/vimspector'
-
-    "" Lua based config
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'lewis6991/gitsigns.nvim'
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'lukas-reineke/indent-blankline.nvim'
-    Plug 'folke/todo-comments.nvim'
-    Plug 'hrsh7th/nvim-compe'
-    Plug 'onsails/lspkind-nvim'
-    Plug 'ray-x/lsp_signature.nvim'
-    Plug 'akinsho/nvim-bufferline.lua'
-    Plug 'simrat39/symbols-outline.nvim'
-    Plug 'folke/zen-mode.nvim'
-    Plug 'folke/twilight.nvim'
-    Plug 'folke/which-key.nvim'
-    Plug 'romgrk/nvim-treesitter-context'
-    Plug 'windwp/nvim-autopairs'
-    Plug 'karb94/neoscroll.nvim'
-    Plug 'mizlan/iswap.nvim'
-    Plug 'L3MON4D3/LuaSnip'
-    Plug 'rafamadriz/friendly-snippets'
-    Plug 'EdenEast/nightfox.nvim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'APZelos/blamer.nvim'
+    Plug 'tpope/vim-rsi'
+    Plug 'chaoren/vim-wordmotion'
+    Plug 'wellle/targets.vim'
+    Plug 'terryma/vim-expand-region'
+    Plug 't9md/vim-choosewin'
+    Plug 'mhinz/vim-signify'
+    Plug 'mzlogin/vim-markdown-toc'
+    Plug 'euclio/vim-markdown-composer'
+    
+    "" Common Programming Utilities
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
+    Plug 'cohama/lexima.vim'
+    Plug 'Yggdroot/indentLine'
+    Plug 'lifepillar/vim-mucomplete'
+    Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
+    Plug 'liuchengxu/vista.vim'
+    Plug 'm-pilia/vim-ccls'
+    Plug 'puremourning/vimspector'
 call plug#end()
 
 " NOTE: See Neovim Specific settings in ~/.config/nvim/init.vim
@@ -96,6 +90,8 @@ call plug#end()
         autocmd!
         "" Vim jumps to the last known position when reopening a file
         au! BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+        " Apply .vimrc on the fly after saving
+        au! BufWritePost $MYVIMRC ++nested source $MYVIMRC
     augroup END
 
     if (!has('nvim'))
@@ -128,6 +124,9 @@ call plug#end()
     " Go between lines in wrapped lines.
     nnoremap j gj
     nnoremap k gk
+    " Move between buffers easily
+    nnoremap <C-n> :bnext<CR>
+    nnoremap <C-p> :bprev<CR>
     " Go to first/last non-blank character
     nnoremap 0 ^
     nnoremap $ g_
@@ -153,9 +152,26 @@ call plug#end()
     "" Easy enter command mode
     nnoremap ; :
 
-"" Lightline
+"" FZF
+    nnoremap <leader>fb :Buffers<CR>
+    nnoremap <leader>f/ :BLines<CR>
+    nnoremap <leader>fl :Lines<CR>
+    nnoremap <leader>fh :History<CR>
+    nnoremap <leader>fc :Commands<CR>
+    nnoremap <leader>fm :Maps<CR>
+    nnoremap <leader>ff :Fd<CR>
+    nnoremap <leader>fr :Rg<Space>
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'rounded' } }
+    let $FZF_DEFAULT_OPTS = "--reverse --color 'preview-bg:#223344,border:#778899' --delimiter ':' --preview-window '+{2}-/3'"
+    command! -nargs=? -complete=dir Fd call fzf#run(fzf#wrap(fzf#vim#with_preview({
+        \   'source': 'fd --type f --follow . '.expand(<q-args>) })))
+
+"" Lightline+Bufferline
+    let g:lightline#bufferline#unnamed = '[new]'
+    let g:lightline#bufferline#filename_modifier = ':t'
+    let g:lightline#bufferline#unicode_symbols = 1
     let g:lightline = {
-        \ 'colorscheme': 'nightfox',
+        \ 'colorscheme': 'onedark',
         \ 'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified' , 'fugitive', 'filename', 'method' ] ] },
         \ 'component': { 'lineinfo': ' %3l:%-2v' },
         \ 'separator': { 'left': '', 'right': '' },
@@ -179,23 +195,121 @@ call plug#end()
         return branch !=# '' ? ' '.branch : ''
     endfunction
 
+    function! NearestMethodOrFunction() abort
+        return get(b:, 'vista_nearest_method_or_function', '')
+    endfunction
+
+"" Vista
+    let g:vista_update_on_text_changed = 1
+    let g:vista_sidebar_width = 50
+    let g:vista_echo_cursor_strategy = 'both'
+    let g:vista_stay_on_open = 0
+
 "" ChooseWin
     nmap - <Plug>(choosewin)
     let g:choosewin_overlay_enable = 1
 	let g:choosewin_color_overlay = { 'gui': ['DodgerBlue3', 'DodgerBlue3'], 'cterm': [25, 25] }
 	let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
 
+"" indentLine
+    let g:indentLine_char = "│"
+    let g:indentLine_faster = 1
+
+"" MuComplete
+    set shortmess+=c
+    set belloff+=ctrlg
+    set complete=.,w,b,u,k
+    set completeopt-=preview
+    set completeopt+=menuone,noselect,noinsert
+    set noinfercase
+    let g:mucomplete#enable_auto_at_startup = 1
+    let g:mucomplete#completion_delay = 50
+	let g:mucomplete#reopen_immediately = 0
+    let s:cpp_cond = { t -> (t =~# '\m\(\k\|)\|]\)\%\(->\|::\|\.\)$') || (g:mucomplete_with_key && t =~# '\m\k\k$') }
+    let g:mucomplete#can_complete = {}
+    let g:mucomplete#can_complete.cpp = { 'omni': s:cpp_cond }
+    let g:mucomplete#can_complete.VimspectorPrompt = { 'omni': s:cpp_cond }
+    let g:mucomplete#chains = {}
+    let g:mucomplete#chains.default = ['omni', 'c-n', 'path', 'tags', 'uspl']
+
+"" LanguageClient
+	function! LcnFzfSelectionUI(source, sink) abort
+		return fzf#run(fzf#wrap(fzf#vim#with_preview({'source': a:source, 'sink': a:sink})))
+	endfunction
+
+    function! LCN_Mappings()
+        let g:LanguageClient_selectionUI = function('LcnFzfSelectionUI')
+        let g:LanguageClient_serverCommands = {
+                    \ 'rust' : ['rust-analyzer'],
+                    \ 'cpp'  : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
+                    \ 'c'    : ['ccls', '--log-file=/tmp/ccls.log', '-init={"highlight": {"lsRanges": true }}'],
+                    \ 'java' : ['jdtls', '-data', getcwd(), '-Dlog.level=ALL'],
+                    \ 'go'   : ['gopls'],
+                    \ 'python' : ['pyls'],
+                    \ }
+
+        set omnifunc=LanguageClient#complete
+        set completefunc=LanguageClient#complete
+        set formatexpr=LanguageClient#textDocument_rangeFormatting()
+        set signcolumn=yes
+
+        " Go to symbol definition
+        nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+        " Go to definition of type of symbol
+        nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+        " Show all base class definitions
+        nnoremap <leader>lb :call LanguageClient#findLocations({'method':'$ccls/inheritance'})<CR>
+        " Show all derived class definitions
+        nnoremap <leader>lD :call LanguageClient#findLocations({'method':'$ccls/inheritance','derived':v:true})<CR>
+        " Find all references to the symbol
+        nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+        " Find all the callers of a method
+        nnoremap <leader>lc :call LanguageClient#findLocations({'method':'$ccls/call'})<CR>
+        " Find all the callees of a method
+        nnoremap <leader>lC :call LanguageClient#findLocations({'method':'$ccls/call','callee':v:true})<CR>
+        " Trigger hover action over a symbol for additional context
+        nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+        " Menu opening all available LangServer options
+        nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+        " Rename Symbol
+        nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+        " Find all the implementations
+        nnoremap <leader>li :call :LanguageClient#textDocument_implementation()<CR>
+    endfunction
+
+    function! LCN_Highlighting(running) abort
+        if a:running.result
+            call LanguageClient#textDocument_documentHighlight()
+        endif
+    endfunction
+
+    augroup LCN_AutoCommands
+        au!
+        au FileType rust,c,cpp,java,go,python silent call LCN_Mappings()
+        au CursorMoved,CursorMovedI *.py,*.go,*.java,*.rs,*.c,*.cpp,*.h,*.cc,*.hh silent call LanguageClient#isAlive(function('LCN_Highlighting'))
+    augroup END
+
 " Vimspector
-    " " Debugger continue, stop, restart and pause
-    " nmap <leader>dc <Plug>VimspectorContinue
-    " nmap <leader>ds <Plug>VimspectorStop
-    " nmap <leader>dr <Plug>VimspectorRestart
-    " nmap <leader>dp <Plug>VimspectorPause
-    " " Regular, conditional and functional breakpoints
-    " nmap <leader>bp <Plug>VimspectorToggleBreakpoint
-    " nmap <leader>bc <Plug>VimspectorToggleConditionalBreakpoint
-    " nmap <leader>bf <Plug>VimspectorAddFunctionBreakpoint
-    " " Next line, Step Into and Step Out of functions
-    " nmap <leader>sn <Plug>VimspectorStepOver
-    " nmap <leader>si <Plug>VimspectorStepInto
-    " nmap <leader>so <Plug>VimspectorStepOut
+    " Debugger continue, stop, restart and pause
+    nmap <leader>dc <Plug>VimspectorContinue
+    nmap <leader>ds <Plug>VimspectorStop
+    nmap <leader>dr <Plug>VimspectorRestart
+    nmap <leader>dp <Plug>VimspectorPause
+    " Regular, conditional and functional breakpoints
+    nmap <leader>bp <Plug>VimspectorToggleBreakpoint
+    nmap <leader>bc <Plug>VimspectorToggleConditionalBreakpoint
+    nmap <leader>bf <Plug>VimspectorAddFunctionBreakpoint
+    " Next line, Step Into and Step Out of functions
+    nmap <leader>sn <Plug>VimspectorStepOver
+    nmap <leader>si <Plug>VimspectorStepInto
+    nmap <leader>so <Plug>VimspectorStepOut
+
+" Blamer - GitLens for Vim
+    let g:blamer_enabled = 1
+    let g:blamer_prefix = '     '
+    let g:blamer_delay = 500
+
+" Goyo and Limelight
+    let g:goyo_width = "80%"
+    let g:goyo_height = "90%"
+    let g:goyo_linenr = 1
