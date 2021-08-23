@@ -74,9 +74,9 @@ require('treesitter-context').setup()
 ----------------------- Auto Pairs ------------------------
 require('nvim-autopairs').setup()
 require("nvim-autopairs.completion.compe").setup({
-  map_cr = true, --  map <CR> on insert mode
-  map_complete = true, -- it will auto insert `(` after select function or method item
-  auto_select = false,  -- auto select first item
+    map_cr = true, --  map <CR> on insert mode
+    map_complete = true, -- it will auto insert `(` after select function or method item
+    auto_select = false,  -- auto select first item
 })
 
 --------------------- Smooth Scroll -----------------------
@@ -91,3 +91,14 @@ vim.g.nightfox_terminal_colors    = true
 vim.g.nightfox_italic_comments    = true
 vim.g.nightfox_italic_strings     = true
 require('nightfox').set()
+
+------------------- NightFox Colorscheme ------------------
+require'shade'.setup({
+    overlay_opacity = 50,
+    opacity_step = 1,
+    keys = {
+        brightness_up    = '<C-Up>',
+        brightness_down  = '<C-Down>',
+        toggle           = '<leader>sh',
+    }
+})
