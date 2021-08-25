@@ -3,7 +3,6 @@ local utils = require('utils')
 ------------------------- Git Signs -----------------------
 require('gitsigns').setup { 
     current_line_blame = true, 
-    current_line_blame_delay = 500,
 }
 vim.api.nvim_exec([[ hi! link GitSignsCurrentLineBlame Comment ]], false)
 
