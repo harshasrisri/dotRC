@@ -1,6 +1,3 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath=&runtimepath
-
 call plug#begin('~/.config/nvim/plugins')
     Plug 'itchyny/lightline.vim'
     Plug 't9md/vim-choosewin'
@@ -54,46 +51,46 @@ call plug#end()
     set splitbelow                         " Open a new split below the current one
     set splitright                         " Open a new vertical split to the right of the current one
     set scrolloff=5                        " Nun lines to keep top and bottom of a window while scrolling
-    
+
     set updatetime=500                     " Time interval to update windows
     set backspace=indent,eol,start         " Backspace works over whitespaces also
     set formatoptions+=jcrn                " Join lines works well with comments
     set pastetoggle=<F2>                   " Toggle prevent unnecessary autoindent on mouse click paste
     set autoread                           " Auto reload files changed outside vim
     set mouse=a                            " Enable Mouse in all modes
-    
+
     set wildmenu                           " Pressing tab in command mode shows options on status bar
     set wildmode=longest:full,full         " Longest completion in wildmenu
     set laststatus=2                       " Display Statusbar always.
     set showtabline=2                      " Display tabline always.
-    
+
     set tabstop=4                          " Show a tabstop as 4 spaces
     set shiftwidth=4                       " Auto indent shifts 4 spaces
     set expandtab                          " Insert 4 spaces when Tab is pressed
-    
+
     set incsearch                          " Incremental Search
     set hlsearch                           " Highlight searches
     set smartcase                          " Ignore case if searching lowercase, not otherwise
-    
+
     set directory=~/.config/nvim/tempfiles/        " Central directory for swap files
     set backupdir=~/.config/nvim/tempfiles/        " Central directory for backup files
     set undodir=~/.config/nvim/tempfiles/          " Central directory for file undo history
     set undofile                           " Remember undo history for closed files
-    
+
     set cursorline                         " Horizontal line to indicate cursor
     set colorcolumn=80                     " 80-column marker
     set fillchars+=vert:▎                  " make the vertical split bar a slim line with no background
     hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
-    
+
     set termguicolors                      " Set terminal to true colors
     set background=dark                    " Set dark colorschemes
     silent! colorscheme onedark            " Set colorscheme to Solarized-dark
     let g:onedark_terminal_italics=1       " Enable italics in comments in OneDark Theme
-    
+
     syntax on                              " Enable syntax highlighting
     filetype plugin indent on              " Enable Filetype indent plugin
     let mapleader="\<Space>"               " For setting the leader
-    
+
     augroup Initializations
         autocmd!
         "" Vim jumps to the last known position when reopening a file
@@ -209,4 +206,5 @@ require('config/telescope')
 require('config/lsp')
 require('config/misc')
 require('config/compe')
+require('config/luasnip')
 EOF

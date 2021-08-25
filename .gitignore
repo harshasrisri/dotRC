@@ -8,3 +8,4 @@ dot/tmux/*
 .bkup
 plugins
 tempfiles
+autoload
