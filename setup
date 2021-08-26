@@ -19,10 +19,11 @@ install_vim_plugins() {
     vimPlug_path="$vim_dir/autoload/plug.vim"
     vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    download_file $vimPlug_url $vimPlug_path
+    [ ! -e ${vimPlug_path} ] && download_file $vimPlug_url $vimPlug_path
 
     echo -n "Updating vim plugins . . . "
     vim +PlugUpgrade +PlugUpdate +PlugClean +qa!
+    nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins +PlugClean +qa!
     echo " Done"
 }
 
@@ -39,18 +40,6 @@ install_tmux_plugins () {
             && ${tpm_path}/bin/install_plugins \
             && return
     fi
-}
-
-install_zsh_plugins () {
-    zimfw_installer="zimfw.zsh"
-    zimfw_url="https://raw.githubusercontent.com/zimfw/install/master/install.zsh"
-
-    download_file $zimfw_url $zimfw_installer
-
-    echo -n "Installing zimfw . . . "
-    cat $zimfw_installer | zsh
-    ln -snf $dot_dir/config/zimrc ~/.zimrc
-    exec zsh -l -c "cd && zimfw install"
 }
 
 make_links () {
@@ -74,10 +63,9 @@ fatal () {
 }
 
 main() {
-    root_dir=$PWD
-    dot_dir="$root_dir/dot"
-    vim_dir="$dot_dir/vim"
-    tmux_dir="$dot_dir/tmux"
+    dot_dir="$PWD/dot"
+    vim_dir="~/.vim"
+    tmux_dir="~/.tmux"
 
     echo -n "Updating Repo . . . " && git pull --quiet && echo " Done"
     if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
