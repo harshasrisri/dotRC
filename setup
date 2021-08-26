@@ -44,13 +44,13 @@ install_tmux_plugins () {
 
 make_links () {
     mkdir -p $vim_dir $tmux_dir
-    echo -n "Linking files... "
+    echo "Linking files . . ."
 
     for file in $(git ls-files $dot_dir/); do
         dotfile="$HOME/.${file#$(basename ${dot_dir})/}"
-        echo -n "${dotfile} "
         mkdir -p $(dirname $dotfile)
-        ln -snf $PWD/${file} ${dotfile}
+        echo -ne "\t"
+        ln -vsnf $PWD/${file} ${dotfile}
     done
 
     echo "... Done!"
