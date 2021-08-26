@@ -86,10 +86,15 @@ utils.map('n', '<leader>gS', ':ISwap<CR>')
 utils.map('n', '<leader>gs', ':ISwapWith<CR>')
 
 ------------------- NightFox Colorscheme ------------------
-vim.g.nightfox_terminal_colors    = true
-vim.g.nightfox_italic_comments    = true
-vim.g.nightfox_italic_strings     = true
-require('nightfox').set()
+nightfox = require('nightfox')
+nightfox.setup {
+    styles = {
+        comments = "italic",
+        strings = "italic",
+        keywords = "bold"
+    }
+}
+nightfox.load()
 
 ------------------- NightFox Colorscheme ------------------
 require'shade'.setup({
@@ -101,3 +106,7 @@ require'shade'.setup({
         toggle           = '<leader>sh',
     }
 })
+
+--------------------- Nvim Project ------------------------
+require('project_nvim').setup()
+require('telescope').load_extension('projects')
