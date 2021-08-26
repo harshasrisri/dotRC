@@ -1,14 +1,7 @@
-if [ -z "$(which nvim 2>/dev/null)" ]; then 
-    export EDITOR="vim"; 
-    alias vi=vim
-else 
-    export EDITOR="nvim"; 
-    export MANPAGER='nvim +Man!'
-    alias vi=nvim
-fi
+export _MY_RC_DIR="$(dirname $(readlink ~/.gitconfig))/.."
+export _MY_BIN_DIR="$(realpath ${_MY_RC_DIR}/bin)"
+export _MY_DOT_DIR="$(realpath ${_MY_RC_DIR}/dot)"
 
-export _MY_RC_DIR="$(dirname $(readlink ~/.vimrc))"
-export _MY_BIN_DIR=$(realpath ${_MY_RC_DIR}/../bin)
 export PATH=$PATH:$_MY_BIN_DIR
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 export RUSTC_WRAPPER=$(which sccache 2>/dev/null)
@@ -29,47 +22,60 @@ alias l.='ls -d .*'
 alias ll.='ll .*'
 alias lr='ls -R'
 
+if [ -z "$(which nvim 2>/dev/null)" ]; then 
+    export EDITOR="vim"
+else 
+    export EDITOR="nvim"; 
+    export MANPAGER='nvim +Man!'
+fi
+
+alias vi='${EDITOR}'
+
 alias .ml='vi ~/.myshrc.local'
-alias .m='vi ~/.myshrc'
-alias .me='vi ~/.myenv'
-alias .v='vi ~/.vimrc'
-alias .n='vi ~/.config/nvim/init.vim'
-alias .z='vi ~/.zshrc'
-alias .zm='vi ~/.zimrc'
-alias .t='vi ~/.tmux.conf'
-alias .p='vi ~/.p10k.zsh'
-alias .a='vi ~/.config/alacritty/alacritty.yml'
-alias .gc='vi ~/.gitconfig'
-alias .gi='vi ~/.gitignore'
 alias .gl='vi ~/.gitconfig.local'
-alias .rc='cd ${_MY_RC_DIR}/..'
-alias .x='exec zsh -l'
+
+alias  .m='vi ${_MY_RC_DIR}/dot/myshrc'
+alias .me='vi ${_MY_RC_DIR}/dot/myenv'
+alias  .v='vi ${_MY_RC_DIR}/dot/vim/vimrc'
+alias  .n='vi ${_MY_RC_DIR}/dot/config/nvim/init.vim'
+alias  .z='vi ${_MY_RC_DIR}/dot/zshrc'
+alias .zm='vi ${_MY_RC_DIR}/dot/zimrc'
+alias  .t='vi ${_MY_RC_DIR}/dot/tmux.conf'
+alias  .p='vi ${_MY_RC_DIR}/dot/p10k.zsh'
+alias  .a='vi ${_MY_RC_DIR}/dot/config/alacritty/alacritty.yml'
+alias .gc='vi ${_MY_RC_DIR}/dot/gitconfig'
+alias .gi='vi ${_MY_RC_DIR}/dot/gitignore'
+
+alias  .rc='cd ${_MY_RC_DIR}'
+alias .bin='cd ${_MY_RC_DIR}/bin'
+alias .dot='cd ${_MY_RC_DIR}/dot'
+alias   .x='exec zsh -l'
 
 alias wget='wget --continue'
 alias grep='GREP_OPTIONS= grep --color=auto --exclude-dir=.cvs --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn'
 alias pgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
 
-alias -g ga='git add'
-alias -g gl='git log --oneline --decorate --date=relative --graph -10 --pretty=format:"%C(yellow)%h %Cred%>(12,trunc)%ad %Cblue%<(12)%aN%Cgreen%d%Creset %s"'
-alias -g gs='git status'
-alias -g gsi='git status --ignored'
-alias -g gss='git status --short'
-alias -g gd='git diff'
-alias -g gdt='git difftool'
-alias -g gdc='git diff --cached'
-alias -g gdn='git diff --relative --name-only'
+alias -g   ga='git add'
+alias -g   gl='git log --oneline --decorate --date=relative --graph -10 --pretty=format:"%C(yellow)%h %Cred%>(12,trunc)%ad %Cblue%<(12)%aN%Cgreen%d%Creset %s"'
+alias -g   gs='git status'
+alias -g  gsi='git status --ignored'
+alias -g  gss='git status --short'
+alias -g   gd='git diff'
+alias -g  gdt='git difftool'
+alias -g  gdc='git diff --cached'
+alias -g  gdn='git diff --relative --name-only'
 alias -g gdns='git diff --relative --name-status'
-alias -g gcm='git commit -m'
+alias -g  gcm='git commit -m'
 alias -g gcma='git commit -am'
 alias -g gwta='git worktree add'
 alias -g gwtp='git worktree prune'
 alias -g gwtl='git worktree list'
-alias -g gco='git checkout'
-alias -g gbr='git branch'
-alias -g gpl='git pull'
-alias -g gps='git push'
-alias -g gcp='git cherry-pick'
-alias -g gf='git fetch'
+alias -g  gco='git checkout'
+alias -g  gbr='git branch'
+alias -g  gpl='git pull'
+alias -g  gps='git push'
+alias -g  gcp='git cherry-pick'
+alias -g   gf='git fetch'
 
 alias tab='exec tabmux'
 alias tml='tmux -L default ls'
