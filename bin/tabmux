@@ -1,5 +1,5 @@
 #!/bin/bash
 
-TMUX="tmux -f $HOME/.tmux.tabbed.conf -L tabbed"
+TMUX="tmux -f $HOME/.tabmux.conf -L tabmux"
 
-$TMUX attach -t tabbed || $TMUX new -s tabbed
+$TMUX attach -t tabmux || $TMUX new -s tabmux
