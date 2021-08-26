@@ -39,6 +39,7 @@ call plug#begin('~/.config/nvim/plugins')
     Plug 'rafamadriz/friendly-snippets'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'sunjon/shade.nvim'
+    Plug 'ahmedkhalf/project.nvim'
 call plug#end()
 
 "" Initializations
