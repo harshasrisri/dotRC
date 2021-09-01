@@ -151,6 +151,9 @@ call plug#end()
     inoremap jj <Esc>
     "" Easy enter command mode
     nnoremap ; :
+    "" Preserve visual selection during indentation
+    xnoremap < <gv
+    xnoremap > >gv
 
 "" FZF
     nnoremap <leader>fb :Buffers<CR>
