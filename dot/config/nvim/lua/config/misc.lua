@@ -96,8 +96,8 @@ nightfox.setup {
 }
 nightfox.load()
 
-------------------- NightFox Colorscheme ------------------
-require'shade'.setup({
+------------------------- Shade.nvim ----------------------
+require('shade').setup({
     overlay_opacity = 50,
     opacity_step = 1,
     keys = {
