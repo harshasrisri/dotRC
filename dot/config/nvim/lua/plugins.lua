@@ -1,4 +1,3 @@
-local utils = require('utils')
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -102,17 +101,18 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
 
     use {
         'akinsho/nvim-bufferline.lua',
-        requires = 'kyazdani42/nvim-web-devicons'
-        -- config = function()
-        --     require('bufferline').setup {
-        --         options = {
-        --             show_tab_indicators = true,
-        --             separator_style = 'slant',
-        --         }
-        --     }
-        --     utils.map('n', '<C-n>', ':BufferLineCycleNext<CR>')
-        --     utils.map('n', '<C-p>', ':BufferLineCyclePrev<CR>')
-        -- end
+        requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require('bufferline').setup {
+                options = {
+                    show_tab_indicators = true,
+                    separator_style = 'slant',
+                }
+            }
+            local utils = require('utils')
+            utils.map('n', '<C-n>', ':BufferLineCycleNext<CR>')
+            utils.map('n', '<C-p>', ':BufferLineCyclePrev<CR>')
+        end
     }
 
     use {
