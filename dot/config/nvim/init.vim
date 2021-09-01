@@ -4,7 +4,6 @@ require('config')
 require('plugins')
 require('config/telescope')
 require('config/lsp')
-require('config/misc')
 require('config/compe')
 require('config/luasnip')
 EOF
