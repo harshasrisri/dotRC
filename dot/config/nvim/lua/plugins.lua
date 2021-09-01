@@ -19,7 +19,7 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
     use 'chaoren/vim-wordmotion'
     use 'm-pilia/vim-ccls'
     use 'godlygeek/tabular'
-    use 'euclio/vim-markdown-composer'
+    use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked' }
     use 'mzlogin/vim-markdown-toc'
     use 'kyazdani42/nvim-web-devicons'
     use 'itchyny/lightline.vim'
@@ -102,13 +102,12 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
 
     use {
         'akinsho/nvim-bufferline.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = 'kyazdani42/nvim-web-devicons'
         -- config = function()
-        --     vim.opt.termguicolors = true
         --     require('bufferline').setup {
         --         options = {
         --             show_tab_indicators = true,
-        --             separator_style = 'slant'
+        --             separator_style = 'slant',
         --         }
         --     }
         --     utils.map('n', '<C-n>', ':BufferLineCycleNext<CR>')
