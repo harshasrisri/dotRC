@@ -1,5 +1,5 @@
 local utils = require('utils')
-
+require('telescope').load_extension('projects')
 ---------------------------- Telescope -------------------------
 utils.map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
 utils.map('n', '<leader>f:', '<cmd>Telescope commands<cr>')
