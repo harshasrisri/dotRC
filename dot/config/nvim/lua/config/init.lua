@@ -10,6 +10,9 @@ for _, plugin in pairs(disabled_built_ins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
+vim.opt.shell = "/bin/sh"
+vim.opt.lazyredraw = true
+
 vim.api.nvim_exec([[
 "" Initializations
 let mapleader="\<Space>"               " Setting the global leader key
