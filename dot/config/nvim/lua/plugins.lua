@@ -10,8 +10,8 @@ function()
     use 'wbthomason/packer.nvim'
     vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
     use {'lewis6991/impatient.nvim', rocks = 'mpack'}
-    use 'tpope/vim-commentary'
-    use { 'tpope/vim-fugitive', cmd = 'Git' }
+    use { 'terrortylor/nvim-comment', cmd = 'CommentToggle', config = function() require('nvim_comment').setup() end }
+    use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use 'tpope/vim-repeat'
     use 'tpope/vim-rsi'
     use 'tpope/vim-surround'
@@ -21,7 +21,7 @@ function()
     use { 'godlygeek/tabular', cmd = 'Tab' }
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
-    use { "tweekmonster/startuptime.vim", opt = true }
+    use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
 
     use {
         'famiu/feline.nvim',
@@ -57,12 +57,14 @@ function()
 
     use {
         'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
+        run = ':TSUpdate',
+        event = 'BufRead'
     }
 
     use {
         'lewis6991/gitsigns.nvim',
         requires = 'nvim-lua/plenary.nvim',
+        event = 'BufRead',
         config = function()
             require('gitsigns').setup { 
                 current_line_blame = true, 
@@ -90,6 +92,7 @@ function()
 
     use {
         'hrsh7th/nvim-compe',
+        event = 'InsertEnter',
         config = function() require('config/compe') end
     }
 
@@ -100,6 +103,7 @@ function()
 
     use {
         'ray-x/lsp_signature.nvim',
+        after = 'nvim-lspconfig',
         config = function() require('lsp_signature').setup() end
     }
 
@@ -156,6 +160,7 @@ function()
 
     use {
         'folke/which-key.nvim',
+        event = 'BufWinEnter',
         config = function() require('which-key').setup() end
     }
 
@@ -167,6 +172,7 @@ function()
 
     use {
         'windwp/nvim-autopairs',
+        after = 'nvim-compe',
         config = function()
             require('nvim-autopairs').setup()
             require("nvim-autopairs.completion.compe").setup({
@@ -184,6 +190,7 @@ function()
 
     use {
         'L3MON4D3/LuaSnip',
+        after = 'nvim-compe',
         requires = 'rafamadriz/friendly-snippets',
         config = function() require('config/luasnip') end
     }
