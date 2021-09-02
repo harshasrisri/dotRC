@@ -5,29 +5,37 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.cmd 'packadd packer.nvim'
 end
 
-return require('packer').startup(function()
+return require('packer').startup({
+function()
     use 'wbthomason/packer.nvim'
     vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
-use {'lewis6991/impatient.nvim', rocks = 'mpack'}
+    use {'lewis6991/impatient.nvim', rocks = 'mpack'}
     use 'tpope/vim-commentary'
-    use 'tpope/vim-fugitive'
+    use { 'tpope/vim-fugitive', cmd = 'Git' }
     use 'tpope/vim-repeat'
     use 'tpope/vim-rsi'
     use 'tpope/vim-surround'
     use 'wellle/targets.vim'
     use 'chaoren/vim-wordmotion'
-    use 'm-pilia/vim-ccls'
-    use 'godlygeek/tabular'
-    use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked' }
-    use 'mzlogin/vim-markdown-toc'
-    use 'kyazdani42/nvim-web-devicons'
-    use 'itchyny/lightline.vim'
+    use { 'm-pilia/vim-ccls', ft = 'cpp' }
+    use { 'godlygeek/tabular', cmd = 'Tab' }
+    use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
+    use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
+    use { "tweekmonster/startuptime.vim", opt = true }
+
+    use {
+        'famiu/feline.nvim',
+        config = function()
+            require('feline').setup()
+        end
+    }
 
     use {
         't9md/vim-choosewin',
+        cmd = 'ChooseWin',
         config = function()
             vim.api.nvim_exec([[
-                nmap - <Plug>(choosewin)
+                nmap - :ChooseWin<CR>
                 let g:choosewin_overlay_enable = 1
                 let g:choosewin_color_overlay = { 'gui': ['DodgerBlue3', 'DodgerBlue3'], 'cterm': [25, 25] }
                 let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
@@ -40,14 +48,10 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
         config = function() require('config/lsp') end
     }
 
-    use { 
-        'nvim-lua/popup.nvim', 
-        requires = 'nvim-lua/plenary.nvim' 
-    }
-
     use {
         'nvim-telescope/telescope.nvim',
-        requires = 'nvim-lua/plenary.nvim',
+        cmd = 'Telescope',
+        requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
         config = function() require('config/telescope') end
     }
 
@@ -122,6 +126,7 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
 
     use {
         'folke/zen-mode.nvim',
+        cmd = 'ZenMode',
         config = function()
             require('zen-mode').setup {
                 window = {
@@ -145,6 +150,7 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
 
     use {
         'folke/twilight.nvim',
+        cmd = 'TwilightEnable',
         config = function() require('twilight').setup { context = 0 } end
     }
 
@@ -199,6 +205,7 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
 
     use {
         'sunjon/shade.nvim',
+        event = BufSplit,
         config = function()
             require'shade'.setup({
                 overlay_opacity = 50,
@@ -216,7 +223,11 @@ use {'lewis6991/impatient.nvim', rocks = 'mpack'}
         'ahmedkhalf/project.nvim',
         config = function()
             require('project_nvim').setup()
-            require('telescope').load_extension('projects')
         end
     }
-end)
+end,
+config = {
+  display = {
+    open_fn = require('packer.util').float,
+  }
+}})
