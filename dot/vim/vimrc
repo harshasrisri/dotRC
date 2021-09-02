@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugins')
     Plug 'mhinz/vim-signify'
     Plug 'mzlogin/vim-markdown-toc'
     Plug 'euclio/vim-markdown-composer'
+    Plug 'tweekmonster/startuptime.vim', {'on' : 'StartupTime'}
     
     "" Common Programming Utilities
     Plug 'tpope/vim-commentary'
