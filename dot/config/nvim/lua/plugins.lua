@@ -50,7 +50,6 @@ function()
 
     use {
         'nvim-telescope/telescope.nvim',
-        cmd = 'Telescope',
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
         config = function() require('config/telescope') end
     }
