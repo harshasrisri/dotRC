@@ -5,29 +5,35 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.cmd 'packadd packer.nvim'
 end
 
+vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
+
 return require('packer').startup({
 function()
     use 'wbthomason/packer.nvim'
-    vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
-    use {'lewis6991/impatient.nvim', rocks = 'mpack'}
-    use { 'terrortylor/nvim-comment', cmd = 'CommentToggle', config = function() require('nvim_comment').setup() end }
-    use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use 'tpope/vim-repeat'
     use 'tpope/vim-rsi'
     use 'tpope/vim-surround'
     use 'wellle/targets.vim'
     use 'chaoren/vim-wordmotion'
+
+    use {'lewis6991/impatient.nvim', rocks = 'mpack'}
+    use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = 'cpp' }
     use { 'godlygeek/tabular', cmd = 'Tab' }
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
+    use { 'nvim-telescope/telescope.nvim', cmd = 'Telescope', requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' } }
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', event = 'BufRead' }
+
+    use { 
+        'terrortylor/nvim-comment', 
+        config = function() require('nvim_comment').setup() end 
+    }
 
     use {
         'famiu/feline.nvim',
-        config = function()
-            require('feline').setup()
-        end
+        config = function() require('feline').setup() end 
     }
 
     use {
@@ -35,7 +41,6 @@ function()
         cmd = 'ChooseWin',
         config = function()
             vim.api.nvim_exec([[
-                nmap - :ChooseWin<CR>
                 let g:choosewin_overlay_enable = 1
                 let g:choosewin_color_overlay = { 'gui': ['DodgerBlue3', 'DodgerBlue3'], 'cterm': [25, 25] }
                 let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
@@ -46,18 +51,6 @@ function()
     use {
         'neovim/nvim-lspconfig',
         config = function() require('config/lsp') end
-    }
-
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
-        config = function() require('config/telescope') end
-    }
-
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-        event = 'BufRead'
     }
 
     use {
@@ -91,7 +84,6 @@ function()
 
     use {
         'hrsh7th/nvim-compe',
-        event = 'InsertEnter',
         config = function() require('config/compe') end
     }
 
@@ -116,9 +108,6 @@ function()
                     separator_style = 'slant',
                 }
             }
-            local utils = require('utils')
-            utils.map('n', '<C-n>', ':BufferLineCycleNext<CR>')
-            utils.map('n', '<C-p>', ':BufferLineCyclePrev<CR>')
         end
     }
 
@@ -209,26 +198,28 @@ function()
         end
     }
 
-    use {
-        'sunjon/shade.nvim',
-        event = BufSplit,
-        config = function()
-            require'shade'.setup({
-                overlay_opacity = 50,
-                opacity_step = 1,
-                keys = {
-                    brightness_up    = '<C-Up>',
-                    brightness_down  = '<C-Down>',
-                    toggle           = '<leader>sh',
-                }
-            })
-        end
-    }
-
+--     use {
+--         'sunjon/shade.nvim',
+--         disabled = true,
+--         event = BufSplit,
+--         config = function()
+--             require'shade'.setup({
+--                 overlay_opacity = 50,
+--                 opacity_step = 1,
+--                 keys = {
+--                     brightness_up    = '<C-Up>',
+--                     brightness_down  = '<C-Down>',
+--                     toggle           = '<leader>sh',
+--                 }
+--             })
+--         end
+--     }
+-- 
     use {
         'ahmedkhalf/project.nvim',
         config = function()
             require('project_nvim').setup()
+            require('telescope').load_extension('projects')
         end
     }
 end,

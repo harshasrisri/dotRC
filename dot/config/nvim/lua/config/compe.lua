@@ -1,5 +1,3 @@
-local utils = require('utils')
-
 vim.cmd [[set shortmess+=c]]
 vim.o.completeopt = "menuone,noselect,noinsert"
 
@@ -30,7 +28,7 @@ require'compe'.setup {
         nvim_lua = true;
         treesitter = true;
         spell = { kind = "", true };
-        -- path = { kind = "", true };
+        path = { kind = "", true };
         path = true;
         calc = { kind = "∓", true };
         buffer = { kind = "﬘", true },
