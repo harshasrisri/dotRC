@@ -50,7 +50,7 @@ function()
 
     use {
         'neovim/nvim-lspconfig',
-        config = function() require('config/lsp') end
+        config = function() require('plugins/lsp') end
     }
 
     use {
@@ -84,7 +84,7 @@ function()
 
     use {
         'hrsh7th/nvim-compe',
-        config = function() require('config/compe') end
+        config = function() require('plugins/compe') end
     }
 
     use {
@@ -181,7 +181,7 @@ function()
         'L3MON4D3/LuaSnip',
         after = 'nvim-compe',
         requires = 'rafamadriz/friendly-snippets',
-        config = function() require('config/luasnip') end
+        config = function() require('plugins/luasnip') end
     }
 
     use {
