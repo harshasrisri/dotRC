@@ -9,14 +9,14 @@ vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 
 return require('packer').startup({
 function()
-    use 'wbthomason/packer.nvim'
+    use { 'wbthomason/packer.nvim', event = 'VimEnter' }
     use 'tpope/vim-repeat'
     use 'tpope/vim-rsi'
     use 'tpope/vim-surround'
     use 'wellle/targets.vim'
     use 'chaoren/vim-wordmotion'
 
-    use {'lewis6991/impatient.nvim', rocks = 'mpack'}
+    use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = 'cpp' }
     use { 'godlygeek/tabular', cmd = 'Tab' }
@@ -33,6 +33,7 @@ function()
 
     use {
         'famiu/feline.nvim',
+        after = 'nightfox.nvim',
         config = function() require('feline').setup() end 
     }
 
@@ -67,6 +68,7 @@ function()
 
     use { 
         'lukas-reineke/indent-blankline.nvim',
+        event = 'BufRead',
         config = function()
             require('indent_blankline').setup { 
                 use_tresitter = true, 
@@ -78,17 +80,20 @@ function()
 
     use { 
         'folke/todo-comments.nvim', 
+        event = 'BufRead',
         requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup() end
     }
 
     use {
         'hrsh7th/nvim-compe',
+        event = 'InsertEnter',
         config = function() require('plugins/compe') end
     }
 
     use {
         'onsails/lspkind-nvim',
+        after = 'nvim-compe',
         config = function() require('lspkind').init() end
     }
 
@@ -100,6 +105,7 @@ function()
 
     use {
         'akinsho/nvim-bufferline.lua',
+        after = 'nightfox.nvim',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require('bufferline').setup {
@@ -174,6 +180,7 @@ function()
 
     use {
         'karb94/neoscroll.nvim',
+        event = 'WinScrolled',
         config = function() require('neoscroll').setup() end
     }
 
