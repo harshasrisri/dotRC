@@ -9,13 +9,12 @@ vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 
 return require('packer').startup({
 function()
-    use { 'wbthomason/packer.nvim', event = 'VimEnter' }
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-rsi'
-    use 'tpope/vim-surround'
-    use 'wellle/targets.vim'
-    use 'chaoren/vim-wordmotion'
+    use 'wbthomason/packer.nvim'
 
+    use { 'chaoren/vim-wordmotion', event = 'BufRead' }
+    use { 'wellle/targets.vim', event = 'BufRead' }
+    use { 'tpope/vim-rsi', event = 'VimEnter' }
+    use { 'tpope/vim-surround', event = 'BufRead', requires = 'tpope/vim-repeat' }
     use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = 'cpp' }
@@ -25,6 +24,13 @@ function()
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
     use { 'nvim-telescope/telescope.nvim', cmd = 'Telescope', requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' } }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', event = 'BufRead' }
+
+    use {
+        "nvim-telescope/telescope-frecency.nvim",
+        after = 'telescope.nvim',
+        requires = {"tami5/sqlite.lua"},
+        config = function() require"telescope".load_extension("frecency") end
+    }
 
     use { 
         'terrortylor/nvim-comment', 
@@ -80,7 +86,7 @@ function()
 
     use { 
         'folke/todo-comments.nvim', 
-        event = 'BufRead',
+        cmd = 'TodoTelescope',
         requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup() end
     }
@@ -187,7 +193,7 @@ function()
     use {
         'L3MON4D3/LuaSnip',
         after = 'nvim-compe',
-        requires = 'rafamadriz/friendly-snippets',
+        requires = { 'rafamadriz/friendly-snippets', after = 'LuaSnip' },
         config = function() require('plugins/luasnip') end
     }
 
@@ -206,23 +212,6 @@ function()
         end
     }
 
---     use {
---         'sunjon/shade.nvim',
---         disabled = true,
---         event = BufSplit,
---         config = function()
---             require'shade'.setup({
---                 overlay_opacity = 50,
---                 opacity_step = 1,
---                 keys = {
---                     brightness_up    = '<C-Up>',
---                     brightness_down  = '<C-Down>',
---                     toggle           = '<leader>sh',
---                 }
---             })
---         end
---     }
--- 
     use {
         'ahmedkhalf/project.nvim',
         config = function()
