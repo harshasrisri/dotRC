@@ -22,18 +22,25 @@ function()
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
-    use { 'nvim-telescope/telescope.nvim', cmd = 'Telescope', requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' } }
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', event = 'BufRead' }
+
+    use { 
+        'nvim-telescope/telescope.nvim', 
+        cmd = 'Telescope', 
+        requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
+        config = function() require('telescope').load_extension('projects') end
+    }
 
     use {
         "nvim-telescope/telescope-frecency.nvim",
         after = 'telescope.nvim',
-        requires = {"tami5/sqlite.lua"},
-        config = function() require"telescope".load_extension("frecency") end
+        requires = { 'tami5/sqlite.lua', after = { 'telescope-frecency.nvim' } },
+        config = function() require'telescope'.load_extension('frecency') end
     }
 
     use { 
         'terrortylor/nvim-comment', 
+        event = 'BufRead',
         config = function() require('nvim_comment').setup() end 
     }
 
@@ -165,11 +172,11 @@ function()
         config = function() require('which-key').setup() end
     }
 
-    use {
-        'romgrk/nvim-treesitter-context',
-        requires = 'nvim-treesitter/nvim-treesitter',
-        config = function() require('treesitter-context').setup() end
-    }
+    -- use {
+    --     'romgrk/nvim-treesitter-context',
+    --     requires = 'nvim-treesitter/nvim-treesitter',
+    --     config = function() require('treesitter-context').setup() end
+    -- }
 
     use {
         'windwp/nvim-autopairs',
@@ -216,7 +223,6 @@ function()
         'ahmedkhalf/project.nvim',
         config = function()
             require('project_nvim').setup()
-            require('telescope').load_extension('projects')
         end
     }
 end,
