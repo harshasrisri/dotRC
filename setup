@@ -23,7 +23,7 @@ install_vim_plugins() {
 
     echo -n "Updating vim plugins . . . "
     vim +PlugUpgrade +PlugUpdate +PlugClean +qa!
-    nvim +PlugUpgrade +PlugUpdate +UpdateRemotePlugins +PlugClean +qa!
+    nvim +PackerSync
     echo " Done"
 }
 

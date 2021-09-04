@@ -1,4 +1,4 @@
 require('impatient')
-require('config')
-require('config/mappings')
+require('settings')
+require('mappings')
 require('plugins')
