@@ -1,39 +1,39 @@
-# Start configuration added by Zim install {{{
 # -------
 # Modules
 # -------
 
 # Sets sane Zsh built-in environment options.
 zmodule environment
+
 # Applies correct bindkeys for input events.
 zmodule input
+
 # Sets a custom terminal title.
 zmodule termtitle
 
-#
-# Prompt
-#
-# Exposes git repository status information to prompts.
-zmodule git-info
-# A customizable version of steeef's prompt theme.
-# zmodule eriner
+# Wraps completions in fzf. Must be sourced before plugins which wrap widgets.
+zmodule Aloxaf/fzf-tab
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions
-# Enables and configures smart and extensive tab completion.
-# completion must be sourced after zsh-users/zsh-completions
+
+# Enables and configures smart and extensive tab completion. Must be sourced after zsh-users/zsh-completions
 zmodule completion
+
 # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-autosuggestions
-# Fish-like syntax highlighting for Zsh.
-# zsh-users/zsh-syntax-highlighting must be sourced after completion
-zmodule zsh-users/zsh-syntax-highlighting
-# Fish-like history search (up arrow) for Zsh.
-# zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
-zmodule zsh-users/zsh-history-substring-search
-# }}} End configuration added by Zim install
 
-# Custom
-zmodule custom
-zmodule Aloxaf/fzf-tab
+# Fish-like syntax highlighting for Zsh. Must be sourced after completion
+zmodule zdharma/fast-syntax-highlighting
+
+# Fish-like history search (up arrow) for Zsh. Must be sourced after syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search
+
+# Powerlevel10k theme for zsh
 zmodule romkatv/powerlevel10k
+
+# Wrapper to undo most common git operations using fzf
+zmodule Bhupesh-V/ugit
+
+# My Custom initializations that would have gone into ~/.zshrc
+zmodule custom
