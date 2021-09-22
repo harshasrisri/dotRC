@@ -2,6 +2,8 @@
 # Script to setup my Working Environment.
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
+set -e
+
 download_file () {
     download_from=$1
     download_to=$2
@@ -16,6 +18,7 @@ download_file () {
 }
 
 install_vim_plugins() {
+    local vim_dir="~/.vim"
     vimPlug_path="$vim_dir/autoload/plug.vim"
     vimPlug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
@@ -28,7 +31,7 @@ install_vim_plugins() {
 }
 
 install_tmux_plugins () {
-    export tpm_path="$tmux_dir/plugins/tpm"
+    local tpm_path="~/.tmux/plugins/tpm"
     if [ -e ${tpm_path} ]; then
         git -C ${tpm_path} pull --quiet \
             && echo "TMUX - Updating plugins:" \
@@ -43,7 +46,6 @@ install_tmux_plugins () {
 }
 
 make_links () {
-    mkdir -p $vim_dir $tmux_dir
     echo "Linking files . . ."
 
     for file in $(git ls-files $dot_dir/); do
@@ -64,8 +66,6 @@ fatal () {
 
 main() {
     dot_dir="$PWD/dot"
-    vim_dir="~/.vim"
-    tmux_dir="~/.tmux"
 
     echo -n "Updating Repo . . . " && git pull --quiet && echo " Done"
     if [ ! -e $dot_dir ]; then fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."; fi
