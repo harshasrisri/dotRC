@@ -9,7 +9,7 @@ export RUSTC_WRAPPER=$(which sccache 2>/dev/null)
 if [ ! -z "$(which exa)" ]; then
     # using exa
     alias ls='exa'
-    alias ll='ls -lFhrs time'
+    alias ll='ls -lFh --reverse --sort time --icons --grid --group-directories-first'
 else 
     # using ls
     alias ls='ls --color=auto -CF'
