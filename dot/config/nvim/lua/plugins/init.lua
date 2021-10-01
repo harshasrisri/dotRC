@@ -22,8 +22,13 @@ function()
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', event = 'BufRead' }
     use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
+
+    use {
+        'nvim-treesitter/nvim-treesitter', 
+        ft = { "cpp", "rust", "python", "go", "lua" }, 
+        run = ':TSUpdate', 
+    }
 
     use { 
         'nvim-telescope/telescope.nvim', 
@@ -65,6 +70,7 @@ function()
 
     use {
         'neovim/nvim-lspconfig',
+        ft = { "cpp", "rust", "python", "go", "lua" },
         config = function() require('plugins/lsp') end
     }
 
