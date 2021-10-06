@@ -46,6 +46,8 @@ alias  .p='vi ${_MY_RC_DIR}/dot/p10k.zsh'
 alias  .a='vi ${_MY_RC_DIR}/dot/config/alacritty/alacritty.yml'
 alias .gc='vi ${_MY_RC_DIR}/dot/gitconfig'
 alias .gi='vi ${_MY_RC_DIR}/dot/gitignore'
+alias .kc='vi ${_MY_RC_DIR}/dot/config/kmonad/config.kbd'
+alias .ks='vi ${_MY_RC_DIR}/dot/config/kmonad/kmonad.service'
 
 alias  .rc='cd ${_MY_RC_DIR}'
 alias .bin='cd ${_MY_RC_DIR}/bin'

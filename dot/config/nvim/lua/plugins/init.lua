@@ -23,6 +23,7 @@ function()
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
     use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
+    use { 'kmonad/kmonad-vim', ft = 'kbd' }
 
     use {
         'nvim-treesitter/nvim-treesitter', 

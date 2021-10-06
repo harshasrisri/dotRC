@@ -1,0 +1,11 @@
+[Unit]
+Description=KMonad - Keyboard configuration OS level framework for any Keyboard ala QMK
+
+[Service]
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/kmonad /home/harshasrisri/.config/kmonad/config.kbd
+Nice=-20
+
+[Install]
+WantedBy=multi-user.target
