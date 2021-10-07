@@ -43,8 +43,8 @@ map('n', ';', ':')               -- Easy jump to command mode
 
 map('n', '-', ':ChooseWin<CR>')
 
-map('n', '<C-n>', ':BufferLineCycleNext<CR>')
-map('n', '<C-p>', ':BufferLineCyclePrev<CR>')
+map('n', '<Tab>', ':BufferLineCycleNext<CR>')
+map('n', '<BS>', ':BufferLineCyclePrev<CR>')
 
 ---------------------------- Telescope -------------------------
 map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
