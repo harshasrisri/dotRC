@@ -1,10 +1,7 @@
 # Neovim Config
 
-Standalone installation: [Download this folder](https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim) and extract it to `~/.config/nvim`.
-
-Additional recommended tools: 
-- [ripgrep](https://github.com/BurntSushi/ripgrep) for live text search in Telescope
-- [fd](https://github.com/sharkdp/fd) for listing files in Telescope
+## Standalone installation
+[Download this folder](https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim) and extract it to `~/.config/nvim`.
 
 ## Structure
 ```
@@ -65,3 +62,8 @@ Additional recommended tools:
 | [vim-wordmotion        ](https://github.com/chaoren/vim-wordmotion             ) | Handle CamelCase, snake_case or pascalCase                     |
 | [which-key.nvim        ](https://github.com/folke/which-key.nvim               ) | Shows a descriptive completion menu for key mapping sequences  |
 | [zen-mode.nvim         ](https://github.com/folke/zen-mode.nvim                ) | Distraction free reading mode to reduce visual noise           |
+
+## Additional recommended tools: 
+- [ripgrep](https://github.com/BurntSushi/ripgrep) for live text search in Telescope
+- [fd](https://github.com/sharkdp/fd) for listing files in Telescope
+
