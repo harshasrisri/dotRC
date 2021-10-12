@@ -4,9 +4,9 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     if client.resolved_capabilities.document_highlight then
         vim.api.nvim_exec([[
-        hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+        hi LspReferenceRead cterm=bold guifg=white guibg=grey
+        hi LspReferenceText cterm=bold guifg=white guibg=grey
+        hi LspReferenceWrite cterm=bold guifg=white guibg=grey
         augroup lsp_document_highlight
             autocmd!
             autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
