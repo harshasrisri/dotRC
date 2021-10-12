@@ -12,9 +12,9 @@ map('n', '<leader>P', '"+P')
 
 -- Place cursor after copy/paste position in Normal/Visual mode 
 -- and automatically indent the pasted region as per context
-map('v', '<silent>y', 'y`]')
-map('n', '<silent>p', 'p`[v`]=')
-map('n', '<silent>P', 'P`[v`]=')
+map('v', 'y', 'y`]')
+map('n', 'p', 'p`[v`]=')
+map('n', 'P', 'P`[v`]=')
 
 -- Go between lines in wrapped lines.
 map('n', 'j', 'gj')
@@ -44,7 +44,7 @@ map('n', ';', ':')               -- Easy jump to command mode
 map('n', '-', ':ChooseWin<CR>')
 
 map('n', '<Tab>', ':BufferLineCycleNext<CR>')
-map('n', '<BS>', ':BufferLineCyclePrev<CR>')
+map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>')
 
 ---------------------------- Telescope -------------------------
 map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
