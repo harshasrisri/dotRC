@@ -119,10 +119,16 @@ function()
     }
 
     use {
-        'ray-x/lsp_signature.nvim',
-        after = 'nvim-lspconfig',
-        config = function() require('lsp_signature').setup() end
+        'filipdutescu/renamer.nvim',
+        after = 'neovim/nvim-lspconfig',
+        requires = 'nvim-lua/plenary.nvim'
     }
+
+    -- use {
+    --     'ray-x/lsp_signature.nvim',
+    --     after = 'nvim-lspconfig',
+    --     config = function() require('lsp_signature').setup() end
+    -- }
 
     use {
         'akinsho/nvim-bufferline.lua',
