@@ -39,12 +39,14 @@ map('c', 'w!!', 'w !sudo tee %') -- Easy save as sudo
 map('n', 'Y', 'y$')              -- Yank till end of line
 map('n', 'x', '"_x')             -- Ignore single char cuts
 map('i', 'jj' , '<Esc>')         -- Easy escape to normal mode
-map('n', ';', ':')               -- Easy jump to command mode
 
 map('n', '-', ':ChooseWin<CR>')
 
 map('n', '<Tab>', ':BufferLineCycleNext<CR>')
 map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>')
+
+-- Popup command line, a.l.a spotlight
+map('n', ';', '<cmd>lua require("fine-cmdline").open()<CR>')
 
 ---------------------------- Telescope -------------------------
 map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
@@ -61,7 +63,7 @@ map('n', '<leader>fm', '<cmd>Telescope builtin<CR>')
 map('n', '<leader>fo', '<cmd>Telescope vim_options<CR>')
 map('n', '<leader>fp', '<cmd>Telescope projects<CR>')
 map('n', '<leader>fq', '<cmd>Telescope command_history<CR>')
-map('n', '<leader>fr', '<cmd>Telescope grep_string<CR>')
+map('n', '<leader>fr', '<cmd>Telescope resume<CR>')
 map('n', '<leader>ft', '<cmd>TodoTelescope<CR>')
 map('n', '<leader>gC', '<cmd>Telescope git_commits<CR>')
 map('n', '<leader>gb', '<cmd>Telescope git_branches<CR>')
@@ -72,7 +74,7 @@ map('n', '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', '<leader>ln', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 map('n', '<leader>lp', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
--- map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n', '<leader>lD', '<cmd>Telescope lsp_document_diagnostics<CR>')
 map('n', '<leader>lS', '<cmd>Telescope lsp_workspace_symbols<CR>')
@@ -83,4 +85,4 @@ map('n', '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>')
 map('n', '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>')
 map('n', '<leader>lx', '<cmd>Telescope lsp_references<CR>')
 map('v', '<leader>la', '<cmd>CodeActionMenu<CR>')
-map('n', '<leader>lr', '<cmd>lua require("renamer").rename()<CR>')
+-- map('n', '<leader>lr', '<cmd>lua require("renamer").rename()<CR>')
