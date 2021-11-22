@@ -9,7 +9,8 @@ export RUSTC_WRAPPER=$(which sccache 2>/dev/null)
 if [ ! -z "$(which exa)" ]; then
     # using exa
     alias ls='exa'
-    alias ll='ls -lFh --reverse --sort time --group-directories-first'
+    alias ll='ls -lFh --reverse --sort time --icons --group-directories-first'
+    alias tree='ls --icons --tree'
 else 
     # using ls
     alias ls='ls --color=auto -CF'
@@ -38,6 +39,9 @@ alias  .m='vi ${_MY_RC_DIR}/dot/myshrc'
 alias .me='vi ${_MY_RC_DIR}/dot/myenv'
 alias  .v='vi ${_MY_RC_DIR}/dot/vim/vimrc'
 alias  .n='vi ${_MY_RC_DIR}/dot/config/nvim/lua/plugins/init.lua'
+alias .ni='vi ${_MY_RC_DIR}/dot/config/nvim/init.lua'
+alias .nm='vi ${_MY_RC_DIR}/dot/config/nvim/lua/mappings.lua'
+alias .ns='vi ${_MY_RC_DIR}/dot/config/nvim/lua/settings.lua'
 alias  .z='vi ~/.zshrc'
 alias .zm='vi ${_MY_RC_DIR}/dot/zimrc'
 alias  .t='vi ${_MY_RC_DIR}/dot/tmux.conf'
