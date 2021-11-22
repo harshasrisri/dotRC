@@ -118,17 +118,22 @@ function()
         config = function() require('lspkind').init() end
     }
 
-    use {
-        'filipdutescu/renamer.nvim',
-        after = 'neovim/nvim-lspconfig',
-        requires = 'nvim-lua/plenary.nvim'
-    }
+    -- use {
+    --     'filipdutescu/renamer.nvim',
+    --     after = 'neovim/nvim-lspconfig',
+    --     requires = 'nvim-lua/plenary.nvim'
+    -- }
 
     -- use {
     --     'ray-x/lsp_signature.nvim',
     --     after = 'nvim-lspconfig',
     --     config = function() require('lsp_signature').setup() end
     -- }
+
+    use {
+        'VonHeikemen/fine-cmdline.nvim',
+        requires = 'MunifTanjim/nui.nvim'
+    }
 
     use {
         'akinsho/nvim-bufferline.lua',
