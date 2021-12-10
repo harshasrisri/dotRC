@@ -17,7 +17,7 @@ function()
     use { 'tpope/vim-surround', event = 'BufRead', requires = 'tpope/vim-repeat' }
     use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
-    use { 'm-pilia/vim-ccls', ft = 'cpp' }
+    use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'} }
     use { 'godlygeek/tabular', cmd = 'Tab' }
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
@@ -27,12 +27,13 @@ function()
 
     use {
         'nvim-treesitter/nvim-treesitter', 
-        ft = { "cpp", "rust", "python", "go", "lua" }, 
+        ft = { "c", "cpp", "rust", "python", "go", "lua" }, 
         run = ':TSUpdate', 
     }
 
     use { 
         'nvim-telescope/telescope.nvim', 
+        lock = true,
         cmd = 'Telescope', 
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
         config = function() require('telescope').load_extension('projects') end
@@ -71,7 +72,7 @@ function()
 
     use {
         'neovim/nvim-lspconfig',
-        ft = { "cpp", "rust", "python", "go", "lua" },
+        ft = { "c", "cpp", "rust", "python", "go", "lua" },
         config = function() require('plugins/lsp') end
     }
 
