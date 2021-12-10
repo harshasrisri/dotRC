@@ -45,8 +45,7 @@ map('n', '-', ':ChooseWin<CR>')
 map('n', '<Tab>', ':BufferLineCycleNext<CR>')
 map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>')
 
--- Popup command line, a.l.a spotlight
-map('n', ';', '<cmd>lua require("fine-cmdline").open()<CR>')
+map('n', ';', ':')
 
 ---------------------------- Telescope -------------------------
 map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
