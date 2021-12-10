@@ -31,7 +31,7 @@
 | [lsp_signature.nvim    ](https://github.com/ray-x/lsp_signature.nvim           ) | Show function signatures in call sites                         |
 | [lspkind-nvim          ](https://github.com/onsails/lspkind-nvim               ) | Show dev-icons in completion menus                             |
 | [neoscroll.nvim        ](https://github.com/karb94/neoscroll.nvim              ) | Smooth scrolling in terminal vim                               |
-| [nightfox.nvim         ](https://github.com/EdenEast/nightfox.nvim             ) | Tresitter aware colorscheme                                    |
+| [material.nvim         ](https://github.com/marko-cerovac/material.nvim        ) | Tresitter aware colorscheme                                    |
 | [nvim-autopairs        ](https://github.com/windwp/nvim-autopairs              ) | Auto close quotes/brackets/braces/parentheses                  |
 | [nvim-bufferline.lua   ](https://github.com/akinsho/nvim-bufferline.lua        ) | Bufferline plugin                                              |
 | [nvim-code-action-menu ](https://github.com/weilbith/nvim-code-action-menu     ) | Show diff of code actions suggested by LSP                     |
