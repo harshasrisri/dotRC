@@ -53,7 +53,7 @@ function()
 
     use {
         'famiu/feline.nvim',
-        after = 'nightfox.nvim',
+        after = 'colorscheme',
         config = function() require('feline').setup() end 
     }
 
@@ -120,7 +120,7 @@ function()
 
     use {
         'akinsho/nvim-bufferline.lua',
-        after = 'nightfox.nvim',
+        after = 'colorscheme',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require('bufferline').setup {
@@ -200,18 +200,22 @@ function()
         config = function() require('plugins/luasnip') end
     }
 
-    use {
-        'EdenEast/nightfox.nvim',
+    use { 
+        'marko-cerovac/material.nvim',
+        as = 'colorscheme',
         config = function()
-            nightfox = require('nightfox')
-            nightfox.setup {
-                styles = {
-                    comments = "italic",
-                    strings = "italic",
-                    keywords = "bold"
+            vim.g.material_style = "deep ocean",
+            require('material').setup {
+                borders = true,
+                popup_menu = "colorful",
+                italics = {
+                    comments = "true"
+                },
+                text_contrast = {
+                    darker = true
                 }
             }
-            nightfox.load()
+            vim.cmd[[colorscheme material]]
         end
     }
 
