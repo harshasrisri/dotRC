@@ -48,7 +48,9 @@ map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>')
 map('n', ';', ':')
 
 ---------------------------- Telescope -------------------------
-map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
+-- map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
+vim.cmd('command! TelescopeGrepOpenBuffers lua require("telescope.builtin").live_grep({ prompt_title = "Find string in open buffers", grep_open_files = true })')
+map('n', '<leader>f/', '<cmd>TelescopeGrepOpenBuffers<CR>')
 map('n', '<leader>f:', '<cmd>Telescope commands<CR>')
 map('n', '<leader>f?', '<cmd>Telescope search_history<CR>')
 map('n', '<leader>fK', '<cmd>Telescope man_pages<CR>')
