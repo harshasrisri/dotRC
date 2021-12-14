@@ -22,7 +22,6 @@ function()
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
-    use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
 
     use {
@@ -232,6 +231,15 @@ function()
         after = 'nvim-lspconfig',
         ft = rust,
         config = function() require('rust-tools').setup() end
+    }
+
+    use {
+        'numtostr/FTerm.nvim',
+        config = function()
+            require('FTerm').setup {
+                border = 'double',
+            }
+        end
     }
 end,
 config = {
