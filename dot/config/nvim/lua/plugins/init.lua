@@ -23,6 +23,7 @@ function()
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
+    use { 'numtostr/FTerm.nvim', module = 'FTerm' }
 
     use {
         'nvim-treesitter/nvim-treesitter', 
@@ -32,7 +33,6 @@ function()
 
     use { 
         'nvim-telescope/telescope.nvim', 
-        lock = true,
         cmd = 'Telescope', 
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
         config = function() require('telescope').load_extension('projects') end
@@ -232,18 +232,12 @@ function()
         ft = rust,
         config = function() require('rust-tools').setup() end
     }
-
-    use {
-        'numtostr/FTerm.nvim',
-        config = function()
-            require('FTerm').setup {
-                border = 'double',
-            }
-        end
-    }
 end,
 config = {
   display = {
-    open_fn = require('packer.util').float,
+    prompt_border = 'rounded',
+    open_fn = function()
+        return require('packer.util').float({ border = 'rounded' })
+    end
   }
 }})
