@@ -107,18 +107,6 @@ function()
     }
 
     use {
-        'hrsh7th/nvim-compe',
-        event = 'InsertEnter',
-        config = function() require('plugins/compe') end
-    }
-
-    use {
-        'onsails/lspkind-nvim',
-        after = 'nvim-compe',
-        config = function() require('lspkind').init() end
-    }
-
-    use {
         'akinsho/nvim-bufferline.lua',
         after = 'colorscheme',
         requires = 'kyazdani42/nvim-web-devicons',
@@ -176,14 +164,8 @@ function()
 
     use {
         'windwp/nvim-autopairs',
-        after = 'nvim-compe',
         config = function()
             require('nvim-autopairs').setup()
-            require("nvim-autopairs.completion.compe").setup({
-                map_cr = true, --  map <CR> on insert mode
-                map_complete = true, -- it will auto insert `(` after select function or method item
-                auto_select = false,  -- auto select first item
-            })
         end
     }
 
@@ -191,13 +173,6 @@ function()
         'karb94/neoscroll.nvim',
         event = 'WinScrolled',
         config = function() require('neoscroll').setup() end
-    }
-
-    use {
-        'L3MON4D3/LuaSnip',
-        after = 'nvim-compe',
-        requires = { 'rafamadriz/friendly-snippets', after = 'LuaSnip' },
-        config = function() require('plugins/luasnip') end
     }
 
     use { 
