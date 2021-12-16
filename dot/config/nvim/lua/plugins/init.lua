@@ -164,6 +164,7 @@ function()
 
     use {
         'windwp/nvim-autopairs',
+        event = 'InsertEnter',
         config = function()
             require('nvim-autopairs').setup()
         end
@@ -210,21 +211,21 @@ function()
 
     use {
         'hrsh7th/nvim-cmp',
-        -- event = 'InsertEnter',
+        event = 'InsertEnter',
         requires = { 'nvim-lspconfig' },
         config = function() require('plugins/cmp') end
     }
-    use { 'hrsh7th/cmp-buffer', requires = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-calc', requires = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-cmdline', requires = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-emoji', requires = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-nvim-lsp', requires = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-path', requires = { 'nvim-cmp' } }
-    use { 'L3MON4D3/LuaSnip', requires = { 'nvim-cmp' } }
-    use { 'rafamadriz/friendly-snippets', requires = { 'LuaSnip' } }
-    use { 'saadparwaiz1/cmp_luasnip', requires = { 'nvim-cmp', 'LuaSnip' } }
-    use { 'onsails/lspkind-nvim', requires = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-buffer', after = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-calc', after = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-cmdline', after = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-emoji', after = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-nvim-lsp', module = 'cmp_nvim_lsp' }
+    use { 'hrsh7th/cmp-path', after = { 'nvim-cmp' } }
+    use { 'onsails/lspkind-nvim', after = { 'nvim-cmp' } }
 
+    use { 'L3MON4D3/LuaSnip', after = { 'nvim-cmp' } }
+    use { 'rafamadriz/friendly-snippets', after = { 'LuaSnip' } }
+    use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp', 'LuaSnip' } }
 end,
 config = {
   display = {
