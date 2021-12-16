@@ -207,6 +207,24 @@ function()
         ft = rust,
         config = function() require('rust-tools').setup() end
     }
+
+    use {
+        'hrsh7th/nvim-cmp',
+        -- event = 'InsertEnter',
+        requires = { 'nvim-lspconfig' },
+        config = function() require('plugins/cmp') end
+    }
+    use { 'hrsh7th/cmp-buffer', requires = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-calc', requires = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-cmdline', requires = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-emoji', requires = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-nvim-lsp', requires = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-path', requires = { 'nvim-cmp' } }
+    use { 'L3MON4D3/LuaSnip', requires = { 'nvim-cmp' } }
+    use { 'rafamadriz/friendly-snippets', requires = { 'LuaSnip' } }
+    use { 'saadparwaiz1/cmp_luasnip', requires = { 'nvim-cmp', 'LuaSnip' } }
+    use { 'onsails/lspkind-nvim', requires = { 'nvim-cmp' } }
+
 end,
 config = {
   display = {

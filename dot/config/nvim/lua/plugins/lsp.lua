@@ -16,15 +16,22 @@ local on_attach = function(client, bufnr)
     end
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { "ccls", "rust_analyzer", "gopls", "jdtls", "pyright", "lua-language-server" }
+
 local nvim_lsp = require('lspconfig')
+
+-- list of langservers to configure
+local servers = { "ccls", "rust_analyzer", "gopls", "jdtls", "pyright", "lua-language-server" }
+
+-- populate completion engine with language specific LSP capabilities
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- Use a loop to conveniently call 'setup' on multiple servers and map buffer local keybindings when the language server attaches
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
+        capabilities = capabilities,
         on_attach = on_attach,
         flags = {
             debounce_text_changes = 150,
-            }
         }
+    }
 end
