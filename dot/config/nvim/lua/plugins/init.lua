@@ -95,6 +95,9 @@ function()
                 use_tresitter = true, 
                 char_list = { '┊' , '┆' , '¦', '|' },
                 show_first_indent_level = false,
+                show_current_context = true,
+                show_current_context_start = true,
+                show_end_of_line = true,
             }
         end
     }
@@ -215,16 +218,16 @@ function()
         requires = { 'nvim-lspconfig' },
         config = function() require('plugins/cmp') end
     }
-    use { 'hrsh7th/cmp-buffer', after = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-calc', after = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-cmdline', after = { 'nvim-cmp' } }
-    use { 'hrsh7th/cmp-emoji', after = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
+    use { 'hrsh7th/cmp-calc', after = 'nvim-cmp' }
+    use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
+    use { 'hrsh7th/cmp-emoji', after = 'nvim-cmp' }
     use { 'hrsh7th/cmp-nvim-lsp', module = 'cmp_nvim_lsp' }
-    use { 'hrsh7th/cmp-path', after = { 'nvim-cmp' } }
-    use { 'onsails/lspkind-nvim', after = { 'nvim-cmp' } }
+    use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
+    use { 'onsails/lspkind-nvim', module = 'lspkind' }
 
-    use { 'L3MON4D3/LuaSnip', after = { 'nvim-cmp' } }
-    use { 'rafamadriz/friendly-snippets', after = { 'LuaSnip' } }
+    use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp' }
+    use { 'rafamadriz/friendly-snippets', after = 'LuaSnip' }
     use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp', 'LuaSnip' } }
 end,
 config = {
