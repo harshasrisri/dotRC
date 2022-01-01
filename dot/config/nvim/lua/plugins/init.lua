@@ -35,13 +35,16 @@ function()
         'nvim-telescope/telescope.nvim', 
         cmd = 'Telescope', 
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
-        config = function() require('telescope').load_extension('projects') end
+        config = function()
+            require('telescope').load_extension('projects')
+            require('telescope').load_extension('neoclip')
+        end
     }
 
     use {
         "nvim-telescope/telescope-frecency.nvim",
         after = 'telescope.nvim',
-        requires = { 'tami5/sqlite.lua', after = { 'telescope-frecency.nvim' } },
+        requires = { 'tami5/sqlite.lua', module = 'sqlite' },
         config = function() require'telescope'.load_extension('frecency') end
     }
 
@@ -210,6 +213,19 @@ function()
         after = 'nvim-lspconfig',
         ft = rust,
         config = function() require('rust-tools').setup() end
+    }
+
+    use {
+        'AckslD/nvim-neoclip.lua',
+        requires = { 
+            { 'tami5/sqlite.lua', module = 'sqlite' },
+            { 'nvim-telescope/telescope.nvim' },
+        },
+        config = function()
+            require('neoclip').setup({
+                enable_persistant_history = true,
+            })
+        end
     }
 
     use {
