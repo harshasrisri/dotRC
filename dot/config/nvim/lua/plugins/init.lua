@@ -25,6 +25,8 @@ function()
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
 
+    use { 'matze/vim-move', config = function() vim.api.nvim_exec([[ let g:move_key_modifier = 'C' ]], false) end }
+
     use {
         'nvim-treesitter/nvim-treesitter', 
         ft = { "c", "cpp", "rust", "python", "go", "lua" }, 
