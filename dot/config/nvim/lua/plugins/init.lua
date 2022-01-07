@@ -29,8 +29,26 @@ function()
 
     use {
         'nvim-treesitter/nvim-treesitter', 
-        ft = { "c", "cpp", "rust", "python", "go", "lua" }, 
+        ft = { "c", "cpp", "rust", "python", "go", "lua", "sh", "json" }, 
         run = ':TSUpdate', 
+        config = function()
+             require('nvim-treesitter.configs').setup { 
+                 ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' }, 
+                 highlight = { 
+                     enable = true, 
+                     additional_vim_regex_highlighting = true,
+                 }, 
+                 incremental_selection = { 
+                     enable = true, 
+                     keymaps = { 
+                         init_selection = '<CR>', 
+                         scope_incremental = '<CR>', 
+                         node_incremental = '<TAB>', 
+                         node_decremental = '<S-TAB>', 
+                     }, 
+                 }, 
+             } 
+        end
     }
 
     use { 
