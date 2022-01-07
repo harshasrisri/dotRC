@@ -219,8 +219,9 @@ function()
                 italics = {
                     comments = true,
                 },
-                text_contrast = {
+                high_visibility = {
                     darker = true,
+                    lighter = true,
                 },
                 disable = {
                     eob_lines = true,
