@@ -188,17 +188,26 @@ function()
         'marko-cerovac/material.nvim',
         as = 'colorscheme',
         config = function()
-            vim.g.material_style = "deep ocean",
-            require('material').setup {
-                borders = true,
-                popup_menu = "colorful",
+            vim.g.material_style = "deep ocean"
+            require('material').setup ({
+                contrast = {
+                    sidebars = true,
+                    floating_windows = true,
+                    line_numbers = true,
+                    sign_column = true,
+                    cursor_line = true,
+                    popup_menu = true,
+                },
                 italics = {
-                    comments = "true"
+                    comments = true,
                 },
                 text_contrast = {
-                    darker = true
+                    darker = true,
+                },
+                disable = {
+                    eob_lines = true,
                 }
-            }
+            })
             vim.cmd[[colorscheme material]]
         end
     }
