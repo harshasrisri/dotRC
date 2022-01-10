@@ -20,7 +20,7 @@ end
 local nvim_lsp = require('lspconfig')
 
 -- list of langservers to configure
-local servers = { "ccls", "rust_analyzer", "gopls", "jdtls", "pyright", "lua-language-server" }
+local servers = { "ccls", "rust_analyzer", "gopls", "jdtls", "pyright", "sumneko_lua" }
 
 -- populate completion engine with language specific LSP capabilities
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
