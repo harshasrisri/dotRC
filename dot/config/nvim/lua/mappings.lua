@@ -10,7 +10,7 @@ map('v', '<leader>P', '"+P')
 map('n', '<leader>p', '"+p')
 map('n', '<leader>P', '"+P')
 
--- Place cursor after copy/paste position in Normal/Visual mode 
+-- Place cursor after copy/paste position in Normal/Visual mode
 -- and automatically indent the pasted region as per context
 map('v', 'y', 'y`]')
 map('n', 'p', 'p`[v`]=')

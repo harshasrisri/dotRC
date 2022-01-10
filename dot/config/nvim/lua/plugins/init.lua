@@ -28,32 +28,32 @@ function()
     use { 'matze/vim-move', config = function() vim.api.nvim_exec([[ let g:move_key_modifier = 'C' ]], false) end }
 
     use {
-        'nvim-treesitter/nvim-treesitter', 
-        ft = { "c", "cpp", "rust", "python", "go", "lua", "sh", "json" }, 
-        run = ':TSUpdate', 
+        'nvim-treesitter/nvim-treesitter',
+        ft = { "c", "cpp", "rust", "python", "go", "lua", "sh", "json" },
+        run = ':TSUpdate',
         config = function()
-             require('nvim-treesitter.configs').setup { 
-                 ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' }, 
-                 highlight = { 
-                     enable = true, 
+             require('nvim-treesitter.configs').setup {
+                 ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' },
+                 highlight = {
+                     enable = true,
                      additional_vim_regex_highlighting = true,
-                 }, 
-                 incremental_selection = { 
-                     enable = true, 
-                     keymaps = { 
-                         init_selection = '<CR>', 
-                         scope_incremental = '<CR>', 
-                         node_incremental = '<TAB>', 
-                         node_decremental = '<S-TAB>', 
-                     }, 
-                 }, 
-             } 
+                 },
+                 incremental_selection = {
+                     enable = true,
+                     keymaps = {
+                         init_selection = '<CR>',
+                         scope_incremental = '<CR>',
+                         node_incremental = '<TAB>',
+                         node_decremental = '<S-TAB>',
+                     },
+                 },
+             }
         end
     }
 
-    use { 
-        'nvim-telescope/telescope.nvim', 
-        cmd = 'Telescope', 
+    use {
+        'nvim-telescope/telescope.nvim',
+        cmd = 'Telescope',
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
         config = function()
             require('telescope').load_extension('projects')
@@ -68,16 +68,16 @@ function()
         config = function() require'telescope'.load_extension('frecency') end
     }
 
-    use { 
-        'terrortylor/nvim-comment', 
+    use {
+        'terrortylor/nvim-comment',
         event = 'BufRead',
-        config = function() require('nvim_comment').setup() end 
+        config = function() require('nvim_comment').setup() end
     }
 
     use {
         'famiu/feline.nvim',
         after = 'colorscheme',
-        config = function() require('feline').setup() end 
+        config = function() require('feline').setup() end
     }
 
     use {
@@ -103,19 +103,19 @@ function()
         requires = 'nvim-lua/plenary.nvim',
         event = 'BufRead',
         config = function()
-            require('gitsigns').setup { 
-                current_line_blame = true, 
+            require('gitsigns').setup {
+                current_line_blame = true,
             }
             vim.api.nvim_exec([[ hi! link GitSignsCurrentLineBlame Comment ]], false)
         end
     }
 
-    use { 
+    use {
         'lukas-reineke/indent-blankline.nvim',
         event = 'BufRead',
         config = function()
-            require('indent_blankline').setup { 
-                use_tresitter = true, 
+            require('indent_blankline').setup {
+                use_tresitter = true,
                 char_list = { '┊' , '┆' , '¦', '|' },
                 show_first_indent_level = false,
                 show_current_context = true,
@@ -125,8 +125,8 @@ function()
         end
     }
 
-    use { 
-        'folke/todo-comments.nvim', 
+    use {
+        'folke/todo-comments.nvim',
         cmd = 'TodoTelescope',
         requires = 'nvim-lua/plenary.nvim',
         config = function() require('todo-comments').setup() end
@@ -202,7 +202,7 @@ function()
         config = function() require('neoscroll').setup() end
     }
 
-    use { 
+    use {
         'marko-cerovac/material.nvim',
         as = 'colorscheme',
         config = function()
@@ -241,13 +241,13 @@ function()
     use {
         'simrat39/rust-tools.nvim',
         after = 'nvim-lspconfig',
-        ft = rust,
+        ft = 'rust',
         config = function() require('rust-tools').setup() end
     }
 
     use {
         'AckslD/nvim-neoclip.lua',
-        requires = { 
+        requires = {
             { 'tami5/sqlite.lua', module = 'sqlite' },
             { 'nvim-telescope/telescope.nvim' },
         },
