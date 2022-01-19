@@ -44,6 +44,7 @@ let mapleader="\<Space>"               " Setting the global leader key
 set fillchars+=vert:▎                  " make the vertical split bar a slim line with no background
 hi VertSplit ctermbg=NONE guibg=NONE   " Set split background color to NONE
 let g:vimsyn_embed = 'l'               " Enable syntax highlighting for embedded lua
+let g:markdown_fenced_languages = ['c', 'cpp', 'sh', 'bash', 'rust']
 
 augroup Initializations
 autocmd!
@@ -76,3 +77,11 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts.border = opts.border or border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+
+-- Settings for Symbols Outline plugin
+vim.g.symbols_outline = {
+    relative_width = false,
+    width = 40,
+    auto_preview = false,
+    auto_close = true,
+}
