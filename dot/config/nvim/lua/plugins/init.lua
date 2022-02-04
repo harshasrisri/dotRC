@@ -58,14 +58,22 @@ function()
         config = function()
             require('telescope').load_extension('projects')
             require('telescope').load_extension('neoclip')
+            require('telescope').load_extension('dap')
         end
     }
 
     use {
-        "nvim-telescope/telescope-frecency.nvim",
+        'nvim-telescope/telescope-frecency.nvim',
         after = 'telescope.nvim',
         requires = { 'tami5/sqlite.lua', module = 'sqlite' },
         config = function() require'telescope'.load_extension('frecency') end
+    }
+
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make',
+        after = 'telescope.nvim',
+        config = function() require'telescope'.load_extension('fzf') end
     }
 
     use {
