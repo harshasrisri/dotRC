@@ -35,5 +35,8 @@ zmodule romkatv/powerlevel10k
 # Wrapper to undo most common git operations using fzf
 zmodule Bhupesh-V/ugit
 
+# Setup fzf wrappers
+zmodule fzf
+
 # My Custom initializations that would have gone into ~/.zshrc
 zmodule custom

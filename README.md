@@ -36,5 +36,5 @@ Needless to say, please Backup whatever is important.
     - Mainly used to work with C++/Rust
     - Loads in ~15ms on a 11th Gen i7 (Linux) / ~40ms on a 2019 Macbook Pro
 - [KMonad](https://github.com/kmonad/kmonad) config to define custom keyboard layouts and overlapping layers like QMK firmware.
-    - Keeping it close to the [config](https://configure.zsa.io/ergodox-ez/layouts/eWWgx/latest/0) of my [ErgodoxEZ](https://ergodox-ez.com).
+    - Keeping it close to the [config](https://configure.zsa.io/ergodox-ez/layouts/L5RJR/latest/0) of my [ErgodoxEZ](https://ergodox-ez.com).
 - Various small [utility scripts](./bin).
