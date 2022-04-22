@@ -1,14 +1,7 @@
 local map = require('utils').map
 
--- Cut/Copy/Replace selection to clipboard in visual mode
-map('v', '<leader>d', '"+d')
-map('v', '<leader>y', '"+y')
-map('v', '<leader>p', '"+p')
-map('v', '<leader>P', '"+P')
-
--- Paste from clipboard before/after position in normal mode
-map('n', '<leader>p', '"+p')
-map('n', '<leader>P', '"+P')
+-- Copy to OS clipboard via OSCYank
+map('v', '<leader>y', ':OSCYank<CR>')
 
 -- Place cursor after copy/paste position in Normal/Visual mode
 -- and automatically indent the pasted region as per context

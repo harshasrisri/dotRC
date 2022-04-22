@@ -24,6 +24,7 @@ function()
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
+    use { 'ojroques/vim-oscyank', event = 'BufRead' }
 
     use { 'matze/vim-move', config = function() vim.api.nvim_exec([[ let g:move_key_modifier = 'C' ]], false) end }
 
@@ -58,7 +59,6 @@ function()
         config = function()
             require('telescope').load_extension('projects')
             require('telescope').load_extension('neoclip')
-            require('telescope').load_extension('dap')
         end
     }
 
@@ -214,7 +214,7 @@ function()
         'marko-cerovac/material.nvim',
         as = 'colorscheme',
         config = function()
-            vim.g.material_style = "deep ocean"
+            vim.g.material_style = "oceanic"
             require('material').setup ({
                 contrast = {
                     sidebars = true,
