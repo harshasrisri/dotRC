@@ -40,3 +40,6 @@ zmodule fzf
 
 # My Custom initializations that would have gone into ~/.zshrc
 zmodule custom
+
+# Autocompletion for pass
+zmodule ninrod/pass-zsh-completion
