@@ -35,6 +35,8 @@ map('i', 'jj' , '<Esc>')         -- Easy escape to normal mode
 
 map('n', '-', ':ChooseWin<CR>')
 
+map('n', '<leader>s', '<cmd>ISwapWith<CR>')
+
 map('n', '<Tab>', ':BufferLineCycleNext<CR>')
 map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>')
 

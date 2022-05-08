@@ -25,8 +25,7 @@ function()
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
     use { 'ojroques/vim-oscyank', event = 'BufRead' }
-
-    use { 'matze/vim-move', config = function() vim.api.nvim_exec([[ let g:move_key_modifier = 'C' ]], false) end }
+    use { 'mizlan/iswap.nvim', event = 'BufRead' }
 
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -50,6 +49,12 @@ function()
                  },
              }
         end
+    }
+
+    use {
+        'stevearc/aerial.nvim',
+        after = 'nvim-treesitter',
+        config = function () require('aerial').setup({}) end
     }
 
     use {
@@ -83,7 +88,7 @@ function()
     }
 
     use {
-        'famiu/feline.nvim',
+        'feline-nvim/feline.nvim',
         after = 'colorscheme',
         config = function() require('feline').setup() end
     }
@@ -141,7 +146,7 @@ function()
     }
 
     use {
-        'akinsho/nvim-bufferline.lua',
+        'akinsho/bufferline.nvim',
         after = 'colorscheme',
         requires = 'kyazdani42/nvim-web-devicons',
         config = function()
