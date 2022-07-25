@@ -26,6 +26,7 @@ function()
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
     use { 'ojroques/vim-oscyank', event = 'BufRead' }
     use { 'mizlan/iswap.nvim', event = 'BufRead' }
+    use { 'stevearc/dressing.nvim', event = 'BufRead' }
 
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -49,12 +50,6 @@ function()
                  },
              }
         end
-    }
-
-    use {
-        'stevearc/aerial.nvim',
-        after = 'nvim-treesitter',
-        config = function () require('aerial').setup({}) end
     }
 
     use {
@@ -107,7 +102,7 @@ function()
 
     use {
         'neovim/nvim-lspconfig',
-        ft = { "c", "cpp", "rust", "python", "go", "lua" },
+        ft = { "c", "cpp", "rust", "python", "go", "lua", "sh" },
         config = function() require('plugins/lsp') end
     }
 

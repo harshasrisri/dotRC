@@ -2,6 +2,7 @@ local map = require('utils').map
 
 -- Copy to OS clipboard via OSCYank
 map('v', '<leader>y', ':OSCYank<CR>')
+map('n', '<leader>y', '<Plug>OSCYank')
 
 -- Place cursor after copy/paste position in Normal/Visual mode
 -- and automatically indent the pasted region as per context
@@ -70,6 +71,8 @@ map('n', '<leader>gc', '<cmd>Telescope git_bcommits<CR>')
 map('n', '<leader>gs', '<cmd>Telescope git_status<CR>')
 
 --------------------------- LSP ---------------------------
+map('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('v', '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
 map('n', '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>')
@@ -78,7 +81,6 @@ map('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n', '<leader>lD', '<cmd>Telescope lsp_document_diagnostics<CR>')
 map('n', '<leader>lS', '<cmd>Telescope lsp_workspace_symbols<CR>')
-map('n', '<leader>la', '<cmd>Telescope lsp_code_actions<CR>')
 map('n', '<leader>ld', '<cmd>Telescope lsp_definitions<CR>')
 map('n', '<leader>li', '<cmd>Telescope lsp_implementations<CR>')
 map('n', '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>')
