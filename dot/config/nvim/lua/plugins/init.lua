@@ -102,7 +102,7 @@ function()
 
     use {
         'neovim/nvim-lspconfig',
-        ft = { "c", "cpp", "rust", "python", "go", "lua", "sh" },
+        ft = { "c", "cpp", "rust", "python", "go", "lua" },
         config = function() require('plugins/lsp') end
     }
 
@@ -249,8 +249,8 @@ function()
     use {
         'simrat39/rust-tools.nvim',
         after = 'nvim-lspconfig',
-        ft = 'rust',
-        config = function() require('rust-tools').setup() end
+        ft = { "rust" },
+        config = function() require('rust-tools').setup({}) end
     }
 
     use {
