@@ -10,6 +10,7 @@ vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 return require('packer').startup({
 function()
     use 'wbthomason/packer.nvim'
+    use 'ojroques/nvim-osc52'
 
     use { 'chaoren/vim-wordmotion', event = 'BufRead' }
     use { 'wellle/targets.vim', event = 'BufRead' }
@@ -24,7 +25,6 @@ function()
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
-    use { 'ojroques/vim-oscyank', event = 'BufRead' }
     use { 'mizlan/iswap.nvim', event = 'BufRead' }
     use { 'stevearc/dressing.nvim', event = 'BufRead' }
 

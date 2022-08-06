@@ -37,6 +37,7 @@ vim.opt.undofile      = true                     -- Remember undo history for cl
 vim.opt.updatetime    = 250                      -- Time interval to update windows
 vim.opt.wildmenu      = true                     -- Pressing tab in command mode shows options on status bar
 vim.opt.wildmode      = 'longest:full,full'      -- Longest completion in wildmenu
+vim.opt.signcolumn    = 'yes'                    -- Always show signcolumn for gitsigns, diagnostics, etc
 
 vim.api.nvim_exec([[
 "" Initializations

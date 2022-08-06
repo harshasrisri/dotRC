@@ -1,8 +1,9 @@
-local map = require('utils').map
+local map = vim.keymap.set
 
 -- Copy to OS clipboard via OSCYank
-map('v', '<leader>y', ':OSCYank<CR>')
-map('n', '<leader>y', '<Plug>OSCYank')
+map('n', '<leader>y', require('osc52').copy_operator, {expr = true})
+map('n', '<leader>yy', '<leader>y_', {remap = true})
+map('x', '<leader>y', require('osc52').copy_visual)
 
 -- Place cursor after copy/paste position in Normal/Visual mode
 -- and automatically indent the pasted region as per context
