@@ -6,12 +6,6 @@ function utils.opt(scope, key, value)
     if scope ~= 'o' then scopes['o'][key] = value end
 end
 
-function utils.map(mode, lhs, rhs, opts)
-    local options = {noremap = true, silent = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
 function utils.create_augroups(definitions)
     for group_name, definition in pairs(definitions) do
         vim.api.nvim_command('augroup ' .. group_name)
