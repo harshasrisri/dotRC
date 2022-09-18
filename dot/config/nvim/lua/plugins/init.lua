@@ -283,6 +283,46 @@ function()
     use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp' }
     use { 'rafamadriz/friendly-snippets', after = 'LuaSnip' }
     use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp', 'LuaSnip' } }
+
+    use {
+        'mfussenegger/nvim-dap',
+        module = 'dap'
+    }
+
+    use {
+        'rcarriga/nvim-dap-ui',
+        module = 'dapui',
+        requires = 'nvim-dap'
+    }
+
+    use {
+        'theHamsta/nvim-dap-virtual-text',
+        module = 'dap',
+        requires = 'nvim-dap',
+        config = function() require('nvim-dap-virtual-text').setup() end
+    }
+
+    use {
+        'nvim-telescope/telescope-dap.nvim',
+        module = 'dap',
+        requires = {'nvim-dap', 'telescope.nvim'},
+        config = function() require('telescope').load_extension('dap') end
+    }
+
+    use {
+        'rcarriga/cmp-dap',
+        module = 'dap',
+        requires = { 'nvim-dap', 'nvim-cmp' },
+        config = function()
+            require('cmp').setup.filetype(
+            { "dap-repl", "dapui_watches" },
+            {
+                sources = {
+                    { name = "dap" },
+                },
+            })
+        end
+    }
 end,
 config = {
   display = {
