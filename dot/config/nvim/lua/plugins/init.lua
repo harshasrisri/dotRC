@@ -1,14 +1,15 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+local packer_bootstrap = false
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
   vim.cmd 'packadd packer.nvim'
+  packer_bootstrap = true
 end
 
 vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 
 return require('packer').startup({
-function()
+function(use)
     use 'wbthomason/packer.nvim'
     use 'ojroques/nvim-osc52'
 
@@ -27,28 +28,35 @@ function()
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
     use { 'mizlan/iswap.nvim', event = 'BufRead' }
     use { 'stevearc/dressing.nvim', event = 'BufRead' }
+    use { 'fedepujol/move.nvim' }
+
+    use {
+        'nacro90/numb.nvim', config = function()
+            require('numb').setup()
+        end
+    }
 
     use {
         'nvim-treesitter/nvim-treesitter',
         ft = { "c", "cpp", "rust", "python", "go", "lua", "sh", "json" },
         run = ':TSUpdate',
         config = function()
-             require('nvim-treesitter.configs').setup {
-                 ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' },
-                 highlight = {
-                     enable = true,
-                     additional_vim_regex_highlighting = true,
-                 },
-                 incremental_selection = {
-                     enable = true,
-                     keymaps = {
-                         init_selection = '<CR>',
-                         scope_incremental = '<CR>',
-                         node_incremental = '<TAB>',
-                         node_decremental = '<S-TAB>',
-                     },
-                 },
-             }
+            require('nvim-treesitter.configs').setup {
+                ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' },
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = true,
+                },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = '<CR>',
+                        scope_incremental = '<CR>',
+                        node_incremental = '<TAB>',
+                        node_decremental = '<S-TAB>',
+                    },
+                },
+            }
         end
     }
 
@@ -283,6 +291,10 @@ function()
     use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp' }
     use { 'rafamadriz/friendly-snippets', after = 'LuaSnip' }
     use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp', 'LuaSnip' } }
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end,
 config = {
   display = {
