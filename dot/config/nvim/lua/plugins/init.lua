@@ -11,30 +11,24 @@ vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 return require('packer').startup({
 function(use)
     use 'wbthomason/packer.nvim'
-    use 'ojroques/nvim-osc52'
-
-    use { 'chaoren/vim-wordmotion', event = 'BufRead' }
-    use { 'wellle/targets.vim', event = 'BufRead' }
-    use { 'tpope/vim-rsi', event = 'VimEnter' }
-    use { 'tpope/vim-surround', event = 'BufRead', requires = 'tpope/vim-repeat' }
     use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
+    use { 'ojroques/nvim-osc52', event = 'VimEnter' }
+    use { 'fedepujol/move.nvim', event = 'VimEnter' }
+    use { 'chaoren/vim-wordmotion', event = 'VimEnter' }
+    use { 'stevearc/dressing.nvim', event = 'VimEnter' }
+    use { 'wellle/targets.vim', event = 'VimEnter' }
+    use { 'tpope/vim-rsi', event = 'VimEnter' }
+    use { 'tpope/vim-surround', event = 'VimEnter', requires = 'tpope/vim-repeat' }
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
-    use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'} }
+    use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'}, after = 'nvim-lspconfig' }
     use { 'godlygeek/tabular', cmd = 'Tab' }
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
-    use { 'mizlan/iswap.nvim', event = 'BufRead' }
-    use { 'stevearc/dressing.nvim', event = 'BufRead' }
-    use { 'fedepujol/move.nvim' }
-
-    use {
-        'nacro90/numb.nvim', config = function()
-            require('numb').setup()
-        end
-    }
+    use { 'mizlan/iswap.nvim', cmd = { "ISwap", "ISwapWith" } }
+    use { 'nacro90/numb.nvim', config = function() require('numb').setup() end }
 
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -43,10 +37,6 @@ function(use)
         config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' },
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = true,
-                },
                 incremental_selection = {
                     enable = true,
                     keymaps = {
@@ -86,7 +76,7 @@ function(use)
 
     use {
         'terrortylor/nvim-comment',
-        event = 'BufRead',
+        event = 'VimEnter',
         config = function() require('nvim_comment').setup() end
     }
 
@@ -115,9 +105,24 @@ function(use)
     }
 
     use {
+        'williamboman/mason.nvim',
+        config = function() require('mason').setup() end
+    }
+
+    use {
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+            require('mason-lspconfig').setup({
+                ensure_installed = { "ccls", "rust_analyzer", "gopls", "jdtls", "pylsp", "sumneko_lua" },
+                automatic_installation = true,
+            })
+        end
+    }
+
+    use {
         'lewis6991/gitsigns.nvim',
         requires = 'nvim-lua/plenary.nvim',
-        event = 'BufRead',
+        event = 'VimEnter',
         config = function()
             require('gitsigns').setup {
                 current_line_blame = true,
@@ -128,7 +133,7 @@ function(use)
 
     use {
         'lukas-reineke/indent-blankline.nvim',
-        event = 'BufRead',
+        event = 'VimEnter',
         config = function()
             require('indent_blankline').setup {
                 use_tresitter = true,
@@ -173,20 +178,8 @@ function(use)
         cmd = 'ZenMode',
         config = function()
             require('zen-mode').setup {
-                window = {
-                    backdrop = 1,
-                    width = 0.8,
-                    height = 0.9,
-                    options = {
-                        number = false,         -- disable number column
-                        relativenumber = false, -- disable relative numbers
-                        foldcolumn = "0",       -- disable fold column
-                        list = false,           -- disable whitespace characters
-                    },
-                },
                 plugins = {
-                    gitsigns = { enabled = true }, -- disables git signs
-                    tmux = { enabled = false }     -- disables tmux statusline
+                    gitsigns = { enabled = true } -- disables git signs
                 },
             }
         end
@@ -200,7 +193,6 @@ function(use)
 
     use {
         'folke/which-key.nvim',
-        event = 'BufWinEnter',
         config = function() require('which-key').setup() end
     }
 
