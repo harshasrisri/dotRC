@@ -102,4 +102,9 @@ gri () {
     git rebase -i @~"${1}"
 }
 
+zlc () {
+    [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
+    zellij --layout compact -s ${1} || zellij --layout compact attach ${1}
+}
+
 # vim: ft=sh
