@@ -36,6 +36,14 @@ for _, lsp in ipairs(servers) do
     }
 end
 
+nvim_lsp.ccls.setup {
+  init_options = {
+    index = {
+      threads = 16;
+    };
+  }
+}
+
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
