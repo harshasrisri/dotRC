@@ -11,8 +11,8 @@ vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 return require('packer').startup({
 function(use)
     use 'wbthomason/packer.nvim'
+    use 'ojroques/nvim-osc52'
     use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
-    use { 'ojroques/nvim-osc52', event = 'VimEnter' }
     use { 'fedepujol/move.nvim', event = 'VimEnter' }
     use { 'chaoren/vim-wordmotion', event = 'VimEnter' }
     use { 'stevearc/dressing.nvim', event = 'VimEnter' }
@@ -250,7 +250,7 @@ function(use)
         'simrat39/rust-tools.nvim',
         after = 'nvim-lspconfig',
         ft = { "rust" },
-        config = function() require('rust-tools').setup({}) end
+        config = function() require('rust-tools').setup() end
     }
 
     use {
