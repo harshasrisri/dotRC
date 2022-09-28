@@ -24,7 +24,7 @@ function(use)
     use { 'godlygeek/tabular', cmd = 'Tab' }
     use { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' }
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
-    use { "tweekmonster/startuptime.vim", cmd = 'StartupTime' }
+    use { "dstein64/vim-startuptime", cmd = 'StartupTime' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
     use { 'mizlan/iswap.nvim', cmd = { "ISwap", "ISwapWith" } }

@@ -105,7 +105,12 @@ gri () {
 
 zlc () {
     [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
-    zellij --layout compact -s ${1} || zellij --layout compact attach ${1}
+    zellij attach ${1} || zellij -s ${1}
+}
+
+tm () {
+    [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
+    tmux attach -t ${1} || tmux new -s ${1}
 }
 
 # vim: ft=sh
