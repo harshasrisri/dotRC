@@ -15,7 +15,7 @@ function(use)
     use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
     use { 'fedepujol/move.nvim', event = 'VimEnter' }
     use { 'chaoren/vim-wordmotion', event = 'VimEnter' }
-    use { 'stevearc/dressing.nvim', event = 'VimEnter' }
+    use { 'MunifTanjim/nui.nvim', event = 'VimEnter' }
     use { 'wellle/targets.vim', event = 'VimEnter' }
     use { 'tpope/vim-rsi', event = 'VimEnter' }
     use { 'tpope/vim-surround', event = 'VimEnter', requires = 'tpope/vim-repeat' }
@@ -283,6 +283,17 @@ function(use)
     use { 'L3MON4D3/LuaSnip', after = 'nvim-cmp' }
     use { 'rafamadriz/friendly-snippets', after = 'LuaSnip' }
     use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp', 'LuaSnip' } }
+
+    use {
+        "folke/noice.nvim",
+        event = "VimEnter",
+        config = function() require("noice").setup() end,
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+            "hrsh7th/nvim-cmp",
+        }
+    }
 
     if packer_bootstrap then
         require('packer').sync()

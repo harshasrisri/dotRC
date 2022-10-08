@@ -2,7 +2,7 @@
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    if client.resolved_capabilities.document_highlight then
+    if client.server_capabilities.documentHighlightProvider then
         vim.api.nvim_exec([[
         hi LspReferenceRead cterm=bold guifg=white guibg=grey
         hi LspReferenceText cterm=bold guifg=white guibg=grey
