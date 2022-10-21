@@ -18,7 +18,7 @@ function(use)
     use 'MunifTanjim/nui.nvim'
     use 'wellle/targets.vim'
     use 'tpope/vim-rsi'
-    use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
+    use { 'lewis6991/impatient.nvim', rocks = { 'mpack', version = '1.0.8' } }
     use { 'tpope/vim-surround', requires = 'tpope/vim-repeat' }
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'}, after = 'nvim-lspconfig' }
@@ -29,7 +29,6 @@ function(use)
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
     use { 'numtostr/FTerm.nvim', module = 'FTerm' }
     use { 'mizlan/iswap.nvim', cmd = { "ISwap", "ISwapWith" } }
-    use { 'nacro90/numb.nvim', config = function() require('numb').setup() end }
 
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -54,6 +53,7 @@ function(use)
     use {
         'nvim-telescope/telescope.nvim',
         cmd = 'Telescope',
+        on = 'telescope',
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
         config = function()
             require('telescope').load_extension('projects')
@@ -113,7 +113,7 @@ function(use)
         'williamboman/mason-lspconfig.nvim',
         config = function()
             require('mason-lspconfig').setup({
-                ensure_installed = { "ccls", "rust_analyzer", "gopls", "jdtls", "pylsp", "sumneko_lua" },
+                ensure_installed = { "rust_analyzer", "gopls", "jdtls", "pylsp", "sumneko_lua" },
                 automatic_installation = true,
             })
         end
@@ -214,34 +214,14 @@ function(use)
         config = function()
             vim.g.material_style = "oceanic"
             require('material').setup ({
-                contrast = {
-                    sidebars = true,
-                    floating_windows = true,
-                    terminal = true,
-                    cursor_line = true,
-                },
+                contrast = { floating_windows = true, terminal = true, cursor_line = true, },
                 styles = {
-                    comments = {
-                        italic = true,
-                    },
-                    keywords = {
-                        bold = true,
-                    },
+                    comments = { italic = true, },
+                    keywords = { bold = true, },
                 },
-                high_visibility = {
-                    darker = true,
-                    lighter = true,
-                },
-                disable = {
-                    eob_lines = true,
-                },
-                plugins = {
-                    "gitsigns",
-                    "indent-blankline",
-                    "nvim-cmp",
-                    "telescope",
-                    "which-key",
-                }
+                high_visibility = { darker = true, lighter = true, },
+                disable = { eob_lines = true, },
+                plugins = { "gitsigns", "indent-blankline", "telescope", "which-key", }
             })
             vim.cmd[[colorscheme material]]
         end
@@ -249,6 +229,7 @@ function(use)
 
     use {
         'ahmedkhalf/project.nvim',
+        cmd = 'Telescope projects',
         config = function()
             require('project_nvim').setup()
         end
@@ -263,6 +244,7 @@ function(use)
 
     use {
         'AckslD/nvim-neoclip.lua',
+        cmd = 'Telescope neoclip',
         requires = {
             { 'tami5/sqlite.lua', module = 'sqlite' },
             { 'nvim-telescope/telescope.nvim' },
@@ -276,7 +258,7 @@ function(use)
 
     use {
         'hrsh7th/nvim-cmp',
-        event = 'InsertEnter',
+        event = { 'InsertEnter', 'CmdlineEnter' },
         requires = { 'nvim-lspconfig' },
         config = function() require('plugins/cmp') end
     }
@@ -294,12 +276,32 @@ function(use)
 
     use {
         "folke/noice.nvim",
-        config = function() require("noice").setup() end,
+        config = function()
+            require("noice").setup({
+                views = {
+                    cmdline_popup = {
+                        position = { row = "33%", col = "50%", },
+                        size = { width = 60, height = "auto", },
+                    },
+                },
+                routes = {
+                    {
+                        filter = { event = "msg_show", kind = "search_count", },
+                        view = "mini",
+                    },
+                },
+            })
+        end,
         requires = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
-            "hrsh7th/nvim-cmp",
         }
+    }
+
+    use {
+        'nacro90/numb.nvim',
+        event = 'CmdlineEnter',
+        config = function() require('numb').setup() end
     }
 
     if packer_bootstrap then
