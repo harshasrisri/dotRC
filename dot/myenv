@@ -92,8 +92,6 @@ alias -g   gf='git fetch'
 
 alias tab='exec tabmux'
 alias tml='tmux -L default ls'
-alias tma='exec tmux -L default attach -t'
-alias tmn='exec tmux -L default new -s'
 alias rgn='rg --files-with-matches'
 alias rgN='rg --files-without-match'
 
