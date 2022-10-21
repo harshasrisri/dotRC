@@ -12,13 +12,14 @@ return require('packer').startup({
 function(use)
     use 'wbthomason/packer.nvim'
     use 'ojroques/nvim-osc52'
+    use 'google/vim-jsonnet'
+    use 'fedepujol/move.nvim'
+    use 'chaoren/vim-wordmotion'
+    use 'MunifTanjim/nui.nvim'
+    use 'wellle/targets.vim'
+    use 'tpope/vim-rsi'
     use { 'lewis6991/impatient.nvim', rocks = 'mpack'}
-    use { 'fedepujol/move.nvim', event = 'VimEnter' }
-    use { 'chaoren/vim-wordmotion', event = 'VimEnter' }
-    use { 'MunifTanjim/nui.nvim', event = 'VimEnter' }
-    use { 'wellle/targets.vim', event = 'VimEnter' }
-    use { 'tpope/vim-rsi', event = 'VimEnter' }
-    use { 'tpope/vim-surround', event = 'VimEnter', requires = 'tpope/vim-repeat' }
+    use { 'tpope/vim-surround', requires = 'tpope/vim-repeat' }
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'}, after = 'nvim-lspconfig' }
     use { 'godlygeek/tabular', cmd = 'Tab' }
@@ -76,7 +77,6 @@ function(use)
 
     use {
         'terrortylor/nvim-comment',
-        event = 'VimEnter',
         config = function() require('nvim_comment').setup() end
     }
 
@@ -122,7 +122,6 @@ function(use)
     use {
         'lewis6991/gitsigns.nvim',
         requires = 'nvim-lua/plenary.nvim',
-        event = 'VimEnter',
         config = function()
             require('gitsigns').setup {
                 current_line_blame = true,
@@ -133,7 +132,6 @@ function(use)
 
     use {
         'lukas-reineke/indent-blankline.nvim',
-        event = 'VimEnter',
         config = function()
             require('indent_blankline').setup {
                 use_tresitter = true,
@@ -286,7 +284,6 @@ function(use)
 
     use {
         "folke/noice.nvim",
-        event = "VimEnter",
         config = function() require("noice").setup() end,
         requires = {
             "MunifTanjim/nui.nvim",
