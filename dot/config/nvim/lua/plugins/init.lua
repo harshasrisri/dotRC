@@ -217,13 +217,16 @@ function(use)
                 contrast = {
                     sidebars = true,
                     floating_windows = true,
-                    line_numbers = true,
-                    sign_column = true,
+                    terminal = true,
                     cursor_line = true,
-                    popup_menu = true,
                 },
-                italics = {
-                    comments = true,
+                styles = {
+                    comments = {
+                        italic = true,
+                    },
+                    keywords = {
+                        bold = true,
+                    },
                 },
                 high_visibility = {
                     darker = true,
@@ -231,6 +234,13 @@ function(use)
                 },
                 disable = {
                     eob_lines = true,
+                },
+                plugins = {
+                    "gitsigns",
+                    "indent-blankline",
+                    "nvim-cmp",
+                    "telescope",
+                    "which-key",
                 }
             })
             vim.cmd[[colorscheme material]]
