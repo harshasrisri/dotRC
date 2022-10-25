@@ -36,7 +36,7 @@ function(use)
         run = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup {
-                ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'rust', 'python', 'go' },
+                ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'regex', 'rust', 'python', 'go' },
                 incremental_selection = {
                     enable = true,
                     keymaps = {
@@ -229,7 +229,6 @@ function(use)
 
     use {
         'ahmedkhalf/project.nvim',
-        cmd = 'Telescope projects',
         config = function()
             require('project_nvim').setup()
         end
@@ -244,7 +243,6 @@ function(use)
 
     use {
         'AckslD/nvim-neoclip.lua',
-        cmd = 'Telescope neoclip',
         requires = {
             { 'tami5/sqlite.lua', module = 'sqlite' },
             { 'nvim-telescope/telescope.nvim' },
