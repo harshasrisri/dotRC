@@ -302,6 +302,15 @@ function(use)
         config = function() require('numb').setup() end
     }
 
+    use {
+        'gorbit99/codewindow.nvim',
+        config = function()
+            local codewindow = require('codewindow')
+            codewindow.setup()
+            codewindow.apply_default_keybinds()
+        end,
+    }
+
     if packer_bootstrap then
         require('packer').sync()
     end
