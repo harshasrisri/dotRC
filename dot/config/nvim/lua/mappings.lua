@@ -95,7 +95,7 @@ map('n', '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>')
 map('n', '<leader>lx', '<cmd>Telescope lsp_references<CR>')
 
 -- FTerm.nvim
-vim.cmd('command! FTermToggle lua require("FTerm").toggle()')
+vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
 map('n', '<leader>t', '<cmd>FTermToggle<CR>')
 map('t', '<Esc><Esc>', '<C-\\><C-n><cmd>FTermToggle<CR>')
 

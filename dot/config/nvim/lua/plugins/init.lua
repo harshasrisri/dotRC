@@ -303,6 +303,7 @@ function(use)
 
     use {
         'gorbit99/codewindow.nvim',
+        keys = '<leader>mm',
         config = function()
             local codewindow = require('codewindow')
             codewindow.setup()
