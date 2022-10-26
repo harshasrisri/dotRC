@@ -17,9 +17,8 @@ function(use)
     use 'chaoren/vim-wordmotion'
     use 'MunifTanjim/nui.nvim'
     use 'wellle/targets.vim'
-    use 'tpope/vim-rsi'
+    use { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } }
     use { 'lewis6991/impatient.nvim', rocks = { 'mpack', version = '1.0.8' } }
-    use { 'tpope/vim-surround', requires = 'tpope/vim-repeat' }
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'}, after = 'nvim-lspconfig' }
     use { 'godlygeek/tabular', cmd = 'Tab' }
@@ -319,6 +318,11 @@ function(use)
             vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
             vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
         end
+    }
+
+    use {
+        "kylechui/nvim-surround",
+        config = function() require("nvim-surround").setup({}) end
     }
 
     if packer_bootstrap then
