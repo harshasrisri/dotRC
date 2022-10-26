@@ -322,6 +322,7 @@ function(use)
 
     use {
         "kylechui/nvim-surround",
+        requires = 'nvim-treesitter/nvim-treesitter-textobjects',
         config = function() require("nvim-surround").setup({}) end
     }
 
