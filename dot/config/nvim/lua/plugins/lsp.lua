@@ -1,22 +1,3 @@
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    if client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_exec([[
-        hi LspReferenceRead cterm=bold guifg=white guibg=grey
-        hi LspReferenceText cterm=bold guifg=white guibg=grey
-        hi LspReferenceWrite cterm=bold guifg=white guibg=grey
-        augroup lsp_document_highlight
-            autocmd!
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]], false)
-    end
-end
-
-
 local nvim_lsp = require('lspconfig')
 
 -- list of langservers to configure
@@ -29,7 +10,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         capabilities = capabilities,
-        on_attach = on_attach,
         flags = {
             debounce_text_changes = 150,
         }
