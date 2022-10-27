@@ -30,6 +30,8 @@ else
     export MANPAGER='nvim +Man!'
 fi
 
+[ ! -z "$(which bat 2>/dev/null)" ] && alias cat=bat
+
 alias vi='${EDITOR}'
 
 alias .ml='vi ~/.myshrc.local'
