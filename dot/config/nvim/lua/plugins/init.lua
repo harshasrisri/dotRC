@@ -31,11 +31,10 @@ function(use)
 
     use {
         'nvim-treesitter/nvim-treesitter',
-        ft = { "c", "cpp", "rust", "python", "go", "lua", "sh", "json" },
         run = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup {
-                ensure_installed = { 'bash', 'c', 'cpp', 'json', 'lua', 'regex', 'rust', 'python', 'go' },
+                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'json', 'lua', 'markdown' ,'regex', 'rust', 'python', 'yaml' },
                 incremental_selection = {
                     enable = true,
                     keymaps = {
@@ -50,28 +49,54 @@ function(use)
     }
 
     use {
+        "kylechui/nvim-surround",
+        requires = 'nvim-treesitter/nvim-treesitter-textobjects',
+        config = function() require("nvim-surround").setup({}) end
+    }
+
+    use {
         'nvim-telescope/telescope.nvim',
         cmd = 'Telescope',
         on = 'telescope',
         requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
-        config = function()
-            require('telescope').load_extension('projects')
-            require('telescope').load_extension('neoclip')
-        end
     }
 
     use {
         'nvim-telescope/telescope-frecency.nvim',
         after = 'telescope.nvim',
         requires = { 'tami5/sqlite.lua', module = 'sqlite' },
-        config = function() require'telescope'.load_extension('frecency') end
+        config = function() require('telescope').load_extension('frecency') end
     }
 
     use {
         'nvim-telescope/telescope-fzf-native.nvim',
         run = 'make',
         after = 'telescope.nvim',
-        config = function() require'telescope'.load_extension('fzf') end
+        config = function() require('telescope').load_extension('fzf') end
+    }
+
+    use {
+        'ahmedkhalf/project.nvim',
+        after = 'telescope.nvim',
+        config = function()
+            require('project_nvim').setup()
+            require('telescope').load_extension('projects')
+        end
+    }
+
+    use {
+        'AckslD/nvim-neoclip.lua',
+        after = 'telescope.nvim',
+        requires = {
+            { 'tami5/sqlite.lua', module = 'sqlite' },
+            { 'nvim-telescope/telescope.nvim' },
+        },
+        config = function()
+            require('neoclip').setup({
+                enable_persistent_history = true,
+            })
+            require('telescope').load_extension('neoclip')
+        end
     }
 
     use {
@@ -141,13 +166,6 @@ function(use)
                 show_end_of_line = true,
             }
         end
-    }
-
-    use {
-        'folke/todo-comments.nvim',
-        cmd = 'TodoTelescope',
-        requires = 'nvim-lua/plenary.nvim',
-        config = function() require('todo-comments').setup() end
     }
 
     use {
@@ -227,30 +245,10 @@ function(use)
     }
 
     use {
-        'ahmedkhalf/project.nvim',
-        config = function()
-            require('project_nvim').setup()
-        end
-    }
-
-    use {
         'simrat39/rust-tools.nvim',
         after = 'nvim-lspconfig',
         ft = { "rust" },
         config = function() require('rust-tools').setup() end
-    }
-
-    use {
-        'AckslD/nvim-neoclip.lua',
-        requires = {
-            { 'tami5/sqlite.lua', module = 'sqlite' },
-            { 'nvim-telescope/telescope.nvim' },
-        },
-        config = function()
-            require('neoclip').setup({
-                enable_persistent_history = true,
-            })
-        end
     }
 
     use {
@@ -319,12 +317,6 @@ function(use)
             vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
             vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
         end
-    }
-
-    use {
-        "kylechui/nvim-surround",
-        requires = 'nvim-treesitter/nvim-treesitter-textobjects',
-        config = function() require("nvim-surround").setup({}) end
     }
 
     if packer_bootstrap then
