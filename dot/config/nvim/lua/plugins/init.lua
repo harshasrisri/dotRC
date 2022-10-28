@@ -231,14 +231,14 @@ function(use)
         config = function()
             vim.g.material_style = "oceanic"
             require('material').setup ({
-                contrast = { floating_windows = true, terminal = true, cursor_line = true, },
+                contrast = { floating_windows = true, terminal = true, cursor_line = true, sidebars = true },
                 styles = {
                     comments = { italic = true, },
                     keywords = { bold = true, },
                 },
                 high_visibility = { darker = true, lighter = true, },
                 disable = { eob_lines = true, },
-                plugins = { "gitsigns", "indent-blankline", "telescope", "which-key", }
+                plugins = { "gitsigns", "indent-blankline", "nvim-tree", "telescope", "which-key", }
             })
             vim.cmd[[colorscheme material]]
         end
@@ -317,6 +317,26 @@ function(use)
             vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
             vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
         end
+    }
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        config = function() require('nvim-tree').setup({
+            open_on_setup = false,
+            open_on_setup_file = true,
+            renderer = {
+                highlight_git = true,
+                highlight_opened_files = "all",
+                indent_markers = {
+                    enable = true,
+                },
+                icons = {
+                    git_placement = 'signcolumn',
+                }
+            },
+        })
+    end
     }
 
     if packer_bootstrap then
