@@ -98,6 +98,11 @@ vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang 
 map('n', '<leader>t', '<cmd>FTermToggle<CR>')
 map('t', '<Esc><Esc>', '<C-\\><C-n><cmd>FTermToggle<CR>')
 
+--NvimTree
+map('n', '<leader>et', '<cmd>NvimTreeToggle<CR>')
+map('n', '<leader>ef', '<cmd>NvimTreeFocus<CR>')
+map('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>')
+
 -- Git Signs
     -- Navigation
     map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
