@@ -77,8 +77,8 @@ map('n', '<leader>gc', '<cmd>Telescope git_bcommits<CR>')
 map('n', '<leader>gs', '<cmd>Telescope git_status<CR>')
 
 --------------------------- LSP ---------------------------
-map('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('v', '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
+map('n', '<leader>la', '<cmd>CodeActionMenu<CR>')
+-- map('v', '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
 map('n', '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 map('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>')
