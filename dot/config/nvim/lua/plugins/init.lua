@@ -11,6 +11,7 @@ vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")  -- For impatient.nvim
 return require('packer').startup({
 function(use)
     use 'wbthomason/packer.nvim'
+    use 'lewis6991/impatient.nvim'
     use 'ojroques/nvim-osc52'
     use 'google/vim-jsonnet'
     use 'fedepujol/move.nvim'
@@ -18,7 +19,6 @@ function(use)
     use 'MunifTanjim/nui.nvim'
     use 'wellle/targets.vim'
     use { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } }
-    use { 'lewis6991/impatient.nvim', rocks = { 'mpack', version = '1.0.8' } }
     use { 'tpope/vim-fugitive', cmd = { "Git", "Gdiff", "Gdiffsplit", "Gvdiffsplit", "Gwrite", "Gw" } }
     use { 'm-pilia/vim-ccls', ft = { 'c', 'cpp'}, after = 'nvim-lspconfig' }
     use { 'godlygeek/tabular', cmd = 'Tab' }
@@ -177,6 +177,15 @@ function(use)
                 options = {
                     show_tab_indicators = true,
                     separator_style = 'slant',
+                    offsets = {
+                        {
+                            filetype = "NvimTree",
+                            text = function() return vim.fn.getcwd() end,
+                            highlight = "Directory",
+                            separator = false,
+                            text_align = 'left',
+                        }
+                    },
                 }
             }
         end
