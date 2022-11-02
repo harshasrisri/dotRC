@@ -34,7 +34,7 @@ function(use)
         run = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup {
-                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'json', 'lua', 'markdown' ,'regex', 'rust', 'python', 'yaml' },
+                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'hcl', 'json', 'lua', 'markdown' , 'python', 'rust', 'yaml' },
                 incremental_selection = {
                     enable = true,
                     keymaps = {
@@ -123,12 +123,6 @@ function(use)
     }
 
     use {
-        'neovim/nvim-lspconfig',
-        ft = { "c", "cpp", "rust", "python", "go", "lua" },
-        config = function() require('plugins/lsp') end
-    }
-
-    use {
         'williamboman/mason.nvim',
         config = function() require('mason').setup() end
     }
@@ -137,10 +131,18 @@ function(use)
         'williamboman/mason-lspconfig.nvim',
         config = function()
             require('mason-lspconfig').setup({
-                ensure_installed = { "rust_analyzer", "gopls", "jdtls", "pylsp", "sumneko_lua" },
+                ensure_installed = {
+                    "gopls", "jdtls", "jsonls", "jsonnet_ls", "sumneko_lua",
+                    "pylsp", "rust_analyzer", "terraformls", "tflint", "yamlls",
+                },
                 automatic_installation = true,
             })
         end
+    }
+
+    use {
+        'neovim/nvim-lspconfig',
+        config = function() require('plugins/lsp') end
     }
 
     use {
