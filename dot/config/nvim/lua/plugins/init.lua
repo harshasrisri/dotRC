@@ -361,6 +361,14 @@ function(use)
             })
         end
     }
+
+    use {
+        'hashivim/vim-terraform',
+        ft = { 'terraform', 'hcl', 'terraform-vars' },
+        config = function()
+            vim.cmd([[let g:terraform_fmt_on_save=1]])
+            vim.cmd([[let g:terraform_align=1]])
+        end
     }
 
     if packer_bootstrap then
