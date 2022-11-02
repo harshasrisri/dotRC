@@ -105,8 +105,8 @@ map('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>')
 
 -- Git Signs
     -- Navigation
-    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+    map('n', ']c', '<cmd>Gitsigns next_hunk<CR>')
+    map('n', '[c', '<cmd>Gitsigns prev_hunk<CR>')
 
     -- Actions
     map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
