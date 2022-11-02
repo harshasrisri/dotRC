@@ -264,7 +264,6 @@ function(use)
         'simrat39/rust-tools.nvim',
         after = 'nvim-lspconfig',
         ft = { "rust" },
-        config = function() require('rust-tools').setup() end
     }
 
     use {
