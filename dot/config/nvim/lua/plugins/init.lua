@@ -185,7 +185,7 @@ function(use)
                     offsets = {
                         {
                             filetype = "NvimTree",
-                            text = function() return vim.fn.getcwd() end,
+                            text = "File Explorer",
                             highlight = "Directory",
                             separator = false,
                             text_align = 'left',
@@ -290,7 +290,7 @@ function(use)
                 views = {
                     cmdline_popup = {
                         position = { row = "33%", col = "50%", },
-                        size = { width = 60, height = "auto", },
+                        size = { width = "auto", height = "auto", },
                     },
                 },
                 routes = {
@@ -336,21 +336,31 @@ function(use)
     use {
         'nvim-tree/nvim-tree.lua',
         requires = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        config = function() require('nvim-tree').setup({
-            open_on_setup = false,
-            open_on_setup_file = true,
-            renderer = {
-                highlight_git = true,
-                highlight_opened_files = "all",
-                indent_markers = {
-                    enable = true,
+        config = function()
+            require('nvim-tree').setup({
+                view = {
+                    width = 36,
                 },
-                icons = {
-                    git_placement = 'signcolumn',
+                renderer = {
+                    highlight_git = true,
+                    highlight_opened_files = "all",
+                    indent_markers = {
+                        enable = true,
+                    },
+                    icons = {
+                        git_placement = 'signcolumn',
+                    }
+                },
+                actions = {
+                    open_file = {
+                        window_picker = {
+                            enable = false,
+                        }
+                    }
                 }
-            },
-        })
-    end
+            })
+        end
+    }
     }
 
     if packer_bootstrap then
