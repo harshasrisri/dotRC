@@ -372,6 +372,21 @@ function(use)
         end
     }
 
+    -- Lua
+    use {
+        "narutoxy/silicon.lua",
+        module = 'silicon',
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("silicon").setup({
+                font = "MesloLGS NF",
+                output = string.format("~/Downloads/nvim_silicon_%s%s%s_%s%s%s.png",
+                    os.date("%Y"),os.date("%m"),os.date("%d"),
+                    os.date("%H"),os.date("%M"),os.date("%S")),
+                })
+        end
+    }
+
     if packer_bootstrap then
         require('packer').sync()
     end
