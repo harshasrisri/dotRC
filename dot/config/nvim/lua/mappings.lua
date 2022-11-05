@@ -39,15 +39,15 @@ map('n', '-', ':ChooseWin<CR>')
 
 map('n', '<leader>s', '<cmd>ISwapWith<CR>')
 
-map('n', '<Tab>', ':BufferLineCycleNext<CR>')
-map('n', '<S-Tab>', ':BufferLineCyclePrev<CR>')
+map('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>')
+map('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>')
 
 map('n', ';', ':')
 
-map('v', '<C-j>', ':MoveBlock(1)<CR>')
-map('v', '<C-k>', ':MoveBlock(-1)<CR>')
-map('v', '<C-h>', ':MoveHBlock(-1)<CR>')
-map('v', '<C-l>', ':MoveHBlock(1)<CR>')
+map('v', '<C-j>', '<cmd>MoveBlock(1)<CR>')
+map('v', '<C-k>', '<cmd>MoveBlock(-1)<CR>')
+map('v', '<C-h>', '<cmd>MoveHBlock(-1)<CR>')
+map('v', '<C-l>', '<cmd>MoveHBlock(1)<CR>')
 
 ---------------------------- Telescope -------------------------
 vim.cmd('command! TelescopeGrepOpenBuffers lua require("telescope.builtin").live_grep({ prompt_title = "Find string in open buffers", grep_open_files = true })')
