@@ -21,7 +21,7 @@
 
 ## List of Plugins
 <!-- `! urls=$(rg -uuIg config url ~/.local/share/nvim/site/pack/packer \
-                | cut -f 2 -d = | sed -e 's/\.git//g' -e 's/^\ //g')` -->
+                | cut -f 2 -d = | sed -e 's/\.git//g' -e 's/^\ //g' | rg -v jsregexp)` -->
 <!-- `> echo -e "| Plugin | Description |\n| -- | -- |" && for url in $urls; do \
             api_url=$(echo $url | awk -F / '{ print $1 "//api." $3 "/repos/" $4 "/" $5 }') ;\
             descr=$(curl $api_url | jq .description | sed -e 's/"//g') ;\
@@ -47,8 +47,6 @@
 | [impatient.nvim](https://github.com/lewis6991/impatient.nvim) | Improve startup time for Neovim | 
 | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indent guides  for Neovim | 
 | [iswap.nvim](https://github.com/mizlan/iswap.nvim) | Interactively select and swap function arguments, list elements, and more. Powered by tree-sitter. | 
-| [jsregexp](https://github.com/kmarius/jsregexp/) | JavaScript regular expressions for lua | 
-| [jsregexp](https://github.com/kmarius/jsregexp/) | JavaScript regular expressions for lua | 
 | [kmonad-vim](https://github.com/kmonad/kmonad-vim) | Vim editing support for kmonad config files | 
 | [lspkind-nvim](https://github.com/onsails/lspkind-nvim) | vscode-like pictograms for neovim lsp completion items | 
 | [leap.nvim](https://github.com/ggandor/leap.nvim) | 🦘 Neovim's answer to the mouse: a clairvoyant interface that makes on-screen jumps quicker and more natural than ever | 
