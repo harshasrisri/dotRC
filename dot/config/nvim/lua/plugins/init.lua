@@ -39,7 +39,6 @@ function(use)
                     enable = true,
                     keymaps = {
                         init_selection = '<CR>',
-                        scope_incremental = '<CR>',
                         node_incremental = '<TAB>',
                         node_decremental = '<S-TAB>',
                     },
@@ -372,7 +371,6 @@ function(use)
         end
     }
 
-    -- Lua
     use {
         "narutoxy/silicon.lua",
         module = 'silicon',
@@ -385,6 +383,18 @@ function(use)
                     os.date("%H"),os.date("%M"),os.date("%S")),
                 })
         end
+    }
+
+    use {
+        'ggandor/leap.nvim',
+        keys = { 's', 'S', 'gs' },
+        config = function () require('leap').add_default_mappings() end
+    }
+
+    use {
+        'https://github.com/ggandor/leap-spooky.nvim',
+        after = 'leap.nvim',
+        config = function () require('leap-spooky').setup({}) end
     }
 
     if packer_bootstrap then
