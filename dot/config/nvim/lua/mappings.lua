@@ -94,9 +94,8 @@ map('n', '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>')
 map('n', '<leader>lx', '<cmd>Telescope lsp_references<CR>')
 
 -- FTerm.nvim
-vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true })
-map('n', '<leader>t', '<cmd>FTermToggle<CR>')
-map('t', '<Esc><Esc>', '<C-\\><C-n><cmd>FTermToggle<CR>')
+map('n', '<leader>t', function() require('FTerm').toggle() end)
+map('t', '<Esc><Esc>', function() require('FTerm').toggle() end)
 
 --NvimTree
 map('n', '<leader>et', '<cmd>NvimTreeToggle<CR>')

@@ -26,7 +26,6 @@ function(use)
     use { 'mzlogin/vim-markdown-toc', ft = 'markdown'}
     use { "dstein64/vim-startuptime", cmd = 'StartupTime' }
     use { 'kmonad/kmonad-vim', ft = 'kbd' }
-    use { 'numtostr/FTerm.nvim', module = 'FTerm' }
     use { 'mizlan/iswap.nvim', cmd = { "ISwap", "ISwapWith" } }
 
     use {
@@ -395,6 +394,20 @@ function(use)
         'https://github.com/ggandor/leap-spooky.nvim',
         after = 'leap.nvim',
         config = function () require('leap-spooky').setup({}) end
+    }
+
+    use {
+        'numtostr/FTerm.nvim',
+        module = 'FTerm',
+        config = function()
+            require('FTerm').setup({
+                border = 'solid',
+                dimensions = {
+                    height = 0.9,
+                    width = 0.9,
+                },
+            })
+        end
     }
 
     if packer_bootstrap then
