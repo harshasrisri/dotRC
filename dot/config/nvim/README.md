@@ -36,9 +36,9 @@
 | [cmp-calc](https://github.com/hrsh7th/cmp-calc) | nvim-cmp source for math calculation | 
 | [cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline) | nvim-cmp source for vim's cmdline | 
 | [cmp-emoji](https://github.com/hrsh7th/cmp-emoji) | nvim-cmp source for emoji | 
+| [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip) | luasnip completion source for nvim-cmp | 
 | [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | nvim-cmp source for neovim builtin LSP client | 
 | [cmp-path](https://github.com/hrsh7th/cmp-path) | nvim-cmp source for path | 
-| [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip) | luasnip completion source for nvim-cmp | 
 | [codewindow.nvim](https://github.com/gorbit99/codewindow.nvim) | null | 
 | [feline.nvim](https://github.com/feline-nvim/feline.nvim) | A minimal, stylish and customizable statusline for Neovim written in Lua | 
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Set of preconfigured snippets for different languages.  | 
@@ -51,6 +51,8 @@
 | [jsregexp](https://github.com/kmarius/jsregexp/) | JavaScript regular expressions for lua | 
 | [kmonad-vim](https://github.com/kmonad/kmonad-vim) | Vim editing support for kmonad config files | 
 | [lspkind-nvim](https://github.com/onsails/lspkind-nvim) | vscode-like pictograms for neovim lsp completion items | 
+| [leap.nvim](https://github.com/ggandor/leap.nvim) | 🦘 Neovim's answer to the mouse: a clairvoyant interface that makes on-screen jumps quicker and more natural than ever | 
+| [leap-spooky.nvim](https://github.com/ggandor/leap-spooky.nvim) | 👻 Actions at a distance | 
 | [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Snippet Engine for Neovim written in Lua. | 
 | [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim) | Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim. Strongly recommended for Windows users. | 
 | [mason.nvim](https://github.com/williamboman/mason.nvim) | Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters. | 
@@ -79,6 +81,7 @@
 | [project.nvim](https://github.com/ahmedkhalf/project.nvim) | The superior project management solution for neovim. | 
 | [rust-tools.nvim](https://github.com/simrat39/rust-tools.nvim) | Tools for better development in rust using neovim's builtin lsp | 
 | [sqlite.lua](https://github.com/tami5/sqlite.lua) | SQLite LuaJIT binding with a very simple api. | 
+| [silicon.lua](https://github.com/narutoxy/silicon.lua) | Beautiful code snippet images right in the most epic editor :chef_kiss: | 
 | [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim) | A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages. | 
 | [tabular](https://github.com/godlygeek/tabular) | Vim script for text filtering and alignment | 
 | [targets.vim](https://github.com/wellle/targets.vim) | Vim plugin that provides additional text objects | 
