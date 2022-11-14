@@ -32,7 +32,9 @@ fi
 
 [ ! -z "$(which bat 2>/dev/null)" ] && alias cat=bat
 
-alias vi='${EDITOR}'
+alias  vi='${EDITOR}'
+alias fvi='${EDITOR} $(fzf --layout=reverse --preview "fzf-tab-previewer {}")'
+alias fcd='cd $(dirname $(fzf --layout=reverse --preview "fzf-tab-previewer {}"))'
 
 alias .ml='vi ~/.myshrc.local'
 alias .gl='vi ~/.gitconfig.local'
@@ -50,7 +52,7 @@ alias .zj='vi ~/.config/zellij/config.yaml'
 alias .zm='vi ${_MY_RC_DIR}/dot/zimrc'
 alias  .t='vi ${_MY_RC_DIR}/dot/tmux.conf'
 alias .tb='vi ${_MY_RC_DIR}/dot/tabmux.conf'
-alias  .p='vi ${_MY_RC_DIR}/dot/p10k.zsh'
+alias  .p='vi ~/.p10k.zsh'
 alias  .a='vi ${_MY_RC_DIR}/dot/config/alacritty/alacritty.yml'
 alias .al='vi ~/.config/alacritty/alacritty.local.yml'
 alias .gc='vi ${_MY_RC_DIR}/dot/gitconfig'
@@ -108,12 +110,12 @@ gri () {
 
 zlc () {
     [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
-    zellij attach ${1} || zellij -s ${1}
+    exec zellij attach --create ${1}
 }
 
 tm () {
     [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
-    tmux attach -t ${1} || tmux new -s ${1}
+    exec tmux new -A -s ${1}
 }
 
 # vim: ft=sh
