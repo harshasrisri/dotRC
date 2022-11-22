@@ -33,8 +33,8 @@ fi
 [ ! -z "$(which bat 2>/dev/null)" ] && alias cat=bat
 
 alias  vi='${EDITOR}'
-alias fvi='${EDITOR} $(fzf --layout=reverse --preview "fzf-tab-previewer {}")'
-alias fcd='cd $(dirname $(fzf --layout=reverse --preview "fzf-tab-previewer {}"))'
+alias fvi='${EDITOR} $(fzf --multi --layout=reverse --preview "fzf-tab-previewer {}")'
+alias fcd='cd "$(fd -t d --print0 | fzf --read0 --print0 --layout=reverse --preview "fzf-tab-previewer {}")"'
 
 alias .ml='vi ~/.myshrc.local'
 alias .gl='vi ~/.gitconfig.local'
@@ -94,6 +94,7 @@ alias -g  gpl='git pull'
 alias -g  gps='git push'
 alias -g  gcp='git cherry-pick'
 alias -g   gf='git fetch'
+alias -g gbrn='git symbolic-ref --short HEAD'
 
 alias tab='exec tabmux'
 alias tml='tmux -L default ls'

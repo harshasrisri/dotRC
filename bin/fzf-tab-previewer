@@ -1,11 +1,10 @@
 #! /usr/bin/env sh
-# this is a example of lessfilter, you can change it
-
-echo "in $(realpath $0)" >> /tmp/lessfilter
+## Script to choose an appropriate previewer for fzf
 
 mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
+
 if [ -d "$1" ]; then
 	exa --git -hl --color=always --icons "$1"
 elif [ "$category" = image ]; then
@@ -16,6 +15,5 @@ elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || [ "$
 else
 	bat --color=always "$1"
 fi
-# lesspipe.sh don't use exa, bat and chafa, it use ls and exiftool. so we create a lessfilter.
 
 # vim: ft=sh
