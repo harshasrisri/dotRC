@@ -30,8 +30,6 @@ map('x', '<', '<gv')
 map('x', '>', '>gv')
 
 -- Misc
-map('c', 'w!!', 'w !sudo tee %') -- Easy save as sudo
-map('n', 'Y', 'y$')              -- Yank till end of line
 map('n', 'x', '"_x')             -- Ignore single char cuts
 map('i', 'jj' , '<Esc>')         -- Easy escape to normal mode
 
@@ -43,6 +41,7 @@ map('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>')
 map('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>')
 
 map('n', ';', ':')
+map('v', ';', ':')
 
 map('v', '<C-j>', '<cmd>MoveBlock(1)<CR>')
 map('v', '<C-k>', '<cmd>MoveBlock(-1)<CR>')
