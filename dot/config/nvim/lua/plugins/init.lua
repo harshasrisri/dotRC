@@ -243,7 +243,7 @@ function(use)
         'marko-cerovac/material.nvim',
         as = 'colorscheme',
         config = function()
-            vim.g.material_style = "oceanic"
+            vim.g.material_style = "deep ocean"
             require('material').setup ({
                 contrast = { floating_windows = true, terminal = true, cursor_line = true, sidebars = true },
                 styles = {
