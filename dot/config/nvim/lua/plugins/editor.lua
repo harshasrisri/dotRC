@@ -32,16 +32,6 @@ return {
     },
 
     {
-        'gorbit99/codewindow.nvim',
-        keys = '<leader>mm',
-        config = function()
-            local codewindow = require('codewindow')
-            codewindow.setup()
-            codewindow.apply_default_keybinds()
-        end,
-    },
-
-    {
         'Rrethy/vim-illuminate',
         event = 'BufReadPost',
         config = function()

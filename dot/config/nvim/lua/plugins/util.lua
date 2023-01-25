@@ -6,7 +6,6 @@ return {
 
     {
         'lewis6991/gitsigns.nvim',
-        dependencies = 'nvim-lua/plenary.nvim',
         event = 'BufReadPre',
         config = function()
             require('gitsigns').setup {
@@ -37,7 +36,6 @@ return {
 
     {
         "narutoxy/silicon.lua",
-        dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
             require("silicon").setup({
                 font = "MesloLGS NF",
@@ -49,4 +47,6 @@ return {
     },
 
     { 'godlygeek/tabular', cmd = 'Tab' },
+
+    { 'nvim-lua/plenary.nvim', lazy = true },
 }

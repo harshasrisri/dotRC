@@ -8,10 +8,11 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
-        event = 'BufReadPost',
+        lazy = true,
+        keys = { "<CR>", desc = "Initiate treesitter incremental selecion" },
         config = function()
-            require('nvim-treesitter.configs').setup {
-                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'hcl', 'json', 'lua', 'markdown' , 'python', 'rust', 'yaml' },
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'help', 'hcl', 'json', 'lua', 'markdown', 'markdown_inline', 'python', 'rust', 'vim', 'yaml' },
                 hightlight = { enable = true },
                 indent = { enable = true },
                 incremental_selection = {
@@ -22,7 +23,7 @@ return {
                         node_decremental = '<S-TAB>',
                     },
                 },
-            }
+            })
         end
     },
 
@@ -45,5 +46,4 @@ return {
             vim.cmd([[let g:terraform_align=1]])
         end
     },
-
 }
