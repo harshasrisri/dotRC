@@ -14,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
-    -- defaults = { lazy = true },
     git = { log = { "-2" }, },
     ui = { border = "rounded", },
     checker = { notify = false, },

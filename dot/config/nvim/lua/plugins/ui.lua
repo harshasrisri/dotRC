@@ -1,7 +1,6 @@
 return {
     {
         'marko-cerovac/material.nvim',
-        lazy = false,
         priority = 1000,
         name = 'colorscheme',
         config = function()
@@ -22,14 +21,13 @@ return {
 
     {
         'feline-nvim/feline.nvim',
-        after = 'colorscheme',
+        dependencies = { 'colorscheme' },
         config = true,
     },
 
     {
         'akinsho/bufferline.nvim',
-        after = 'colorscheme',
-        dependencies = 'nvim-tree/nvim-web-devicons',
+        dependencies = { 'colorscheme' },
         config = function()
             require('bufferline').setup {
                 options = {
@@ -72,7 +70,7 @@ return {
 
     {
         "rcarriga/nvim-notify",
-        after = "noice.nvim",
+        lazy = true,
         keys = {
             {
                 "<leader>un",
@@ -95,8 +93,11 @@ return {
 
     { "MunifTanjim/nui.nvim", lazy = true },
 
+    { 'nvim-tree/nvim-web-devicons', lazy = true },
+
     {
         "stevearc/dressing.nvim",
+        lazy = true,
         init = function()
             ---@diagnostic disable-next-line: duplicate-set-field
             vim.ui.select = function(...)
