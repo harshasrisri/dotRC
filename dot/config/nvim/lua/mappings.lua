@@ -39,6 +39,7 @@ map('n', '<leader>s', '<cmd>ISwapWith<CR>')
 
 map('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>')
 map('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>')
+map('n', '<leader>bd', '<cmd>bdelete<CR>')
 
 map('n', ';', ':')
 map('v', ';', ':')
