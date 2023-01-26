@@ -1,71 +1,3 @@
-local luasnip_config = function ()
-    local present, luasnip = pcall(require, "luasnip")
-    if not present then
-        return
-    end
-
-    local t = function(str)
-        return vim.api.nvim_replace_termcodes(str, true, true, true)
-    end
-
-    local check_back_space = function()
-        local col = vim.fn.col "." - 1
-        if col == 0 or vim.fn.getline("."):sub(col, col):match "%s" then
-            return true
-        else
-            return false
-        end
-    end
-
-    _G.tab_complete = function()
-        if vim.fn.pumvisible() == 1 then
-            return t "<C-n>"
-        elseif luasnip and luasnip.expand_or_jumpable() then
-            return t "<Plug>luasnip-expand-or-jump"
-        elseif check_back_space() then
-            return t "<Tab>"
-        else
-            return vim.fn["compe#complete"]()
-        end
-    end
-
-    _G.s_tab_complete = function()
-        if vim.fn.pumvisible() == 1 then
-            return t "<C-p>"
-        elseif luasnip and luasnip.jumpable(-1) then
-            return t "<Plug>luasnip-jump-prev"
-        else
-            return t "<S-Tab>"
-        end
-    end
-
-    _G.completions = function()
-        local npairs
-        if not pcall(function() npairs = require "nvim-autopairs" end) then
-            return
-        end
-
-        if vim.fn.pumvisible() == 1 then
-            if vim.fn.complete_info()["selected"] ~= -1 then
-                return vim.fn["compe#confirm"] "<CR>"
-            end
-        end
-        return npairs.check_break_line_char()
-    end
-
-    vim.api.nvim_set_keymap("i", "<CR>", "v:lua.completions()", { expr = true })
-    vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-    vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-    vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
-    vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
-
-    luasnip.config.set_config {
-        history = true,
-        updateevents = "TextChanged,TextChangedI",
-    }
-    require("luasnip/loaders/from_vscode").load()
-end
-
 local cmp_config = function ()
     vim.cmd [[set shortmess+=c]]
     vim.o.completeopt = "menuone,noselect,noinsert"
@@ -87,6 +19,8 @@ local cmp_config = function ()
         },
 
         mapping = {
+            ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-d>'] = cmp.mapping.scroll_docs(4),
             ['<CR>'] = cmp.mapping.confirm({ select = true }, { 'i', 'c', 's' }),
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
@@ -113,6 +47,7 @@ local cmp_config = function ()
 
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
+            { name = 'nvim_lsp_signature_help' },
             { name = 'luasnip' },
             { name = 'buffer' },
             { name = 'path' },
@@ -120,32 +55,54 @@ local cmp_config = function ()
             { name = 'calc' },
         }),
 
+        window = {
+            completion = {
+                border = { '', '', '', '', '', '', '', '▎' },
+                col_offset = 1,
+                side_padding = 0,
+            },
+            documentation = {
+                border = { '', '', '', '▎', '', '', '', '▎' },
+            }
+        },
+
         formatting = {
-            format = lspkind.cmp_format({
-                with_text = true,
-                menu = ({
-                    buffer = "[Buffer]",
-                    nvim_lsp = "[LSP]",
-                    luasnip = "[LuaSnip]",
-                    path = "[Path]",
-                })
-            }),
+            fields = { "kind", "abbr", "menu" },
+            format = function(entry, vim_item)
+                local kind = require("lspkind").cmp_format({
+                    mode = "symbol_text",
+                    maxwidth = 50,
+                })(entry, vim_item)
+
+                local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                kind.kind = " " .. (strings[1] or "") .. " "
+                kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+                return kind
+            end,
         },
     })
 
     cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = {
             { name = 'buffer' },
         }
     })
 
     cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
             { name = 'cmdline' },
             { name = 'path' },
             { name = 'buffer' },
         })
     })
+
+    require('cmp').event:on(
+        'confirm_done',
+        require('nvim-autopairs.completion.cmp').on_confirm_done()
+    )
 end
 
 return {
@@ -159,14 +116,37 @@ return {
             { 'hrsh7th/cmp-emoji' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
             { 'onsails/lspkind-nvim' },
-            {
-                'L3MON4D3/LuaSnip',
-                config = luasnip_config,
-            },
             { 'rafamadriz/friendly-snippets' },
             { 'saadparwaiz1/cmp_luasnip' },
         },
         config = cmp_config,
+    },
+
+    {
+        "L3MON4D3/LuaSnip",
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            config = function()
+                require("luasnip.loaders.from_vscode").lazy_load()
+            end,
+        },
+        opts = {
+            history = true,
+            delete_check_events = "TextChanged",
+        },
+        -- stylua: ignore
+        keys = {
+            {
+                "<tab>",
+                function()
+                    return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+                end,
+                expr = true, silent = true, mode = "i",
+            },
+            { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+            { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+        },
     },
 }

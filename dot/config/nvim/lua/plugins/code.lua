@@ -1,9 +1,9 @@
 return {
-    { 'google/vim-jsonnet' },
-    { 'euclio/vim-markdown-composer', run = 'cargo build --release --locked', ft = 'markdown' },
+    { 'google/vim-jsonnet', ft = 'jsonnet' },
+    { 'euclio/vim-markdown-composer', build = 'cargo build --release --locked', ft = 'markdown' },
     { 'mzlogin/vim-markdown-toc', ft = 'markdown'},
     { 'kmonad/kmonad-vim', ft = 'kbd' },
-    { 'mizlan/iswap.nvim', cmd = { "ISwap", "ISwapWith" } },
+    { 'mizlan/iswap.nvim', cmd = "ISwapWith" },
 
     {
         'nvim-treesitter/nvim-treesitter',
@@ -42,8 +42,8 @@ return {
         'hashivim/vim-terraform',
         ft = { 'terraform', 'hcl', 'terraform-vars' },
         config = function()
-            vim.cmd([[let g:terraform_fmt_on_save=1]])
-            vim.cmd([[let g:terraform_align=1]])
+            vim.g.terraform_fmt_on_save = 1
+            vim.g.terraform_align = 1
         end
     },
 }
