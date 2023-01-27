@@ -57,16 +57,18 @@ return {
 
     {
         'williamboman/mason.nvim',
+        lazy = true,
         config = true,
     },
 
     {
         'williamboman/mason-lspconfig.nvim',
+        lazy = true,
         config = function()
             require('mason-lspconfig').setup({
                 ensure_installed = {
-                    "gopls", "jdtls", "jsonls", "jsonnet_ls", "sumneko_lua",
-                    "pylsp", "rust_analyzer", "terraformls", "tflint", "yamlls",
+                    "gopls", "jdtls", "jsonls", "jsonnet_ls", "marksman", "pylsp",
+                    "rust_analyzer", "sumneko_lua", "terraformls", "tflint", "yamlls",
                 },
                 automatic_installation = true,
             })
@@ -75,6 +77,7 @@ return {
 
     {
         'neovim/nvim-lspconfig',
+        event = 'VeryLazy',
         config = lsp_config,
     },
 

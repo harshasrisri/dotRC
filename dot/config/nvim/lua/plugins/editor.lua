@@ -1,10 +1,17 @@
 return {
-    -- 'lewis6991/impatient.nvim',
-    'ojroques/nvim-osc52',
     'chaoren/vim-wordmotion',
+
     'wellle/targets.vim',
-    { "kylechui/nvim-surround", config = true, },
+
+    { 'ojroques/nvim-osc52', lazy = true },
+
+    { "kylechui/nvim-surround", config = true, event = 'VeryLazy' },
+
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
+
+    { 'folke/which-key.nvim', config = true, },
+
+    { 'windwp/nvim-autopairs', event = 'VeryLazy', config = true, },
 
     {
         't9md/vim-choosewin',
@@ -16,17 +23,6 @@ return {
                 let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
             ]], false)
         end
-    },
-
-    {
-        'folke/which-key.nvim',
-        config = true,
-    },
-
-    {
-        'windwp/nvim-autopairs',
-        event = 'VeryLazy',
-        config = true,
     },
 
     {
@@ -53,12 +49,14 @@ return {
 
     {
         'ggandor/leap-spooky.nvim',
+        lazy = true,
         dependencies = 'leap.nvim',
         config = function () require('leap-spooky').setup({}) end
     },
 
     {
         'nvim-tree/nvim-tree.lua',
+        lazy = true,
         dependencies = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
         config = function()
             require('nvim-tree').setup({
@@ -88,7 +86,7 @@ return {
 
     {
         'numtostr/FTerm.nvim',
-        module = 'FTerm',
+        lazy = true,
         config = function()
             require('FTerm').setup({
                 border = 'solid',
