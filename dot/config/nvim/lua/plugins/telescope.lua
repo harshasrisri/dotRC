@@ -10,6 +10,7 @@ return {
         }
     },
 
+    -- https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
     {
         'nvim-telescope/telescope-frecency.nvim',
         lazy = true,

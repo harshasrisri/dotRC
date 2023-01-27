@@ -36,6 +36,7 @@ return {
 
     {
         "narutoxy/silicon.lua",
+        lazy = true,
         config = function()
             require("silicon").setup({
                 font = "MesloLGS NF",
