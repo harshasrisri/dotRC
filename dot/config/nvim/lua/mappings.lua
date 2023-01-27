@@ -44,11 +44,6 @@ map('n', '<leader>bd', '<cmd>bdelete<CR>')
 map('n', ';', ':')
 map('v', ';', ':')
 
-map('v', '<C-j>', '<cmd>MoveBlock(1)<CR>')
-map('v', '<C-k>', '<cmd>MoveBlock(-1)<CR>')
-map('v', '<C-h>', '<cmd>MoveHBlock(-1)<CR>')
-map('v', '<C-l>', '<cmd>MoveHBlock(1)<CR>')
-
 ---------------------------- Telescope -------------------------
 vim.cmd('command! TelescopeGrepOpenBuffers lua require("telescope.builtin").live_grep({ prompt_title = "Find string in open buffers", grep_open_files = true })')
 vim.cmd('command! TelescopeGrepInPWD lua local input_string = vim.fn.input("Search For > ") if (input_string == "") then return end require("telescope.builtin").grep_string({ prompt_title = "Find in Files: " .. input_string, search = input_string, }) ')

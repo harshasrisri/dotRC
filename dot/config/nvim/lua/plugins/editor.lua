@@ -1,8 +1,6 @@
 return {
     'chaoren/vim-wordmotion',
 
-    'wellle/targets.vim',
-
     { 'ojroques/nvim-osc52', lazy = true },
 
     { "kylechui/nvim-surround", config = true, event = 'VeryLazy' },
@@ -12,6 +10,12 @@ return {
     { 'folke/which-key.nvim', config = true, },
 
     { 'windwp/nvim-autopairs', event = 'VeryLazy', config = true, },
+
+    {
+        'echasnovski/mini.ai',
+        event = 'VeryLazy',
+        config = function () require('mini.ai').setup() end
+    },
 
     {
         't9md/vim-choosewin',
