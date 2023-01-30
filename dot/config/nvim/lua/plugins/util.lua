@@ -7,6 +7,24 @@ return {
     {
         'lewis6991/gitsigns.nvim',
         event = 'BufReadPre',
+        keys = {
+            -- Navigation
+            { ']c', '<cmd>Gitsigns next_hunk<CR>' },
+            { '[c', '<cmd>Gitsigns prev_hunk<CR>' },
+            -- Actions
+            { '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>' },
+            { '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>' },
+            { '<leader>hd', '<cmd>Gitsigns diffthis<CR>' },
+            { '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>' },
+            { '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>' },
+            { '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>' },
+            { '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>' },
+            { '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>' },
+            { '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>' },
+            -- Text object
+            { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = 'o' },
+            { 'ih', ':<C-U>Gitsigns select_hunk<CR>' , mode = 'x'},
+        },
         config = function()
             require('gitsigns').setup {
                 current_line_blame = true,
