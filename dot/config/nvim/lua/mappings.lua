@@ -33,8 +33,6 @@ map('x', '>', '>gv')
 map('n', 'x', '"_x')             -- Ignore single char cuts
 map('i', 'jj' , '<Esc>')         -- Easy escape to normal mode
 
-map('n', '-', ':ChooseWin<CR>')
-
 map('n', '<leader>s', '<cmd>ISwapWith<CR>')
 
 map('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>')
