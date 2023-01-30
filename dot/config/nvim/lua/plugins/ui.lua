@@ -21,13 +21,16 @@ return {
 
     {
         'feline-nvim/feline.nvim',
-        dependencies = { 'colorscheme' },
         config = true,
     },
 
     {
         'akinsho/bufferline.nvim',
-        dependencies = { 'colorscheme' },
+        event = "VeryLazy",
+        keys = {
+            { '<Tab>', '<cmd>BufferLineCycleNext<CR>' },
+            { '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>' },
+        },
         config = function()
             require('bufferline').setup {
                 options = {
@@ -50,6 +53,9 @@ return {
     {
         "folke/noice.nvim",
         event = "VeryLazy",
+        keys = {
+            { '<leader>fn', '<cmd>Noice telescope<CR>' },
+        },
         config = function()
             require("noice").setup({
                 views = {
