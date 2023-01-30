@@ -3,7 +3,15 @@ return {
     { 'euclio/vim-markdown-composer', build = 'cargo build --release --locked', ft = 'markdown' },
     { 'mzlogin/vim-markdown-toc', ft = 'markdown'},
     { 'kmonad/kmonad-vim', ft = 'kbd' },
-    { 'mizlan/iswap.nvim', cmd = "ISwapWith" },
+
+    {
+        'mizlan/iswap.nvim',
+        cmd = "ISwapWith",
+        keys = {
+            { '<leader>s', '<cmd>ISwapWith<CR>' },
+
+        },
+    },
 
     {
         'nvim-treesitter/nvim-treesitter',
