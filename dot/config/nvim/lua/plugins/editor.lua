@@ -64,10 +64,19 @@ return {
 
     {
         'nvim-tree/nvim-tree.lua',
-        lazy = true,
+        cmd = 'NvimTreeToggle',
+        keys = {
+            { '<leader>et', '<cmd>NvimTreeToggle<CR>', desc = "Toggle NvimTree" }
+        },
         dependencies = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
         config = function()
             require('nvim-tree').setup({
+                sync_root_with_cwd = true,
+                respect_buf_cwd = true,
+                update_focused_file = {
+                    enable = true,
+                    update_root = true
+                },
                 view = {
                     width = 36,
                 },

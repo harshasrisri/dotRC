@@ -85,8 +85,3 @@ map('n', '<leader>li', '<cmd>Telescope lsp_implementations<CR>')
 map('n', '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>')
 map('n', '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>')
 map('n', '<leader>lx', '<cmd>Telescope lsp_references<CR>')
-
---NvimTree
-map('n', '<leader>et', '<cmd>NvimTreeToggle<CR>')
-map('n', '<leader>ef', '<cmd>NvimTreeFocus<CR>')
-map('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>')
