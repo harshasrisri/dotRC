@@ -33,8 +33,6 @@ map('x', '>', '>gv')
 map('n', 'x', '"_x')             -- Ignore single char cuts
 map('i', 'jj' , '<Esc>')         -- Easy escape to normal mode
 
-map('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>')
-map('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>')
 map('n', '<leader>bd', '<cmd>bdelete<CR>')
 
 map('n', ';', ':')
@@ -57,7 +55,6 @@ map('n', '<leader>fh', '<cmd>Telescope frecency<CR>')
 map('n', '<leader>fj', '<cmd>Telescope jumplist<CR>')
 map('n', '<leader>fl', '<cmd>Telescope live_grep<CR>')
 map('n', '<leader>fm', '<cmd>Telescope builtin<CR>')
-map('n', '<leader>fn', '<cmd>Noice telescope<CR>')
 map('n', '<leader>fo', '<cmd>Telescope vim_options<CR>')
 map('n', '<leader>fp', '<cmd>Telescope projects<CR>')
 map('n', '<leader>fr', '<cmd>Telescope resume<CR>')
