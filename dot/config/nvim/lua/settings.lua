@@ -73,11 +73,3 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts.border = opts.border or border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
-
--- Settings for Symbols Outline plugin
-vim.g.symbols_outline = {
-    relative_width = false,
-    width = 40,
-    auto_preview = false,
-    auto_close = true,
-}
