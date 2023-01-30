@@ -20,6 +20,10 @@ return {
     {
         't9md/vim-choosewin',
         cmd = 'ChooseWin',
+        keys = {
+            { '-', '<cmd>ChooseWin<CR>' },
+
+        },
         config = function()
             vim.api.nvim_exec([[
                 let g:choosewin_overlay_enable = 1
