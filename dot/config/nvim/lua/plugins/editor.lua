@@ -102,6 +102,11 @@ return {
     },
 
     {
+        'echasnovski/mini.map',
         lazy = true,
+        keys = {
+            { "<leader>mm", "<cmd>lua require('mini.map').toggle()<CR>", desc = "Open Mini Map" },
+        },
+        config = function () require('mini.map').setup() end
     },
 }
