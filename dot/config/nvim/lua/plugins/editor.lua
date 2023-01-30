@@ -93,16 +93,6 @@ return {
     },
 
     {
-        'numtostr/FTerm.nvim',
         lazy = true,
-        config = function()
-            require('FTerm').setup({
-                border = 'solid',
-                dimensions = {
-                    height = 0.9,
-                    width = 0.9,
-                },
-            })
-        end
     },
 }

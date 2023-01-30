@@ -17,6 +17,23 @@ return {
     },
 
     {
+        'numtostr/FTerm.nvim',
+        lazy = true,
+        keys = {
+            {'<leader>t', function() require('FTerm').toggle() end },
+            {'<Esc><Esc>', function() require('FTerm').toggle() end, mode = 't' },
+        },
+        config = function()
+            require('FTerm').setup({
+                dimensions = {
+                    height = 0.9,
+                    width = 0.9,
+                },
+            })
+        end
+    },
+
+    {
         'folke/zen-mode.nvim',
         cmd = 'ZenMode',
         config = function()
