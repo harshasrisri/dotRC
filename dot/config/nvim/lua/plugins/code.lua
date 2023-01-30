@@ -35,6 +35,14 @@ return {
     {
         'simrat39/symbols-outline.nvim',
         cmd = 'SymbolsOutline',
+        init = function ()
+            vim.g.symbols_outline = {
+                relative_width = false,
+                width = 40,
+                auto_preview = false,
+                auto_close = true,
+            }
+        end,
         config = true,
     },
 
