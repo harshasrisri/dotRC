@@ -111,8 +111,3 @@ map('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>')
     -- Text object
     map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-
--- Silicon
-map('v', '<leader>ss', '<cmd>lua require("silicon").visualise_api({})<CR>')
-map('v', '<leader>sb', '<cmd>lua require("silicon").visualise_api({show_buf = true})<CR>')
-map('v', '<leader>sy', '<cmd>lua require("silicon").visualise_api({to_clip = true})<CR>')

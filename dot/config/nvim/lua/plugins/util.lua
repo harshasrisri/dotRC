@@ -54,6 +54,11 @@ return {
     {
         "narutoxy/silicon.lua",
         lazy = true,
+        keys = {
+            { '<leader>ss', '<cmd>lua require("silicon").visualise_api({})<CR>', mode = 'v' },
+            { '<leader>sb', '<cmd>lua require("silicon").visualise_api({show_butrue})<CR>', mode = 'v' },
+            { '<leader>sy', '<cmd>lua require("silicon").visualise_api({to_cliprue})<CR>', mode = 'v' },
+        },
         config = function()
             require("silicon").setup({
                 font = "MesloLGS NF",
