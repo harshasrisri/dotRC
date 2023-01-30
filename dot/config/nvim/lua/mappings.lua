@@ -86,10 +86,6 @@ map('n', '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>')
 map('n', '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>')
 map('n', '<leader>lx', '<cmd>Telescope lsp_references<CR>')
 
--- FTerm.nvim
-map('n', '<leader>t', function() require('FTerm').toggle() end)
-map('t', '<Esc><Esc>', function() require('FTerm').toggle() end)
-
 --NvimTree
 map('n', '<leader>et', '<cmd>NvimTreeToggle<CR>')
 map('n', '<leader>ef', '<cmd>NvimTreeFocus<CR>')
