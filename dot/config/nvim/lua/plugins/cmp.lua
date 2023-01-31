@@ -109,16 +109,16 @@ end
 return {
     {
         'hrsh7th/nvim-cmp',
-        event = { 'InsertEnter', 'CmdlineEnter' },
+        event = { 'InsertEnter'--[[, 'CmdlineEnter']] },
         dependencies = {
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-calc' },
             { 'hrsh7th/cmp-cmdline' },
             { 'hrsh7th/cmp-emoji' },
-            { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-path' },
-            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-            { 'onsails/lspkind-nvim' },
+            { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-lspconfig' },
+            { 'hrsh7th/cmp-nvim-lsp-signature-help', dependencies = 'nvim-lspconfig' },
+            { 'onsails/lspkind-nvim', dependencies = 'nvim-lspconfig' },
             { 'rafamadriz/friendly-snippets' },
             { 'saadparwaiz1/cmp_luasnip' },
         },

@@ -1,15 +1,15 @@
 return {
-    'chaoren/vim-wordmotion',
+    { 'chaoren/vim-wordmotion', event = 'BufReadPost' },
 
     { 'ojroques/nvim-osc52', lazy = true },
 
-    { "kylechui/nvim-surround", config = true, event = 'VeryLazy' },
+    { "kylechui/nvim-surround", config = true, event = 'BufReadPost' },
 
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
 
     { 'folke/which-key.nvim', config = true, },
 
-    { 'windwp/nvim-autopairs', event = 'VeryLazy', config = true, },
+    { 'windwp/nvim-autopairs', event = 'BufReadPost', config = true, },
 
     {
         'echasnovski/mini.ai',
