@@ -7,7 +7,7 @@ return {
 
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
 
-    { 'folke/which-key.nvim', config = true, },
+    { 'folke/which-key.nvim', config = true, event = 'VeryLazy' },
 
     { 'windwp/nvim-autopairs', event = 'BufReadPost', config = true, },
 
@@ -15,6 +15,25 @@ return {
         'echasnovski/mini.ai',
         event = 'VeryLazy',
         config = function () require('mini.ai').setup() end
+    },
+
+    {
+        'ahmedkhalf/project.nvim',
+        event = 'BufNew',
+        -- Telescope extension and mapping loaded in Telescope config
+        config = function() require('project_nvim').setup() end
+    },
+
+    {
+        'AckslD/nvim-neoclip.lua',
+        event = 'TextYankPost',
+        dependencies = { 'tami5/sqlite.lua' },
+        -- Telescope extension and mapping loaded in Telescope config
+        config = function()
+            require('neoclip').setup({
+                enable_persistent_history = true,
+            })
+        end
     },
 
     {
