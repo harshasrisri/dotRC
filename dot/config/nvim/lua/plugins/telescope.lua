@@ -24,7 +24,9 @@ return {
             { '<leader>fl', '<cmd>Telescope live_grep<CR>' },
             { '<leader>fm', '<cmd>Telescope builtin<CR>' },
             { '<leader>fo', '<cmd>Telescope vim_options<CR>' },
+            { '<leader>fp', '<cmd>Telescope projects<CR>' },
             { '<leader>fr', '<cmd>Telescope resume<CR>' },
+            { '<leader>fy', '<cmd>Telescope neoclip<CR>' },
             { '<leader>gC', '<cmd>Telescope git_commits<CR>' },
             { '<leader>gb', '<cmd>Telescope git_branches<CR>' },
             { '<leader>gc', '<cmd>Telescope git_bcommits<CR>' },
@@ -57,6 +59,10 @@ return {
             )
             vim.keymap.set('n', '<leader>fB', '<cmd>TelescopeGrepOpenBuffers<CR>')
             vim.keymap.set('n', '<leader>fg', '<cmd>TelescopeGrepInPWD<CR>')
+
+            -- Plugins that can function w/o loading telescope integration until this point
+            require('telescope').load_extension('projects')
+            require('telescope').load_extension('neoclip')
         end
     },
 
@@ -72,32 +78,5 @@ return {
         lazy = true,
         build = 'make',
         config = function() require('telescope').load_extension('fzf') end
-    },
-
-    {
-        'ahmedkhalf/project.nvim',
-        event = 'BufReadPost',
-        keys = {
-            { '<leader>fp', '<cmd>Telescope projects<CR>' },
-        },
-        config = function()
-            require('project_nvim').setup()
-            require('telescope').load_extension('projects')
-        end
-    },
-
-    {
-        'AckslD/nvim-neoclip.lua',
-        lazy = true,
-        keys = {
-            { '<leader>fy', '<cmd>Telescope neoclip<CR>' },
-        },
-        dependencies = { 'tami5/sqlite.lua' },
-        config = function()
-            require('neoclip').setup({
-                enable_persistent_history = true,
-            })
-            require('telescope').load_extension('neoclip')
-        end
     },
 }
