@@ -120,13 +120,13 @@ return {
 
     {
         'karb94/neoscroll.nvim',
-        event = 'WinScrolled',
+        event = 'BufReadPost',
         config = true,
     },
 
     {
         'lukas-reineke/indent-blankline.nvim',
-        event = 'BufEnter',
+        event = 'BufReadPost',
         config = function()
             require('indent_blankline').setup {
                 use_tresitter = true,

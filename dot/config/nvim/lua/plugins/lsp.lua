@@ -57,7 +57,7 @@ return {
 
     {
         'williamboman/mason.nvim',
-        lazy = true,
+        cmd = 'Mason',
         config = true,
     },
 
@@ -77,8 +77,9 @@ return {
 
     {
         'neovim/nvim-lspconfig',
-        event = 'VeryLazy',
+        event = 'BufReadPost',
         config = lsp_config,
+        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim' },
         keys = {
             -- { '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>' },
             { '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
