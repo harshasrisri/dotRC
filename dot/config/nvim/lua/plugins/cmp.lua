@@ -1,5 +1,5 @@
 local cmp_config = function ()
-    vim.cmd [[set shortmess+=c]]
+    vim.opt.shortmess:append({ c = true })
     vim.o.completeopt = "menuone,noselect,noinsert"
 
     local has_words_before = function()
@@ -7,7 +7,6 @@ local cmp_config = function ()
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
 
-    local lspkind = require('lspkind')
     local luasnip = require('luasnip')
     local cmp = require('cmp')
 
@@ -48,7 +47,6 @@ local cmp_config = function ()
 
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
-            { name = 'nvim_lsp_signature_help' },
             { name = 'luasnip' },
             { name = 'buffer' },
             { name = 'path' },
@@ -117,9 +115,7 @@ return {
             { 'hrsh7th/cmp-emoji' },
             { 'hrsh7th/cmp-path' },
             { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-lspconfig' },
-            { 'hrsh7th/cmp-nvim-lsp-signature-help', dependencies = 'nvim-lspconfig' },
             { 'onsails/lspkind-nvim', dependencies = 'nvim-lspconfig' },
-            { 'rafamadriz/friendly-snippets' },
             { 'saadparwaiz1/cmp_luasnip' },
         },
         config = cmp_config,
@@ -127,6 +123,7 @@ return {
 
     {
         "L3MON4D3/LuaSnip",
+        lazy = true,
         dependencies = {
             "rafamadriz/friendly-snippets",
             config = function()
@@ -136,17 +133,6 @@ return {
         opts = {
             history = true,
             delete_check_events = "TextChanged",
-        },
-        keys = {
-            {
-                "<tab>",
-                function()
-                    return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-                end,
-                expr = true, silent = true, mode = "i",
-            },
-            { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-            { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
         },
     },
 }
