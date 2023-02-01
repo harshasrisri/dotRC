@@ -6,6 +6,7 @@ return {
             -- https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
             'nvim-telescope/telescope-frecency.nvim',
             'nvim-telescope/telescope-fzf-native.nvim',
+            "debugloop/telescope-undo.nvim",
             'ahmedkhalf/project.nvim',
             'AckslD/nvim-neoclip.lua',
         },
@@ -26,6 +27,7 @@ return {
             { '<leader>fo', '<cmd>Telescope vim_options<CR>' },
             { '<leader>fp', '<cmd>Telescope projects<CR>' },
             { '<leader>fr', '<cmd>Telescope resume<CR>' },
+            { '<leader>fu', '<cmd>Telescope undo<CR>' },
             { '<leader>fy', '<cmd>Telescope neoclip<CR>' },
             { '<leader>gC', '<cmd>Telescope git_commits<CR>' },
             { '<leader>gb', '<cmd>Telescope git_branches<CR>' },
@@ -78,5 +80,12 @@ return {
         lazy = true,
         build = 'make',
         config = function() require('telescope').load_extension('fzf') end
+    },
+
+    {
+        "debugloop/telescope-undo.nvim",
+        lazy = true,
+        dependencies = { "nvim-lua/plenary.nvim", },
+        config = function() require("telescope").load_extension("undo") end,
     },
 }
