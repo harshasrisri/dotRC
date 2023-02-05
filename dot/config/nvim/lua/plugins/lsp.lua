@@ -33,6 +33,9 @@ local lsp_config = function ()
             nvim_lsp.sumneko_lua.setup {
                 settings = {
                     Lua = {
+                        completion = {
+                            callSnippet = "Replace"
+                        },
                         diagnostics = {
                             globals = { "vim" }
                         }
@@ -53,6 +56,29 @@ return {
     {
         'm-pilia/vim-ccls',
         ft = { 'c', 'cpp'},
+    },
+
+    {
+        'https://github.com/folke/neodev.nvim',
+        ft = 'lua',
+        config = function ()
+            require('neodev').setup({
+                library = { plugins = { "nvim-dap-ui" }, types = true },
+            })
+        end
+    },
+
+    {
+        'simrat39/rust-tools.nvim',
+        ft = { "rust" },
+    },
+
+    {
+        'weilbith/nvim-code-action-menu',
+        cmd = 'CodeActionMenu',
+        keys = {
+            { '<leader>la', '<cmd>CodeActionMenu<CR>' },
+        },
     },
 
     {
@@ -95,19 +121,6 @@ return {
             { '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>' },
             { '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>' },
             { '<leader>lx', '<cmd>Telescope lsp_references<CR>' },
-        },
-    },
-
-    {
-        'simrat39/rust-tools.nvim',
-        ft = { "rust" },
-    },
-
-    {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-        keys = {
-            { '<leader>la', '<cmd>CodeActionMenu<CR>' },
         },
     },
 }
