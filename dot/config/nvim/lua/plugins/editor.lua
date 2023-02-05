@@ -19,7 +19,7 @@ return {
 
     {
         'ahmedkhalf/project.nvim',
-        event = 'BufNew',
+        event = 'UIEnter',
         -- Telescope extension and mapping loaded in Telescope config
         config = function() require('project_nvim').setup() end
     },
