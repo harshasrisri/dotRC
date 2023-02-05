@@ -21,7 +21,22 @@ return {
 
     {
         'feline-nvim/feline.nvim',
-        config = true,
+        config = function ()
+            require('feline').setup({
+                disable = {
+                    filetypes = {
+                        '^dapui',
+                        '^dap%-repl$',
+                        '^NvimTree$',
+                        '^packer$',
+                        '^fugitive$',
+                        '^fugitiveblame$',
+                        '^qf$',
+                        '^help$',
+                    }
+                }
+            })
+        end
     },
 
     {
