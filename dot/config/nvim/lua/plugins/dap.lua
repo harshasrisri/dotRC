@@ -18,6 +18,7 @@ return {
         config = function ()
             require('dapui').setup({
                 controls = {
+                    element = "console",
                     icons = {
                         pause = "Pause ",
                         play = "Continue ",

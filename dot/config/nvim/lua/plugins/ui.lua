@@ -27,11 +27,6 @@ return {
                     filetypes = {
                         '^dapui',
                         '^dap%-repl$',
-                        '^NvimTree$',
-                        '^packer$',
-                        '^fugitive$',
-                        '^fugitiveblame$',
-                        '^qf$',
                         '^help$',
                     }
                 }
