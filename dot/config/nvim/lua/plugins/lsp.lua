@@ -56,11 +56,13 @@ return {
     {
         'm-pilia/vim-ccls',
         ft = { 'c', 'cpp'},
+        dependencies = 'nvim-lspconfig',
     },
 
     {
-        'https://github.com/folke/neodev.nvim',
+        'folke/neodev.nvim',
         ft = 'lua',
+        dependencies = 'nvim-lspconfig',
         config = function ()
             require('neodev').setup({
                 library = { plugins = { "nvim-dap-ui" }, types = true },
@@ -71,6 +73,17 @@ return {
     {
         'simrat39/rust-tools.nvim',
         ft = { "rust" },
+        dependencies = 'nvim-lspconfig',
+    },
+
+    {
+        'hashivim/vim-terraform',
+        ft = { 'terraform', 'hcl', 'terraform-vars' },
+        dependencies = 'nvim-lspconfig',
+        config = function()
+            vim.g.terraform_fmt_on_save = 1
+            vim.g.terraform_align = 1
+        end
     },
 
     {
@@ -103,7 +116,7 @@ return {
 
     {
         'neovim/nvim-lspconfig',
-        event = 'BufReadPost',
+        ft = { 'go', 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
         config = lsp_config,
         dependencies = { 'mason.nvim', 'mason-lspconfig.nvim' },
         keys = {
