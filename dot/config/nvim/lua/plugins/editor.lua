@@ -37,18 +37,16 @@ return {
     },
 
     {
-        't9md/vim-choosewin',
-        cmd = 'ChooseWin',
-        keys = {
-            { '-', '<cmd>ChooseWin<CR>' },
-
-        },
-        config = function()
-            vim.api.nvim_exec([[
-                let g:choosewin_overlay_enable = 1
-                let g:choosewin_color_overlay = { 'gui': ['DodgerBlue3', 'DodgerBlue3'], 'cterm': [25, 25] }
-                let g:choosewin_color_overlay_current = { 'gui': ['firebrick1', 'firebrick1'], 'cterm': [124, 124] }
-            ]], false)
+        'https://gitlab.com/yorickpeterse/nvim-window',
+        lazy = true,
+        keys = { { '-', function () require('nvim-window').pick() end }, },
+        config = function ()
+            require('nvim-window').setup({
+                chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', },
+                normal_hl = 'Cursor',
+                hint_hl = 'Bold',
+                border = 'rounded',
+            })
         end
     },
 
