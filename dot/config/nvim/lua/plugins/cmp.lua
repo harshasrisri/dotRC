@@ -48,10 +48,17 @@ local cmp_config = function ()
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
-            { name = 'buffer' },
             { name = 'path' },
             { name = 'emoji' },
             { name = 'calc' },
+            {
+                name = 'buffer',
+                option = {
+                    get_bufnrs = function ()
+                        return vim.api.nvim_list_bufs()
+                    end
+                }
+            },
         }),
 
         window = {
@@ -79,6 +86,12 @@ local cmp_config = function ()
 
                 return kind
             end,
+        },
+
+        sorting = {
+            comparators = {
+                function (...) return require('cmp_buffer'):compare_locality(...) end,
+            },
         },
     })
 
