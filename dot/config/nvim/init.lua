@@ -19,10 +19,9 @@ require("lazy").setup("plugins", {
     performance = {
         rtp = {
             disabled_plugins = {
-                "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
-                "gzip", "zip", "zipPlugin", "tar", "tarPlugin",
-                "getscript", "getscriptPlugin", "tutor", "tohtml", "matchparen",
-                "2html_plugin", "logipat", "rrhelper", "spellfile_plugin", "matchit",
+                "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip", "zip",
+                "zipPlugin", "tar", "tarPlugin", "getscript", "getscriptPlugin", "tutor",
+                "tohtml", "2html_plugin", "logipat", "rrhelper", "spellfile_plugin",
             },
         },
     },
