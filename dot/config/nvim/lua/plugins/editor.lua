@@ -37,7 +37,7 @@ return {
     },
 
     {
-        'https://gitlab.com/yorickpeterse/nvim-window',
+        'yorickpeterse/nvim-window',
         lazy = true,
         keys = { { '-', function () require('nvim-window').pick() end }, },
         config = function ()

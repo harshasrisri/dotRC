@@ -6,7 +6,7 @@ return {
             -- https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
             'nvim-telescope/telescope-frecency.nvim',
             'nvim-telescope/telescope-fzf-native.nvim',
-            "debugloop/telescope-undo.nvim",
+            'debugloop/telescope-undo.nvim',
             'ahmedkhalf/project.nvim',
             'AckslD/nvim-neoclip.lua',
         },
@@ -83,7 +83,7 @@ return {
     },
 
     {
-        "debugloop/telescope-undo.nvim",
+        'debugloop/telescope-undo.nvim',
         lazy = true,
         dependencies = { "nvim-lua/plenary.nvim", },
         config = function() require("telescope").load_extension("undo") end,
