@@ -61,6 +61,21 @@ return {
     },
 
     {
+        'utilyre/barbecue.nvim',
+        event = "VeryLazy",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function ()
+            require('barbecue').setup({
+                exclude_filetypes = { 'gitcommit', 'fterm', 'dapui*', 'dap-repl', 'nvimtree' },
+            })
+            require('barbecue.ui').toggle(true)
+        end
+    },
+
+    {
         "folke/noice.nvim",
         event = "VeryLazy",
         keys = {
@@ -144,6 +159,7 @@ return {
                 show_first_indent_level = false,
                 show_current_context = true,
                 show_current_context_start = true,
+                show_current_context_start_on_current_line = false,
                 show_end_of_line = true,
             }
         end
