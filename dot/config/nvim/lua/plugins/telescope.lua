@@ -33,6 +33,7 @@ return {
             { '<leader>gb', '<cmd>Telescope git_branches<CR>' },
             { '<leader>gc', '<cmd>Telescope git_bcommits<CR>' },
             { '<leader>gs', '<cmd>Telescope git_status<CR>' },
+            { '<leader>fg', '<cmd>Telescope<CR><Esc><cmd>TelescopeGrepInPWD<CR>'}
         },
         config = function ()
             require('telescope').setup()
