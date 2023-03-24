@@ -24,7 +24,7 @@ zmodule completion
 zmodule zsh-users/zsh-autosuggestions
 
 # Fish-like syntax highlighting for Zsh. Must be sourced after completion
-zmodule zdharma/fast-syntax-highlighting
+zmodule z-shell/F-Sy-H
 
 # Fish-like history search (up arrow) for Zsh. Must be sourced after syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
@@ -43,3 +43,9 @@ zmodule custom
 
 # Autocompletion for pass
 zmodule ninrod/pass-zsh-completion
+
+# some configuration above
+zmodule kiesman99/zim-zoxide
+
+# Multi word history search
+zmodule z-shell/H-S-MW
