@@ -118,7 +118,7 @@ return {
         'neovim/nvim-lspconfig',
         ft = { 'go', 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
         config = lsp_config,
-        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim' },
+        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim' },
         keys = {
             -- { '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>' },
             { '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
@@ -136,4 +136,23 @@ return {
             { '<leader>lx', '<cmd>Telescope lsp_references<CR>' },
         },
     },
+
+    {
+        'ErichDonGubler/lsp_lines.nvim',
+        lazy = true,
+        config = function ()
+            require('lsp_lines').setup()
+            vim.diagnostic.config({ virtual_text = false })
+            vim.keymap.set(
+                '',
+                '<leader>ll',
+                function ()
+                    local new_value = not vim.diagnostic.config().virtual_text
+                    vim.diagnostic.config({ virtual_text = new_value })
+                    require('lsp_lines').toggle()
+                end,
+                { desc = "Toggle lsp_lines" }
+            )
+        end
+    }
 }
