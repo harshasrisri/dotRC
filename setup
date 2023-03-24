@@ -25,10 +25,11 @@ install_vim_plugins() {
 
     [ ! -e ${vimPlug_path} ] && download_file $vimPlug_url $vimPlug_path
 
-    echo -n "Updating vim plugins . . . "
+    echo "Updating vim plugins . . ."
     vim +PlugUpgrade +PlugUpdate +PlugClean +qa!
-    nvim +PackerSync
-    echo " Done"
+    echo "Updating neovim plugins . . ."
+    nvim --headless "+Lazy! sync" +qa
+    echo "Done"
 }
 
 install_tmux_plugins () {
