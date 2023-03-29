@@ -6,10 +6,10 @@ return {
 
     {
         'mizlan/iswap.nvim',
-        cmd = "ISwapWith",
+        cmd = { "ISwapWith", "ISwapNodeWith" },
         keys = {
-            { '<leader>s', '<cmd>ISwapWith<CR>' },
-
+            { '<leader>sw', '<cmd>ISwapWith<CR>', desc = "Swap current item with another" },
+            { '<leader>sn', '<cmd>ISwapNodeWith<CR>', desc = "Swap current treesitter node with another" },
         },
     },
 
@@ -53,5 +53,20 @@ return {
             }
         end,
         config = true,
+    },
+
+    {
+        'wansmer/treesj',
+        cmd = 'TSJToggle',
+        keys = {
+            { '<leader>sj', '<cmd>TSJToggle<CR>', desc = "Toggle Split/Join" },
+        },
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = function()
+            require('treesj').setup({
+                use_default_keymaps = false,
+                max_join_length = 256,
+            })
+        end,
     },
 }
