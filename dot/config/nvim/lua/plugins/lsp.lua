@@ -29,8 +29,8 @@ local lsp_config = function ()
         ["rust_analyzer"] = function ()
             require("rust-tools").setup {}
         end,
-        ["sumneko_lua"] = function ()
-            nvim_lsp.sumneko_lua.setup {
+        ["lua_ls"] = function ()
+            nvim_lsp.lua_ls.setup {
                 settings = {
                     Lua = {
                         completion = {
@@ -89,6 +89,7 @@ return {
     {
         'weilbith/nvim-code-action-menu',
         cmd = 'CodeActionMenu',
+        dependencies = 'nvim-lspconfig',
         keys = {
             { '<leader>la', '<cmd>CodeActionMenu<CR>' },
         },
@@ -107,7 +108,7 @@ return {
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     "gopls", "jdtls", "jsonls", "jsonnet_ls", "marksman", "pylsp",
-                    "rust_analyzer", "sumneko_lua", "terraformls", "tflint", "yamlls",
+                    "rust_analyzer", "lua_ls", "terraformls", "tflint", "yamlls",
                 },
                 automatic_installation = true,
             })
