@@ -1,8 +1,31 @@
 return {
     { 'google/vim-jsonnet', ft = 'jsonnet' },
-    { 'euclio/vim-markdown-composer', build = 'cargo build --release --locked', ft = 'markdown' },
     { 'mzlogin/vim-markdown-toc', ft = 'markdown'},
     { 'kmonad/kmonad-vim', ft = 'kbd' },
+
+    {
+        "iamcco/markdown-preview.nvim",
+        ft = { "markdown" },
+        build = "cd app && npm install",
+        config = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+            vim.g.mkdp_auto_start = 1
+            vim.g.mkdp_theme = 'light'
+            vim.g.mkdp_refresh_slow = 1
+            if vim.fn.has('macunix') then
+                vim.g.mkdp_browser = 'safari'
+            end
+            vim.g.mkdp_preview_options = {
+                maid = {
+                    diagramMarginX = 10,
+                    actorMargin = 10,
+                    boxMargin = 10,
+                    boxTextMargin = 10,
+                    messageMargin = 10,
+                }
+            }
+        end,
+    },
 
     {
         'mizlan/iswap.nvim',
