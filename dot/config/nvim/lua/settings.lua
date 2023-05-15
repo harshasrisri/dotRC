@@ -55,8 +55,8 @@ vim.opt.wildignore    = '*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,
 vim.cmd[[ hi VertSplit ctermbg=NONE guibg=NONE]]
 
 -- Set borders for all floating windows globally
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+-- vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
+-- vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 local border = {
     {"╭", "FloatBorder"},
     {"─", "FloatBorder"},
