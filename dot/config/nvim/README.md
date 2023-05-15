@@ -15,6 +15,7 @@
 <!-- BEGIN mdsh -->
 | Plugin | Description |
 | -- | -- |
+| [barbecue.nvim](https://github.com/utilyre/barbecue.nvim) | A VS Code like winbar for Neovim | 
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | A snazzy bufferline for Neovim | 
 | [cmp-buffer](https://github.com/hrsh7th/cmp-buffer) | nvim-cmp source for buffer words | 
 | [cmp-calc](https://github.com/hrsh7th/cmp-calc) | nvim-cmp source for math calculation | 
@@ -36,11 +37,14 @@
 | [leap.nvim](https://github.com/ggandor/leap.nvim) | 🦘 Neovim's answer to the mouse | 
 | [leap-spooky.nvim](https://github.com/ggandor/leap-spooky.nvim) | 👻 Actions at a distance | 
 | [lspkind-nvim](https://github.com/onsails/lspkind-nvim) | vscode-like pictograms for neovim lsp completion items | 
+| [lsp_lines.nvim](https://github.com/ErichDonGubler/lsp_lines.nvim) | GitHub mirror of https://git.sr.ht/~whynothugo/lsp_lines.nvim to work around Windows issues with `packer.nvim`. | 
 | [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Snippet Engine for Neovim written in Lua. | 
 | [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim) | Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim. Strongly recommended for Windows users. | 
 | [mason.nvim](https://github.com/williamboman/mason.nvim) | Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters. | 
 | [material.nvim](https://github.com/marko-cerovac/material.nvim) | :trident: Material colorscheme for NeoVim written in Lua with built-in support for native LSP, TreeSitter and many more plugins | 
 | [mini.ai](https://github.com/echasnovski/mini.ai) | Neovim Lua plugin to extend and create `a`/`i` textobjects. Part of 'mini.nvim' library. | 
+| [mini.map](https://github.com/echasnovski/mini.map) | Neovim Lua plugin to manage window with buffer text overview. Part of 'mini.nvim' library. | 
+| [neodev.nvim](https://github.com/folke/neodev.nvim) | 💻  Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API. | 
 | [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim) | Smooth scrolling neovim plugin written in lua | 
 | [noice.nvim](https://github.com/folke/noice.nvim) | 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu. | 
 | [nui.nvim](https://github.com/MunifTanjim/nui.nvim) | UI Component Library for Neovim. | 
@@ -49,6 +53,10 @@
 | [nvim-code-action-menu](https://github.com/weilbith/nvim-code-action-menu) | Pop-up menu for code actions to show meta-information and diff preview | 
 | [nvim-comment](https://github.com/terrortylor/nvim-comment) | A comment toggler for Neovim, written in Lua | 
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Quickstart configs for Nvim LSP | 
+| [nvim-dap](https://github.com/mfussenegger/nvim-dap) | Debug Adapter Protocol client implementation for Neovim | 
+| [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | A UI for nvim-dap | 
+| [nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text) | null | 
+| [nvim-navic](https://github.com/SmiteshP/nvim-navic) | Simple winbar/statusline plugin that shows your current code context | 
 | [nvim-neoclip.lua](https://github.com/AckslD/nvim-neoclip.lua) | Clipboard manager neovim plugin with telescope integration | 
 | [nvim-notify](https://github.com/rcarriga/nvim-notify) | A fancy, configurable, notification manager for NeoVim | 
 | [nvim-osc52](https://github.com/ojroques/nvim-osc52) | A Neovim plugin to copy text through SSH with OSC52 | 
@@ -56,6 +64,7 @@
 | [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) | A file explorer tree for neovim written in lua | 
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Nvim Treesitter configurations and abstraction layer | 
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | lua `fork` of vim-web-devicons for neovim | 
+| [nvim-window](https://github.com/yorickpeterse/nvim-window) | Easily jump between NeoVim windows. | 
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice. | 
 | [project.nvim](https://github.com/ahmedkhalf/project.nvim) | The superior project management solution for neovim. | 
 | [rust-tools.nvim](https://github.com/simrat39/rust-tools.nvim) | Tools for better development in rust using neovim's builtin lsp | 
@@ -66,9 +75,10 @@
 | [telescope-frecency.nvim](https://github.com/nvim-telescope/telescope-frecency.nvim) | A telescope.nvim extension that offers intelligent prioritization when selecting files from your editing history. | 
 | [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | FZF sorter for telescope written in c | 
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Find, Filter, Preview, Pick. All lua, all the time. | 
+| [telescope-undo.nvim](https://github.com/debugloop/telescope-undo.nvim) | A telescope extension to view and search your undo tree 🌴 | 
+| [treesj](https://github.com/wansmer/treesj) | Neovim plugin for splitting/joining blocks of code | 
 | [twilight.nvim](https://github.com/folke/twilight.nvim) | 🌅  Twilight is a Lua plugin for Neovim 0.5 that dims inactive portions of the code you're editing using TreeSitter. | 
 | [vim-ccls](https://github.com/m-pilia/vim-ccls) | Vim plugin for the ccls language server | 
-| [vim-choosewin](https://github.com/t9md/vim-choosewin) | Land on window you chose like tmux's 'display-pane' | 
 | [vim-fugitive](https://github.com/tpope/vim-fugitive) | fugitive.vim: A Git wrapper so awesome, it should be illegal | 
 | [vim-illuminate](https://github.com/Rrethy/vim-illuminate) | illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching. | 
 | [vim-jsonnet](https://github.com/google/vim-jsonnet) | Jsonnet filetype plugin for Vim. | 
