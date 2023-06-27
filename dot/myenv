@@ -115,4 +115,24 @@ tm () {
     exec tmux new -A -s ${1}
 }
 
+frg () {
+    rg -n $@ | fzf \
+        --delimiter : \
+        --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+        --preview-window '~3,+{2}+3/2' \
+        --multi --bind 'ctrl-space:select'
+}
+
+frgv() {
+    lines=$(frg $@)
+    if [ ! -z "$lines" ]; then
+        cmd="$EDITOR"
+        for line in $lines; do
+            file=$(echo -n $line | awk -F : '{printf " +\"e +%s %s\"", $2, $1}')
+            cmd="$cmd $file"
+        done
+        eval $cmd
+    fi
+}
+
 # vim: ft=sh
