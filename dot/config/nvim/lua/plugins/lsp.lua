@@ -17,6 +17,10 @@ local lsp_config = function ()
         }
     }
 
+    nvim_lsp.gopls.setup {
+        capabilities = capabilities,
+    }
+
     require('mason-lspconfig').setup_handlers {
         function (server_name)
             nvim_lsp[server_name].setup {
@@ -77,6 +81,24 @@ return {
     },
 
     {
+        'ray-x/go.nvim',
+        ft = { "go", "gomod" },
+        build = ':lua require("go.install").update_all_sync()',
+        dependencies = "nvim-lspconfig",
+        config = function()
+            local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                pattern = "*.go",
+                callback = function()
+                    require("go.format").goimport()
+                end,
+                group = format_sync_grp,
+            })
+            require('go').setup()
+        end
+    },
+
+    {
         'hashivim/vim-terraform',
         ft = { 'terraform', 'hcl', 'terraform-vars' },
         dependencies = 'nvim-lspconfig',
@@ -117,7 +139,7 @@ return {
 
     {
         'neovim/nvim-lspconfig',
-        ft = { 'go', 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
+        ft = { 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
         config = lsp_config,
         dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim' },
         keys = {

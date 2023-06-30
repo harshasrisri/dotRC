@@ -5,6 +5,8 @@ export _MY_DOT_DIR="$(realpath ${_MY_RC_DIR}/dot)"
 export PATH=$PATH:$_MY_BIN_DIR
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 export RUSTC_WRAPPER=$(which sccache 2>/dev/null)
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin
 
 if [ ! -z "$(which exa)" ]; then
     # using exa
