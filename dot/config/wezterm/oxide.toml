@@ -1,0 +1,18 @@
+# Oxide colorscheme for Wezterm
+
+[metadata]
+name = 'Oxide'
+author = 'Unknown'
+
+[colors]
+ansi = [ '#212121', '#e57373', '#a6bc69', '#fac863', '#6699cc', '#c594c5', '#5fb3b3', '#c0c5ce' ]
+background = '#212121'
+brights = [ '#5c5c5c', '#e57373', '#a6bc69', '#fac863', '#6699cc', '#c594c5', '#5fb3b3', '#f3f4f5' ]
+cursor_bg = '#c0c5ce'
+cursor_border = '#c0c5ce'
+cursor_fg = '#212121'
+foreground = '#c0c5ce'
+selection_bg = '#c0c5ce'
+selection_fg = '#212121'
+
+[colors.indexed]
