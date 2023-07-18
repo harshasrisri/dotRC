@@ -1,5 +1,12 @@
 local wezterm = require("wezterm");
 
+-- Start Maximized
+local mux = wezterm.mux
+wezterm.on('gui-startup', function(cmd)
+  local _, _, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
+
 local config = {}
 if wezterm.config_builder then
     config = wezterm.config_builder()
@@ -16,7 +23,7 @@ config.font_size = 12
 config.font = wezterm.font 'MesloLGS NF'
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
-config.window_padding = { left = 3, right = 3, top = 3, bottom = 3 }
+config.window_padding = { left = 1, right = 1, top = 1, bottom = 1 }
 config.bold_brightens_ansi_colors = true
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
