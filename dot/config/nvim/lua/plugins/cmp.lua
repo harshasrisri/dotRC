@@ -46,32 +46,26 @@ local cmp_config = function ()
         },
 
         sources = cmp.config.sources({
-            { name = 'nvim_lsp' },
-            { name = 'nvim_lua' },
-            { name = 'luasnip', keyword_length = 3 },
-            { name = 'path' },
-            { name = 'emoji' },
-            { name = 'calc' },
+            { name = 'nvim_lsp', },
             {
                 name = 'buffer',
-                keyword_length = 3,
+                keyword_length = 2,
                 option = {
                     get_bufnrs = function ()
                         return vim.api.nvim_list_bufs()
                     end
                 }
             },
+            { name = 'luasnip', keyword_length = 3, },
+            { name = 'path' },
+            { name = 'nvim_lua' },
+            { name = 'emoji' },
+            { name = 'calc' },
         }),
 
         window = {
-            completion = {
-                border = { '', '', '', '', '', '', '', '▎' },
-                col_offset = 1,
-                side_padding = 0,
-            },
-            documentation = {
-                border = { '', '', '', '▎', '', '', '', '▎' },
-            }
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
         },
 
         formatting = {
