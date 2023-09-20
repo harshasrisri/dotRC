@@ -1,21 +1,10 @@
 return {
     {
-        'marko-cerovac/material.nvim',
+        'projekt0n/caret.nvim',
         priority = 1000,
-        name = 'colorscheme',
         config = function()
-            vim.g.material_style = "deep ocean"
-            require('material').setup ({
-                contrast = { floating_windows = true, terminal = true, cursor_line = true, sidebars = true },
-                styles = {
-                    comments = { italic = true, },
-                    keywords = { bold = true, },
-                },
-                high_visibility = { darker = true, lighter = true, },
-                disable = { eob_lines = true, },
-                plugins = { "gitsigns", "indent-blankline", "nvim-tree", "telescope", "which-key", }
-            })
-            vim.cmd[[colorscheme material]]
+            require('caret').setup()
+            vim.cmd('colorscheme caret')
         end
     },
 
