@@ -91,8 +91,20 @@ return {
         'simondrake/decorated_yank',
         lazy = true,
         keys = {
-            { '<leader>Y', '<cmd>DecoratedYank<CR>', mode = 'v' },
-        }
+            { '<leader>yd', function() require('decorated_yank').decorated_yank() end, mode = 'v' },
+            { '<leader>yl', function() require('decorated_yank').decorated_yank_with_link() end, mode = 'v' },
+        },
+        config = function ()
+            require('decorated_yank').setup({
+                domains = {
+                    github = {
+                        url = "github.com",
+                        blob = "/blob/",
+                        line_format = "#L%s-L%s",
+                    },
+                }
+            })
+        end
     },
 
     { 'godlygeek/tabular', cmd = 'Tab' },
