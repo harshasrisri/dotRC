@@ -13,7 +13,10 @@ local lsp_config = function ()
         init_options = {
             index = {
                 threads = 16;
-            };
+            },
+            highlight = {
+                lsRanges = true,
+            },
         }
     }
 
@@ -60,7 +63,7 @@ return {
     {
         'm-pilia/vim-ccls',
         ft = { 'c', 'cpp'},
-        dependencies = 'nvim-lspconfig',
+        dependencies = { 'nvim-lspconfig', 'jackguo380/vim-lsp-cxx-highlight' },
     },
 
     {
