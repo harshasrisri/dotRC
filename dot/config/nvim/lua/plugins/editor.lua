@@ -40,14 +40,12 @@ return {
         'yorickpeterse/nvim-window',
         lazy = true,
         keys = { { '-', function () require('nvim-window').pick() end }, },
-        config = function ()
-            require('nvim-window').setup({
-                chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', },
-                normal_hl = 'Cursor',
-                hint_hl = 'Bold',
-                border = 'rounded',
-            })
-        end
+        opts = {
+            chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', },
+            normal_hl = 'Cursor',
+            hint_hl = 'Bold',
+            border = 'rounded',
+        },
     },
 
     {
