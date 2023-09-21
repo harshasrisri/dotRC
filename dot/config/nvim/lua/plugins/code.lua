@@ -65,17 +65,17 @@ return {
     },
 
     {
-        'simrat39/symbols-outline.nvim',
+        'rqdmap/symbols-outline.nvim',
         cmd = 'SymbolsOutline',
-        init = function ()
-            vim.g.symbols_outline = {
-                relative_width = false,
-                width = 40,
-                auto_preview = false,
-                auto_close = true,
-            }
-        end,
-        config = true,
+        keys = {
+            { '<leader>so', '<cmd>SymbolsOutline<CR>', desc = "Toggle symbols outline" },
+        },
+        opts = {
+            relative_width = false,
+            width = 40,
+            auto_preview = false,
+            show_symbol_details = false,
+        },
     },
 
     {
