@@ -144,7 +144,7 @@ return {
         'neovim/nvim-lspconfig',
         ft = { 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
         config = lsp_config,
-        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim' },
+        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim', 'symbol-usage.nvim' },
         keys = {
             -- { '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>' },
             { '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
@@ -180,5 +180,11 @@ return {
                 { desc = "Toggle lsp_lines" }
             )
         end
+    },
+
+    {
+        'Wansmer/symbol-usage.nvim',
+        lazy = true,
+        config = true,
     }
 }
