@@ -18,9 +18,12 @@ config.color_schemes = {
 }
 config.color_scheme = 'Oxide'
 
-config.term = "wezterm"
-config.font_size = 12
-config.font = wezterm.font 'MesloLGS NF'
+-- config.term = "wezterm"
+config.font_size = 16
+config.font = wezterm.font {
+    family = 'IosevkaTerm Nerd Font Propo',
+    stretch = 'ExtraCondensed',
+}
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.window_padding = { left = 1, right = 1, top = 1, bottom = 1 }
