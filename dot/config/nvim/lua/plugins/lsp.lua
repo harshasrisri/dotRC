@@ -36,6 +36,13 @@ local lsp_config = function ()
         ["rust_analyzer"] = function ()
             require("rust-tools").setup {}
         end,
+        ["gopls"] = function ()
+            require("go").setup {
+                lsp_cfg = {
+                    capabilities = capabilities,
+                }
+            }
+        end,
         ["lua_ls"] = function ()
             nvim_lsp.lua_ls.setup {
                 settings = {
@@ -97,7 +104,7 @@ return {
                 end,
                 group = format_sync_grp,
             })
-            require('go').setup()
+            -- require('go').setup()
         end
     },
 
