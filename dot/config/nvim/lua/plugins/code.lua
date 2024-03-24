@@ -14,7 +14,7 @@ return {
             vim.g.mkdp_auto_start = 1
             vim.g.mkdp_theme = 'light'
             vim.g.mkdp_refresh_slow = 1
-            if vim.fn.has('macunix') then
+            if vim.loop.os_uname().sysname == 'Darwin' then
                 vim.g.mkdp_browser = 'safari'
             end
             vim.g.mkdp_preview_options = {
@@ -45,7 +45,7 @@ return {
         keys = { "<CR>", desc = "Initiate treesitter incremental selecion" },
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'help', 'hcl', 'json', 'lua', 'markdown', 'markdown_inline', 'python', 'rust', 'vim', 'yaml' },
+                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'hcl', 'json', 'lua', 'markdown', 'markdown_inline', 'python', 'rust', 'vim', 'yaml' },
                 hightlight = { enable = true },
                 indent = { enable = true },
                 incremental_selection = {
