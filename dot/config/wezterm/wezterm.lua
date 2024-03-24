@@ -19,16 +19,16 @@ config.color_schemes = {
 config.color_scheme = 'Oxide'
 
 -- config.term = "wezterm"
-config.font_size = 16
+config.font_size = 13
 config.font = wezterm.font {
     family = 'IosevkaTerm Nerd Font Propo',
     stretch = 'ExtraCondensed',
 }
-config.use_fancy_tab_bar = false
+-- config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.window_padding = { left = 1, right = 1, top = 1, bottom = 1 }
 config.bold_brightens_ansi_colors = true
-config.window_decorations = "RESIZE"
-config.hide_tab_bar_if_only_one_tab = true
+-- config.window_decorations = "RESIZE"
+-- config.hide_tab_bar_if_only_one_tab = true
 
 return config
