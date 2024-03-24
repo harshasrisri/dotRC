@@ -9,15 +9,15 @@ export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
 if [ ! -z "$(which eza)" ]; then
-    # using exa
+    # using eza
     alias ls='eza'
     alias ll='ls -lFh --reverse --sort time --icons --group-directories-first --git'
     alias tree='ls --icons --tree'
 elif [ ! -z "$(which exa)" ]; then
-        # using exa
-        alias ls='exa'
-        alias ll='ls -lFh --reverse --sort time --icons --group-directories-first --git'
-        alias tree='ls --icons --tree'
+    # using exa
+    alias ls='exa'
+    alias ll='ls -lFh --reverse --sort time --icons --group-directories-first --git'
+    alias tree='ls --icons --tree'
 else 
     # using ls
     alias ls='ls --color=auto -CF'
