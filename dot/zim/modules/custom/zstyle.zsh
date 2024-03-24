@@ -40,3 +40,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 # Preview man pages during completion
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
+
+# Preview pacman package info
+zstyle ':fzf-tab:complete:(\\|*/|)pacman:*' fzf-preview 'pacman -Qi $word'
+zstyle ':fzf-tab:complete:(\\|*/|)paru:*' fzf-preview 'paru -Qi $word'
