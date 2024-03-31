@@ -141,6 +141,7 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         event = 'BufReadPost',
+        version = "2.20.8",
         config = function()
             require('indent_blankline').setup {
                 use_tresitter = true,
