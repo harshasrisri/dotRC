@@ -4,8 +4,20 @@
 [include]
     path = ~/.gitconfig.local
 
+[merge]
+    conflictstyle = zdiff3
+    tool = meld
+
+[branch]
+    sort = committerdate
+
+[fetch]
+    prune = true
+    prunetags = true
+
 [diff]
     tool = nvimdiff
+    algorithm = histogram
 
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
