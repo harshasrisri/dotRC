@@ -38,6 +38,7 @@ local lsp_config = function ()
         end,
         ["gopls"] = function ()
             require("go").setup {
+                lsp_keymaps = false,
                 lsp_cfg = {
                     capabilities = capabilities,
                 }
