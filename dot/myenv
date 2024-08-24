@@ -11,7 +11,7 @@ export PATH=$PATH:$GOPATH/bin
 if [ ! -z "$(which eza)" ]; then
     # using eza
     alias ls='eza'
-    alias ll='ls -lFh --reverse --sort time --icons --group-directories-first --git'
+    alias ll='ls -lh --reverse --sort time --icons --group-directories-first --git'
     alias tree='ls --icons --tree'
 elif [ ! -z "$(which exa)" ]; then
     # using exa
@@ -42,6 +42,7 @@ fi
 alias  vi='${EDITOR}'
 alias fvi='${EDITOR} $(fzf --multi --layout=reverse --preview "fzf-tab-previewer {}")'
 alias fcd='cd "$(fd -t d --print0 | fzf --read0 --print0 --layout=reverse --preview "fzf-tab-previewer {}")"'
+alias fzp="fzf --delimiter : --preview 'bat --style=full --color=always --highlight-line {2} {1}' --preview-window '~3,+{2}+3/2' --multi --bind 'ctrl-space:select'"
 
 alias .ml='vi ~/.myshrc.local'
 alias .gl='vi ~/.gitconfig.local'
