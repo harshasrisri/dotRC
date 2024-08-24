@@ -90,6 +90,7 @@ return {
     {
         'simondrake/decorated_yank',
         lazy = true,
+        requires = { 'nvim-lua/plenary.nvim' },
         keys = {
             { '<leader>yd', function() require('decorated_yank').decorated_yank() end, mode = 'v' },
             { '<leader>yl', function() require('decorated_yank').decorated_yank_with_link() end, mode = 'v' },

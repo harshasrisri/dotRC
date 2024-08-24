@@ -46,7 +46,17 @@ return {
         config = function()
             require('nvim-treesitter.configs').setup({
                 ensure_installed = { 'bash', 'c', 'cpp', 'go', 'hcl', 'json', 'lua', 'markdown', 'markdown_inline', 'python', 'rust', 'vim', 'yaml' },
-                hightlight = { enable = true },
+                hightlight = {
+                    enable = true,
+                    disable = function(_, buf)
+                        local max_filesize = 100 * 1024 -- 100 KB
+                        local filename = vim.api.nvim_buf_get_name(buf)
+                        local ok, stats = pcall(vim.uv.fs_stat, filename)
+                        if ok and stats and stats.size > max_filesize then
+                            return true
+                        end
+                    end,
+                },
                 indent = { enable = true },
                 incremental_selection = {
                     enable = true,
