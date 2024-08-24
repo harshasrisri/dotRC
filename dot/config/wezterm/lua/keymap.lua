@@ -6,15 +6,18 @@ local function map(key, mods, fn)
 end
 
 local function init(config)
-    config.leader = { key = '`', timeout_milliseconds = 400 }
+    config.leader = { key = '`' }
     config.keys = {
-        map( '`', 'LEADER', action.SendString '`' ),
+        map( '`', 'LEADER', action.SendKey { key = '`' } ),
 
         map( 'c', 'LEADER', action.SpawnTab('CurrentPaneDomain') ),
         map( 'd', 'LEADER', action.DetachDomain('CurrentPaneDomain') ),
         map( 'x', 'LEADER', action.CloseCurrentPane { confirm = true } ),
         map( 'z', 'LEADER', action.TogglePaneZoomState ),
 
+        map( 'n', 'LEADER', action.ActivateTabRelative(1) ),
+        map( 'p', 'LEADER', action.ActivateTabRelative(-1) ),
+        map( '-', 'LEADER', action.PaneSelect ),
         map( 'k', 'LEADER', action.ActivatePaneDirection('Up') ),
         map( 'j', 'LEADER', action.ActivatePaneDirection('Down') ),
         map( 'h', 'LEADER', action.ActivatePaneDirection('Left') ),
@@ -23,8 +26,8 @@ local function init(config)
         map( 's', 'LEADER', action.ActivateKeyTable { name = 'split_pane' } ),
         map( 'r', 'LEADER', action.ActivateKeyTable { name = 'resize_panes', one_shot = false, } ),
         map( 'Space', 'LEADER', action.ActivateKeyTable { name = 'quick_select' } ),
-
         map( 'Escape', 'LEADER', action.ActivateCopyMode ),
+        map( ';', 'LEADER', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
     }
 
     config.key_tables = {
@@ -49,17 +52,9 @@ local function init(config)
             map( 'y', 'NONE', action.QuickSelectArgs { label = 'Copy Quick Selection'}),
             map( 'u', 'NONE', action.QuickSelectArgs {
                 label = 'Open Quick Selection as URI',
-                patterns = {
-                    -- Matches: a URL in parens: (URL)
-                    '\\((\\w+://\\S+)\\)',
-                    -- Matches: a URL in brackets: [URL]
-                    '\\[(\\w+://\\S+)\\]',
-                    -- Matches: a URL in curly braces: {URL}
-                    '\\{(\\w+://\\S+)\\}',
-                    -- Matches: a URL in angle brackets: <URL>
-                    '<(\\w+://\\S+)>',
-                    -- Then handle URLs not wrapped in brackets
-                    '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
+                patterns = { -- Match a URL in:
+                    -- parens: (URL)       | brackets: [URL]      | curly braces: {URL}  | angle brackets: <URL> | not wrapped in brackets
+                    '\\((\\w+://\\S+)\\)', '\\[(\\w+://\\S+)\\]', '\\{(\\w+://\\S+)\\}', '<(\\w+://\\S+)>',      '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
                 },
                 action = wezterm.action_callback(function(window, pane)
                     local url = window:get_selection_text_for_pane(pane)
