@@ -1,0 +1,80 @@
+local wezterm = require("wezterm")
+local action = wezterm.action
+
+local function map(key, mods, fn)
+    return { key = key, mods = mods, action = fn }
+end
+
+local function init(config)
+    config.leader = { key = '`', timeout_milliseconds = 400 }
+    config.keys = {
+        map( '`', 'LEADER', action.SendString '`' ),
+
+        map( 'c', 'LEADER', action.SpawnTab('CurrentPaneDomain') ),
+        map( 'd', 'LEADER', action.DetachDomain('CurrentPaneDomain') ),
+        map( 'x', 'LEADER', action.CloseCurrentPane { confirm = true } ),
+        map( 'z', 'LEADER', action.TogglePaneZoomState ),
+
+        map( 'k', 'LEADER', action.ActivatePaneDirection('Up') ),
+        map( 'j', 'LEADER', action.ActivatePaneDirection('Down') ),
+        map( 'h', 'LEADER', action.ActivatePaneDirection('Left') ),
+        map( 'l', 'LEADER', action.ActivatePaneDirection('Right') ),
+
+        map( 's', 'LEADER', action.ActivateKeyTable { name = 'split_pane' } ),
+        map( 'r', 'LEADER', action.ActivateKeyTable { name = 'resize_panes', one_shot = false, } ),
+        map( 'Space', 'LEADER', action.ActivateKeyTable { name = 'quick_select' } ),
+
+        map( 'Escape', 'LEADER', action.ActivateCopyMode ),
+    }
+
+    config.key_tables = {
+        resize_panes = {
+            map( 'k', 'NONE', action.AdjustPaneSize { 'Up', 5 } ),
+            map( 'j', 'NONE', action.AdjustPaneSize { 'Down', 5 } ),
+            map( 'h', 'NONE', action.AdjustPaneSize { 'Left', 5 } ),
+            map( 'l', 'NONE', action.AdjustPaneSize { 'Right', 5 } ),
+            map( 'Escape', 'NONE', 'PopKeyTable' ),
+        },
+        split_pane = {
+            map( 'k', 'NONE', action.SplitPane { direction = 'Up' } ),
+            map( 'j', 'NONE', action.SplitPane { direction = 'Down' } ),
+            map( 'l', 'NONE', action.SplitPane { direction = 'Right' } ),
+            map( 'h', 'NONE', action.SplitPane { direction = 'Left' } ),
+            map( 'K', 'SHIFT', action.SplitPane { direction = 'Up', top_level = true } ),
+            map( 'J', 'SHIFT', action.SplitPane { direction = 'Down', top_level = true } ),
+            map( 'L', 'SHIFT', action.SplitPane { direction = 'Right', top_level = true } ),
+            map( 'H', 'SHIFT', action.SplitPane { direction = 'Left', top_level = true } ),
+        },
+        quick_select = {
+            map( 'y', 'NONE', action.QuickSelectArgs { label = 'Copy Quick Selection'}),
+            map( 'u', 'NONE', action.QuickSelectArgs {
+                label = 'Open Quick Selection as URI',
+                patterns = {
+                    -- Matches: a URL in parens: (URL)
+                    '\\((\\w+://\\S+)\\)',
+                    -- Matches: a URL in brackets: [URL]
+                    '\\[(\\w+://\\S+)\\]',
+                    -- Matches: a URL in curly braces: {URL}
+                    '\\{(\\w+://\\S+)\\}',
+                    -- Matches: a URL in angle brackets: <URL>
+                    '<(\\w+://\\S+)>',
+                    -- Then handle URLs not wrapped in brackets
+                    '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
+                },
+                action = wezterm.action_callback(function(window, pane)
+                    local url = window:get_selection_text_for_pane(pane)
+                    wezterm.open_with(url)
+                end),
+            }),
+            map( 'i', 'NONE', action.QuickSelectArgs {
+                label = 'Insert Quick Selection',
+                action = wezterm.action_callback(function(window, pane)
+                    local text = window:get_selection_text_for_pane(pane)
+                    action.SendString(text)
+                end)
+            }),
+        }
+    }
+end
+
+return init
