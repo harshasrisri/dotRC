@@ -4,6 +4,8 @@ package.path = package.path .. ";" .. wezterm.config_dir .. "/lua/?.lua"
 
 local config = wezterm.config_builder()
 
+config.status_update_interval = 100
+
 require("ui")(config)
 require("keymap")(config)
 
