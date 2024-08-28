@@ -33,27 +33,32 @@ end
 
 local function set_status()
     wezterm.on("update-status", function(window, _)
+        local colors = { 'gold', 'orange', 'indianred' }
         local segments = {
             window:active_workspace(),
             wezterm.strftime('%a %b %-d %H:%M:%S'),
             wezterm.hostname(),
         }
-        local colors = { 'gold', 'orange', 'indianred' }
 
         local right_elements = {}
-
-        for i, seg in ipairs(segments) do
-            local right_seg = format_element(Direction.Right, colors[i], 'black', seg, 'Normal', false)
-            for item in right_seg do
-                table.insert(right_elements, item)
-            end
-        end
-
-        local left_seg = '  ' .. wezterm.nerdfonts.dev_terminal .. ' WezTerm '
-        local left_elemen = format_element(Direction.Left, 'indianred', 'black', left_seg, 'Normal', false)
-
-        window:set_left_status(wezterm.format(left_elemen))
+    --     for i, seg in ipairs(segments) do
+    --         local right_seg = format_element(Direction.Right, colors[i], 'black', seg, 'Normal', false)
+    --         for item in right_seg do
+    --             table.insert(right_elements, item)
+    --         end
+    --     end
         window:set_right_status(wezterm.format(right_elements))
+
+        local left_seg -- = '  ' .. wezterm.nerdfonts.dev_terminal .. ' WezTerm '
+        local key_tbl = window:active_key_table()
+        if key_tbl then
+            left_seg = string.upper(key_tbl):gsub('_', ' ')
+        else
+            left_seg = '  ' .. wezterm.nerdfonts.dev_terminal .. ' WezTerm '
+        end
+        local left_element = format_element(Direction.Left, 'indianred', 'black', left_seg, 'Normal', false)
+
+        window:set_left_status(wezterm.format(left_element))
 
     end)
 end
