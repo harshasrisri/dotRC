@@ -27,7 +27,8 @@ local function init(config)
         map( 'r', 'LEADER', action.ActivateKeyTable { name = 'resize_panes', one_shot = false, } ),
         map( 'Space', 'LEADER', action.ActivateKeyTable { name = 'quick_select' } ),
         map( 'Escape', 'LEADER', action.ActivateCopyMode ),
-        map( ';', 'LEADER', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
+        map( ';', 'LEADER', action.ActivateCommandPalette ),
+        map( ':', 'LEADER', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
     }
 
     config.key_tables = {
