@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local Left = 'left'
 local Right = 'right'
-local Direction = { Left, Right }
 
 local function format_element(direction, bg, fg, text, intensity, italic)
     local SOLID_LEFT_SLANT_START = ""
@@ -12,11 +11,10 @@ local function format_element(direction, bg, fg, text, intensity, italic)
 
     local tab_bar_bg = '#222222'
 
-    local start_edge, end_edge
-    if direction == Direction.Left then
-        start_edge = SOLID_LEFT_SLANT_START
-        end_edge = SOLID_LEFT_SLANT_END
-    else
+    local start_edge = SOLID_LEFT_SLANT_START
+    local end_edge = SOLID_LEFT_SLANT_END
+
+    if direction == Right then
         start_edge = SOLID_RIGHT_SLANT_START
         end_edge = SOLID_RIGHT_SLANT_END
     end
@@ -25,7 +23,7 @@ local function format_element(direction, bg, fg, text, intensity, italic)
         { Background = { Color = tab_bar_bg } }, { Foreground = { Color = bg } }, { Attribute = { Intensity = intensity } }, { Attribute = { Italic = italic } },
         { Text = start_edge },
         { Background = { Color = bg } }, { Foreground = { Color = fg } }, { Attribute = { Intensity = intensity } }, { Attribute = { Italic = italic } },
-        { Text = text },
+        { Text = ' ' .. text .. ' ' },
         { Background = { Color = tab_bar_bg } }, { Foreground = { Color = bg } }, { Attribute = { Intensity = intensity } }, { Attribute = { Italic = italic } },
         { Text = end_edge },
     }
@@ -41,24 +39,21 @@ local function set_status()
         }
 
         local right_elements = {}
-    --     for i, seg in ipairs(segments) do
-    --         local right_seg = format_element(Direction.Right, colors[i], 'black', seg, 'Normal', false)
-    --         for item in right_seg do
-    --             table.insert(right_elements, item)
-    --         end
-    --     end
+        for i, segment in ipairs(segments) do
+            local right_seg = format_element(Right, colors[i], 'black', segment, 'Normal', false)
+            for _, item in ipairs(right_seg) do
+                table.insert(right_elements, item)
+            end
+        end
         window:set_right_status(wezterm.format(right_elements))
 
-        local left_seg -- = '  ' .. wezterm.nerdfonts.dev_terminal .. ' WezTerm '
+        local left_seg = wezterm.nerdfonts.dev_terminal .. ' WezTerm'
         local key_tbl = window:active_key_table()
         if key_tbl then
-            left_seg = string.upper(key_tbl):gsub('_', ' ')
-        else
-            left_seg = '  ' .. wezterm.nerdfonts.dev_terminal .. ' WezTerm '
+            left_seg = wezterm.nerdfonts.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
         end
-        local left_element = format_element(Direction.Left, 'indianred', 'black', left_seg, 'Normal', false)
 
-        window:set_left_status(wezterm.format(left_element))
+        window:set_left_status(wezterm.format(format_element(Left, 'indianred', 'black', left_seg, 'Normal', false)))
 
     end)
 end
@@ -73,8 +68,8 @@ local function format_tab_bar(config)
     }
 
     config.tab_bar_style = {
-        new_tab = wezterm.format( format_element(Direction.Left, '#444444', 'black', ' + ', 'Normal', false) ),
-        new_tab_hover = wezterm.format( format_element(Direction.Left, '#CCCCCC', 'black', ' + ', 'Bold', false) ),
+        new_tab = wezterm.format( format_element(Left, '#444444', 'black', '+', 'Normal', false) ),
+        new_tab_hover = wezterm.format( format_element(Left, '#CCCCCC', 'black', '+', 'Bold', false) ),
     }
 
     wezterm.on('format-tab-title', function(tab, _, _, _, hover, max_width)
@@ -98,10 +93,10 @@ local function format_tab_bar(config)
             italic = false
         end
 
-        local title = string.format(' %s: %s ', tab_id, procname)
+        local title = string.format('%s: %s', tab_id, procname)
         title = wezterm.truncate_right(title, max_width - 2)
 
-        return format_element(Direction.Left, tab_bg, tab_fg, title, intensity, italic)
+        return format_element(Left, tab_bg, tab_fg, title, intensity, italic)
     end)
 end
 
