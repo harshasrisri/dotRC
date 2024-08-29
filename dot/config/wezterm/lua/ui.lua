@@ -74,7 +74,13 @@ local function format_tab_bar(config)
 
     wezterm.on('format-tab-title', function(tab, _, _, _, hover, max_width)
         local tab_id = tonumber(tab.tab_index) + 1
-        local procname = require('util').basename(tab.active_pane.foreground_process_name)
+        local tab_info = require('util').basename(tab.active_pane.foreground_process_name)
+        if #tab_info == 0 then
+            tab_info = tab.tab_title
+            if tab_info == nil or #tab_info == 0 then
+                tab_info = tab.active_pane.title
+            end
+        end
 
         local tab_bg = 'black'
         local tab_fg = 'coral'
@@ -93,10 +99,10 @@ local function format_tab_bar(config)
             italic = false
         end
 
-        local title = string.format('%s: %s', tab_id, procname)
-        title = wezterm.truncate_right(title, max_width - 2)
+        local tab_title = string.format('%s: %s', tab_id, tab_info)
+        tab_title = wezterm.truncate_right(tab_title, max_width - 4)
 
-        return format_element(Left, tab_bg, tab_fg, title, intensity, italic)
+        return format_element(Left, tab_bg, tab_fg, tab_title, intensity, italic)
     end)
 end
 
