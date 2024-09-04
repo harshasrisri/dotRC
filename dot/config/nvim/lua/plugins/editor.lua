@@ -3,19 +3,15 @@ return {
 
     { 'ojroques/nvim-osc52', lazy = true },
 
-    { "kylechui/nvim-surround", config = true, event = 'BufReadPost' },
+    { "kylechui/nvim-surround", opts = {}, event = 'BufReadPost' },
 
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
 
-    { 'folke/which-key.nvim', config = true, event = 'VeryLazy' },
+    { 'folke/which-key.nvim', opts = {}, event = 'VeryLazy' },
 
-    { 'windwp/nvim-autopairs', event = 'BufReadPost', config = true, },
+    { 'windwp/nvim-autopairs', event = 'BufReadPost', opts = {}, },
 
-    {
-        'echasnovski/mini.ai',
-        event = 'VeryLazy',
-        config = function () require('mini.ai').setup() end
-    },
+    { 'echasnovski/mini.ai', event = 'VeryLazy', opts = {}, },
 
     {
         'ahmedkhalf/project.nvim',
@@ -74,7 +70,7 @@ return {
         'ggandor/leap-spooky.nvim',
         lazy = true,
         dependencies = 'leap.nvim',
-        config = function () require('leap-spooky').setup({}) end
+        opts = {},
     },
 
     {
@@ -84,36 +80,34 @@ return {
             { '<leader>et', '<cmd>NvimTreeToggle<CR>', desc = "Toggle NvimTree" }
         },
         dependencies = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        config = function()
-            require('nvim-tree').setup({
-                sync_root_with_cwd = true,
-                respect_buf_cwd = true,
-                update_focused_file = {
+        opts = {
+            sync_root_with_cwd = true,
+            respect_buf_cwd = true,
+            update_focused_file = {
+                enable = true,
+                update_root = true
+            },
+            view = {
+                width = 36,
+            },
+            renderer = {
+                highlight_git = true,
+                highlight_opened_files = "all",
+                indent_markers = {
                     enable = true,
-                    update_root = true
                 },
-                view = {
-                    width = 36,
-                },
-                renderer = {
-                    highlight_git = true,
-                    highlight_opened_files = "all",
-                    indent_markers = {
-                        enable = true,
-                    },
-                    icons = {
-                        git_placement = 'signcolumn',
-                    }
-                },
-                actions = {
-                    open_file = {
-                        window_picker = {
-                            enable = false,
-                        }
+                icons = {
+                    git_placement = 'signcolumn',
+                }
+            },
+            actions = {
+                open_file = {
+                    window_picker = {
+                        enable = false,
                     }
                 }
-            })
-        end
+            }
+        },
     },
 
     {
@@ -122,6 +116,6 @@ return {
         keys = {
             { "<leader>mm", "<cmd>lua require('mini.map').toggle()<CR>", desc = "Open Mini Map" },
         },
-        config = function () require('mini.map').setup() end
+        opts = {},
     },
 }
