@@ -2,25 +2,29 @@ return {
     {
         'projekt0n/caret.nvim',
         priority = 1000,
+        opts = {},
         config = function()
-            require('caret').setup()
             vim.cmd('colorscheme caret')
         end
     },
 
+    -- {
+    --     'nvim-lualine/lualine.nvim',
+    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    --     event = 'VeryLazy',
+    -- },
+
     {
         'feline-nvim/feline.nvim',
-        config = function ()
-            require('feline').setup({
-                disable = {
-                    filetypes = {
-                        '^dapui',
-                        '^dap%-repl$',
-                        '^help$',
-                    }
+        opts = {
+            disable = {
+                filetypes = {
+                    '^dapui',
+                    '^dap%-repl$',
+                    '^help$',
                 }
-            })
-        end
+            }
+        }
     },
 
     {
@@ -30,23 +34,21 @@ return {
             { '<Tab>', '<cmd>BufferLineCycleNext<CR>' },
             { '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>' },
         },
-        config = function()
-            require('bufferline').setup {
-                options = {
-                    show_tab_indicators = true,
-                    separator_style = 'slant',
-                    offsets = {
-                        {
-                            filetype = "NvimTree",
-                            text = "File Explorer",
-                            highlight = "Directory",
-                            separator = false,
-                            text_align = 'left',
-                        }
-                    },
-                }
+        opts = {
+            options = {
+                show_tab_indicators = true,
+                separator_style = 'slant',
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = "File Explorer",
+                        highlight = "Directory",
+                        separator = false,
+                        text_align = 'left',
+                    }
+                },
             }
-        end
+        }
     },
 
     {
@@ -56,12 +58,7 @@ return {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons",
         },
-        config = function ()
-            require('barbecue').setup({
-                exclude_filetypes = { 'gitcommit', 'fterm', 'dapui*', 'dap-repl', 'nvimtree' },
-            })
-            require('barbecue.ui').toggle(true)
-        end
+        opts = { exclude_filetypes = { 'gitcommit', 'fterm', 'dapui*', 'dap-repl', 'nvimtree' } },
     },
 
     {
@@ -70,36 +67,25 @@ return {
         keys = {
             { '<leader>fn', '<cmd>Noice telescope<CR>' },
         },
-        config = function()
-            require("noice").setup({
-                views = {
-                    cmdline_popup = {
-                        position = { row = "33%", col = "50%", },
-                        size = { width = "auto", height = "auto", },
-                    },
+        opts = {
+            views = {
+                cmdline_popup = {
+                    position = { row = "33%", col = "50%", },
+                    size = { width = "auto", height = "auto", },
                 },
-                routes = {
-                    {
-                        filter = { event = "msg_show", kind = "search_count", },
-                        view = "mini",
-                    },
+            },
+            routes = {
+                {
+                    filter = { event = "msg_show", kind = "search_count", },
+                    view = "mini",
                 },
-            })
-        end,
+            },
+        },
     },
 
     {
         "rcarriga/nvim-notify",
         lazy = true,
-        keys = {
-            {
-                "<leader>un",
-                function()
-                    require("notify").dismiss({ silent = true, pending = true })
-                end,
-                desc = "Delete all Notifications",
-            },
-        },
         opts = {
             timeout = 3000,
             max_height = function()
@@ -135,23 +121,21 @@ return {
     {
         'karb94/neoscroll.nvim',
         event = 'BufReadPost',
-        config = true,
+        opts = {},
     },
 
     {
         'lukas-reineke/indent-blankline.nvim',
         event = 'BufReadPost',
         version = "2.20.8",
-        config = function()
-            require('indent_blankline').setup {
-                use_tresitter = true,
-                char_list = { '┊' , '┆' , '¦', '|' },
-                show_first_indent_level = false,
-                show_current_context = true,
-                show_current_context_start = true,
-                show_current_context_start_on_current_line = false,
-                show_end_of_line = true,
-            }
-        end
+        opts = {
+            use_tresitter = true,
+            char_list = { '┊' , '┆' , '¦', '|' },
+            show_first_indent_level = false,
+            show_current_context = true,
+            show_current_context_start = true,
+            show_current_context_start_on_current_line = false,
+            show_end_of_line = true,
+        },
     },
 }
