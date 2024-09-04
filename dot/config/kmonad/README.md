@@ -3,7 +3,7 @@
 ## .rc Installation instructions
 
 Symlink the service file to /etc, enable and start the systemd service.
-```
+```bash
 sudo ln -s ~/.rc/config/kmonad/kmonad.service /etc/systemd/system/kmonad.service
 systemctl enable kmonad
 systemctl start kmonad
@@ -22,12 +22,12 @@ If the `uinput` group does not exist, create a new group with:
 
 1. Make sure the `uinput` group exists
 
-``` shell
+```bash
 sudo groupadd uinput
 ```
 
 2. Add your user to the `input` and the `uinput` group:
-``` shell
+```bash
 sudo usermod -aG input username
 sudo usermod -aG uinput username
 ```
@@ -37,21 +37,18 @@ Make sure that it's effective by running `groups`. You might have to logout and 
 3. Make sure the uinput device file has the right permissions:
 Add a udev rule (in either `/etc/udev/rules.d` or `/lib/udev/rules.d`) with the
 following content:
-```shell
+```bash
 KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
 ```
 
 4. Make sure the `uinput` drivers are loaded.
 You will probably have to run this command whenever you start `kmonad` for the first time.
-``` shell
+```bash
 sudo modprobe uinput
 ```
 
 
 ### Q: How do I know which event-file corresponds to my keyboard?
 
-A: By far the best solution is to use the keyboard devices listed
-under `/dev/input/by-id`. In some case, you could also try
-`/dev/input/by-path`. If you can't figure out which file just by
-the filenames, the `evtest` program is very helpful.
-
+A: By far the best solution is to use the keyboard devices listed under `/dev/input/by-id`. In some case, you could also try `/dev/input/by-path`.
+If you can't figure out which file just by the filenames, the `evtest` program is very helpful.
