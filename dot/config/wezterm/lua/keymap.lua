@@ -66,7 +66,7 @@ local function init(config)
                 label = 'Insert Quick Selection',
                 action = wezterm.action_callback(function(window, pane)
                     local text = window:get_selection_text_for_pane(pane)
-                    action.SendString(text)
+                    pane:send_text(text)
                 end)
             }),
         }
