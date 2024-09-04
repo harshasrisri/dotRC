@@ -78,11 +78,7 @@ return {
         'folke/neodev.nvim',
         ft = 'lua',
         dependencies = 'nvim-lspconfig',
-        config = function ()
-            require('neodev').setup({
-                library = { plugins = { "nvim-dap-ui" }, types = true },
-            })
-        end
+        opts = {library = { plugins = { "nvim-dap-ui" }, types = true }},
     },
 
     {
@@ -113,7 +109,7 @@ return {
         'hashivim/vim-terraform',
         ft = { 'terraform', 'hcl', 'terraform-vars' },
         dependencies = 'nvim-lspconfig',
-        config = function()
+        init = function()
             vim.g.terraform_fmt_on_save = 1
             vim.g.terraform_align = 1
         end
@@ -131,21 +127,19 @@ return {
     {
         'williamboman/mason.nvim',
         cmd = 'Mason',
-        config = true,
+        opts = {},
     },
 
     {
         'williamboman/mason-lspconfig.nvim',
         lazy = true,
-        config = function()
-            require('mason-lspconfig').setup({
+        opts = {
                 ensure_installed = {
                     "gopls", "jdtls", "jsonls", "jsonnet_ls", "marksman", "pylsp",
                     "rust_analyzer", "lua_ls", "terraformls", "tflint", "yamlls",
                 },
                 automatic_installation = true,
-            })
-        end
+            },
     },
 
     {
@@ -174,8 +168,8 @@ return {
     {
         'ErichDonGubler/lsp_lines.nvim',
         lazy = true,
+        opts = {},
         config = function ()
-            require('lsp_lines').setup()
             vim.diagnostic.config({ virtual_text = false })
             vim.keymap.set(
                 '',
@@ -192,7 +186,7 @@ return {
 
     {
         'Wansmer/symbol-usage.nvim',
-        lazy = true,
-        config = true,
+        event = 'LspAttach',
+        opts = {},
     }
 }

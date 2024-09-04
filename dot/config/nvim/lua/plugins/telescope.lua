@@ -35,8 +35,8 @@ return {
             { '<leader>gs', '<cmd>Telescope git_status<CR>' },
             { '<leader>fg', '<cmd>Telescope<CR><Esc><cmd>TelescopeGrepInPWD<CR>'}
         },
+        opts = {},
         config = function ()
-            require('telescope').setup()
             vim.api.nvim_create_user_command(
                 'TelescopeGrepInPWD',
                 function ()
