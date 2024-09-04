@@ -25,48 +25,28 @@ return {
             { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = 'o' },
             { 'ih', ':<C-U>Gitsigns select_hunk<CR>' , mode = 'x'},
         },
-        config = function()
-            require('gitsigns').setup {
-                current_line_blame = true,
-                current_line_blame_formatter = ' <author>, <author_time:%R>: <summary>'
-            }
-            vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { link = "Comment" })
-        end
+        opts = {
+            current_line_blame = true,
+            current_line_blame_formatter = ' <author>, <author_time:%R>: <summary>'
+        },
     },
 
     {
-        'numtostr/FTerm.nvim',
+        'akinsho/toggleterm.nvim',
         lazy = true,
         keys = {
-            {'<leader>t', function() require('FTerm').toggle() end },
-            {'<Esc><Esc>', function() require('FTerm').toggle() end, mode = 't' },
+            {'<leader>t', '<cmd>ToggleTerm direction=float name=" Floating Terminal "<CR>'},
+            {'jj', [[<C-\><C-n>]], mode = 't' },
+            {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't' },
         },
-        config = function()
-            require('FTerm').setup({
-                dimensions = {
-                    height = 0.9,
-                    width = 0.9,
-                },
-            })
-        end
-    },
-
-    {
-        'folke/zen-mode.nvim',
-        cmd = 'ZenMode',
-        config = function()
-            require('zen-mode').setup {
-                plugins = {
-                    gitsigns = { enabled = true } -- disables git signs
-                },
-            }
-        end
-    },
-
-    {
-        'folke/twilight.nvim',
-        cmd = 'TwilightEnable',
-        config = function() require('twilight').setup { context = 0 } end
+        opts = {
+            float_opts = {
+                width = function() return math.floor(vim.o.columns * 0.9) end,
+                height = function() return math.floor(vim.o.lines * 0.9) end,
+                border = 'curved',
+                title_pos = 'center',
+            },
+        },
     },
 
     {
@@ -77,14 +57,12 @@ return {
             { '<leader>sb', '<cmd>lua require("silicon").visualise_api({show_butrue})<CR>', mode = 'v' },
             { '<leader>sy', '<cmd>lua require("silicon").visualise_api({to_cliprue})<CR>', mode = 'v' },
         },
-        config = function()
-            require("silicon").setup({
-                font = "MesloLGS NF",
-                output = string.format("~/Downloads/nvim_silicon_%s%s%s_%s%s%s.png",
-                    os.date("%Y"),os.date("%m"),os.date("%d"),
-                    os.date("%H"),os.date("%M"),os.date("%S")),
-            })
-        end
+        opts = {
+            font = "MesloLGS NF",
+            output = string.format("~/Downloads/nvim_silicon_%s%s%s_%s%s%s.png",
+                os.date("%Y"),os.date("%m"),os.date("%d"),
+                os.date("%H"),os.date("%M"),os.date("%S")),
+        },
     },
 
     {
@@ -95,17 +73,16 @@ return {
             { '<leader>yd', function() require('decorated_yank').decorated_yank() end, mode = 'v' },
             { '<leader>yl', function() require('decorated_yank').decorated_yank_with_link() end, mode = 'v' },
         },
-        config = function ()
-            require('decorated_yank').setup({
-                domains = {
-                    github = {
-                        url = "github.com",
-                        blob = "/blob/",
-                        line_format = "#L%s-L%s",
-                    },
+        opts = {
+            domains = {
+                github = {
+                    url = "github.com",
+                    blob = "/blob/",
+                    line_format = "#L%s-L%s",
+                },
                 }
-            })
-        end
+            }
+        },
     },
 
     { 'godlygeek/tabular', cmd = 'Tab' },

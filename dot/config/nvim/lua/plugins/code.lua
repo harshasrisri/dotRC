@@ -9,7 +9,7 @@ return {
         "iamcco/markdown-preview.nvim",
         ft = { "markdown" },
         build = "cd app && npm install",
-        config = function()
+        init = function()
             vim.g.mkdp_filetypes = { "markdown" }
             vim.g.mkdp_auto_start = 1
             vim.g.mkdp_theme = 'light'
@@ -71,9 +71,9 @@ return {
     },
 
     {
-        'terrortylor/nvim-comment',
+        'echasnovski/mini.comment',
         event = 'BufReadPost',
-        config = function() require('nvim_comment').setup() end,
+        opts = {},
     },
 
     {
@@ -97,12 +97,10 @@ return {
             { '<leader>sj', '<cmd>TSJToggle<CR>', desc = "Toggle Split/Join" },
         },
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        config = function()
-            require('treesj').setup({
-                use_default_keymaps = false,
-                max_join_length = 256,
-            })
-        end,
+        opts = {
+            use_default_keymaps = false,
+            max_join_length = 256,
+        },
     },
 
     {
