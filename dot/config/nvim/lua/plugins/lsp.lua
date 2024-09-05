@@ -146,7 +146,7 @@ return {
         'neovim/nvim-lspconfig',
         ft = { 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
         config = lsp_config,
-        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim', 'symbol-usage.nvim' },
+        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim', 'symbol-usage.nvim', 'nvim-navbuddy' },
         keys = {
             -- { '<leader>la', '<cmd>lua vim.lsp.buf.range_code_action()<CR>' },
             { '<leader>lc', '<cmd>lua vim.lsp.buf.declaration()<CR>' },
@@ -162,6 +162,22 @@ return {
             { '<leader>ls', '<cmd>Telescope lsp_document_symbols<CR>' },
             { '<leader>lw', '<cmd>Telescope lsp_workspace_diagnostics<CR>' },
             { '<leader>lx', '<cmd>Telescope lsp_references<CR>' },
+        },
+    },
+
+    {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "MunifTanjim/nui.nvim"
+        },
+        keys = {
+            { '<leader>lo', '<cmd>Navbuddy<CR>', desc = "See overview of source file" },
+        },
+        opts = {
+            windows = { border = "rounded", size = "80%" },
+            lsp = { auto_attach = true },
+            source_buffer = { follow_node = false },
         },
     },
 
