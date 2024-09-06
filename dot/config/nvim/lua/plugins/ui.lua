@@ -9,17 +9,17 @@ return {
     },
 
     -- {
-    --     'nvim-lualine/lualine.nvim',
-    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    --     'rebelot/heirline.nvim',
     --     event = 'VeryLazy',
+    --     config = function() require('heirline').setup { statusline = require('plugins.statusline') } end,
     -- },
 
-    {
-        'feline-nvim/feline.nvim',
+   {
+        'freddiehaddad/feline.nvim',
         opts = {
             disable = {
                 filetypes = {
-                    '^dapui',
+                    '^dapui_*',
                     '^dap%-repl$',
                     '^help$',
                 }
