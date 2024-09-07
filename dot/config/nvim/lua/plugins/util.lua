@@ -35,11 +35,18 @@ return {
         'akinsho/toggleterm.nvim',
         lazy = true,
         keys = {
-            {'<leader>t', '<cmd>ToggleTerm direction=float name=" Floating Terminal "<CR>'},
-            {'jj', [[<C-\><C-n>]], mode = 't' },
+            {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>'},
+            {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>'},
+            {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>'},
             {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't' },
+            {'jk', [[<C-\><C-n>]], mode = 't' },
         },
         opts = {
+            size = function(term)
+                if term.direction == 'horizontal' then return vim.o.lines * 0.4
+                elseif term.direction == 'vertical' then return vim.o.columns * 0.4
+                end
+            end,
             float_opts = {
                 width = function() return math.floor(vim.o.columns * 0.9) end,
                 height = function() return math.floor(vim.o.lines * 0.9) end,
