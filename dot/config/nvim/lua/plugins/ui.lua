@@ -9,23 +9,17 @@ return {
     },
 
     -- {
-    --     'rebelot/heirline.nvim',
-    --     event = 'VeryLazy',
-    --     config = function() require('heirline').setup { statusline = require('plugins.statusline') } end,
+    --     'freddiehaddad/feline.nvim',
+    --     opts = {
+    --         disable = {
+    --             filetypes = {
+    --                 '^dapui_*',
+    --                 '^dap%-repl$',
+    --                 '^help$',
+    --             }
+    --         }
+    --     }
     -- },
-
-   {
-        'freddiehaddad/feline.nvim',
-        opts = {
-            disable = {
-                filetypes = {
-                    '^dapui_*',
-                    '^dap%-repl$',
-                    '^help$',
-                }
-            }
-        }
-    },
 
     {
         'akinsho/bufferline.nvim',
