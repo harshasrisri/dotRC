@@ -113,7 +113,8 @@ local function init(config)
     }
     config.color_scheme = 'Oxide'
 
-    config.font_size = 16
+    config.font_size = 15
+    config.adjust_window_size_when_changing_font_size = false
     config.font = wezterm.font 'IosevkaTerm Nerd Font Propo'
 
     config.window_padding = { left = 1, right = 1, top = 1, bottom = 1 }
