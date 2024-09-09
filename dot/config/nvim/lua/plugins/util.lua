@@ -87,7 +87,6 @@ return {
                     blob = "/blob/",
                     line_format = "#L%s-L%s",
                 },
-                }
             }
         },
     },
