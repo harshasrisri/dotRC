@@ -89,4 +89,11 @@ return {
         dependencies = { "nvim-lua/plenary.nvim", },
         config = function() require("telescope").load_extension("undo") end,
     },
+
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        lazy = true,
+        dependencies = { "nvim-lua/plenary.nvim", },
+        config = function() require("telescope").load_extension("file_browser") end,
+    },
 }
