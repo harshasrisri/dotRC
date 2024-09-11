@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local nf = wezterm.nerdfonts
 local Left = 'left'
 local Right = 'right'
 
@@ -31,11 +32,21 @@ end
 
 local function set_status()
     wezterm.on("update-status", function(window, _)
+        -- Left Status
+        local left_seg = nf.md_remote_desktop .. '  Dom: ' .. string.upper(wezterm.mux.get_domain():name())
+        local key_tbl = window:active_key_table()
+        if key_tbl then
+            left_seg = nf.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
+        end
+
+        window:set_left_status(wezterm.format(format_element(Left, 'indianred', 'black', left_seg, 'Normal', false)))
+
+        -- Right Status
         local colors = { 'gold', 'orange', 'indianred' }
         local segments = {
-            window:active_workspace(),
-            wezterm.strftime('%a %b %-d %H:%M:%S'),
-            wezterm.hostname(),
+            nf.oct_device_desktop .. '  WS: ' .. window:active_workspace(),
+            string.format('%s %s %s %s', nf.cod_calendar, wezterm.strftime('%a %b %-d'), nf.fa_clock_o, wezterm.strftime('%H:%M:%S')),
+            'Wez ' .. nf.dev_terminal
         }
 
         local right_elements = {}
@@ -46,15 +57,6 @@ local function set_status()
             end
         end
         window:set_right_status(wezterm.format(right_elements))
-
-        local left_seg = wezterm.nerdfonts.dev_terminal .. ' WezTerm'
-        local key_tbl = window:active_key_table()
-        if key_tbl then
-            left_seg = wezterm.nerdfonts.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
-        end
-
-        window:set_left_status(wezterm.format(format_element(Left, 'indianred', 'black', left_seg, 'Normal', false)))
-
     end)
 end
 
@@ -68,7 +70,7 @@ local function format_tab_bar(config)
     }
 
     config.tab_bar_style = {
-        new_tab = wezterm.format( format_element(Left, '#444444', 'black', '+', 'Normal', false) ),
+        new_tab = wezterm.format( format_element(Left, '#444444', 'black', nf.cod_add .. ' ', 'Normal', false) ),
         new_tab_hover = wezterm.format( format_element(Left, '#CCCCCC', 'black', '+', 'Bold', false) ),
     }
 
@@ -99,7 +101,7 @@ local function format_tab_bar(config)
             italic = false
         end
 
-        local tab_title = string.format('%s: %s', tab_id, tab_info)
+        local tab_title = string.format('%s %s: %s', nf.md_bookshelf, tab_id, tab_info)
         tab_title = wezterm.truncate_right(tab_title, max_width - 4)
 
         return format_element(Left, tab_bg, tab_fg, tab_title, intensity, italic)
