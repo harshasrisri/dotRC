@@ -1,51 +1,17 @@
-# -------
-# Modules
-# -------
-
-# Sets sane Zsh built-in environment options.
-zmodule environment
-
-# Applies correct bindkeys for input events.
-zmodule input
-
-# Sets a custom terminal title.
-zmodule termtitle
-
-# Wraps completions in fzf. Must be sourced before plugins which wrap widgets.
-zmodule Aloxaf/fzf-tab
-
-# Additional completion definitions for Zsh.
-zmodule zsh-users/zsh-completions
-
-# Enables and configures smart and extensive tab completion. Must be sourced after zsh-users/zsh-completions
-zmodule completion
-
-# Fish-like autosuggestions for Zsh.
-zmodule zsh-users/zsh-autosuggestions
-
-# Fish-like syntax highlighting for Zsh. Must be sourced after completion
-zmodule z-shell/F-Sy-H
-
-# Fish-like history search (up arrow) for Zsh. Must be sourced after syntax-highlighting
-zmodule zsh-users/zsh-history-substring-search
-
-# Powerlevel10k theme for zsh
-zmodule romkatv/powerlevel10k
-
-# Wrapper to undo most common git operations using fzf
-zmodule Bhupesh-V/ugit
-
-# Setup fzf wrappers
-zmodule fzf
-
+zmodule environment                            # Sets sane Zsh built-in environment options.
+zmodule input                                  # Applies correct bindkeys for input events.
+zmodule termtitle                              # Sets a custom terminal title.
+zmodule Aloxaf/fzf-tab                         # Wraps completions in fzf. Must be sourced before plugins which wrap widgets.
+zmodule zsh-users/zsh-completions              # Additional completion definitions for Zsh.
+zmodule completion                             # Enables and configures smart and extensive tab completion. Must be sourced after zsh-users/zsh-completions
+zmodule zsh-users/zsh-autosuggestions          # Fish-like autosuggestions for Zsh.
+zmodule z-shell/F-Sy-H                         # Fish-like syntax highlighting for Zsh. Must be sourced after completion
+zmodule zsh-users/zsh-history-substring-search # Fish-like history search (up arrow) for Zsh. Must be sourced after syntax-highlighting
+zmodule romkatv/powerlevel10k                  # Powerlevel10k theme for zsh
+zmodule Bhupesh-V/ugit                         # Wrapper to undo most common git operations using fzf
+zmodule fzf                                    # Setup fzf wrappers
+zmodule ninrod/pass-zsh-completion             # Autocompletion for pass
+zmodule kiesman99/zim-zoxide                   # some configuration above
+zmodule magic-enter
 # My Custom initializations that would have gone into ~/.zshrc
-zmodule custom
-
-# Autocompletion for pass
-zmodule ninrod/pass-zsh-completion
-
-# some configuration above
-zmodule kiesman99/zim-zoxide
-
-# Multi word history search
-zmodule z-shell/H-S-MW
+zmodule $(dirname $(readlink ~/.gitconfig))/zim/modules/custom

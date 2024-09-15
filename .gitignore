@@ -1,3 +1,4 @@
 *.swp
 .luarc.json
 .DS_Store
+*.zwc

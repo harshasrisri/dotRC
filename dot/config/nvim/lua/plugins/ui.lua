@@ -16,15 +16,7 @@ return {
 
    {
         'freddiehaddad/feline.nvim',
-        opts = {
-            disable = {
-                filetypes = {
-                    '^dapui_*',
-                    '^dap%-repl$',
-                    '^help$',
-                }
-            }
-        }
+        opts = { disable = { filetypes = { '^dapui_*', '^dap%-repl$', '^help$', } } },
     },
 
     {
