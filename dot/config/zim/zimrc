@@ -2,16 +2,14 @@ zmodule environment                            # Sets sane Zsh built-in environm
 zmodule input                                  # Applies correct bindkeys for input events.
 zmodule termtitle                              # Sets a custom terminal title.
 zmodule Aloxaf/fzf-tab                         # Wraps completions in fzf. Must be sourced before plugins which wrap widgets.
-zmodule zsh-users/zsh-completions              # Additional completion definitions for Zsh.
+zmodule zsh-users/zsh-completions --fpath src  # Additional completion definitions for Zsh.
 zmodule completion                             # Enables and configures smart and extensive tab completion. Must be sourced after zsh-users/zsh-completions
-zmodule zsh-users/zsh-autosuggestions          # Fish-like autosuggestions for Zsh.
 zmodule z-shell/F-Sy-H                         # Fish-like syntax highlighting for Zsh. Must be sourced after completion
+zmodule zsh-users/zsh-autosuggestions          # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-history-substring-search # Fish-like history search (up arrow) for Zsh. Must be sourced after syntax-highlighting
 zmodule romkatv/powerlevel10k                  # Powerlevel10k theme for zsh
 zmodule Bhupesh-V/ugit                         # Wrapper to undo most common git operations using fzf
 zmodule fzf                                    # Setup fzf wrappers
-zmodule ninrod/pass-zsh-completion             # Autocompletion for pass
 zmodule kiesman99/zim-zoxide                   # some configuration above
-zmodule magic-enter
 # My Custom initializations that would have gone into ~/.zshrc
-zmodule $(dirname $(readlink ~/.gitconfig))/zim/modules/custom
+zmodule ~/.config/zim/custom

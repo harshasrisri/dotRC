@@ -1,0 +1,49 @@
+# Zsh configuration
+setopt HIST_IGNORE_ALL_DUPS # Remove older command from the history if a duplicate is to be added.
+bindkey -e # Set editor default keymap to emacs (`-e`) or vi (`-v`)
+setopt CORRECT # Prompt for spelling correction of commands.
+SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? ' # Customize spelling correction prompt.
+WORDCHARS=${WORDCHARS//[\/]} # Remove path separator from WORDCHARS.
+
+# Zim configuration
+ZIM_CONFIG_FILE="$HOME/.config/zim/zimrc"
+ZIM_HOME="$HOME/.cache/zim"
+zstyle ':zim:zmodule' use 'degit' # Use degit instead of git as the default tool to install and update modules.
+zstyle ':zim' disable-version-check yes
+zstyle ':zim:input' double-dot-expand yes # Append `../` to your input for each `.` you type after an initial `..`
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets) # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+
+# Auto-Install zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+fi
+
+# Install missing modules and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+
+source ${ZIM_HOME}/init.zsh
+
+# Post-init module configuration
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -z "$(which zoxide)" ]] && eval "$(zoxide init zsh)"
