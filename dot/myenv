@@ -53,17 +53,11 @@ alias  .v='vi ${_MY_RC_DIR}/dot/vim/vimrc'
 alias  .n='vi +"cd ${_MY_RC_DIR}/dot/config/nvim/" +"Telescope find_files"'
 alias  .w='vi +"cd ${_MY_RC_DIR}/dot/config/wezterm/" +"Telescope find_files"'
 alias  .z='vi ~/.zshrc'
-alias .zj='vi ~/.config/zellij/config.yaml'
 alias .zm='vi ${_MY_RC_DIR}/dot/zimrc'
 alias  .t='vi ${_MY_RC_DIR}/dot/tmux.conf'
-alias .tb='vi ${_MY_RC_DIR}/dot/tabmux.conf'
 alias  .p='vi ~/.p10k.zsh'
-alias  .a='vi ${_MY_RC_DIR}/dot/config/alacritty/alacritty.yml'
-alias .al='vi ~/.config/alacritty/alacritty.local.yml'
 alias .gc='vi ${_MY_RC_DIR}/dot/gitconfig'
 alias .gi='vi ${_MY_RC_DIR}/dot/gitignore'
-alias .kc='vi ${_MY_RC_DIR}/dot/config/kmonad/config.kbd'
-alias .ks='vi ${_MY_RC_DIR}/dot/config/kmonad/kmonad.service'
 
 alias  .rc='cd ${_MY_RC_DIR}'
 alias .bin='cd ${_MY_RC_DIR}/bin'
@@ -106,7 +100,6 @@ alias -g  grb='git rebase'
 alias -g grba='git rebase --abort'
 alias -g grbc='git rebase --continue'
 
-alias tab='exec tabmux'
 alias tml='tmux -L default ls'
 alias rgn='rg --files-with-matches'
 alias rgN='rg --files-without-match'
@@ -117,11 +110,6 @@ gri () {
         return
     fi
     git rebase -i @~"${1}"
-}
-
-zlc () {
-    [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
-    exec zellij attach --create ${1}
 }
 
 tm () {
