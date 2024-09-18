@@ -114,7 +114,8 @@ local function init(config)
         ["Oxide"] = color_scheme,
     }
     config.color_scheme = 'Oxide'
-
+    config.initial_cols = 240
+    config.initial_rows = 80
     config.font_size = 15
     config.adjust_window_size_when_changing_font_size = false
     config.font = wezterm.font 'IosevkaTerm Nerd Font Propo'
