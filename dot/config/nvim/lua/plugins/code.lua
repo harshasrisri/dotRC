@@ -4,6 +4,7 @@ return {
     { 'google/vim-jsonnet', ft = 'jsonnet' },
     { 'mzlogin/vim-markdown-toc', ft = 'markdown'},
     { 'kmonad/kmonad-vim', ft = 'kbd' },
+    { 'echasnovski/mini.comment', event = 'BufReadPost', opts = {} },
 
     {
         "iamcco/markdown-preview.nvim",
@@ -68,12 +69,6 @@ return {
                 },
             })
         end
-    },
-
-    {
-        'echasnovski/mini.comment',
-        event = 'BufReadPost',
-        opts = {},
     },
 
     {
