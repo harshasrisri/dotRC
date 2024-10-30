@@ -1,4 +1,5 @@
 local lsp_config = function ()
+    vim.lsp.inlay_hint.enable(true)
     local nvim_lsp = require('lspconfig')
 
     -- populate completion engine with language specific LSP capabilities
@@ -32,9 +33,6 @@ local lsp_config = function ()
                     debounce_text_changes = 150,
                 }
             }
-        end,
-        ["rust_analyzer"] = function ()
-            require("rust-tools").setup {}
         end,
         ["gopls"] = function ()
             require("go").setup {
@@ -82,9 +80,9 @@ return {
     },
 
     {
-        'simrat39/rust-tools.nvim',
-        ft = { "rust" },
-        dependencies = 'nvim-lspconfig',
+        'mrcjkb/rustaceanvim',
+        version = '^5',
+        lazy = false,
     },
 
     {
@@ -136,7 +134,7 @@ return {
         opts = {
                 ensure_installed = {
                     "gopls", "jdtls", "jsonls", "jsonnet_ls", "marksman", "pylsp",
-                    "rust_analyzer", "lua_ls", "terraformls", "tflint", "yamlls",
+                    "lua_ls", "terraformls", "tflint", "yamlls",
                 },
                 automatic_installation = true,
             },
