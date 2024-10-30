@@ -1,17 +1,21 @@
 return {
-    { 'chaoren/vim-wordmotion', event = 'BufReadPost' },
-
     { 'ojroques/nvim-osc52', lazy = true },
-
     { "kylechui/nvim-surround", opts = {}, event = 'BufReadPost' },
-
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
-
     { 'folke/which-key.nvim', opts = {}, event = 'VeryLazy' },
-
-    { 'windwp/nvim-autopairs', event = 'BufReadPost', opts = {}, },
-
+    { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {}, },
     { 'echasnovski/mini.ai', event = 'VeryLazy', opts = {}, },
+    { 'echasnovski/mini.align', event = 'VeryLazy', opts = {}, version = '*', },
+
+    {
+        'chrisgrieser/nvim-spider',
+        lazy = true,
+        keys = {
+            {"w", "<cmd>lua require('spider').motion('w')<CR>", mode = {"n", "o", "x"}},
+            {"e", "<cmd>lua require('spider').motion('e')<CR>", mode = {"n", "o", "x"}},
+            {"b", "<cmd>lua require('spider').motion('b')<CR>", mode = {"n", "o", "x"}},
+        }
+    },
 
     {
         'ahmedkhalf/project.nvim',
