@@ -35,3 +35,10 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
         vim.cmd("tabdo wincmd =")
     end,
 })
+
+-- autosave on various events
+ vim.api.nvim_create_autocmd({ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" }, {
+    desc = "autosave",
+    pattern = "*",
+    command = "silent! update",
+ })
