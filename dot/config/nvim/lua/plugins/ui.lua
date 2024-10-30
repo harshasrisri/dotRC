@@ -8,12 +8,6 @@ return {
         end
     },
 
-    -- {
-    --     'rebelot/heirline.nvim',
-    --     event = 'VeryLazy',
-    --     config = function() require('heirline').setup { statusline = require('plugins.statusline') } end,
-    -- },
-
    {
         'freddiehaddad/feline.nvim',
         opts = { disable = { filetypes = { '^dapui_*', '^dap%-repl$', '^help$', } } },
@@ -75,46 +69,21 @@ return {
         },
     },
 
-    {
-        "rcarriga/nvim-notify",
-        lazy = true,
-        opts = {
-            timeout = 3000,
-            max_height = function()
-                return math.floor(vim.o.lines * 0.75)
-            end,
-            max_width = function()
-                return math.floor(vim.o.columns * 0.75)
-            end,
-        },
-    },
-
-    { "MunifTanjim/nui.nvim", lazy = true },
-
-    { 'nvim-tree/nvim-web-devicons', lazy = true },
-
-    {
-        "stevearc/dressing.nvim",
-        lazy = true,
-        init = function()
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.select = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.select(...)
-            end
-            ---@diagnostic disable-next-line: duplicate-set-field
-            vim.ui.input = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
-                return vim.ui.input(...)
-            end
-        end,
-    },
-
-    {
-        'karb94/neoscroll.nvim',
-        event = 'BufReadPost',
-        opts = {},
-    },
+    -- {
+    --     "rcarriga/nvim-notify",
+    --     lazy = true,
+    --     opts = {
+    --         timeout = 3000,
+    --         render = "wrapped-compact",
+    --         stages = "fade",
+    --         max_height = function()
+    --             return math.floor(vim.o.lines * 0.75)
+    --         end,
+    --         max_width = function()
+    --             return math.floor(vim.o.columns * 0.75)
+    --         end,
+    --     },
+    -- },
 
     {
         'lukas-reineke/indent-blankline.nvim',

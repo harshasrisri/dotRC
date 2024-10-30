@@ -67,13 +67,6 @@ return {
     },
 
     {
-        'ggandor/leap-spooky.nvim',
-        lazy = true,
-        dependencies = 'leap.nvim',
-        opts = {},
-    },
-
-    {
         'nvim-tree/nvim-tree.lua',
         cmd = 'NvimTreeToggle',
         keys = {

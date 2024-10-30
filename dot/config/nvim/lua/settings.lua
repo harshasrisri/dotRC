@@ -17,9 +17,7 @@ vim.opt.backupdir:remove(".")                    -- Don't store backup files in 
 vim.opt.completeopt   = { 'menu', 'menuone', 'noselect' } -- completion option selection behavior
 vim.opt.cursorline    = true                     -- Horizontal line to indicate cursor
 vim.opt.expandtab     = true                     -- Insert 4 spaces when Tab is pressed
-vim.opt.fillchars = {
-    vert = '▎',                                  -- Use ▎as vertical split bar
-}
+vim.opt.fillchars     = { vert = '▎' }           -- Use ▎as vertical split bar
 vim.opt.formatoptions:append("rn")               -- Auto comment new comment lines, indents for numbered lists
 vim.opt.foldlevel     = 99                       -- Fold levels
 vim.opt.foldmethod    = 'expr'                   -- Fold based on treesitter's fold expr
