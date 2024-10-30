@@ -1,14 +1,18 @@
 return {
+    { "MunifTanjim/nui.nvim", lazy = true },
+    { 'nvim-tree/nvim-web-devicons', lazy = true },
+    { 'karb94/neoscroll.nvim', event = 'BufReadPost', opts = {} },
+
     {
-        'projekt0n/caret.nvim',
-        priority = 1000,
+        "sho-87/kanagawa-paper.nvim",
+        lazy = false,
         opts = {},
-        config = function()
-            vim.cmd('colorscheme caret')
+        config = function ()
+            vim.cmd('colorscheme kanagawa-paper')
         end
     },
 
-   {
+    {
         'freddiehaddad/feline.nvim',
         opts = { disable = { filetypes = { '^dapui_*', '^dap%-repl$', '^help$', } } },
     },
