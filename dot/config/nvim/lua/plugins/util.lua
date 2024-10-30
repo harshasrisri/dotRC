@@ -91,7 +91,5 @@ return {
         },
     },
 
-    { 'godlygeek/tabular', cmd = 'Tab' },
-
     { 'nvim-lua/plenary.nvim', lazy = true },
 }
