@@ -1,11 +1,27 @@
 ## Examples adopted from https://github.com/Aloxaf/fzf-tab/wiki/Preview
 
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
 # make ZSH fzf-tab plugin use tmux popup for auto completion workflows
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' popup-pad 240 160
 
-# Use exa to preview directory during cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# Use eza to preview directory during cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # give a preview of commandline arguments when completing `kill`
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
@@ -38,8 +54,8 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	esac'
 
 # Preview man pages during completion
-zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
-zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
+zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word | bat -plman --color=always'
 
 # Preview pacman package info
 zstyle ':fzf-tab:complete:(\\|*/|)pacman:*' fzf-preview 'pacman -Qi $word'

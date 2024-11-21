@@ -9,7 +9,7 @@ config.scrollback_lines = 100000
 
 config.unix_domains = { { name = 'local_mux', }, }
 config.default_mux_server_domain = 'local_mux'
-config.term = 'wezterm'
+-- config.term = 'wezterm'
 
 require("ui")(config)
 require("keymap")(config)
