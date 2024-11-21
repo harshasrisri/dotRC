@@ -7,9 +7,9 @@ map('x', '<leader>y', require('osc52').copy_visual)
 
 -- Place cursor after copy/paste position in Normal/Visual mode
 -- and automatically indent the pasted region as per context
-map('v', 'y', 'y`]')
-map('n', 'p', 'p`[v`]=')
-map('n', 'P', 'P`[v`]=')
+-- map('v', 'y', 'y`]')
+-- map('n', 'p', 'p`[v`]=')
+-- map('n', 'P', 'P`[v`]=')
 
 -- Go between lines in wrapped lines.
 map('n', 'j', 'gj')
