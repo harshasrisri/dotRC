@@ -20,14 +20,23 @@ return {
             { '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>' },
             { '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>' },
             { '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>' },
-            { '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>' },
             -- Text object
             { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = 'o' },
-            { 'ih', ':<C-U>Gitsigns select_hunk<CR>' , mode = 'x'},
+            { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = 'x'},
         },
         opts = {
             current_line_blame = true,
             current_line_blame_formatter = ' <author>, <author_time:%R>: <summary>'
+        },
+    },
+
+    {
+        'sindrets/diffview.nvim',
+        config = true,
+        keys = {
+            {'<leader>dfv', '<cmd>DiffviewOpen<CR>' },
+            {'<leader>dfh', '<cmd>DiffviewFileHistory<CR>' },
+            {'<leader>dfc', '<cmd>DiffviewClose<CR>' },
         },
     },
 
