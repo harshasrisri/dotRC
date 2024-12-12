@@ -6,19 +6,56 @@ set -e
 
 dot_dir="$PWD/dot"
 
-echo -n "Updating Repo . . . " && git pull --quiet && echo " Done"
-if [ ! -e $dot_dir ]; then
-    echo "FATAL: No $dot_dir!! Please \"git pull\" or \"git clone\" again."; >3
+fatal () {
+    echo "FATAL: $@"
     exit
-fi
+}
 
-echo "Linking files . . ."
+ensure_installed() {
+    if [ ! -x "$(command -v $1)" ]; then
+        echo "Program '$1' not found. Is it installed and in \$PATH?"
+        setup_can_continue=0
+        return
+    fi
+    echo "$1: installed"
+}
 
-for file in $(git ls-files $dot_dir/); do
-    dotfile="$HOME/.${file#$(basename ${dot_dir})/}"
-    mkdir -p $(dirname $dotfile)
-    echo -ne "\t"
-    ln -vsnf $PWD/${file} ${dotfile}
-done
+check_dependencies() {
+    setup_can_continue=1
 
-echo "... Done!"
+    for dep in $@; do
+        ensure_installed $dep
+    done
+
+    if [ $setup_can_continue -eq 0 ]; then
+        fatal "Dependencies not met. Aborting"
+    fi
+}
+
+update_repo() {
+    echo "Updating Repo . . . "
+    git pull --quiet
+    if [ $? != 0 ]; then
+        fatal "git pull failed. Can't update repo"
+    fi
+
+    if [ ! -e $dot_dir ]; then
+        fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."
+    fi
+}
+
+make_links() {
+    echo "Linking dot files . . ."
+    for file in $(git ls-files $dot_dir/); do
+        dotfile="$HOME/.${file#$(basename ${dot_dir})/}"
+        mkdir -p $(dirname $dotfile)
+        echo -ne "\t"
+        ln -vsnf $PWD/${file} ${dotfile}
+    done
+}
+
+check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta
+update_repo
+make_links
+
+echo "Done!"
