@@ -34,9 +34,9 @@ return {
         'sindrets/diffview.nvim',
         config = true,
         keys = {
-            {'<leader>dfv', '<cmd>DiffviewOpen<CR>' },
-            {'<leader>dfh', '<cmd>DiffviewFileHistory<CR>' },
-            {'<leader>dfc', '<cmd>DiffviewClose<CR>' },
+            {'<leader>dvo', ':DiffviewOpen ' },
+            {'<leader>dvh', ':DiffviewFileHistory ' },
+            {'<leader>dvc', '<cmd>DiffviewClose<CR>' },
         },
     },
 
