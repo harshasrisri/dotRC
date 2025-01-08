@@ -1,7 +1,0 @@
-#!/bin/sh
-# Script to open multiple diff splits simultaneously in 
-# individual vim tabs using vim-fugitive plugin
-
-file_list="$(git diff --name-only --relative $@)"
-[ -z "${file_list}" ] && echo "Nothing to diff" && exit
-$EDITOR -p ${file_list} -c "tabdo Gvdiffsplit $@"

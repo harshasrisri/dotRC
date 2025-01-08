@@ -1,19 +1,15 @@
 export _MY_RC_DIR="$(dirname $(readlink ~/.gitconfig))/.."
-export _MY_BIN_DIR="$(realpath ${_MY_RC_DIR}/bin)"
-export _MY_DOT_DIR="$(realpath ${_MY_RC_DIR}/dot)"
-
-export PATH=$PATH:$_MY_BIN_DIR
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-export RUSTC_WRAPPER=$(which sccache 2>/dev/null)
+export RUSTC_WRAPPER=$(command -v sccache)
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin
 
-if [ ! -z "$(which eza)" ]; then
+if [ ! -z "$(command -v eza)" ]; then
     # using eza
     alias ls='eza'
     alias ll='ls -lh --reverse --sort time --icons --group-directories-first --git'
     alias tree='ls --icons --tree'
-elif [ ! -z "$(which exa)" ]; then
+elif [ ! -z "$(command -v exa)" ]; then
     # using exa
     alias ls='exa'
     alias ll='ls -lFh --reverse --sort time --icons --group-directories-first --git'
@@ -30,14 +26,14 @@ alias l.='ls -d .*'
 alias ll.='ll .*'
 alias lr='ls -R'
 
-if [ -z "$(which nvim 2>/dev/null)" ]; then 
+if [ -z "$(command -v nvim)" ]; then 
     export EDITOR="vim"
 else 
     export EDITOR="nvim"; 
     export MANPAGER='nvim +Man!'
 fi
 
-[ ! -z "$(which bat 2>/dev/null)" ] && alias cat=bat
+[ ! -z "$(command -v bat)" ] && alias cat=bat
 
 alias  vi='${EDITOR}'
 alias fvi='${EDITOR} $(fzf --multi --layout=reverse --preview "fzf-tab-previewer {}")'
