@@ -1,3 +1,11 @@
+if [[ $(uname) == "Darwin" ]]; then
+    export PATH=/opt/homebrew/bin/:$PATH
+elif [[ -d /home/linuxbrew/ ]]; then
+    export PATH=/home/linuxbrew/.linuxbrew/bin/:$PATH
+elif [[ -d ~/.linuxbrew/ ]]; then
+    export PATH=~/.linuxbrew/bin/:$PATH
+fi
+
 export _MY_RC_DIR="$(dirname $(readlink ~/.gitconfig))/.."
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 export RUSTC_WRAPPER=$(command -v sccache)
