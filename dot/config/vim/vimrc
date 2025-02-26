@@ -1,10 +1,10 @@
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.config/vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugins')
+call plug#begin('~/.config/vim/plugins')
     "" Eye Candy
     Plug 'joshdick/onedark.vim'
     Plug 'itchyny/lightline.vim'
@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugins')
     
     "" Common Utilities
     Plug 'junegunn/vim-peekaboo'
-    Plug 'junegunn/fzf', { 'dir': '~/.vim/fzf', 'do': './install --all --no-update-rc' }
+    Plug 'junegunn/fzf', { 'dir': '~/.config/vim/fzf', 'do': './install --all --no-update-rc' }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
@@ -74,9 +74,9 @@ call plug#end()
     set hlsearch                           " Highlight searches
     set smartcase                          " Ignore case if searching lowercase, not otherwise
 
-    set directory=~/.vim/tempfiles/        " Central directory for swap files
-    set backupdir=~/.vim/tempfiles/        " Central directory for backup files
-    set undodir=~/.vim/tempfiles/          " Central directory for file undo history
+    set directory=~/.config/vim/tempfiles/        " Central directory for swap files
+    set backupdir=~/.config/vim/tempfiles/        " Central directory for backup files
+    set undodir=~/.config/vim/tempfiles/          " Central directory for file undo history
     set undofile                           " Remember undo history for closed files
 
     set cursorline                         " Horizontal line to indicate cursor
