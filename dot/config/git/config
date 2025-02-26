@@ -18,6 +18,9 @@
 [diff]
     tool = nvimdiff
     algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
 
 [difftool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
@@ -47,7 +50,23 @@
     who = "!f() { git blame $1 | awk -F\"[()]\" '{print $2}' | awk 'NF{NF-=4}1' | sort | uniq -c | sort -nr; }; f"
 
 [pull]
-	rebase = false
+	rebase = true
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+
+[fetch]
+    prune = true
+    all = true
+
+[help]
+    autocorrect = prompt
+
+[rerere]
+    enabled = true
+    autoupdate = true
 
 [init]
 	defaultBranch = main
