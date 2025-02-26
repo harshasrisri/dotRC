@@ -6,7 +6,7 @@ elif [[ -d ~/.linuxbrew/ ]]; then
     export PATH=~/.linuxbrew/bin/:$PATH
 fi
 
-export _MY_RC_DIR="$(dirname $(readlink ~/.gitconfig))/.."
+export _MY_RC_DIR="~/.rc"
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 export RUSTC_WRAPPER=$(command -v sccache)
 export GOPATH=~/go
