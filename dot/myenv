@@ -53,7 +53,7 @@ alias .gl='vi ~/.gitconfig.local'
 
 alias  .m='vi ${_MY_RC_DIR}/dot/myshrc'
 alias .me='vi ${_MY_RC_DIR}/dot/myenv'
-alias  .v='vi ${_MY_RC_DIR}/dot/vim/vimrc'
+alias  .v='vi ${_MY_RC_DIR}/dot/config/vim/vimrc'
 alias  .n='vi +"cd ${_MY_RC_DIR}/dot/config/nvim/" +"Telescope find_files"'
 alias  .w='vi +"cd ${_MY_RC_DIR}/dot/config/wezterm/" +"Telescope find_files"'
 alias  .z='vi ~/.zshrc'
