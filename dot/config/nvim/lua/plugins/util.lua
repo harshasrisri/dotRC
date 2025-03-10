@@ -48,8 +48,8 @@ return {
             {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>'},
             {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>'},
             {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>'},
-            {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't' },
-            {'jk', [[<C-\><C-n>]], mode = 't' },
+            {'<leader><Esc>', [[<C-\><C-n>]], mode = 't', desc = "Normal mode" },
+            {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't', desc = "Hide terminal" },
         },
         opts = {
             size = function(term)
