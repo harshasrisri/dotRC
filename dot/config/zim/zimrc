@@ -1,3 +1,5 @@
+# vim: ft=sh
+
 zmodule environment                            # Sets sane Zsh built-in environment options.
 zmodule input                                  # Applies correct bindkeys for input events.
 zmodule termtitle                              # Sets a custom terminal title.

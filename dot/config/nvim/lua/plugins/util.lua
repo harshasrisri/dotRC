@@ -33,6 +33,7 @@ return {
     {
         'sindrets/diffview.nvim',
         config = true,
+        cmd = { "DiffviewOpen" },
         keys = {
             {'<leader>dvo', ':DiffviewOpen ' },
             {'<leader>dvh', ':DiffviewFileHistory ' },
