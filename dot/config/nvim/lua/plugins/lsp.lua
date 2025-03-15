@@ -34,6 +34,7 @@ local lsp_config = function ()
                 }
             }
         end,
+        ["rust_analyzer"] = function () end,
         ["gopls"] = function ()
             require("go").setup {
                 lsp_keymaps = false,

@@ -13,32 +13,49 @@ return {
     },
 
     {
-        'freddiehaddad/feline.nvim',
-        opts = { disable = { filetypes = { '^dapui_*', '^dap%-repl$', '^help$', } } },
-    },
-
-    {
-        'akinsho/bufferline.nvim',
-        event = "VeryLazy",
-        keys = {
-            { '<Tab>', '<cmd>BufferLineCycleNext<CR>' },
-            { '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>' },
-        },
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {
             options = {
-                show_tab_indicators = true,
-                separator_style = 'slant',
-                offsets = {
-                    {
-                        filetype = "NvimTree",
-                        text = "File Explorer",
-                        highlight = "Directory",
-                        separator = false,
-                        text_align = 'left',
-                    }
+                icons_enabled = true,
+                theme = 'ayu_dark',
+                component_separators = { left = '\\', right = '/'},
+                section_separators = { left = '', right = ''},
+                disabled_filetypes = {
+                    statusline = {},
+                    winbar = {},
                 },
-            }
-        }
+                ignore_focus = {},
+                always_divide_middle = true,
+                always_show_tabline = true,
+                globalstatus = true,
+                refresh = {
+                    statusline = 100,
+                    tabline = 100,
+                    winbar = 100,
+                }
+            },
+            sections = {
+                lualine_a = {'filename'},
+                lualine_b = {{'filetype', icon_only = true}, 'lsp_status'},
+                lualine_c = {{'diagnostics', sources = {'nvim_lsp', 'nvim_diagnostic'}}},
+                lualine_x = {'searchcount', 'filesize'},
+                lualine_y = {'progress', 'location'},
+                lualine_z = {'mode'},
+            },
+            tabline = {
+                lualine_a = {'branch'},
+                lualine_b = {{ 'buffers', padding = 2, use_mode_colors = true, }},
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = {'tabs'},
+            },
+            winbar = {},
+            inactive_winbar = {},
+            extensions = {'nvim-tree', 'symbols-outline', 'toggleterm'},
+        },
+        config = true,
     },
 
     {
@@ -71,22 +88,6 @@ return {
             },
         },
     },
-
-    -- {
-    --     "rcarriga/nvim-notify",
-    --     lazy = true,
-    --     opts = {
-    --         timeout = 3000,
-    --         render = "wrapped-compact",
-    --         stages = "fade",
-    --         max_height = function()
-    --             return math.floor(vim.o.lines * 0.75)
-    --         end,
-    --         max_width = function()
-    --             return math.floor(vim.o.columns * 0.75)
-    --         end,
-    --     },
-    -- },
 
     {
         'lukas-reineke/indent-blankline.nvim',
