@@ -34,6 +34,8 @@ map('n', 'x', '"_x')             -- Ignore single char cuts
 map('i', 'jj' , '<Esc>')         -- Easy escape to normal mode
 
 map('n', '<leader>bd', '<cmd>bdelete<CR>')
+map('n', '<Tab>', '<cmd>bnext<CR>')
+map('n', '<S-Tab>', '<cmd>bprevious<CR>')
 
 map('n', ';', ':')
 map('v', ';', ':')
