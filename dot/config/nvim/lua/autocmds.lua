@@ -37,8 +37,8 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 })
 
 -- autosave on various events
- vim.api.nvim_create_autocmd({ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" }, {
-    desc = "autosave",
-    pattern = "*",
-    command = "silent! update",
- })
+-- vim.api.nvim_create_autocmd({ "FocusLost", "ModeChanged", "TextChanged", "BufEnter" }, {
+--    desc = "autosave",
+--    pattern = "*",
+--    command = "silent! update",
+-- })
