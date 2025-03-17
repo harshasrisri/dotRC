@@ -36,7 +36,7 @@ return {
                 }
             },
             sections = {
-                lualine_a = {'filename'},
+                lualine_a = {'branch', {'filename', path = 1}},
                 lualine_b = {{'filetype', icon_only = true}, 'lsp_status'},
                 lualine_c = {{'diagnostics', sources = {'nvim_lsp', 'nvim_diagnostic'}}},
                 lualine_x = {'searchcount', 'filesize'},
@@ -44,12 +44,12 @@ return {
                 lualine_z = {'mode'},
             },
             tabline = {
-                lualine_a = {'branch'},
-                lualine_b = {{ 'buffers', padding = 2, use_mode_colors = true, }},
+                lualine_a = {{'buffers', padding = 2, use_mode_colors = true}},
+                lualine_b = {},
                 lualine_c = {},
                 lualine_x = {},
-                lualine_y = {},
-                lualine_z = {'tabs'},
+                lualine_y = {{'datetime', style = '%m/%d %H:%M'}},
+                lualine_z = {'tabs', 'hostname'},
             },
             winbar = {},
             inactive_winbar = {},
