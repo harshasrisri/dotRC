@@ -46,7 +46,7 @@ fi
 alias  vi='${EDITOR}'
 alias fvi='${EDITOR} $(fzf --multi --layout=reverse --preview "fzf-tab-previewer {}")'
 alias fcd='cd "$(fd -t d --print0 | fzf --read0 --print0 --layout=reverse --preview "fzf-tab-previewer {}")"'
-alias fzp="fzf --delimiter : --preview 'bat --style=full --color=always --highlight-line {2} {1}' --preview-window '~3,+{2}+3/2' --multi --bind 'ctrl-space:select'"
+alias fzp="fzf --preview 'bat --style=full --color=always {}' --preview-window '~3,+{2}+3/2' --multi --bind 'ctrl-space:select'"
 
 alias .ml='vi ~/.myshrc.local'
 alias .gl='vi ~/.gitconfig.local'
@@ -86,7 +86,6 @@ alias -g  gdf='git diff --relative --name-only | fzf --layout=reverse --preview 
 alias -g  gdt='git difftool'
 alias -g  gdc='git diff --cached'
 alias -g  gdn='git diff --relative --name-only'
-alias -g gdns='git diff --relative --name-status'
 alias -g  gcm='git commit -m'
 alias -g gcma='git commit -am'
 alias -g gwta='git worktree add'
@@ -94,16 +93,19 @@ alias -g gwtp='git worktree prune'
 alias -g gwtl='git worktree list'
 alias -g  gco='git checkout'
 alias -g  gbr='git branch'
+alias -g gbrn='git symbolic-ref --short HEAD'
 alias -g  gpl='git pull'
 alias -g  gps='git push'
 alias -g  gcp='git cherry-pick'
 alias -g gcpa='git cherry-pick --abort'
 alias -g gcpc='git cherry-pick --continue'
 alias -g   gf='git fetch'
-alias -g gbrn='git symbolic-ref --short HEAD'
 alias -g  grb='git rebase'
 alias -g grba='git rebase --abort'
 alias -g grbc='git rebase --continue'
+alias -g grst='git reset'
+alias -g  gst='git stash'
+alias -g gstp='git stash pop'
 
 alias tml='tmux -L default ls'
 alias rgn='rg --files-with-matches'
@@ -119,7 +121,8 @@ gri () {
 
 tm () {
     [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
-    exec tmux new -A -s ${1}
+    tmux new -A -s ${1}
+    echo "Detached from tmux session: ${1}"
 }
 
 frg () {
