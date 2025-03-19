@@ -1,8 +1,5 @@
-[user]
-    name = Sriharsha Mucheli
-
 [include]
-    path = ~/.gitconfig.local
+    path = ~/.config/git/config.local
 
 [merge]
     conflictstyle = zdiff3
@@ -26,7 +23,7 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [core]
-	excludesFile = ~/.gitignore
+	excludesFile = ~/.config/git/ignore
     pager = delta
 
 [delta]
