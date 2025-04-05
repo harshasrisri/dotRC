@@ -17,19 +17,17 @@ vim.opt.backupdir:remove(".")                    -- Don't store backup files in 
 vim.opt.completeopt   = { 'menu', 'menuone', 'noselect' } -- completion option selection behavior
 vim.opt.cursorline    = true                     -- Horizontal line to indicate cursor
 vim.opt.expandtab     = true                     -- Insert 4 spaces when Tab is pressed
--- vim.opt.fillchars     = { vert = '▎' }           -- Use ▎as vertical split bar
 vim.opt.formatoptions:append("rn")               -- Auto comment new comment lines, indents for numbered lists
 vim.opt.foldlevel     = 99                       -- Fold levels
 vim.opt.foldmethod    = 'expr'                   -- Fold based on treesitter's fold expr
 vim.opt.foldexpr      = 'nvim_treesitter#foldexpr()'
-vim.opt.guifont       = 'MesloLGS NF:h11.5'      -- Use MesloLGS NF font at 11.5pt height for GUIs
+vim.opt.guifont       = 'IosevkaTerm Nerd Font:h16:w1.1'  -- Font to use for GUIs like Neovide
 vim.opt.hidden        = true                     -- Hide closed buffers instead of closing them.
 vim.opt.ignorecase    = true                     -- Ignore case while searching
 vim.opt.inccommand    = 'nosplit'                -- Interactive search and replace
 vim.opt.linebreak     = true                     -- Prevents breaking line mid-word when wrapped
 vim.opt.mouse         = 'a'                      -- Enable Mouse in all modes
 vim.opt.number        = true                     -- Show line number in gutter
--- vim.opt.pastetoggle   = '<F2>'                   -- Toggle prevent unnecessary autoindent on mouse click paste
 vim.opt.ruler         = false                    -- Disable showing the ruler
 vim.opt.scrolloff     = 5                        -- Nun lines to keep top and bottom of a window while scrolling
 vim.opt.shiftwidth    = 4                        -- Auto indent shifts 4 spaces
