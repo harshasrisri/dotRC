@@ -21,7 +21,6 @@ vim.opt.formatoptions:append("rn")               -- Auto comment new comment lin
 vim.opt.foldlevel     = 99                       -- Fold levels
 vim.opt.foldmethod    = 'expr'                   -- Fold based on treesitter's fold expr
 vim.opt.foldexpr      = 'nvim_treesitter#foldexpr()'
-vim.opt.guifont       = 'IosevkaTerm Nerd Font:h16:w1.1'  -- Font to use for GUIs like Neovide
 vim.opt.hidden        = true                     -- Hide closed buffers instead of closing them.
 vim.opt.ignorecase    = true                     -- Ignore case while searching
 vim.opt.inccommand    = 'nosplit'                -- Interactive search and replace
@@ -47,6 +46,15 @@ vim.opt.wildmenu      = true                     -- Pressing tab in command mode
 vim.opt.wildmode      = 'longest:full,full'      -- Longest completion in wildmenu
 vim.opt.wildignore    = '*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db'
 
+if vim.g.neovide then
+    vim.opt.guifont                             = 'IosevkaTerm Nerd Font:h16:w1.1'  -- Font to use for GUIs like Neovide
+    vim.g.neovide_scroll_animation_length       = 0.1
+    vim.g.neovide_refresh_rate                  = 120
+    vim.g.neovide_cursor_animation_length       = 0.05
+    vim.g.neovide_cursor_short_animation_length = 0.02
+    vim.g.neovide_cursor_trail_size             = 0.25
+    vim.g.neovide_cursor_vfx_mode               = "pixiedust"
+end
 -- Set split background color to NONE 
 vim.cmd[[ hi VertSplit ctermbg=NONE guibg=NONE]]
 
