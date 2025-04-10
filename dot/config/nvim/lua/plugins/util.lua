@@ -11,8 +11,8 @@ return {
         event = 'BufReadPost',
         keys = {
             -- Navigation
-            { ']c', '<cmd>Gitsigns next_hunk<CR>' },
-            { '[c', '<cmd>Gitsigns prev_hunk<CR>' },
+            { ']h', '<cmd>Gitsigns next_hunk<CR>' },
+            { '[h', '<cmd>Gitsigns prev_hunk<CR>' },
             -- Actions
             { '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>' },
             { '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>' },
@@ -23,8 +23,10 @@ return {
             { '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>' },
             { '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>' },
             -- Text object
-            { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = 'o' },
-            { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = 'x'},
+            { 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'o' },
+            { 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'x'},
+            { 'ah', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'o' },
+            { 'ah', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'x'},
         },
         opts = {
             current_line_blame = true,
