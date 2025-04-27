@@ -41,6 +41,24 @@ else
     export MANPAGER='nvim +Man!'
 fi
 
+if [ -n "$(command -v neovide)" ]; then
+    nv() {
+        nohup neovide $@ &>/dev/null &
+    }
+
+    nvr() {
+        [ -z "$1" ] && echo "$0: Specify a remote host" >2 && return
+        script=/tmp/nvd.$1.cmd
+        rm $script &>/dev/null
+        cat > $script << EOF
+#!/bin/bash
+ssh $1 -- PATH=\$PATH:/home/linuxbrew/.linuxbrew/bin nvim \$@
+EOF
+    chmod 755 $script
+    neovide --neovim-bin=$script  &>/dev/null &
+    }
+fi
+
 [ ! -z "$(command -v bat)" ] && alias cat=bat
 
 alias  vi='${EDITOR}'
