@@ -6,9 +6,10 @@ local function map(key, mods, fn)
 end
 
 local function init(config)
-    config.leader = { key = '`' }
+    local backtick = '`'
+    config.leader = { key = backtick }
     config.keys = {
-        map( '`', 'LEADER', action.SendKey { key = '`' } ),
+        map( backtick, 'LEADER', action.SendKey { key = backtick } ),
 
         map( 'c', 'LEADER', action.SpawnTab('CurrentPaneDomain') ),
         map( 'd', 'LEADER', action.DetachDomain('CurrentPaneDomain') ),
