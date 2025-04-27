@@ -16,6 +16,7 @@ vim.opt.backspace     = { 'indent', 'eol', 'start' } -- Backspace works over whi
 vim.opt.backupdir:remove(".")                    -- Don't store backup files in a file's $PWD
 vim.opt.completeopt   = { 'menu', 'menuone', 'noselect' } -- completion option selection behavior
 vim.opt.cursorline    = true                     -- Horizontal line to indicate cursor
+vim.opt.diffopt       = "internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
 vim.opt.expandtab     = true                     -- Insert 4 spaces when Tab is pressed
 vim.opt.formatoptions:append("rn")               -- Auto comment new comment lines, indents for numbered lists
 vim.opt.foldlevel     = 99                       -- Fold levels

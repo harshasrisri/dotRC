@@ -38,10 +38,22 @@ return {
         'sindrets/diffview.nvim',
         config = true,
         cmd = { "DiffviewOpen" },
+        opts = {
+            keymaps = {
+                view = {
+                    { "n", "q", "<cmd>DiffViewClose<CR>", { desc = "Close help menu" } },
+                },
+                file_panel = {
+                    { "n", "q", "<cmd>DiffviewClose<CR>", { desc = "Close help menu" } },
+                },
+                file_history_panel = {
+                    { "n", "q", "<cmd>DiffviewClose<CR>", { desc = "Close help menu" } },
+                },
+            },
+        },
         keys = {
-            {'<leader>dvo', ':DiffviewOpen ' },
-            {'<leader>dvh', ':DiffviewFileHistory ' },
-            {'<leader>dvc', '<cmd>DiffviewClose<CR>' },
+            {'<leader>gd', '<cmd>DiffviewOpen<CR>', desc = "Git Diff Index" },
+            {'<leader>gl', '<cmd>DiffviewFileHistory<CR>', desc = "File Git History" },
         },
     },
 
