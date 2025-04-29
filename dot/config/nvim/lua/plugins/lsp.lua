@@ -74,10 +74,8 @@ return {
     },
 
     {
-        'folke/neodev.nvim',
+        'folke/lazydev.nvim',
         ft = 'lua',
-        dependencies = 'nvim-lspconfig',
-        opts = {library = { plugins = { "nvim-dap-ui" }, types = true }},
     },
 
     {
@@ -126,67 +124,33 @@ return {
     {
         'williamboman/mason.nvim',
         cmd = 'Mason',
+        build = ':MasonUpdate',
         opts = {},
     },
 
-    {
-        'williamboman/mason-lspconfig.nvim',
-        lazy = true,
-        opts = {
-                ensure_installed = {
-                    "gopls", "jdtls", "jsonls", "jsonnet_ls", "marksman", "pylsp",
-                    "lua_ls", "terraformls", "tflint", "yamlls",
-                },
-                automatic_installation = true,
-            },
-    },
 
     {
         'neovim/nvim-lspconfig',
-        ft = { 'json', 'jsonnet', 'markdown', 'python', 'yaml'},
         config = lsp_config,
-        dependencies = { 'mason.nvim', 'mason-lspconfig.nvim', 'lsp_lines.nvim', 'symbol-usage.nvim', 'nvim-navbuddy' },
+        dependencies = {
+            'mason.nvim',
+            { 'williamboman/mason-lspconfig.nvim', config = function () end },
+        },
         keys = {
             { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>' },
             { '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
             { '<leader>lp', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
             { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>' },
-        },
-    },
-
-    {
-        "SmiteshP/nvim-navbuddy",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "MunifTanjim/nui.nvim"
-        },
-        keys = {
-            { '<leader>lo', '<cmd>Navbuddy<CR>', desc = "See overview of source file" },
-        },
-        opts = {
-            windows = { border = "rounded", size = "80%" },
-            lsp = { auto_attach = true },
-            source_buffer = { follow_node = false },
-        },
-    },
-
-    {
-        'ErichDonGubler/lsp_lines.nvim',
-        lazy = true,
-        opts = {},
-        config = function ()
-            vim.diagnostic.config({ virtual_text = false })
-            vim.keymap.set(
-                '',
+            {
                 '<leader>ll',
-                function ()
-                    local new_value = not vim.diagnostic.config().virtual_text
-                    vim.diagnostic.config({ virtual_text = new_value })
-                    require('lsp_lines').toggle()
+                function()
+                    local new_config = not vim.diagnostic.config().virtual_lines
+                    vim.diagnostic.config({ virtual_lines = new_config })
+                    print("Neovim Diagnostic Virtual Lines: " .. new_config)
                 end,
-                { desc = "Toggle lsp_lines" }
-            )
-        end
+                desc = 'Toggle diagnostic virtual_lines',
+            }
+        },
     },
 
     {

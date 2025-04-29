@@ -58,7 +58,7 @@ local cmp_config = function ()
             },
             { name = 'luasnip', keyword_length = 3, },
             { name = 'path' },
-            { name = 'nvim_lua' },
+            { name = 'lazydev', group_index = 0 },
             { name = 'emoji' },
             { name = 'calc' },
         }),
