@@ -44,44 +44,43 @@ return {
         build = ':TSUpdate',
         lazy = true,
         keys = { "<CR>", desc = "Initiate treesitter incremental selecion" },
-        config = function()
-            require('nvim-treesitter.configs').setup({
-                ensure_installed = { 'bash', 'c', 'cpp', 'go', 'hcl', 'json', 'lua', 'markdown', 'markdown_inline', 'python', 'rust', 'vim', 'yaml' },
-                hightlight = {
-                    enable = true,
-                    disable = function(_, buf)
-                        local max_filesize = 100 * 1024 -- 100 KB
-                        local filename = vim.api.nvim_buf_get_name(buf)
-                        local ok, stats = pcall(vim.uv.fs_stat, filename)
-                        if ok and stats and stats.size > max_filesize then
-                            return true
-                        end
-                    end,
+        opts = {
+            ensure_installed = { 'bash', 'c', 'cpp', 'diff', 'go', 'hcl', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'printf', 'rust', 'toml', 'vim', 'vimdoc', 'yaml' },
+            hightlight = {
+                enable = true,
+                disable = function(_, buf)
+                    local max_filesize = 1024 * 1024 -- 1 MB
+                    local filename = vim.api.nvim_buf_get_name(buf)
+                    local ok, stats = pcall(vim.uv.fs_stat, filename)
+                    if ok and stats and stats.size > max_filesize then
+                        return true
+                    end
+                end,
+            },
+            indent = { enable = true },
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = '<CR>',
+                    node_incremental = '<TAB>',
+                    node_decremental = '<S-TAB>',
                 },
-                indent = { enable = true },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = '<CR>',
-                        node_incremental = '<TAB>',
-                        node_decremental = '<S-TAB>',
-                    },
-                },
-            })
+            },
+        },
+        config = function (_, opts)
+            require('nvim-treesitter.configs').setup(opts)
         end
     },
 
     {
-        'rqdmap/symbols-outline.nvim',
-        cmd = 'SymbolsOutline',
+        'hedyhli/outline.nvim',
+        cmd = 'Outline',
         keys = {
-            { '<leader>so', '<cmd>SymbolsOutline<CR>', desc = "Toggle symbols outline" },
+            { '<leader>lo', '<cmd>Outline<CR>', desc = "Toggle symbols outline" },
         },
         opts = {
-            relative_width = false,
-            width = 40,
-            auto_preview = false,
-            show_symbol_details = false,
+            outline_window = { relative_width = false, width = 40 },
+            outline_items = { show_symbol_details = false }
         },
     },
 
