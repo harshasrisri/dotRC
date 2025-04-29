@@ -1,7 +1,6 @@
 return {
     { "MunifTanjim/nui.nvim", lazy = true },
     { 'nvim-tree/nvim-web-devicons', lazy = true },
-    { 'karb94/neoscroll.nvim', event = 'BufReadPost', opts = {} },
 
     {
         "sho-87/kanagawa-paper.nvim",
@@ -70,9 +69,6 @@ return {
     {
         "folke/noice.nvim",
         event = "VeryLazy",
-        keys = {
-            { '<leader>fn', '<cmd>Noice telescope<CR>' },
-        },
         opts = {
             views = {
                 cmdline_popup = {
@@ -86,21 +82,6 @@ return {
                     view = "mini",
                 },
             },
-        },
-    },
-
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        event = 'BufReadPost',
-        version = "2.20.8",
-        opts = {
-            use_tresitter = true,
-            char_list = { '┊' , '┆' , '¦', '|' },
-            show_first_indent_level = false,
-            show_current_context = true,
-            show_current_context_start = true,
-            show_current_context_start_on_current_line = false,
-            show_end_of_line = true,
         },
     },
 }

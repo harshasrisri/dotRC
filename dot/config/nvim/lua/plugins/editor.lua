@@ -17,12 +17,12 @@ return {
         }
     },
 
-    {
-        'ahmedkhalf/project.nvim',
-        event = 'VeryLazy',
-        -- Telescope extension and mapping loaded in Telescope config
-        config = function() require('project_nvim').setup() end
-    },
+    -- {
+    --     'ahmedkhalf/project.nvim',
+    --     event = 'VeryLazy',
+    --     -- Telescope extension and mapping loaded in Telescope config
+    --     config = function() require('project_nvim').setup() end
+    -- },
 
     {
         'AckslD/nvim-neoclip.lua',
@@ -68,51 +68,5 @@ return {
             vim.api.nvim_set_hl(0, 'LeapBackDrop', { link = 'Comment' })
             require('leap').add_default_mappings()
         end
-    },
-
-    {
-        'nvim-tree/nvim-tree.lua',
-        cmd = 'NvimTreeToggle',
-        keys = {
-            { '<leader>et', '<cmd>NvimTreeToggle<CR>', desc = "Toggle NvimTree" }
-        },
-        dependencies = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        opts = {
-            sync_root_with_cwd = true,
-            respect_buf_cwd = true,
-            update_focused_file = {
-                enable = true,
-                update_root = true
-            },
-            view = {
-                width = 36,
-            },
-            renderer = {
-                highlight_git = true,
-                highlight_opened_files = "all",
-                indent_markers = {
-                    enable = true,
-                },
-                icons = {
-                    git_placement = 'signcolumn',
-                }
-            },
-            actions = {
-                open_file = {
-                    window_picker = {
-                        enable = false,
-                    }
-                }
-            }
-        },
-    },
-
-    {
-        'echasnovski/mini.map',
-        lazy = true,
-        keys = {
-            { "<leader>mm", "<cmd>lua require('mini.map').toggle()<CR>", desc = "Open Mini Map" },
-        },
-        opts = {},
     },
 }
