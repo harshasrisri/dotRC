@@ -2,10 +2,59 @@ return {
     { 'ojroques/nvim-osc52', lazy = true },
     { "kylechui/nvim-surround", opts = {}, event = 'BufReadPost' },
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
-    { 'folke/which-key.nvim', opts = {}, event = 'VeryLazy' },
     { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {}, },
     { 'echasnovski/mini.ai', event = 'VeryLazy', opts = {}, },
     { 'echasnovski/mini.align', event = 'VeryLazy', opts = {}, version = '*', },
+
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts_extend = { "spec" },
+        opts = {
+            preset = "modern",
+            defaults = {},
+            spec = {
+                {
+                    mode = { "n", "v" },
+                    { "<leader>d", group = "Debugger" },
+                    { "<leader>f", group = "Fuzzy find/search" },
+                    { "<leader>g", group = "Git" },
+                    { "<leader>l", group = "LSP" },
+                    { "<leader>s", group = "Some more" },
+                    { "<leader>t", group = "Terminal" },
+                    { "[", group = "prev" },
+                    { "]", group = "next" },
+                    { "g", group = "goto" },
+                    { "gs", group = "surround" },
+                    { "z", group = "fold" },
+                    {
+                        "<leader>b",
+                        group = "Buffers",
+                        expand = function()
+                            return require("which-key.extras").expand.buf()
+                        end,
+                    },
+                    {
+                        "<leader>w",
+                        group = "Windows",
+                        proxy = "<c-w>",
+                        expand = function()
+                            return require("which-key.extras").expand.win()
+                        end,
+                    },
+                },
+            },
+        },
+        keys = {
+            {
+                "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "Buffer Keymaps (which-key)",
+            },
+        },
+    },
 
     {
         'chrisgrieser/nvim-spider',
@@ -43,8 +92,6 @@ return {
         opts = {
             chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', },
             normal_hl = 'Cursor',
-            hint_hl = 'Bold',
-            border = 'rounded',
         },
     },
 

@@ -55,10 +55,10 @@ return {
         'akinsho/toggleterm.nvim',
         lazy = true,
         keys = {
-            {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>'},
-            {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>'},
-            {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>'},
-            {'<leader><Esc>', [[<C-\><C-n>]], mode = 't', desc = "Normal mode" },
+            {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>', desc = "Terminal in float window"},
+            {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>', desc = "Terminal in horizontal split"},
+            {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>', desc = "Terminal in vertical split"},
+            {'<leader><Esc>', [[<C-\><C-n>]], mode = 't', desc = "Terminal Normal mode" },
             {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't', desc = "Hide terminal" },
         },
         opts = {
@@ -97,6 +97,7 @@ return {
         lazy = true,
         requires = { 'nvim-lua/plenary.nvim' },
         keys = {
+            { '<leader>yb', function() require('decorated_yank').blame_link() end, mode = 'v' },
             { '<leader>yd', function() require('decorated_yank').decorated_yank() end, mode = 'v' },
             { '<leader>yl', function() require('decorated_yank').decorated_yank_with_link() end, mode = 'v' },
         },
