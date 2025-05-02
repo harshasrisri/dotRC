@@ -77,22 +77,6 @@ return {
     },
 
     {
-        "narutoxy/silicon.lua",
-        lazy = true,
-        keys = {
-            { '<leader>ss', '<cmd>lua require("silicon").visualise_api({})<CR>', mode = 'v' },
-            { '<leader>sb', '<cmd>lua require("silicon").visualise_api({show_butrue})<CR>', mode = 'v' },
-            { '<leader>sy', '<cmd>lua require("silicon").visualise_api({to_cliprue})<CR>', mode = 'v' },
-        },
-        opts = {
-            font = "MesloLGS NF",
-            output = string.format("~/Downloads/nvim_silicon_%s%s%s_%s%s%s.png",
-                os.date("%Y"),os.date("%m"),os.date("%d"),
-                os.date("%H"),os.date("%M"),os.date("%S")),
-        },
-    },
-
-    {
         'simondrake/decorated_yank',
         lazy = true,
         requires = { 'nvim-lua/plenary.nvim' },
