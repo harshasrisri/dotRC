@@ -65,13 +65,6 @@ return {
         }
     },
 
-    -- {
-    --     'ahmedkhalf/project.nvim',
-    --     event = 'VeryLazy',
-    --     -- Telescope extension and mapping loaded in Telescope config
-    --     config = function() require('project_nvim').setup() end
-    -- },
-
     {
         'AckslD/nvim-neoclip.lua',
         event = 'TextYankPost',
