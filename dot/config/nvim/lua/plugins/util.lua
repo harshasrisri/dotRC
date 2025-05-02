@@ -60,6 +60,18 @@ return {
             {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>', desc = "Terminal in vertical split"},
             {'<leader><Esc>', [[<C-\><C-n>]], mode = 't', desc = "Terminal Normal mode" },
             {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't', desc = "Hide terminal" },
+            {
+                '<leader>tg',
+                function()
+                    require('toggleterm.terminal').Terminal:new({
+                        display_name = 'GitUI',
+                        cmd = 'gitui',
+                        hidden = true,
+                        direction = 'float',
+                    }):toggle()
+                end,
+                desc = "GitUI in float terminal",
+            }
         },
         opts = {
             size = function(term)
@@ -104,6 +116,7 @@ return {
         keys = {
             { "<leader>bd",  function() require('snacks').bufdelete.delete() end,             desc = "Delete Buffer" },
             { "<leader>sb",  function() require('snacks').scratch() end,                      desc = "Scratch Buffer" },
+            { "<leader>sd",  function() require('snacks').dashboard() end,                    desc = "Snacks Dashboard" },
             { "<leader>fe",  function() require('snacks').explorer() end,                     desc = "File Explorer" },
             -- Git stuff
             { "<leader>gb",  function() require('snacks').gitbrowse() end,                    desc = "Open line(s) in git repo", mode = { 'n', 'x' } },
@@ -131,14 +144,13 @@ return {
             { "<leader>fj",  function() require('snacks').picker.jumps() end,                 desc = "Search Jumps" },
             { "<leader>fk",  function() require('snacks').picker.keymaps() end,               desc = "Search Keymaps" },
             { "<leader>fm",  function() require('snacks').picker.man() end,                   desc = "Search Man Pages" },
-            { "<leader>fn",  function() require('snacks').picker.notifications() end,         desc = "Notification History" },
+            { "<leader>fn",  function() require('snacks').picker.noice() end,                 desc = "Notification History" },
             { "<leader>fp",  function() require('snacks').picker.projects() end,              desc = "Projects" },
             { "<leader>fr",  function() require('snacks').picker.resume() end,                desc = "Resume" },
             { "<leader>fR",  function() require('snacks').picker.recent() end,                desc = "Recent History" },
             { "<leader>fs",  function() require('snacks').picker() end,                       desc = "Snacks Picker" },
             { "<leader>fS",  function() require('snacks').scratch.select() end,               desc = "Scratch Buffer Picker" },
             { "<leader>fu",  function() require('snacks').picker.undo() end,                  desc = "Search Undo History" },
-            { "<leader>fy",  function() require('snacks').picker.cliphist() end,              desc = "Search Clipboard History" },
             -- Grep pickers
             { "<leader>/l",  function() require('snacks').picker.lines() end,                 desc = "Grep Buffer Lines" },
             { "<leader>/b",  function() require('snacks').picker.grep_buffers() end,          desc = "Grep Open Buffers" },
@@ -147,7 +159,7 @@ return {
             {
                 "<leader>//",
                 function()
-                    require('snacks').input({ win = { row = 0.33 }, prompt = "Search for > " }, function(input) 
+                    require('snacks').input({ win = { row = 0.33 }, prompt = "Search for > " }, function(input)
                         if (input == "") then return end
                         require('snacks').picker.grep({ regex = false, search = input, live = false })
                     end)
