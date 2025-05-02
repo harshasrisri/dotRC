@@ -42,8 +42,9 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
-        lazy = true,
+        lazy = vim.fn.argc(-1) == 0, -- load early when opening file on CLI
         keys = { "<CR>", desc = "Initiate treesitter incremental selecion" },
+        dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects'},
         opts = {
             ensure_installed = { 'bash', 'c', 'cpp', 'diff', 'go', 'hcl', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'printf', 'rust', 'toml', 'vim', 'vimdoc', 'yaml' },
             hightlight = {
@@ -115,14 +116,9 @@ return {
     {
         'wansmer/treesj',
         cmd = 'TSJToggle',
-        keys = {
-            { '<leader>sj', '<cmd>TSJToggle<CR>', desc = "Toggle Split/Join" },
-        },
+        keys = { { '<leader>sj', '<cmd>TSJToggle<CR>', desc = "Toggle Split/Join" } },
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        opts = {
-            use_default_keymaps = false,
-            max_join_length = 256,
-        },
+        opts = { use_default_keymaps = false },
     },
 
     {

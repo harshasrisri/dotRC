@@ -55,7 +55,7 @@ return {
         },
     },
 
-    {
+        {
         'chrisgrieser/nvim-spider',
         lazy = true,
         keys = {
@@ -68,8 +68,10 @@ return {
     {
         'AckslD/nvim-neoclip.lua',
         event = 'TextYankPost',
-        dependencies = { 'tami5/sqlite.lua' },
-        -- Telescope extension and mapping loaded in Telescope config
+        dependencies = { 'tami5/sqlite.lua', 'nvim-telescope/telescope.nvim' },
+        keys = {
+            { "<leader>fy", function () require('telescope').extensions.neoclip.default() end, desc = "Clipboard History" }
+        },
         config = function()
             require('neoclip').setup({
                 enable_persistent_history = true,
