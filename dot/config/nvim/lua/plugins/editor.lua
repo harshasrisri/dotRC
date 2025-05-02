@@ -3,7 +3,6 @@ return {
     { "kylechui/nvim-surround", opts = {}, event = 'BufReadPost' },
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
     { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {}, },
-    { 'echasnovski/mini.ai', event = 'VeryLazy', opts = {}, },
     { 'echasnovski/mini.align', event = 'VeryLazy', opts = {}, version = '*', },
 
     {
