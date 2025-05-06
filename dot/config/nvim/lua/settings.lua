@@ -22,6 +22,7 @@ vim.opt.formatoptions:append("rn")               -- Auto comment new comment lin
 vim.opt.foldlevel     = 99                       -- Fold levels
 vim.opt.foldmethod    = 'expr'                   -- Fold based on treesitter's fold expr
 vim.opt.foldexpr      = 'nvim_treesitter#foldexpr()'
+vim.opt.grepprg       = 'rg --vimgrep'           -- use ripgrep's vim mode as grep program
 vim.opt.hidden        = true                     -- Hide closed buffers instead of closing them.
 vim.opt.ignorecase    = true                     -- Ignore case while searching
 vim.opt.inccommand    = 'nosplit'                -- Interactive search and replace
