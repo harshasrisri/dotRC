@@ -6,9 +6,6 @@ return {
         'lewis6991/gitsigns.nvim',
         event = 'BufReadPost',
         keys = {
-            -- Navigation
-            { ']h', '<cmd>Gitsigns next_hunk<CR>' },
-            { '[h', '<cmd>Gitsigns prev_hunk<CR>' },
             -- Actions
             { '<leader>gR', '<cmd>Gitsigns reset_buffer<CR>',    desc = "Git reset buffer" },
             { '<leader>gS', '<cmd>Gitsigns stage_buffer<CR>',    desc = "Git stage buffer" },
@@ -17,10 +14,10 @@ return {
             { '<leader>gs', '<cmd>Gitsigns stage_hunk<CR>',      desc = "Git stage hunk" },
             { '<leader>gU', '<cmd>Gitsigns undo_stage_hunk<CR>', desc = "Git undo stage hunk" },
             -- Text object
-            { 'ih', '<cmd>Gitsigns select_hunk<CR>', mode = 'o' },
-            { 'ih', '<cmd>Gitsigns select_hunk<CR>', mode = 'x'},
-            { 'ah', '<cmd>Gitsigns select_hunk<CR>', mode = 'o' },
-            { 'ah', '<cmd>Gitsigns select_hunk<CR>', mode = 'x'},
+            { 'ih', '<cmd>Gitsigns select_hunk<CR>', mode = { 'o', 'x' } },
+            { 'ah', '<cmd>Gitsigns select_hunk<CR>', mode = { 'o', 'x' } },
+            { ']h', '<cmd>Gitsigns next_hunk<CR>', mode = { 'n', 'o', 'x' } },
+            { '[h', '<cmd>Gitsigns prev_hunk<CR>', mode = { 'n', 'o', 'x' } },
         },
         opts = {
             current_line_blame = true,
