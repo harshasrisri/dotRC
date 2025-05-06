@@ -1,6 +1,6 @@
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
-    group = augroup('file_last_pos'),
+    group = vim.api.nvim_create_augroup('file_last_pos', { clear = true }),
 	callback = function(event)
         local buf = event.buf
 		local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -23,13 +23,13 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-    group = augroup('check_file_reload'),
+    group = vim.api.nvim_create_augroup('check_file_reload', { clear = true }),
     command = "checktime",
 })
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = augroup('highlight_on_yank'),
+    group = vim.api.nvim_create_augroup('highlight_on_yank', { clear = true }),
     callback = function()
         vim.highlight.on_yank()
     end,
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_q"),
+  group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
   pattern = {
     "PlenaryTestPopup",
     "checkhealth",
