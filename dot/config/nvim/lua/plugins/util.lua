@@ -17,10 +17,10 @@ return {
             { '<leader>gs', '<cmd>Gitsigns stage_hunk<CR>',      desc = "Git stage hunk" },
             { '<leader>gU', '<cmd>Gitsigns undo_stage_hunk<CR>', desc = "Git undo stage hunk" },
             -- Text object
-            { 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'o' },
-            { 'ih', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'x'},
-            { 'ah', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'o' },
-            { 'ah', '<cmd><C-U>Gitsigns select_hunk<CR>', mode = 'x'},
+            { 'ih', '<cmd>Gitsigns select_hunk<CR>', mode = 'o' },
+            { 'ih', '<cmd>Gitsigns select_hunk<CR>', mode = 'x'},
+            { 'ah', '<cmd>Gitsigns select_hunk<CR>', mode = 'o' },
+            { 'ah', '<cmd>Gitsigns select_hunk<CR>', mode = 'x'},
         },
         opts = {
             current_line_blame = true,
