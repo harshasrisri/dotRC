@@ -24,17 +24,14 @@ return {
             spec = {
                 {
                     mode = { "n", "v" },
-                    { "<leader>d", group = "Debugger" },
-                    { "<leader>f", group = "Fuzzy find/search" },
-                    { "<leader>g", group = "Git" },
-                    { "<leader>l", group = "LSP" },
-                    { "<leader>s", group = "Some more" },
-                    { "<leader>t", group = "Terminal" },
-                    { "[", group = "prev" },
-                    { "]", group = "next" },
-                    { "g", group = "goto" },
-                    { "gs", group = "surround" },
-                    { "z", group = "fold" },
+                    { "<leader>d", group = "[D]ebugger" },
+                    { "<leader>f", group = "[F]uzzy find/search" },
+                    { "<leader>g", group = "[G]it" },
+                    { "<leader>l", group = "[L]SP" },
+                    { "<leader>s", group = "[S]ome more" },
+                    { "<leader>t", group = "[T]erminal" },
+                    { "g", group = "[G]oto" },
+                    { "z", group = "Fold" },
                     {
                         "<leader>b",
                         group = "Buffers",
@@ -64,7 +61,7 @@ return {
         },
     },
 
-        {
+    {
         'chrisgrieser/nvim-spider',
         lazy = true,
         keys = {
@@ -101,22 +98,22 @@ return {
     {
         'Rrethy/vim-illuminate',
         event = 'BufReadPost',
+        opts = { large_file_overrides = { delay = 200, providers = { "lsp" } } },
         config = function()
             vim.api.nvim_set_hl(0, "IlluminatedWordText", { bold = true, underline = true })
             vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bold = true, underline = true })
             vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bold = true, underline = true })
-            require('illuminate').configure({
-                filetypes_denylist = { 'dirvish', 'fugitive', 'NvimTree' },
-            })
         end
     },
 
     {
         'ggandor/leap.nvim',
-        keys = { 's', 'S', 'gs' },
+        keys = {
+            { 'gl', '<Plug>(leap-anywhere)', desc = "Go leap anywhere", mode = "n" },
+            { 'l', '<Plug>(leap)', desc = "Leap in buffer", mode = {"o", "x"}},
+        },
         config = function ()
             vim.api.nvim_set_hl(0, 'LeapBackDrop', { link = 'Comment' })
-            require('leap').add_default_mappings()
         end
     },
 }
