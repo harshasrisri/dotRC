@@ -1,9 +1,18 @@
 return {
-    { 'ojroques/nvim-osc52', lazy = true },
     { "kylechui/nvim-surround", opts = {}, event = 'BufReadPost' },
     { 'tpope/vim-rsi', event = { 'InsertEnter', 'CmdlineEnter' } },
     { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {}, },
     { 'echasnovski/mini.align', event = 'VeryLazy', opts = {}, version = '*', },
+
+    {
+        'ojroques/nvim-osc52',
+        lazy = true,
+        opts = {
+            silent = true,
+            trim = true,
+            tmux_passthrough = true,
+        },
+    },
 
     {
         "folke/which-key.nvim",
