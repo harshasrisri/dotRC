@@ -1,37 +1,7 @@
 local leet_arg = "leetcode.nvim"
 
 return {
-    { 'google/vim-jsonnet', ft = 'jsonnet' },
-    { 'mzlogin/vim-markdown-toc', ft = 'markdown'},
-    { 'kmonad/kmonad-vim', ft = 'kbd' },
     { 'echasnovski/mini.comment', event = 'BufReadPost', opts = {} },
-
-    {
-        "iamcco/markdown-preview.nvim",
-        ft = { "markdown" },
-        build = function ()
-            require('lazy').load({ plugins = {'markdown-preview.nvim'}})
-            vim.fn["mkdp#util#install"]()
-        end,
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-            vim.g.mkdp_auto_start = 1
-            vim.g.mkdp_theme = 'light'
-            vim.g.mkdp_refresh_slow = 1
-            if vim.loop.os_uname().sysname == 'Darwin' then
-                vim.g.mkdp_browser = 'safari'
-            end
-            vim.g.mkdp_preview_options = {
-                maid = {
-                    diagramMarginX = 10,
-                    actorMargin = 10,
-                    boxMargin = 10,
-                    boxTextMargin = 10,
-                    messageMargin = 10,
-                }
-            }
-        end,
-    },
 
     {
         'mizlan/iswap.nvim',
@@ -73,34 +43,6 @@ return {
         },
         config = function (_, opts)
             require('nvim-treesitter.configs').setup(opts)
-        end
-    },
-
-    {
-        'echasnovski/mini.ai',
-        event = 'VeryLazy',
-        opts = function ()
-            local ai = require("mini.ai")
-            return {
-                custom_textobjects = {
-                    o = ai.gen_spec.treesitter({
-                        a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-                        i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-                    }),
-                    f = ai.gen_spec.treesitter({
-                        a = { "@function.outer" },
-                        i = { "@function.inner" },
-                    }),
-                    C = ai.gen_spec.treesitter({
-                        a = { "@class.outer" },
-                        i = { "@class.inner" },
-                    }),
-                    c = ai.gen_spec.treesitter({
-                        a = { "@comment.outer" },
-                        i = { "@comment.inner" },
-                    }),
-                }
-            }
         end
     },
 
