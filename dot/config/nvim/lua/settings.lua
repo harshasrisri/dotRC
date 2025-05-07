@@ -47,6 +47,7 @@ vim.opt.updatetime    = 100                      -- Time interval to update wind
 vim.opt.wildmenu      = true                     -- Pressing tab in command mode shows options on status bar
 vim.opt.wildmode      = 'longest:full,full'      -- Longest completion in wildmenu
 vim.opt.wildignore    = '*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db'
+vim.opt.winborder     = 'rounded'
 
 if vim.fn.has('gui_running') then
     vim.opt.guifont                             = 'IosevkaTerm Nerd Font:h16:w1.1'  -- Font to use for GUIs like Neovide
