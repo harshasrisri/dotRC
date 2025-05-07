@@ -93,6 +93,8 @@ return {
         version = "1.*",
         opts_extend = { "sources.default" },
         opts = {
+            fuzzy = { implementation = 'prefer_rust' },
+            signature = { enabled = true },
             cmdline = {
                 completion = { menu = { auto_show = true }},
             },
@@ -102,15 +104,18 @@ return {
                 ['<CR>'] = { 'accept', 'fallback' },
                 ['<Tab>'] = {
                     function (cmp)
-                        if cmp.snippet_active() then return cmp.snippet_forward()
+                        if cmp.snippet_active() then
+                            if cmp.is_visible() then return cmp.select_next()
+                            else return cmp.snippet_forward() end
                         else return cmp.select_next() end
                     end,
                     'fallback'
                 },
                 ['<S-Tab>'] = {
                     function (cmp)
-                        if cmp.snippet_active() then return cmp.snippet_backward()
-                        else return cmp.select_prev() end
+                        if cmp.is_visible() then return cmp.select_prev()
+                        elseif cmp.snippet_active() then return cmp.snippet_backward()
+                        else return cmp.select_and_accept() end
                     end,
                     'fallback'
                 },
@@ -122,27 +127,26 @@ return {
                 ['<C-u>']   = { 'scroll_documentation_up', 'fallback' },
                 ['<C-k>']   = { 'show_signature', 'hide_signature', 'fallback' },
             },
+            sources = {
+                -- add lazydev to your completion providers
+                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+                providers = {
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        -- make lazydev completions top priority (see `:h blink.cmp`)
+                        score_offset = 100,
+                    },
+                },
+            },
             completion = {
                 ghost_text = { enabled = true },
                 documentation = { auto_show = true, window = { max_height = 33 } },
-                signature = { enabled = true },
-                fuzzy = { implementation = 'prefer_rust' },
-                sources = {
-                    -- add lazydev to your completion providers
-                    default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-                    providers = {
-                        lazydev = {
-                            name = "LazyDev",
-                            module = "lazydev.integrations.blink",
-                            -- make lazydev completions top priority (see `:h blink.cmp`)
-                            score_offset = 100,
-                        },
-                    },
-                },
                 menu = {
                     max_height = 33,
                     draw = {
                         tresitter = { 'lsp' },
+                        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
                         components = {
                             kind_icon = {
                                 text = function(ctx)
