@@ -22,10 +22,6 @@ local lsp_config = function ()
         }
     }
 
-    nvim_lsp.gopls.setup {
-        capabilities = capabilities,
-    }
-
     require('mason-lspconfig').setup_handlers {
         function (server_name)
             nvim_lsp[server_name].setup {
@@ -35,7 +31,6 @@ local lsp_config = function ()
                 }
             }
         end,
-        ["rust_analyzer"] = function () end,
         ["gopls"] = function ()
             require("go").setup {
                 lsp_keymaps = false,
@@ -81,7 +76,7 @@ return {
 
     {
         'mrcjkb/rustaceanvim',
-        version = '^5',
+        version = '^6',
         lazy = false,
     },
 
@@ -99,17 +94,7 @@ return {
                 end,
                 group = format_sync_grp,
             })
-            -- require('go').setup()
-        end
-    },
-
-    {
-        'hashivim/vim-terraform',
-        ft = { 'terraform', 'hcl', 'terraform-vars' },
-        dependencies = 'nvim-lspconfig',
-        init = function()
-            vim.g.terraform_fmt_on_save = 1
-            vim.g.terraform_align = 1
+            require("go").setup { lsp_keymaps = false }
         end
     },
 
@@ -134,7 +119,6 @@ return {
         'neovim/nvim-lspconfig',
         config = lsp_config,
         dependencies = {
-            'mason.nvim',
             { 'williamboman/mason-lspconfig.nvim', config = function () end },
         },
         keys = {
@@ -147,7 +131,7 @@ return {
                 function()
                     local new_config = not vim.diagnostic.config().virtual_lines
                     vim.diagnostic.config({ virtual_lines = new_config })
-                    print("Neovim Diagnostic Virtual Lines: " .. new_config)
+                    print("Neovim Diagnostic Virtual Lines: " .. (new_config and {"shown"} or {"hidden"})[1])
                 end,
                 desc = 'Toggle diagnostic virtual_lines',
             }
