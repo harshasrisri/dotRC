@@ -67,3 +67,6 @@
 
 [init]
 	defaultBranch = main
+
+[rebase]
+	instructionFormat = %<(30)%aN %s
