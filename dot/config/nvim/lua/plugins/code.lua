@@ -81,5 +81,94 @@ return {
             lang = "rust",
             arg = leet_arg,
         },
+    },
+
+    {
+        "saghen/blink.cmp",
+        event = { 'InsertEnter', 'CmdLineEnter' },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            { 'onsails/lspkind-nvim', dependencies = 'nvim-lspconfig' },
+        },
+        version = "1.*",
+        opts_extend = { "sources.default" },
+        opts = {
+            cmdline = {
+                completion = { menu = { auto_show = true }},
+            },
+            keymap = {
+                preset = 'none',
+                ['<C-e>'] = { 'hide', 'fallback' },
+                ['<CR>'] = { 'accept', 'fallback' },
+                ['<Tab>'] = {
+                    function (cmp)
+                        if cmp.snippet_active() then return cmp.snippet_forward()
+                        else return cmp.select_next() end
+                    end,
+                    'fallback'
+                },
+                ['<S-Tab>'] = {
+                    function (cmp)
+                        if cmp.snippet_active() then return cmp.snippet_backward()
+                        else return cmp.select_prev() end
+                    end,
+                    'fallback'
+                },
+                ['<Up>']    = { 'select_prev', 'fallback' },
+                ['<Down>']  = { 'select_next', 'fallback' },
+                ['<Right>'] = { 'show_documentation', 'fallback' },
+                ['<Left>']  = { 'hide_documentation', 'fallback' },
+                ['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
+                ['<C-u>']   = { 'scroll_documentation_up', 'fallback' },
+                ['<C-k>']   = { 'show_signature', 'hide_signature', 'fallback' },
+            },
+            completion = {
+                ghost_text = { enabled = true },
+                documentation = { auto_show = true, window = { max_height = 33 } },
+                signature = { enabled = true },
+                fuzzy = { implementation = 'prefer_rust' },
+                sources = {
+                    -- add lazydev to your completion providers
+                    default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+                    providers = {
+                        lazydev = {
+                            name = "LazyDev",
+                            module = "lazydev.integrations.blink",
+                            -- make lazydev completions top priority (see `:h blink.cmp`)
+                            score_offset = 100,
+                        },
+                    },
+                },
+                menu = {
+                    max_height = 33,
+                    draw = {
+                        tresitter = { 'lsp' },
+                        components = {
+                            kind_icon = {
+                                text = function(ctx)
+                                    local icon = ctx.kind_icon
+                                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                                        local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                                        if dev_icon then icon = dev_icon end
+                                    else
+                                        icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol", })
+                                    end
+                                    return icon .. ctx.icon_gap
+                                end,
+
+                                highlight = function(ctx)
+                                    local hl = ctx.kind_hl
+                                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                                        local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                                        if dev_icon then hl = dev_hl end
+                                    end
+                                    return hl
+                                end,
+                            }
+                        }
+                    }
+                },
+            },
+        },
     }
 }
