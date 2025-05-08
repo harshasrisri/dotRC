@@ -1,10 +1,11 @@
+-- populate completion engine with language specific LSP capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+
 local lsp_config = function ()
     vim.lsp.inlay_hint.enable(true)
     local nvim_lsp = require('lspconfig')
 
-    -- populate completion engine with language specific LSP capabilities
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
 
     -- ccls not managed by Mason. configuring it manually
     nvim_lsp.ccls.setup {
@@ -22,38 +23,6 @@ local lsp_config = function ()
         }
     }
 
-    require('mason-lspconfig').setup_handlers {
-        function (server_name)
-            nvim_lsp[server_name].setup {
-                capabilities = capabilities,
-                flags = {
-                    debounce_text_changes = 150,
-                }
-            }
-        end,
-        ["gopls"] = function ()
-            require("go").setup {
-                lsp_keymaps = false,
-                lsp_cfg = {
-                    capabilities = capabilities,
-                }
-            }
-        end,
-        ["lua_ls"] = function ()
-            nvim_lsp.lua_ls.setup {
-                settings = {
-                    Lua = {
-                        completion = {
-                            callSnippet = "Replace"
-                        },
-                        diagnostics = {
-                            globals = { "vim" }
-                        }
-                    }
-                }
-            }
-        end,
-    }
 
     local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
     for type, icon in pairs(signs) do
@@ -94,7 +63,10 @@ return {
                 end,
                 group = format_sync_grp,
             })
-            require("go").setup { lsp_keymaps = false }
+            require("go").setup ({
+                lsp_keymaps = false,
+                lsp_cfg = { capabilities = capabilities },
+            })
         end
     },
 
@@ -118,9 +90,6 @@ return {
     {
         'neovim/nvim-lspconfig',
         config = lsp_config,
-        dependencies = {
-            { 'williamboman/mason-lspconfig.nvim', config = function () end },
-        },
         keys = {
             { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>' },
             { '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
