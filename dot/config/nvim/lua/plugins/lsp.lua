@@ -2,40 +2,27 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
 
-local lsp_config = function ()
-    vim.lsp.inlay_hint.enable(true)
-    local nvim_lsp = require('lspconfig')
-
-
-    -- ccls not managed by Mason. configuring it manually
-    nvim_lsp.ccls.setup {
-        capabilities = capabilities,
-        flags = {
-            debounce_text_changes = 150,
-        },
-        init_options = {
-            index = {
-                threads = 16;
-            },
-            highlight = {
-                lsRanges = true,
-            },
-        }
-    }
-
-
-    local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-    for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
-end
-
 return {
     {
-        'm-pilia/vim-ccls',
+        'ranjithshegde/ccls.nvim',
         ft = { 'c', 'cpp'},
-        dependencies = { 'nvim-lspconfig', 'jackguo380/vim-lsp-cxx-highlight' },
+        dependencies = { 'nvim-lspconfig' },
+        opts = {
+            codelens = {
+                enable = true,
+                events = { 'BufWritePost', 'InsertLeave' },
+            },
+            lsp = {
+                lspconfig = {
+                    capabilities = capabilities,
+                    flags = { debounce_text_changes = 150 },
+                    init_options = {
+                        index = { threads = 16 },
+                        highlight = { lsRanges = true },
+                    },
+                }
+            }
+        }
     },
 
     {
@@ -89,7 +76,6 @@ return {
 
     {
         'neovim/nvim-lspconfig',
-        config = lsp_config,
         keys = {
             { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>' },
             { '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
@@ -105,6 +91,14 @@ return {
                 desc = 'Toggle diagnostic virtual_lines',
             }
         },
+        config = function ()
+            vim.lsp.inlay_hint.enable(true)
+            local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+            end
+        end,
     },
 
     {
