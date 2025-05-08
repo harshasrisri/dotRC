@@ -18,6 +18,7 @@ return {
         lazy = vim.fn.argc(-1) == 0, -- load early when opening file on CLI
         keys = { "<CR>", desc = "Initiate treesitter incremental selecion" },
         dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects'},
+        event = 'BufReadPost',
         opts = {
             ensure_installed = { 'bash', 'c', 'cpp', 'diff', 'go', 'hcl', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'printf', 'rust', 'toml', 'vim', 'vimdoc', 'yaml' },
             hightlight = {
