@@ -61,16 +61,6 @@ return {
     },
 
     {
-        'ojroques/nvim-osc52',
-        lazy = true,
-        opts = {
-            silent = true,
-            trim = true,
-            tmux_passthrough = true,
-        },
-    },
-
-    {
         "folke/which-key.nvim",
         event = "VeryLazy",
         opts_extend = { "spec" },
