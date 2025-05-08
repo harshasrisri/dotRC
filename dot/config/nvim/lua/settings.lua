@@ -62,5 +62,19 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_mode               = "pixiedust"
 end
 
+if vim.env.SSH_CONNECTION then
+    vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+            ['+'] = require('vim.clipboard.osc52').copy,
+            ['*'] = require('vim.clipboard.osc52').copy,
+        },
+        paste = {
+            ['+'] = require('vim.clipboard.osc52').paste,
+            ['*'] = require('vim.clipboard.osc52').paste,
+        },
+    }
+end
+
 -- Set borders for all floating windows globally
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white ]]
