@@ -3,7 +3,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
 
 return {
-    { 'folke/lazydev.nvim', ft = 'lua' },
     { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
     { 'Wansmer/symbol-usage.nvim', event = 'LspAttach', opts = {} },
     { 'williamboman/mason.nvim', cmd = 'Mason', build = ':MasonUpdate', opts = {} },
