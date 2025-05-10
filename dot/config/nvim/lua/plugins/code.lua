@@ -101,24 +101,25 @@ return {
             },
             keymap = {
                 preset = 'none',
-                ['<C-e>'] = { 'hide', 'fallback' },
-                ['<CR>'] = { 'accept', 'fallback' },
+                ['<C-e>'] = { 'hide', 'show', 'fallback' },
+                ['<CR>'] = { 'select_and_accept', 'fallback' },
                 ['<Tab>'] = {
                     function (cmp)
-                        if cmp.snippet_active() then
-                            if cmp.is_visible() then return cmp.select_next()
-                            else return cmp.snippet_forward() end
-                        else return cmp.select_next() end
+                        local has_words_before = function()
+                            local col = vim.api.nvim_win_get_cursor(0)[2]
+                            return col ~= 0 and vim.api.nvim_get_current_line():sub(col, col):match("%s") == nil
+                        end
+                        if cmp.is_visible() and has_words_before() then return cmp.select_next() end
                     end,
-                    'fallback'
+                    'snippet_forward',
+                    'fallback',
                 },
                 ['<S-Tab>'] = {
                     function (cmp)
                         if cmp.is_visible() then return cmp.select_prev()
                         elseif cmp.snippet_active() then return cmp.snippet_backward()
-                        else return cmp.select_and_accept() end
+                        else return cmp.fallback() end
                     end,
-                    'fallback'
                 },
                 ['<Up>']    = { 'select_prev', 'fallback' },
                 ['<Down>']  = { 'select_next', 'fallback' },
@@ -144,10 +145,9 @@ return {
                 ghost_text = { enabled = true },
                 documentation = { auto_show = true, window = { max_height = 33 } },
                 menu = {
-                    max_height = 33,
                     draw = {
                         tresitter = { 'lsp' },
-                        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+                        columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
                         components = {
                             kind_icon = {
                                 text = function(ctx)
