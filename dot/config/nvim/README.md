@@ -1,7 +1,17 @@
 # Neovim Config
 
+<a href="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim"><img src="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim/badges/plugins?style=for-the-badge" /></a>
+<a href="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim"><img src="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim/badges/leaderkey?style=for-the-badge" /></a>
+<a href="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim"><img src="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim/badges/plugin-manager?style=for-the-badge" /></a>
+
 ## Standalone installation
-[Download this folder](https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim) and extract it to `~/.config/nvim`.
+- [Download this folder](https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim) and extract it to `~/.config/harshasrisri-nvim`.
+- Add an alias to make `neovim` use this config by default:
+```sh
+curl https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim -o ~/Downloads/harshasrisri-nvim.zip
+unzip ~/Downloads/harshasrisri-nvim.zip -d ~/.config/harshasrisri-nvim
+alias nvim='NVIM_APPNAME=harshasrisri-nvim nvim'
+```
 
 ## List of Plugins
 <!-- `! urls=$(rg -uuIg config url ~/.local/share/nvim/lazy \
@@ -15,81 +25,53 @@
 <!-- BEGIN mdsh -->
 | Plugin | Description |
 | -- | -- |
-| [barbecue.nvim](https://github.com/utilyre/barbecue.nvim) | A VS Code like winbar for Neovim | 
-| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | A snazzy bufferline for Neovim | 
-| [caret.nvim](https://github.com/projekt0n/caret.nvim) | [WIP] The timeless colorscheme for neovim text editor. | 
-| [cmp-buffer](https://github.com/hrsh7th/cmp-buffer) | nvim-cmp source for buffer words | 
-| [cmp-calc](https://github.com/hrsh7th/cmp-calc) | nvim-cmp source for math calculation | 
-| [cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline) | nvim-cmp source for vim's cmdline | 
-| [cmp-emoji](https://github.com/hrsh7th/cmp-emoji) | nvim-cmp source for emoji | 
-| [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) | nvim-cmp source for neovim builtin LSP client | 
-| [cmp-path](https://github.com/hrsh7th/cmp-path) | nvim-cmp source for path | 
-| [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip) | luasnip completion source for nvim-cmp | 
+| [barbecue.nvim](https://github.com/utilyre/barbecue.nvim) | Visual Studio Code inspired breadcrumbs plugin for the Neovim editor | 
+| [blink.cmp](https://github.com/saghen/blink.cmp) | Performant, batteries-included completion plugin for Neovim  | 
+| [ccls.nvim](https://github.com/ranjithshegde/ccls.nvim) | Neovim plugin for ccls language server. Leverages off-spec extensions to  LSP client with AST browser | 
 | [decorated_yank](https://github.com/simondrake/decorated_yank) | decorated yank plugin for neovim | 
-| [dressing.nvim](https://github.com/stevearc/dressing.nvim) | Neovim plugin to improve the default vim.ui interfaces | 
-| [feline.nvim](https://github.com/feline-nvim/feline.nvim) | A minimal, stylish and customizable statusline for Neovim written in Lua | 
+| [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Single tabpage interface for easily cycling through diffs for all modified files for any git rev. | 
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Set of preconfigured snippets for different languages.  | 
-| [FTerm.nvim](https://github.com/numtostr/FTerm.nvim) | :fire: No-nonsense floating terminal plugin for neovim :fire: | 
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Git integration for buffers | 
-| [go.nvim](https://github.com/ray-x/go.nvim) | A feature-rich Go development plugin, leveraging gopls, treesitter AST, Dap, and various Go tools to enhance the development experience. | 
-| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indent guides  for Neovim | 
+| [go.nvim](https://github.com/ray-x/go.nvim) | G'day Nvimer, Joyful Gopher: Discover the Feature-Rich Go Plugin for Neovim | 
 | [iswap.nvim](https://github.com/mizlan/iswap.nvim) | Interactively select and swap function arguments, list elements, and much more. Powered by tree-sitter. | 
-| [kmonad-vim](https://github.com/kmonad/kmonad-vim) | Vim editing support for kmonad config files | 
+| [kanagawa-paper.nvim](https://github.com/sho-87/kanagawa-paper.nvim) | 🌊 Remixed Kanagawa colourschemes with muted colors. For Neovim.  | 
+| [lazydev.nvim](https://github.com/folke/lazydev.nvim) | Faster LuaLS setup for Neovim | 
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | 💤 A modern plugin manager for Neovim | 
 | [leap.nvim](https://github.com/ggandor/leap.nvim) | Neovim's answer to the mouse 🦘 | 
-| [leap-spooky.nvim](https://github.com/ggandor/leap-spooky.nvim) | 👻 Actions at a distance | 
+| [leetcode.nvim](https://github.com/kawre/leetcode.nvim) | A Neovim plugin enabling you to solve LeetCode problems. | 
 | [lspkind-nvim](https://github.com/onsails/lspkind-nvim) | vscode-like pictograms for neovim lsp completion items | 
-| [lsp_lines.nvim](https://github.com/ErichDonGubler/lsp_lines.nvim) | GitHub mirror of https://git.sr.ht/~whynothugo/lsp_lines.nvim to work around Windows issues with `packer.nvim`. | 
-| [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Snippet Engine for Neovim written in Lua. | 
-| [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | null | 
-| [mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim) | Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim. Strongly recommended for Windows users. | 
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | A blazing fast and easy to configure neovim statusline plugin written in pure lua. | 
+| [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | markdown preview plugin for (neo)vim | 
 | [mason.nvim](https://github.com/williamboman/mason.nvim) | Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters. | 
 | [mini.ai](https://github.com/echasnovski/mini.ai) | Neovim Lua plugin to extend and create `a`/`i` textobjects. Part of 'mini.nvim' library. | 
-| [mini.map](https://github.com/echasnovski/mini.map) | Neovim Lua plugin to manage window with buffer text overview. Part of 'mini.nvim' library. | 
-| [neodev.nvim](https://github.com/folke/neodev.nvim) | 💻  Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API. | 
-| [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim) | Smooth scrolling neovim plugin written in lua | 
+| [mini.align](https://github.com/echasnovski/mini.align) | Neovim Lua plugin to align text interactively. Part of 'mini.nvim' library. | 
+| [mini.comment](https://github.com/echasnovski/mini.comment) | Neovim Lua plugin for fast and familiar per-line commenting. Part of 'mini.nvim' library. | 
 | [noice.nvim](https://github.com/folke/noice.nvim) | 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu. | 
 | [nui.nvim](https://github.com/MunifTanjim/nui.nvim) | UI Component Library for Neovim. | 
-| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | autopairs for neovim written by lua | 
-| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | A completion plugin for neovim coded in Lua. | 
+| [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | autopairs for neovim written in lua | 
 | [nvim-code-action-menu](https://github.com/weilbith/nvim-code-action-menu) | Pop-up menu for code actions to show meta-information and diff preview | 
-| [nvim-comment](https://github.com/terrortylor/nvim-comment) | A comment toggler for Neovim, written in Lua | 
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Quickstart configs for Nvim LSP | 
-| [nvim-dap](https://github.com/mfussenegger/nvim-dap) | Debug Adapter Protocol client implementation for Neovim | 
-| [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | A UI for nvim-dap | 
-| [nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text) | null | 
 | [nvim-navic](https://github.com/SmiteshP/nvim-navic) | Simple winbar/statusline plugin that shows your current code context | 
 | [nvim-neoclip.lua](https://github.com/AckslD/nvim-neoclip.lua) | Clipboard manager neovim plugin with telescope integration | 
-| [nvim-notify](https://github.com/rcarriga/nvim-notify) | A fancy, configurable, notification manager for NeoVim | 
-| [nvim-osc52](https://github.com/ojroques/nvim-osc52) | A Neovim plugin to copy text through SSH with OSC52 | 
+| [nvim-spider](https://github.com/chrisgrieser/nvim-spider) | Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation. | 
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Add/change/delete surrounding delimiter pairs with ease. Written with :heart: in Lua. | 
-| [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) | A file explorer tree for neovim written in lua | 
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Nvim Treesitter configurations and abstraction layer | 
-| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | lua `fork` of vim-web-devicons for neovim | 
+| [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) | Custom textobjects derived from Treesitter | 
+| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Provides Nerd Font icons (glyphs) for use by neovim plugins | 
 | [nvim-window](https://github.com/yorickpeterse/nvim-window) | Easily jump between NeoVim windows. | 
+| [outline.nvim](https://github.com/hedyhli/outline.nvim) | Navigate code with an outline sidebar. Forked from symbols-outline.nvim.  | 
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice. | 
-| [project.nvim](https://github.com/ahmedkhalf/project.nvim) | The superior project management solution for neovim. | 
-| [rust-tools.nvim](https://github.com/simrat39/rust-tools.nvim) | Tools for better development in rust using neovim's builtin lsp | 
-| [silicon.lua](https://github.com/narutoxy/silicon.lua) | Beautiful code snippet images right in the most epic editor :chef_kiss: | 
+| [rustaceanvim](https://github.com/mrcjkb/rustaceanvim) | 🦀 Supercharge your Rust experience in Neovim! A heavily modified fork of rust-tools.nvim | 
+| [snacks.nvim](https://github.com/folke/snacks.nvim) | 🍿 A collection of QoL plugins for Neovim | 
 | [sqlite.lua](https://github.com/tami5/sqlite.lua) | SQLite LuaJIT binding with a very simple api. | 
-| [symbol-usage.nvim](https://github.com/Wansmer/symbol-usage.nvim) | null | 
-| [symbols-outline.nvim](https://github.com/simrat39/symbols-outline.nvim) | A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages. | 
-| [tabular](https://github.com/godlygeek/tabular) | Vim script for text filtering and alignment | 
-| [telescope-frecency.nvim](https://github.com/nvim-telescope/telescope-frecency.nvim) | A telescope.nvim extension that offers intelligent prioritization when selecting files from your editing history. | 
-| [telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) | FZF sorter for telescope written in c | 
+| [symbol-usage.nvim](https://github.com/Wansmer/symbol-usage.nvim) | Display references, definitions and implementations of document symbols | 
 | [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Find, Filter, Preview, Pick. All lua, all the time. | 
-| [telescope-undo.nvim](https://github.com/debugloop/telescope-undo.nvim) | A telescope extension to view and search your undo tree 🌴 | 
+| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) | A neovim lua plugin to help easily manage multiple terminal windows | 
 | [treesj](https://github.com/wansmer/treesj) | Neovim plugin for splitting/joining blocks of code | 
-| [twilight.nvim](https://github.com/folke/twilight.nvim) | 🌅  Twilight is a Lua plugin for Neovim 0.5 that dims inactive portions of the code you're editing using TreeSitter. | 
-| [vim-ccls](https://github.com/m-pilia/vim-ccls) | Vim plugin for the ccls language server | 
-| [vim-fugitive](https://github.com/tpope/vim-fugitive) | fugitive.vim: A Git wrapper so awesome, it should be illegal | 
 | [vim-illuminate](https://github.com/Rrethy/vim-illuminate) | illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching. | 
-| [vim-jsonnet](https://github.com/google/vim-jsonnet) | Jsonnet filetype plugin for Vim. | 
-| [vim-lsp-cxx-highlight](https://github.com/jackguo380/vim-lsp-cxx-highlight) | Vim plugin for C/C++/ObjC semantic highlighting using cquery, ccls, or clangd | 
 | [vim-markdown-toc](https://github.com/mzlogin/vim-markdown-toc) | A vim 7.4+ plugin to generate table of contents for Markdown files. | 
+| [vim-moonfly-colors](https://github.com/bluz71/vim-moonfly-colors) | A dark charcoal theme for modern Neovim & classic Vim | 
+| [vim-obsession](https://github.com/tpope/vim-obsession) | obsession.vim: continuously updated session files | 
 | [vim-rsi](https://github.com/tpope/vim-rsi) | rsi.vim: Readline style insertion | 
-| [vim-terraform](https://github.com/hashivim/vim-terraform) | basic vim/terraform integration | 
-| [vim-wordmotion](https://github.com/chaoren/vim-wordmotion) | More useful word motions for Vim | 
-| [which-key.nvim](https://github.com/folke/which-key.nvim) | 💥   Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing. | 
-| [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) | 🧘  Distraction-free coding for Neovim | 
+| [which-key.nvim](https://github.com/folke/which-key.nvim) | 💥   Create key bindings that stick. WhichKey helps you remember your Neovim keymaps, by showing available keybindings in a popup as you type. | 
 <!-- END mdsh -->
