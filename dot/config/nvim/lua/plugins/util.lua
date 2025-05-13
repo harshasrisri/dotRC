@@ -1,5 +1,5 @@
 return {
-    { 'tpope/vim-obsession' },
+    { 'tpope/vim-obsession', lazy = true },
     { 'nvim-lua/plenary.nvim', lazy = true },
 
     {
@@ -50,7 +50,7 @@ return {
 
     {
         'akinsho/toggleterm.nvim',
-        lazy = true,
+        cmd = 'ToggleTerm',
         keys = {
             {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>', desc = "Terminal in float window"},
             {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>', desc = "Terminal in horizontal split"},
