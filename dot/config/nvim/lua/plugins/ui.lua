@@ -1,5 +1,4 @@
 return {
-    { "MunifTanjim/nui.nvim", lazy = true },
     { 'nvim-tree/nvim-web-devicons', lazy = true },
 
     {
@@ -69,18 +68,17 @@ return {
 
     {
         "folke/noice.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
         event = "VeryLazy",
         opts = {
+            routes = { { view = "notify", filter = { event = "msg_showmode" } } },
             views = {
                 cmdline_popup = {
+                    border = { style = "none", padding = { 1, 1 }},
                     position = { row = "33%", col = "50%", },
                     size = { width = "auto", height = "auto", },
-                },
-            },
-            routes = {
-                {
-                    filter = { event = "msg_show", kind = "search_count", },
-                    view = "mini",
+                    filter_options = {},
+                    win_options = { winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder" },
                 },
             },
         },
