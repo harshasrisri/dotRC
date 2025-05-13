@@ -61,17 +61,3 @@ if vim.g.neovide then
     vim.g.neovide_cursor_trail_size             = 0.25
     vim.g.neovide_cursor_vfx_mode               = "pixiedust"
 end
-
-local is_tmux_session = vim.env.TERM_PROGRAM == "tmux" -- Tmux is its own clipboard provider which directly works.
-if vim.env.SSH_CONNECTION and not is_tmux_session then
-    local function paste() return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") } end
-    local osc52 = require("vim.ui.clipboard.osc52")
-    vim.g.clipboard = {
-        name  = 'OSC 52',
-        copy  = { ['+'] = osc52.copy, ['*'] = osc52.copy },
-        paste = { ['+'] = paste,      ['*'] = paste },
-    }
-end
-
--- Set borders for all floating windows globally
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white ]]
