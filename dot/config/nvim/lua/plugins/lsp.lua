@@ -5,7 +5,13 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').g
 return {
     { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
     { 'Wansmer/symbol-usage.nvim', event = 'LspAttach', opts = {} },
-    { 'williamboman/mason.nvim', cmd = 'Mason', build = ':MasonUpdate', opts = {} },
+    { 'mason-org/mason.nvim', cmd = 'Mason', build = ':MasonUpdate', opts = {} },
+
+    {
+        "mason-org/mason-lspconfig.nvim",
+        dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
+        opts = {},
+    },
 
     {
         'ranjithshegde/ccls.nvim',
@@ -86,3 +92,4 @@ return {
         end,
     },
 }
+
