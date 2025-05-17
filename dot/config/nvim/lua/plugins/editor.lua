@@ -157,7 +157,7 @@ return {
         event = 'BufReadPost',
         keys = {
             { 'gl', '<Plug>(leap-anywhere)', desc = "Go leap anywhere", mode = "n" },
-            { 'l', '<Plug>(leap)', desc = "Leap in buffer", mode = {"o", "x"}},
+            { 'gl', '<Plug>(leap)', desc = "Leap in buffer", mode = {"o", "x"}},
         },
         config = function ()
             vim.api.nvim_set_hl(0, 'LeapBackDrop', { link = 'Comment' })

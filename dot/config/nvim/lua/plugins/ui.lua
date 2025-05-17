@@ -1,3 +1,13 @@
+-- Show little dot when recording a macro
+local function show_macro_recording()
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == '' then
+    return ''
+  else
+    return '  ' .. recording_register
+  end
+end
+
 return {
     { 'nvim-tree/nvim-web-devicons', lazy = true },
 
@@ -39,7 +49,7 @@ return {
                 lualine_c = {{'diagnostics', sources = {'nvim_lsp', 'nvim_diagnostic'}}},
                 lualine_x = {'searchcount', 'filesize'},
                 lualine_y = {'progress', 'location'},
-                lualine_z = {'branch'},
+                lualine_z = {{show_macro_recording}, 'branch'},
             },
             tabline = {
                 lualine_a = {{'buffers', padding = 2, use_mode_colors = true}},
