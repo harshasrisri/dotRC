@@ -14,7 +14,11 @@ return {
     {
         "sho-87/kanagawa-paper.nvim",
         lazy = false,
-        opts = {},
+        opts = {
+            gutter = true,
+            dim_inactive = true,
+            cache = true,
+        },
         config = function ()
             vim.cmd('colorscheme kanagawa-paper')
         end
