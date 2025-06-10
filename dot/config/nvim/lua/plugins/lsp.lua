@@ -57,11 +57,10 @@ return {
     },
 
     {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-        dependencies = 'nvim-lspconfig',
+        'aznhe21/actions-preview.nvim',
+        lazy = true,
         keys = {
-            { '<leader>la', '<cmd>CodeActionMenu<CR>' },
+            { '<leader>la', function() require('actions-preview').code_actions() end, desc = "Code Actions Menu" },
         },
     },
 
