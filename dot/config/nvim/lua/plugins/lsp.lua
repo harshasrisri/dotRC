@@ -4,7 +4,6 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').g
 
 return {
     { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
-    { 'Wansmer/symbol-usage.nvim', event = 'LspAttach', opts = {} },
     { 'mason-org/mason.nvim', cmd = 'Mason', build = ':MasonUpdate', opts = {} },
 
     {
