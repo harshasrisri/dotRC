@@ -203,4 +203,26 @@ return {
             words = { enabled = true },
         },
     },
+
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        opts = {
+            suggestion = { enabled = false },
+        }
+    },
+
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        cmd = { 'CopilotChat', 'CopilotChatToggle', 'CopilotChatOpen' },
+        dependencies = {
+            { "zbirenbaum/copilot.lua" },
+            { "nvim-lua/plenary.nvim", branch = "master" },
+        },
+        build = "make tiktoken",
+        opts = {
+            -- See Configuration section for options
+        },
+    },
 }
