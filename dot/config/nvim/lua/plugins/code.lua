@@ -135,7 +135,7 @@ return {
                 documentation = { auto_show = true, window = { max_height = 33 } },
                 menu = {
                     draw = {
-                        tresitter = { 'lsp' },
+                        treesitter = { 'lsp' },
                         columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
                         components = {
                             kind_icon = {

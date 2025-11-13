@@ -222,7 +222,14 @@ return {
         },
         build = "make tiktoken",
         opts = {
-            -- See Configuration section for options
+            model = 'claude-sonnet-4.5',
+            context = 'workspace',
+            allow_tools = true,
+            headers = {
+                user = '👤 You',
+                assistant = '🤖 Copilot',
+                tool = '🔧 Tool',
+            },
         },
     },
 }

@@ -67,7 +67,6 @@ alias fcd='cd "$(fd -t d --print0 | fzf --read0 --print0 --layout=reverse --prev
 alias fzp="fzf --preview 'bat --style=full --color=always {}' --preview-window '~3,+{2}+3/2' --multi --bind 'ctrl-space:select'"
 
 alias .ml='vi ~/.myshrc.local'
-alias .gl='vi ~/.gitconfig.local'
 
 alias  .m='vi ${_MY_RC_DIR}/dot/myshrc'
 alias .me='vi ${_MY_RC_DIR}/dot/myenv'
