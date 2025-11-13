@@ -1,19 +1,228 @@
 #! /usr/bin/env sh
 ## Script to choose an appropriate previewer for fzf
 
-mime=$(file -bL --mime-type "$1")
-category=${mime%%/*}
-kind=${mime##*/}
+set -e
 
-if [ -d "$1" ]; then
-	eza --git -hl --color=always --icons "$1"
-elif [ "$category" = image ]; then
-	chafa "$1"
-	exiftool "$1"
-elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || [ "$kind" = vnd.ms-excel ]; then
-	in2csv "$1" | xsv table | bat -ltsv --color=always
-else
-	bat --color=always "$1"
-fi
+# Constants
+MAX_FILE_SIZE=10485760  # 10MB
+
+# ============================================================================
+# Utility Functions
+# ============================================================================
+
+has_command() {
+	command -v "$1" >/dev/null 2>&1
+}
+
+get_file_size() {
+	stat -f%z "$1" 2>/dev/null || stat -c%s "$1" 2>/dev/null || echo 0
+}
+
+format_size() {
+	size="$1"
+	if has_command numfmt; then
+		numfmt --to=iec-i --suffix=B "$size" 2>/dev/null
+	else
+		echo "${size} bytes"
+	fi
+}
+
+get_mime_info() {
+	target="$1"
+	mime=$(file -bL --mime-type "$target" 2>/dev/null || echo "application/octet-stream")
+	MIME_CATEGORY=${mime%%/*}
+	MIME_KIND=${mime##*/}
+}
+
+# ============================================================================
+# Validation Functions
+# ============================================================================
+
+validate_input() {
+	if [ -z "$1" ] || [ ! -e "$1" ]; then
+		echo "File not found: $1"
+		return 1
+	fi
+	return 0
+}
+
+check_file_size() {
+	target="$1"
+	if [ ! -f "$target" ]; then
+		return 0
+	fi
+
+	file_size=$(get_file_size "$target")
+	if [ "$file_size" -gt "$MAX_FILE_SIZE" ]; then
+		echo "File too large to preview ($(format_size "$file_size"))"
+		file "$target"
+		return 1
+	fi
+	return 0
+}
+
+# ============================================================================
+# Preview Functions
+# ============================================================================
+
+preview_directory() {
+	target="$1"
+	if has_command eza; then
+		eza --git -hl --color=always --icons "$target"
+	else
+		ls -lAh --color=always "$target" 2>/dev/null || ls -lAh "$target"
+	fi
+}
+
+preview_image() {
+	target="$1"
+	if has_command chafa; then
+		chafa "$target" 2>/dev/null
+	fi
+	if has_command exiftool; then
+		exiftool "$target" 2>/dev/null
+	fi
+}
+
+preview_pdf() {
+	target="$1"
+	if has_command pdftotext; then
+		pdftotext -l 5 -nopgbrk -q "$target" - 2>/dev/null | head -n 100
+	else
+		echo "PDF file: $target"
+		file "$target"
+	fi
+}
+
+preview_archive() {
+	target="$1"
+	kind="$2"
+
+	if has_command atool; then
+		atool -l "$target" 2>/dev/null
+	elif [ "$kind" = "zip" ] && has_command unzip; then
+		unzip -l "$target" 2>/dev/null
+	elif [ "$kind" = "x-tar" ] || [ "$kind" = "gzip" ]; then
+		tar -tvf "$target" 2>/dev/null
+	else
+		file "$target"
+	fi
+}
+
+preview_spreadsheet() {
+	target="$1"
+	if has_command in2csv && has_command xsv; then
+		in2csv "$target" 2>/dev/null | xsv table | head -n 100 | bat -ltsv --color=always 2>/dev/null
+	elif has_command in2csv; then
+		in2csv "$target" 2>/dev/null | head -n 100
+	else
+		file "$target"
+	fi
+}
+
+preview_binary() {
+	target="$1"
+	echo "Binary file: $target"
+	file "$target"
+	if has_command hexyl; then
+		printf "\nFirst 256 bytes:\n"
+		hexyl -n 256 "$target" 2>/dev/null
+	fi
+}
+
+preview_text() {
+	target="$1"
+	if has_command bat; then
+		bat --color=always --style=numbers "$target" 2>/dev/null
+	elif has_command highlight; then
+		highlight -O ansi "$target" 2>/dev/null
+	else
+		head -n 100 "$target"
+	fi
+}
+
+# ============================================================================
+# Routing Functions
+# ============================================================================
+
+is_archive() {
+	kind="$1"
+	case "$kind" in
+		zip|x-zip-compressed|x-rar-compressed|x-tar|gzip|x-bzip2|x-xz|x-7z-compressed)
+			return 0
+			;;
+	esac
+	return 1
+}
+
+is_spreadsheet() {
+	kind="$1"
+	[ "$kind" = "vnd.openxmlformats-officedocument.spreadsheetml.sheet" ] || [ "$kind" = "vnd.ms-excel" ]
+}
+
+is_binary() {
+	category="$1"
+	kind="$2"
+	[ "$category" = "application" ] && {
+		case "$kind" in
+			octet-stream|x-executable|x-sharedlib|x-mach-binary)
+				return 0
+				;;
+		esac
+	}
+	return 1
+}
+
+route_preview() {
+	target="$1"
+
+	# Directory
+	if [ -d "$target" ]; then
+		preview_directory "$target"
+		return 0
+	fi
+
+	# Get MIME info
+	get_mime_info "$target"
+
+	# Route by type
+	if [ "$MIME_CATEGORY" = "image" ]; then
+		preview_image "$target"
+	elif [ "$MIME_KIND" = "pdf" ]; then
+		preview_pdf "$target"
+	elif is_archive "$MIME_KIND"; then
+		preview_archive "$target" "$MIME_KIND"
+	elif is_spreadsheet "$MIME_KIND"; then
+		preview_spreadsheet "$target"
+	elif is_binary "$MIME_CATEGORY" "$MIME_KIND"; then
+		preview_binary "$target"
+	else
+		preview_text "$target"
+	fi
+}
+
+# ============================================================================
+# Main Function
+# ============================================================================
+
+main() {
+	target="$1"
+
+	# Validate input
+	if ! validate_input "$target"; then
+		return 1
+	fi
+
+	# Check file size
+	if ! check_file_size "$target"; then
+		return 0
+	fi
+
+	# Route to appropriate preview
+	route_preview "$target"
+}
+
+# Run main
+main "$@"
 
 # vim: ft=sh
