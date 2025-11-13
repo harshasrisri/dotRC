@@ -4,7 +4,7 @@ My shell environment to setup and manage my CLI IDE.
 
 ![Screenshot](screenshot.png)
 
-## How do I get it?
+## Quick Start
 
 ```sh
 git clone http://github.com/harshasrisri/dotRC.git ~/.rc
@@ -12,29 +12,35 @@ cd ~/.rc
 ./setup
 ```
 
-Running `./setup` does the following:
-1. Clones / updates this repository if possible/necessary.
-2. Makes links to the various [dot files](dot) in the $HOME directory.
-3. Installs plugin managers and plugins for each vim, neovim and tmux.
+Running `./setup` will symlink dotfiles to `$HOME` and install plugin managers for neovim, tmux, and zsh.
 
-Needless to say, please Backup whatever is important.
+**Backup your existing configurations before running setup.**
 
-## What's in the package?
-- [Yaml config](./dot/config/alacritty/alacritty.yml) for the simple and minimilastic [Alacritty](https://github.com/alacritty/alacritty) terminal emulator.
-- Zsh is managed by [Zim](https://github.com/zimfw/zimfw) framework. 
-    - Plugins are listed in [zimrc](./dot/zimrc)
-    - [My config](./dot/zim/modules/custom) containing useful aliases/functions/environment variables.
-    - [Zstyle rules](./dot/zim/modules/custom/zstyle.zsh) for [fzf-tab](https://github.com/Aloxaf/fzf-tab), a zsh wrapper integrating autocompletion, fzf and tmux popups
-- Tmux is managed by [TPM](https://github.com/tmux-plugins/tpm). Config is split into 2 parts:
-    - [tmux.conf](./dot/tmux.conf) is my primary config for single sessions.
-    - [tabmux.conf](./dot/tabmux.conf) is my higher level config used to simulate terminal tabs by nesting single sessions.
-- [My Vim config](./dot/vim) managed by [vim-plug](https://github.com/junegunn/vim-plug) - not used much anymore.
-- My hand-tuned [Neovim config](./dot/config/nvim) managed by [packer.nvim](https://github.com/wbthomason/packer.nvim)
-    - On demand plugin loading
-    - Pre-compiled and cached configs
-    - LSP and TreeSitter aware setup
-    - Mainly used to work with C++/Rust
-    - Loads in ~15ms on a 11th Gen i7 (Linux) / ~40ms on a 2019 Macbook Pro
-- [KMonad](https://github.com/kmonad/kmonad) config to define custom keyboard layouts and overlapping layers like QMK firmware.
-    - Keeping it close to the [config](https://configure.zsa.io/ergodox-ez/layouts/L5RJR/latest/0) of my [ErgodoxEZ](https://ergodox-ez.com).
-- Various small [utility scripts](./bin).
+## What's Included
+
+- **[WezTerm](./dot/config/wezterm/)** - GPU-accelerated terminal with 120 FPS, modular Lua config
+- **[Zsh + Zim](./dot/config/zim/)** - Modern shell with fzf integration, smart completions, and custom functions
+- **[Tmux](./dot/config/tmux/)** - Terminal multiplexer with backtick leader key and SSH-aware clipboard
+- **[Neovim](./dot/config/nvim/)** - LSP/TreeSitter-enabled editor with lazy loading and modular plugins
+- **[Vim](./dot/config/vim/)** - Legacy config, minimal usage
+- **[Git](./dot/config/git/)** - Performance-optimized git configuration
+- **[KMonad](./dot/config/kmonad/)** - Custom keyboard layouts for ergonomic typing
+- **[Utility Scripts](./dot/local/bin/)** - Shell scripts for clipboard, fzf, and workflow automation
+
+Each component has its own README with detailed documentation.
+
+## Key Features
+
+- Unified backtick (`) leader key across WezTerm and tmux
+- Performance-optimized configurations (git, fzf, shell)
+- Modern CLI tools: `bat`, `eza`, `fd`, `rg`, `fzf`, `zoxide`
+- Works seamlessly locally and over SSH
+- Modular, maintainable configuration structure
+
+## Quick Reference
+
+Core utilities and aliases defined in [dot/myenv](./dot/myenv):
+- `fvi` - FZF file picker with preview
+- `frg` / `frgv` - Interactive ripgrep with editor opening
+- `tm <session>` - Quick tmux session management
+- `.n` / `.w` / `.t` - Edit neovim/wezterm/tmux configs

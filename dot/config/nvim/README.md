@@ -1,12 +1,47 @@
-# Neovim Config
+# Neovim Configuration
 
 <a href="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim"><img src="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim/badges/plugins?style=for-the-badge" /></a>
 <a href="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim"><img src="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim/badges/leaderkey?style=for-the-badge" /></a>
 <a href="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim"><img src="https://dotfyle.com/harshasrisri/dotrc-dot-config-nvim/badges/plugin-manager?style=for-the-badge" /></a>
 
-## Standalone installation
-- [Download this folder](https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim) and extract it to `~/.config/harshasrisri-nvim`.
-- Add an alias to make `neovim` use this config by default:
+Modern Neovim setup with LSP, TreeSitter, and lazy-loaded plugins optimized for fast startup.
+
+## Structure
+
+```
+nvim/
+├── init.lua              # Entry point - loads settings, lazy.nvim, plugins
+├── lua/
+│   ├── settings.lua      # Core vim options and settings
+│   ├── mappings.lua      # Key mappings
+│   ├── autocmds.lua      # Autocommands (refactored)
+│   └── plugins/          # Modular plugin specs
+│       ├── code.lua      # Coding tools (Copilot, CopilotChat)
+│       ├── dap.lua       # Debug Adapter Protocol
+│       ├── editor.lua    # Editing enhancements
+│       ├── lsp.lua       # Language Server Protocol
+│       ├── ui.lua        # UI components (Snacks.nvim)
+│       └── util.lua      # Utility plugins
+```
+
+## Features
+
+- **Plugin Manager**: [lazy.nvim](https://github.com/folke/lazy.nvim) with lazy loading and automatic updates
+- **LSP**: Full language server support with diagnostics, completion, and code actions
+- **TreeSitter**: Advanced syntax highlighting and code navigation
+- **Debugging**: nvim-dap with UI for Go, Python, and Rust
+- **AI Pair Programming**: GitHub Copilot with interactive chat
+- **Git Integration**: Gitsigns, diffview, and git commands
+- **Fast Startup**: Disabled unused plugins, lazy-loaded configs
+
+## Quick Access
+
+Edit config from anywhere: `.n` (alias in [../../myenv](../../myenv))
+
+Opens neovim in config directory with Snacks file picker ready.
+
+## Standalone Installation
+
 ```sh
 curl https://downgit.github.io/#/home?url=https://github.com/harshasrisri/dotRC/tree/main/dot/config/nvim -o ~/Downloads/harshasrisri-nvim.zip
 unzip ~/Downloads/harshasrisri-nvim.zip -d ~/.config/harshasrisri-nvim
