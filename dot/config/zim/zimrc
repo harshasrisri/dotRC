@@ -9,6 +9,8 @@ zmodule completion                             # Enables and configures smart an
 zmodule z-shell/F-Sy-H                         # Fish-like syntax highlighting for Zsh. Must be sourced after completion
 zmodule zsh-users/zsh-autosuggestions          # Fish-like autosuggestions for Zsh.
 zmodule zsh-users/zsh-history-substring-search # Fish-like history search (up arrow) for Zsh. Must be sourced after syntax-highlighting
+zmodule hlissner/zsh-autopair                  # Auto-close brackets, quotes, parentheses
+zmodule MichaelAquilina/zsh-you-should-use     # Reminds you to use existing aliases
 zmodule romkatv/powerlevel10k                  # Powerlevel10k theme for zsh
 zmodule ~/.config/zim/custom                   # My Custom initializations that would have gone into ~/.zshrc
 zmodule Bhupesh-V/ugit                         # Wrapper to undo most common git operations using fzf
