@@ -1,3 +1,13 @@
 #!/bin/sh
 
-nvim -d $@
+if ! command -v nvim >/dev/null 2>&1; then
+    echo "Error: nvim not found" >&2
+    exit 1
+fi
+
+if [ "$#" -lt 2 ]; then
+    echo "Usage: nvimdiff <file1> <file2> [file3...]" >&2
+    exit 1
+fi
+
+nvim -d "$@"

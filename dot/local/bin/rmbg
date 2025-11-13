@@ -1,7 +1,47 @@
 #!/bin/bash
-# Script to delete a lot of big/small things in the background
-[ $# -eq 0 ] && echo "$0 takes at least one argument" && exit 1
-tmp_dir=.rmdir_$RANDOM
-mkdir -p $tmp_dir
-mv $@ $tmp_dir > /dev/null 2>&1
-rm -rf $tmp_dir > /dev/null 2>&1 &
+# Script to delete files/directories in the background (useful for large deletions)
+
+if [ $# -eq 0 ]; then
+    echo "Usage: rmbg <file1> [file2...]" >&2
+    echo "Moves files to temporary directory and deletes in background" >&2
+    exit 1
+fi
+
+# Create secure temporary directory
+tmp_dir=$(mktemp -d) || {
+    echo "Error: Failed to create temporary directory" >&2
+    exit 1
+}
+
+# Hybrid approach: try bulk move first (fast), fall back to loop if needed
+if mv "$@" "$tmp_dir/" 2>/dev/null; then
+    # Fast path succeeded
+    moved=$#
+else
+    # Fall back to one-by-one for partial failures
+    moved=0
+    for item in "$@"; do
+        if [ -e "$item" ]; then
+            if mv "$item" "$tmp_dir/" 2>/dev/null; then
+                moved=$((moved + 1))
+            else
+                echo "Warning: Failed to move '$item'" >&2
+            fi
+        else
+            echo "Warning: '$item' does not exist, skipping" >&2
+        fi
+    done
+fi
+
+if [ $moved -eq 0 ]; then
+    echo "Error: No files were moved" >&2
+    rmdir "$tmp_dir"
+    exit 1
+fi
+
+# Delete in background
+{
+    rm -rf "$tmp_dir" 2>/dev/null
+} &
+
+echo "Moved $moved item(s) to background deletion (PID: $!)"

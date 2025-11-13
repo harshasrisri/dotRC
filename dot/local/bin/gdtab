@@ -1,10 +1,17 @@
 #!/bin/sh
-# Script to open multiple diff splits simultaneously in 
-# individual vim tabs using vim-fugitive plugin
+# Script to open git diffs in Diffview (nvim plugin)
 
-# file_list="$(git diff --name-only --relative $@)"
-# [ -z "${file_list}" ] && echo "Nothing to diff" && exit
-# $EDITOR -p ${file_list} -c "tabdo Gvdiffsplit $@"
+# Check if in a git repository
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "Error: Not in a git repository" >&2
+    exit 1
+fi
 
-cmd="nvim \"+DiffviewOpen $@\""
-eval "$cmd"
+# Check if nvim is available
+if ! command -v nvim >/dev/null 2>&1; then
+    echo "Error: nvim not found" >&2
+    exit 1
+fi
+
+# Open DiffviewOpen with all arguments (no eval needed)
+nvim "+DiffviewOpen $*"

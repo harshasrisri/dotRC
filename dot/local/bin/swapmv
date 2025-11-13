@@ -1,9 +1,46 @@
 #!/bin/sh
 
-[ "$#" != "2" ] && echo "Usage swapmv <path1> <path2>" && exit 1
+if [ "$#" -ne 2 ]; then
+    echo "Usage: swapmv <path1> <path2>" >&2
+    exit 1
+fi
 
-PATH1="$1"
-PATH2="$2"
-TMP=".swapmv_${RANDOM}"
+path1="$1"
+path2="$2"
 
-mv ${PATH1} ${TMP} && mv ${PATH2} ${PATH1} && mv ${TMP} ${PATH2}
+# Validate both paths exist
+if [ ! -e "$path1" ]; then
+    echo "Error: '$path1' does not exist" >&2
+    exit 1
+fi
+
+if [ ! -e "$path2" ]; then
+    echo "Error: '$path2' does not exist" >&2
+    exit 1
+fi
+
+# Create secure temporary name in same directory as path1
+dir=$(dirname "$path1")
+tmp=$(mktemp -u "$dir/.swapmv.XXXXXX") || {
+    echo "Error: Failed to create temporary name" >&2
+    exit 1
+}
+
+# Perform swap with error checking
+if ! mv "$path1" "$tmp"; then
+    echo "Error: Failed to move '$path1' to temporary location" >&2
+    exit 1
+fi
+
+if ! mv "$path2" "$path1"; then
+    echo "Error: Failed to move '$path2' to '$path1', attempting rollback..." >&2
+    mv "$tmp" "$path1"
+    exit 1
+fi
+
+if ! mv "$tmp" "$path2"; then
+    echo "Error: Failed to complete swap, files may be in inconsistent state" >&2
+    exit 1
+fi
+
+echo "Successfully swapped '$path1' and '$path2'"
