@@ -8,6 +8,7 @@ end
 -- Given "/foo/bar" returns "bar"
 -- Given "c:\\foo\\bar" returns "bar"
 function M.basename(s)
+  if not s or s == '' then return 'unknown' end
   return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
 

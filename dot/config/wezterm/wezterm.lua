@@ -4,7 +4,7 @@ package.path = package.path .. ";" .. wezterm.config_dir .. "/lua/?.lua"
 
 local config = wezterm.config_builder()
 
-config.status_update_interval = 100
+config.status_update_interval = 1000
 config.scrollback_lines = 100000
 
 config.unix_domains = { { name = 'local_mux', }, }
