@@ -214,6 +214,7 @@ local function format_tab_bar(config)
 end
 
 local function init(config)
+    config.max_fps = 120
     config.color_schemes = {
         ["Oxide"] = color_scheme,
     }
