@@ -7,32 +7,59 @@ end
 
 local function init(config)
     local backtick = '`'
-    config.leader = { key = backtick }
+
+    -- Helper function to check if SSH is running in the current pane
+    local function is_ssh_running(pane)
+        local process_name = pane:get_foreground_process_name()
+        if process_name then
+            return process_name:find("ssh") ~= nil
+        end
+        return false
+    end
+
     config.keys = {
-        map( backtick, 'LEADER', action.SendKey { key = backtick } ),
-
-        map( 'c', 'LEADER', action.SpawnTab('CurrentPaneDomain') ),
-        map( 'd', 'LEADER', action.DetachDomain('CurrentPaneDomain') ),
-        map( 'x', 'LEADER', action.CloseCurrentPane { confirm = true } ),
-        map( 'z', 'LEADER', action.TogglePaneZoomState ),
-
-        map( 'n', 'LEADER', action.ActivateTabRelative(1) ),
-        map( 'p', 'LEADER', action.ActivateTabRelative(-1) ),
-        map( '-', 'LEADER', action.PaneSelect ),
-        map( 'k', 'LEADER', action.ActivatePaneDirection('Up') ),
-        map( 'j', 'LEADER', action.ActivatePaneDirection('Down') ),
-        map( 'h', 'LEADER', action.ActivatePaneDirection('Left') ),
-        map( 'l', 'LEADER', action.ActivatePaneDirection('Right') ),
-
-        map( 's', 'LEADER', action.ActivateKeyTable { name = 'split_pane' } ),
-        map( 'r', 'LEADER', action.ActivateKeyTable { name = 'resize_panes', one_shot = false, } ),
-        map( 'Space', 'LEADER', action.ActivateKeyTable { name = 'quick_select' } ),
-        map( 'Escape', 'LEADER', action.ActivateCopyMode ),
-        map( ';', 'LEADER', action.ActivateCommandPalette ),
-        map( ':', 'LEADER', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
+        -- Override bare backtick to conditionally activate leader or pass through
+        {
+            key = backtick,
+            mods = 'NONE',
+            action = wezterm.action_callback(function(window, pane)
+                if is_ssh_running(pane) then
+                    -- SSH detected, send backtick through (for remote tmux)
+                    window:perform_action(action.SendKey { key = backtick }, pane)
+                else
+                    -- No SSH, activate leader key table
+                    window:perform_action(action.ActivateKeyTable {
+                        name = 'leader_keys',
+                        timeout_milliseconds = 1000,
+                    }, pane)
+                end
+            end),
+        },
+        -- Keep CTRL+backtick as explicit fallback
+        map( backtick, 'CTRL', action.ActivateKeyTable { name = 'leader_keys', timeout_milliseconds = 1000 } ),
     }
 
     config.key_tables = {
+        leader_keys = {
+            map( backtick, 'NONE', action.SendKey { key = backtick } ),
+            map( 'c', 'NONE', action.SpawnTab('CurrentPaneDomain') ),
+            map( 'd', 'NONE', action.DetachDomain('CurrentPaneDomain') ),
+            map( 'x', 'NONE', action.CloseCurrentPane { confirm = true } ),
+            map( 'z', 'NONE', action.TogglePaneZoomState ),
+            map( 'n', 'NONE', action.ActivateTabRelative(1) ),
+            map( 'p', 'NONE', action.ActivateTabRelative(-1) ),
+            map( '-', 'NONE', action.PaneSelect ),
+            map( 'k', 'NONE', action.ActivatePaneDirection('Up') ),
+            map( 'j', 'NONE', action.ActivatePaneDirection('Down') ),
+            map( 'h', 'NONE', action.ActivatePaneDirection('Left') ),
+            map( 'l', 'NONE', action.ActivatePaneDirection('Right') ),
+            map( 's', 'NONE', action.ActivateKeyTable { name = 'split_pane' } ),
+            map( 'r', 'NONE', action.ActivateKeyTable { name = 'resize_panes', one_shot = false, } ),
+            map( 'Space', 'NONE', action.ActivateKeyTable { name = 'quick_select' } ),
+            map( 'Escape', 'NONE', action.ActivateCopyMode ),
+            map( ';', 'NONE', action.ActivateCommandPalette ),
+            map( ':', 'NONE', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
+        },
         resize_panes = {
             map( 'k', 'NONE', action.AdjustPaneSize { 'Up', 5 } ),
             map( 'j', 'NONE', action.AdjustPaneSize { 'Down', 5 } ),
