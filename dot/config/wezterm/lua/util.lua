@@ -12,4 +12,32 @@ function M.basename(s)
   return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
 
+-- Get shortened working directory
+-- Given "/Users/foo/projects/myapp/src" returns "~/projects/myapp/src"
+-- Given "/home/foo/bar/baz/qux" returns "~/bar/baz/qux"
+function M.smart_cwd(cwd, home_dir)
+  if not cwd or cwd == '' then return '~' end
+
+  -- Replace home directory with ~
+  if home_dir and cwd:sub(1, #home_dir) == home_dir then
+    cwd = '~' .. cwd:sub(#home_dir + 1)
+  end
+
+  -- Shorten to last 3 path components
+  local parts = {}
+  for part in string.gmatch(cwd, '[^/\\]+') do
+    table.insert(parts, part)
+  end
+
+  if #parts > 3 then
+    local shortened = {}
+    for i = #parts - 2, #parts do
+      table.insert(shortened, parts[i])
+    end
+    return '.../' .. table.concat(shortened, '/')
+  end
+
+  return cwd
+end
+
 return M

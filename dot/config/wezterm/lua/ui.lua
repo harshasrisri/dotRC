@@ -32,22 +32,78 @@ local function format_element(direction, bg, fg, text, intensity, italic)
     }
 end
 
+local function set_window_title()
+    wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
+        local success, result = pcall(function()
+            local util = require('util')
+
+            -- Get working directory
+            local cwd = tab.active_pane.current_working_dir
+            local cwd_str = ''
+            if cwd then
+                local cwd_path = cwd.file_path or cwd
+                if type(cwd_path) == 'string' then
+                    cwd_str = util.smart_cwd(cwd_path, wezterm.home_dir)
+                end
+            end
+
+            -- Get process name
+            local process = util.basename(tab.active_pane.foreground_process_name) or 'shell'
+
+            -- Build title with both cwd and process
+            local title = ''
+            if cwd_str and #cwd_str > 0 then
+                title = string.format('%s - %s', process, cwd_str)
+            else
+                title = process
+            end
+
+            -- Show tab count if multiple tabs
+            if #tabs > 1 then
+                title = string.format('%s [%d/%d]', title, tab.tab_index + 1, #tabs)
+            end
+
+            return title
+        end)
+
+        if not success then
+            wezterm.log_error("Window title format failed: " .. tostring(result))
+            return 'WezTerm'
+        end
+        return result
+    end)
+end
+
 local function set_status()
     wezterm.on("update-status", function(window, _)
         local success, err = pcall(function()
             -- Lazy-load nerd fonts only when needed
             local nf = wezterm.nerdfonts
 
-            -- Left Status
+            -- Left Status - Show mode indicators
             local domain = wezterm.mux.get_domain()
             local domain_name = domain and domain:name() or 'unknown'
             local left_seg = nf.md_remote_desktop .. '  Dom: ' .. string.upper(domain_name)
-            local key_tbl = window:active_key_table()
-            if key_tbl then
-                left_seg = nf.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
+            local left_bg = 'indianred'
+
+            -- Check for copy mode or other pane modes
+            local pane = window:active_pane()
+            local mode = pane:get_user_vars().wezterm_mode
+
+            if mode and mode ~= '' then
+                -- Show mode prominently (e.g., COPY, SEARCH)
+                left_seg = nf.md_content_copy .. ' ' .. string.upper(mode)
+                left_bg = 'orange'
+            else
+                -- Check for active key table
+                local key_tbl = window:active_key_table()
+                if key_tbl then
+                    left_seg = nf.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
+                    left_bg = 'purple'
+                end
             end
 
-            window:set_left_status(wezterm.format(format_element(Left, 'indianred', 'black', left_seg, 'Normal', false)))
+            window:set_left_status(wezterm.format(format_element(Left, left_bg, 'black', left_seg, 'Normal', false)))
 
             -- Right Status
             local colors = { 'gold', 'orange', 'indianred' }
@@ -96,11 +152,33 @@ local function format_tab_bar(config)
             local nf = wezterm.nerdfonts
 
             local tab_id = tonumber(tab.tab_index) + 1
-            local tab_info = require('util').basename(tab.active_pane.foreground_process_name)
-            if not tab_info or #tab_info == 0 then
-                tab_info = tab.tab_title
+            local util = require('util')
+
+            -- Get working directory
+            local cwd = tab.active_pane.current_working_dir
+            local cwd_str = ''
+            if cwd then
+                local cwd_path = cwd.file_path or cwd
+                if type(cwd_path) == 'string' then
+                    cwd_str = util.smart_cwd(cwd_path, wezterm.home_dir)
+                end
+            end
+
+            -- Get process name
+            local process = util.basename(tab.active_pane.foreground_process_name) or 'shell'
+
+            -- Build tab info with both process and cwd
+            local tab_info = ''
+            if cwd_str and #cwd_str > 0 then
+                tab_info = string.format('%s - %s', process, cwd_str)
+            else
+                -- Fallback to process name only
+                tab_info = process
                 if not tab_info or #tab_info == 0 then
-                    tab_info = tab.active_pane.title or 'unknown'
+                    tab_info = tab.tab_title
+                    if not tab_info or #tab_info == 0 then
+                        tab_info = tab.active_pane.title or 'unknown'
+                    end
                 end
             end
 
@@ -148,7 +226,11 @@ local function init(config)
 
     config.window_padding = { left = 1, right = 1, top = 1, bottom = 1 }
     config.bold_brightens_ansi_colors = true
-    config.window_decorations = "RESIZE"
+    config.window_decorations = "TITLE | RESIZE"
+
+    -- Window background opacity and blur
+    config.window_background_opacity = 0.95
+    config.macos_window_background_blur = 20
 
     -- Inactive pane dimming for better visual focus
     config.inactive_pane_hsb = {
@@ -160,7 +242,32 @@ local function init(config)
     config.use_fancy_tab_bar = false
     config.tab_max_width = 32
 
+    -- Clickable hyperlinks detection
+    config.hyperlink_rules = {
+        -- Standard URLs (http, https, ftp, etc)
+        { regex = '\\b\\w+://[\\w.-]+\\S*\\b', format = '$0' },
+
+        -- File paths (absolute)
+        { regex = [[\b(/[a-zA-Z0-9._-]+)+\b]], format = '$0' },
+
+        -- File paths with line numbers (file.txt:123)
+        { regex = [[\b([a-zA-Z0-9._/-]+):(\d+)\b]], format = '$0' },
+
+        -- Git commit hashes (7-40 hex chars)
+        { regex = [[\b[a-f0-9]{7,40}\b]], format = 'https://github.com/search?q=$0&type=commits' },
+
+        -- IPv4 addresses
+        { regex = [[\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d+)?\b]], format = '$0' },
+
+        -- Jira-style tickets (ABC-1234)
+        { regex = [[\b[A-Z]+-\d+\b]], format = '$0' },
+
+        -- Email addresses
+        { regex = [[\b\w+@[\w-]+\.[\w.-]+\b]], format = 'mailto:$0' },
+    }
+
     format_tab_bar(config)
+    set_window_title()
     set_status()
 end
 

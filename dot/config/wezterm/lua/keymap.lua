@@ -70,6 +70,23 @@ local function init(config)
                     pane:send_text(text)
                 end)
             }),
+            -- Quick select common patterns
+            map( 'f', 'NONE', action.QuickSelectArgs {
+                label = 'Select File Path',
+                patterns = { '\\b(/[a-zA-Z0-9._/-]+)+\\b', '\\b([a-zA-Z0-9._/-]+/[a-zA-Z0-9._/-]+)+\\b' }
+            }),
+            map( 'h', 'NONE', action.QuickSelectArgs {
+                label = 'Select Git Hash',
+                patterns = { '\\b[a-f0-9]{7,40}\\b' }
+            }),
+            map( 'a', 'NONE', action.QuickSelectArgs {
+                label = 'Select IP Address',
+                patterns = { '\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}(:\\d+)?\\b' }
+            }),
+            map( 'U', 'SHIFT', action.QuickSelectArgs {
+                label = 'Select UUID',
+                patterns = { '\\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\\b' }
+            }),
         }
     }
 end
