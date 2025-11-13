@@ -2,3 +2,4 @@
 .luarc.json
 .DS_Store
 *.zwc
+.session/
