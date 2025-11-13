@@ -1,0 +1,50 @@
+#!/bin/sh
+# Universal clipboard script for tmux
+# Works seamlessly across local (macOS/Linux/Wayland) and remote (SSH) sessions
+
+# Read from stdin
+buf=$(cat)
+
+# Helper to copy via OSC 52 (works over SSH)
+copy_osc52() {
+    printf "\033]52;c;%s\a" "$(printf "%s" "$buf" | base64)"
+}
+
+# Check if we're in SSH session
+if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ]; then
+    # Remote session - use OSC 52 to send to local clipboard
+    copy_osc52
+    exit 0
+fi
+
+# Local session - detect OS
+case "$(uname -s)" in
+    Darwin)
+        # macOS
+        printf "%s" "$buf" | pbcopy
+        ;;
+    Linux)
+        # Check for Wayland or X11
+        if [ -n "$WAYLAND_DISPLAY" ]; then
+            # Wayland
+            printf "%s" "$buf" | wl-copy
+        elif [ -n "$DISPLAY" ]; then
+            # X11 - prefer xclip, fallback to xsel
+            if command -v xclip >/dev/null 2>&1; then
+                printf "%s" "$buf" | xclip -selection clipboard
+            elif command -v xsel >/dev/null 2>&1; then
+                printf "%s" "$buf" | xsel --clipboard
+            else
+                # No clipboard tool, try OSC 52 as fallback
+                copy_osc52
+            fi
+        else
+            # No display, use OSC 52
+            copy_osc52
+        fi
+        ;;
+    *)
+        # Unknown OS, try OSC 52
+        copy_osc52
+        ;;
+esac
