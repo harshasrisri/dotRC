@@ -11,6 +11,7 @@
 [fetch]
     prune = true
     prunetags = true
+    # all = true  # Uncomment to fetch from all remotes by default
 
 [diff]
     tool = nvimdiff
@@ -25,6 +26,8 @@
 [core]
 	excludesFile = ~/.config/git/ignore
     pager = delta
+    preloadindex = true
+    fscache = true
 
 [delta]
     features = side-by-side line-numbers decorations
@@ -54,10 +57,6 @@
     autoSetupRemote = true
     followTags = true
 
-[fetch]
-    prune = true
-    all = true
-
 [help]
     autocorrect = prompt
 
@@ -70,3 +69,12 @@
 
 [rebase]
 	instructionFormat = %<(30)%aN %s
+
+[feature]
+    manyFiles = true
+
+[index]
+    version = 4
+
+[pack]
+    threads = 0  # Use all available CPU cores
