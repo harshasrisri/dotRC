@@ -43,23 +43,52 @@ fi
 
 if [ -n "$(command -v neovide)" ]; then
     nv() {
-        nohup neovide $@ &>/dev/null &
+        if ! command -v neovide >/dev/null 2>&1; then
+            echo "Error: neovide not found" >&2
+            return 1
+        fi
+        nohup neovide "$@" &>/dev/null &
     }
 
     nvr() {
-        [ -z "$1" ] && echo "$0: Specify a remote host" >2 && return
-        script=/tmp/nvd.$1.cmd
-        rm $script &>/dev/null
-        cat > $script << EOF
+        if [ -z "$1" ]; then
+            echo "Usage: nvr <remote_host> [files...]" >&2
+            return 1
+        fi
+
+        if ! command -v neovide >/dev/null 2>&1; then
+            echo "Error: neovide not found" >&2
+            return 1
+        fi
+
+        # Create unique script with PID to avoid conflicts
+        local script="/tmp/nvd.$1.$$"
+        trap "rm -f '$script'" EXIT INT TERM
+
+        cat > "$script" << 'EOF'
 #!/bin/bash
-ssh $1 -- PATH=\$PATH:/home/linuxbrew/.linuxbrew/bin nvim \$@
+ssh "$1" -- PATH=$PATH:/home/linuxbrew/.linuxbrew/bin nvim "$@"
 EOF
-    chmod 755 $script
-    neovide --neovim-bin=$script  &>/dev/null &
+        chmod 700 "$script"
+        nohup neovide --neovim-bin="$script" "$@" &>/dev/null &
     }
 fi
 
 [ ! -z "$(command -v bat)" ] && alias cat=bat
+
+# bat configuration
+export BAT_THEME="ansi"              # Use terminal colors
+export BAT_STYLE="numbers,changes"   # Show line numbers and git changes
+
+# fzf configuration
+export FZF_DEFAULT_OPTS="
+  --height 40%
+  --layout=reverse
+  --border
+  --preview-window=right:50%
+  --bind ctrl-u:preview-page-up,ctrl-d:preview-page-down
+"
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 
 alias  vi='${EDITOR}'
 alias fvi='${EDITOR} $(fzf --multi --layout=reverse --preview "fzf-tab-previewer {}")'
@@ -128,37 +157,97 @@ alias tml='tmux -L default ls'
 alias rgn='rg --files-with-matches'
 alias rgN='rg --files-without-match'
 
-gri () { 
-    if [ -z "${1}" ]; then
-        echo "Usage: gri <number of commits>" 
-        return
+gri() {
+    if [ -z "$1" ]; then
+        echo "Usage: gri <number_of_commits>" >&2
+        return 1
     fi
-    git rebase -i @~"${1}"
+
+    # Validate input is a positive integer
+    if ! [[ "$1" =~ ^[0-9]+$ ]]; then
+        echo "Error: Argument must be a positive integer" >&2
+        return 1
+    fi
+
+    # Check if in a git repository
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        echo "Error: Not in a git repository" >&2
+        return 1
+    fi
+
+    # Check if we have enough commits
+    local commit_count=$(git rev-list --count HEAD 2>/dev/null)
+    if [ "$1" -gt "$commit_count" ]; then
+        echo "Error: Only $commit_count commits in history" >&2
+        return 1
+    fi
+
+    git rebase -i @~"$1"
 }
 
-tm () {
-    [ -z "${1}" ] && echo "Usage: ${0} <session_name>" >&2 && return
-    tmux new -A -s ${1}
-    echo "Detached from tmux session: ${1}"
+tm() {
+    if [ -z "$1" ]; then
+        echo "Usage: tm <session_name>" >&2
+        return 1
+    fi
+
+    # Check if tmux is available
+    if ! command -v tmux >/dev/null 2>&1; then
+        echo "Error: tmux not found" >&2
+        return 1
+    fi
+
+    # Validate session name (no colons or periods which tmux doesn't allow)
+    if [[ "$1" =~ [:\.] ]]; then
+        echo "Error: Session name cannot contain ':' or '.'" >&2
+        return 1
+    fi
+
+    tmux new -A -s "$1"
+    echo "Detached from tmux session: $1"
 }
 
-frg () {
-    rg -n $@ | fzf \
+frg() {
+    # Check dependencies
+    if ! command -v rg >/dev/null 2>&1; then
+        echo "Error: ripgrep (rg) not found" >&2
+        return 1
+    fi
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "Error: fzf not found" >&2
+        return 1
+    fi
+
+    rg -n "$@" | fzf \
         --delimiter : \
-        --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+        --preview 'bat --style=full --color=always --highlight-line {2} {1} 2>/dev/null || cat {1}' \
         --preview-window '~3,+{2}+3/2' \
         --multi --bind 'ctrl-space:select'
 }
 
 frgv() {
-    lines=$(frg $@)
-    if [ ! -z "$lines" ]; then
-        cmd="$EDITOR"
-        for line in $lines; do
-            file=$(echo -n $line | awk -F : '{printf " +\"e +%s %s\"", $2, $1}')
-            cmd="$cmd $file"
-        done
-        eval $cmd
+    # Check dependencies
+    if ! command -v rg >/dev/null 2>&1; then
+        echo "Error: ripgrep (rg) not found" >&2
+        return 1
+    fi
+
+    local lines
+    lines=$(frg "$@")
+
+    if [ -z "$lines" ]; then
+        echo "No results found" >&2
+        return 0
+    fi
+
+    # Build nvim command with proper quoting
+    local -a files
+    while IFS=: read -r file line_num rest; do
+        files+=("$file" "+$line_num")
+    done <<< "$lines"
+
+    if [ ${#files[@]} -gt 0 ]; then
+        "$EDITOR" "${files[@]}"
     fi
 }
 
