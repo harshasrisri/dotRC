@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Configuration
+REMOTE_HOST="${1:-}"
+SESSION_NAME="ssh-keepalive"
+KEEPALIVE_INTERVAL="${2:-60}"
+
+# Print usage information
+print_usage() {
+    echo "Usage: $0 <remote-host> [keepalive-interval-seconds]"
+    echo "Example: $0 user@example.com 60"
+}
+
+# Validate input arguments
+validate_inputs() {
+    if [ -z "$REMOTE_HOST" ]; then
+        print_usage
+        exit 1
+    fi
+}
+
+# Check if the tmux session already exists
+check_existing_session() {
+    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+        echo "Session '$SESSION_NAME' already exists."
+        echo "To attach: tmux attach-session -t $SESSION_NAME"
+        echo "To kill: tmux kill-session -t $SESSION_NAME"
+        exit 1
+    fi
+}
+
+# Create the initial tmux session
+create_tmux_session() {
+    tmux new-session -d -s "$SESSION_NAME" -n "ssh-session"
+}
+
+# Set up the SSH connection in the main pane
+setup_ssh_pane() {
+    # Using ServerAliveInterval for additional keep-alive at SSH protocol level
+    # The SSH connection runs with a wrapper that kills the tmux session when it exits
+    tmux send-keys -t "$SESSION_NAME:1.1" \
+        "ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=3 $REMOTE_HOST; tmux kill-session -t $SESSION_NAME" C-m
+}
+
+# Set up the keep-alive monitoring pane
+setup_keepalive_pane() {
+    # Display status messages
+    tmux send-keys -t "$SESSION_NAME:1.1" "echo 'Keep-alive monitor running...'" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "echo 'Sending keep-alive every $KEEPALIVE_INTERVAL seconds'" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "echo 'Session will auto-terminate if SSH disconnects'" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "echo ''" C-m
+
+    # Start the keep-alive loop with readable structure
+    # When SSH exits, it will kill the entire session including this loop
+    tmux send-keys -t "$SESSION_NAME:1.1" "while true; do" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "  sleep $KEEPALIVE_INTERVAL" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "  echo \"\$(date '+%Y-%m-%d %H:%M:%S') - Sending keep-alive...\"" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "  tmux send-keys -t $SESSION_NAME:1.1 ' ' C-h 2>/dev/null" C-m
+    tmux send-keys -t "$SESSION_NAME:1.1" "done" C-m
+}
+
+# Print success message and helpful commands
+print_success_message() {
+    echo "✓ Tmux session '$SESSION_NAME' started successfully!"
+    echo ""
+    echo "Commands:"
+    echo "  Attach to session:   tmux attach-session -t $SESSION_NAME"
+    echo "  Detach from session: backtick then d"
+    echo "  Kill session:        tmux kill-session -t $SESSION_NAME"
+    echo "  List sessions:       tmux ls"
+    echo ""
+    echo "The session will continue running in the background even after you close this terminal."
+}
+
+# Main execution
+main() {
+    validate_inputs
+    check_existing_session
+    create_tmux_session
+    setup_ssh_pane
+    setup_keepalive_pane
+    print_success_message
+}
+
+# Run the script
+main
