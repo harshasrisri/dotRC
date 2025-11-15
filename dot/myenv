@@ -8,9 +8,10 @@ fi
 
 export _MY_RC_DIR="$HOME/.rc"
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-export RUSTC_WRAPPER=$(command -v sccache)
 export GOPATH=~/go
 export PATH=$PATH:~/.cargo/bin/:$GOPATH/bin
+
+[ ! -z "$(command -v sccache)" ] && export RUSTC_WRAPPER="$(command -v sccache)"
 
 if [ ! -z "$(command -v eza)" ]; then
     # using eza
