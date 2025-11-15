@@ -7,12 +7,6 @@ return {
     { 'mason-org/mason.nvim', cmd = 'Mason', build = ':MasonUpdate', opts = {} },
 
     {
-        "mason-org/mason-lspconfig.nvim",
-        dependencies = { "neovim/nvim-lspconfig", "mason-org/mason.nvim" },
-        opts = {},
-    },
-
-    {
         'ranjithshegde/ccls.nvim',
         ft = { 'c', 'cpp'},
         dependencies = { 'nvim-lspconfig' },
@@ -87,7 +81,48 @@ return {
                 local hl = "DiagnosticSign" .. type
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
+
+            -- Lua LSP (for Neovim config editing)
+            vim.lsp.config.lua_ls = {
+                capabilities = capabilities,
+                settings = {
+                    Lua = {
+                        runtime = { version = 'LuaJIT' },
+                        diagnostics = { globals = { 'vim' } },
+                        workspace = {
+                            library = vim.api.nvim_get_runtime_file("", true),
+                            checkThirdParty = false,
+                        },
+                        telemetry = { enable = false },
+                    },
+                },
+            }
+
+            -- Python LSP (type checking)
+            vim.lsp.config.pyright = {
+                capabilities = capabilities,
+                settings = {
+                    python = {
+                        analysis = {
+                            typeCheckingMode = "basic",
+                            autoSearchPaths = true,
+                            useLibraryCodeForTypes = true,
+                            diagnosticMode = "workspace",
+                        }
+                    }
+                }
+            }
+
+            -- Ruff LSP (Python linting/formatting)
+            vim.lsp.config.ruff = {
+                capabilities = capabilities,
+            }
+
+            -- Bash LSP
+            vim.lsp.config.bashls = {
+                capabilities = capabilities,
+                filetypes = { "sh", "bash", "zsh" },
+            }
         end,
     },
 }
-
