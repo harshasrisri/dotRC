@@ -1,5 +1,0 @@
-#!/bin/bash
-
-TMUX="tmux -f $HOME/.tabmux.conf -L tabmux"
-
-$TMUX attach -t tabmux || $TMUX new -s tabmux
