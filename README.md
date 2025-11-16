@@ -2,7 +2,7 @@
 
 My shell environment to setup and manage my CLI IDE.
 
-![Screenshot](screenshot.png)
+![Screenshot as of 15-Nov-2025](screenshot.png)
 
 ## How do I get it?
 
