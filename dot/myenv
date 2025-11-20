@@ -75,7 +75,10 @@ EOF
     }
 fi
 
-[ ! -z "$(command -v bat)" ] && alias cat=bat
+if [ ! -z "$(command -v bat)" ]; then
+    alias cat=bat
+    alias plaincat='bat -p'
+fi
 
 # bat configuration
 export BAT_THEME="ansi"              # Use terminal colors
@@ -129,9 +132,10 @@ alias -g   gs='git status'
 alias -g  gsi='git status --ignored'
 alias -g  gss='git status --short'
 alias -g   gd='git diff'
+alias -g  gdp='git diff | plaincat'
+alias -g gdcp='git diff --cached | plaincat'
 alias -g  gdf='git diff --relative --name-only | fzf --layout=reverse --preview "git diff --color=always {+1}"'
 alias -g  gdt='git difftool'
-alias -g  gdc='git diff --cached'
 alias -g  gdn='git diff --relative --name-only'
 alias -g  gcm='git commit -m'
 alias -g gcma='git commit -am'
