@@ -14,12 +14,14 @@ return {
         end,
         init = function()
             vim.g.mkdp_filetypes = { "markdown" }
-            vim.g.mkdp_auto_start = 1
+            -- vim.g.mkdp_auto_start = 1
+            vim.g.mkdp_auto_close = 0
+            vim.g.mkdp_combine_preview = 1
             vim.g.mkdp_theme = 'light'
             vim.g.mkdp_refresh_slow = 1
-            if vim.loop.os_uname().sysname == 'Darwin' then
-                vim.g.mkdp_browser = 'safari'
-            end
+            -- if vim.loop.os_uname().sysname == 'Darwin' then
+            --     vim.g.mkdp_browser = 'safari'
+            -- end
             vim.g.mkdp_preview_options = {
                 maid = {
                     diagramMarginX = 10,
@@ -30,6 +32,17 @@ return {
                 }
             }
         end,
+    },
+
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        ---@module 'render-markdown'
+        ---@type render.md.UserConfig
+        opts = {
+            completions = { lsp = { enabled = true } },
+            preset = 'obsidian',
+        },
     },
 
     {
