@@ -21,7 +21,7 @@ return {
         event = 'BufReadPost',
         opts = {
             ensure_installed = { 'bash', 'c', 'cpp', 'diff', 'go', 'hcl', 'json', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'python', 'printf', 'rust', 'toml', 'vim', 'vimdoc', 'yaml' },
-            hightlight = {
+            highlight = {
                 enable = true,
                 disable = function(_, buf)
                     local max_filesize = 1024 * 1024 -- 1 MB
@@ -86,7 +86,7 @@ return {
 
     {
         "saghen/blink.cmp",
-        event = { 'InsertEnter', 'CmdLineEnter' },
+        event = { 'InsertEnter', 'CmdlineEnter' },
         dependencies = {
             "rafamadriz/friendly-snippets",
             { 'onsails/lspkind-nvim', dependencies = 'nvim-lspconfig' },
@@ -109,7 +109,9 @@ return {
                             local col = vim.api.nvim_win_get_cursor(0)[2]
                             return col ~= 0 and vim.api.nvim_get_current_line():sub(col, col):match("%s") == nil
                         end
-                        if cmp.is_visible() and has_words_before() then return cmp.select_next() end
+                        if cmp.is_visible() then 
+                            if has_words_before() then return cmp.select_next() end
+                        end
                     end,
                     'snippet_forward',
                     'fallback',
@@ -129,8 +131,10 @@ return {
                 ['<C-u>']   = { 'scroll_documentation_up', 'fallback' },
                 ['<C-k>']   = { 'show_signature', 'hide_signature', 'fallback' },
             },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
             completion = {
-                keyword = { range = 'full' },
                 ghost_text = { enabled = true },
                 documentation = { auto_show = true, window = { max_height = 33 } },
                 menu = {
