@@ -20,8 +20,8 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' popup-pad 240 160
 
-# When not in tmux, show more lines (40 instead of default ~10)
-zstyle ':fzf-tab:*' fzf-min-height 40
+# When not in tmux, show more lines
+zstyle ':fzf-tab:*' fzf-min-height 100
 
 # Use eza to preview directory during cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
