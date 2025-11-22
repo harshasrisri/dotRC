@@ -82,9 +82,20 @@ return {
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
             end
 
+            local installed_packages = require("mason-registry").get_installed_packages()
+            local installed_lsp_names = vim.iter(installed_packages):fold({}, function(acc, pack)
+                if (pack.spec.neovim and pack.spec.neovim.lspconfig) then
+                    local lsp_name = pack.spec.neovim.lspconfig
+                    table.insert(acc, lsp_name)
+                    vim.lsp.config[lsp_name].capabilities = capabilities
+                end
+                return acc
+            end)
+
+            vim.lsp.enable(installed_lsp_names)
+
             -- Lua LSP (for Neovim config editing)
             vim.lsp.config.lua_ls = {
-                capabilities = capabilities,
                 settings = {
                     Lua = {
                         runtime = { version = 'LuaJIT' },
@@ -100,7 +111,6 @@ return {
 
             -- Python LSP (type checking)
             vim.lsp.config.pyright = {
-                capabilities = capabilities,
                 settings = {
                     python = {
                         analysis = {
@@ -113,16 +123,33 @@ return {
                 }
             }
 
-            -- Ruff LSP (Python linting/formatting)
-            vim.lsp.config.ruff = {
-                capabilities = capabilities,
-            }
-
             -- Bash LSP
             vim.lsp.config.bashls = {
-                capabilities = capabilities,
                 filetypes = { "sh", "bash", "zsh" },
             }
         end,
+    },
+
+    {
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        dependencies = { 'mason-org/mason.nvim' },
+        opts = {
+            ensure_installed = {
+                -- Language Servers
+                'bash-language-server',
+                'gopls',
+                'lua-language-server',
+                'marksman',
+                'pyright',
+                'ruff',
+                -- Debuggers
+                'codelldb',
+                'delve',
+                -- Linters/Formatters
+                'markdownlint',
+            },
+            auto_update = false,
+            run_on_start = true,
+        }
     },
 }
