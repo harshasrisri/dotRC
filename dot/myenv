@@ -260,14 +260,22 @@ wezcopy() {
   local content
   if [[ ! -t 0 ]]; then
     # stdin is piped
-    content=$(catcat)
+    content=$(command cat)
   elif [[ $# -gt 0 ]]; then
     content="$*"
   else
     echo "Usage: wezcopy <text> OR command | wezcopy" >&2
     return 1
   fi
-  printf '\033]1337;SetUserVar=%s=%s\007' "to_clipboard" "$(printf '%s' "$content" | base64)"
+  # Use -w 0 on Linux to disable line wrapping (macOS base64 doesn't support -w)
+  local encoded
+  encoded=$(printf '%s' "$content" | base64 -w 0 2>/dev/null || printf '%s' "$content" | base64)
+  # Wrap in tmux passthrough if inside tmux
+  if [[ -n "$TMUX" ]]; then
+    printf '\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\' "to_clipboard" "$encoded"
+  else
+    printf '\033]1337;SetUserVar=%s=%s\007' "to_clipboard" "$encoded"
+  fi
 }
 
 # vim: ft=sh
