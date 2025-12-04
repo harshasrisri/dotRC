@@ -15,4 +15,11 @@ if status then
     local_config.init(config)
 end
 
+wezterm.on('user-var-changed', function(window, pane, name, value)
+  if name == 'to_clipboard' then
+    window:copy_to_clipboard(value)
+    wezterm.log_info('wezcopy: copied ' .. #value .. ' characters to clipboard')
+  end
+end)
+
 return config
