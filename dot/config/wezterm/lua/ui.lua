@@ -170,7 +170,7 @@ local function format_tab_bar(config)
             -- Build tab info with both process and cwd
             local tab_info = ''
             if cwd_str and #cwd_str > 0 then
-                tab_info = string.format('%s - %s', process, cwd_str)
+                tab_info = string.format('%s(%s)', process, cwd_str)
             else
                 -- Fallback to process name only
                 tab_info = process
@@ -199,7 +199,7 @@ local function format_tab_bar(config)
                 italic = false
             end
 
-            local tab_title = string.format('%s %s: %s', nf.md_bookshelf, tab_id, tab_info)
+            local tab_title = string.format('%s %s %s', tab_id, nf.ple_backslash_separator, tab_info)
             tab_title = wezterm.truncate_right(tab_title, max_width - 4)
 
             return format_element(Left, tab_bg, tab_fg, tab_title, intensity, italic)
@@ -241,7 +241,7 @@ local function init(config)
 
     config.tab_bar_at_bottom = true
     config.use_fancy_tab_bar = false
-    config.tab_max_width = 32
+    config.tab_max_width = 40
 
     -- Clickable hyperlinks detection
     config.hyperlink_rules = {

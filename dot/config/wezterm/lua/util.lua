@@ -13,31 +13,40 @@ function M.basename(s)
 end
 
 -- Get shortened working directory
--- Given "/Users/foo/projects/myapp/src" returns "~/projects/myapp/src"
--- Given "/home/foo/bar/baz/qux" returns "~/bar/baz/qux"
+-- Given "/Users/foo/projects/myapp/src" returns "~/.../myapp/src"
+-- Given "/home/foo/bar/baz/qux" returns "~/.../baz/qux"
+-- Given "/home/foo/a/b/c/d/e" returns "~/.../d/e"
 function M.smart_cwd(cwd, home_dir)
   if not cwd or cwd == '' then return '~' end
 
+  local prefix = ''
   -- Replace home directory with ~
   if home_dir and cwd:sub(1, #home_dir) == home_dir then
-    cwd = '~' .. cwd:sub(#home_dir + 1)
+    prefix = '~'
+    cwd = cwd:sub(#home_dir + 1)
   end
 
-  -- Shorten to last 3 path components
+  -- Shorten to last 2 path components
   local parts = {}
   for part in string.gmatch(cwd, '[^/\\]+') do
-    table.insert(parts, part)
+    if part ~= '' then  -- skip empty parts
+      table.insert(parts, part)
+    end
   end
 
-  if #parts > 3 then
+  if #parts > 2 then
     local shortened = {}
-    for i = #parts - 2, #parts do
+    for i = #parts - 1, #parts do
       table.insert(shortened, parts[i])
     end
-    return '.../' .. table.concat(shortened, '/')
+    return prefix .. '/.../' .. table.concat(shortened, '/')
   end
 
-  return cwd
+  if #parts > 0 then
+    return prefix .. '/' .. table.concat(parts, '/')
+  end
+
+  return prefix ~= '' and prefix or '/'
 end
 
 return M
