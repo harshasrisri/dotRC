@@ -37,6 +37,7 @@ local function init(config)
         },
         -- Keep CTRL+backtick as explicit fallback
         map( backtick, 'CTRL', action.ActivateKeyTable { name = 'leader_keys', timeout_milliseconds = 1000 } ),
+        map( "Enter", "SHIFT", action{SendString="\x1b\r"}),
     }
 
     config.key_tables = {
