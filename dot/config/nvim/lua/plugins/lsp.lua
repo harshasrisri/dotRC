@@ -86,6 +86,7 @@ return {
             local installed_lsp_names = vim.iter(installed_packages):fold({}, function(acc, pack)
                 if (pack.spec.neovim and pack.spec.neovim.lspconfig) then
                     local lsp_name = pack.spec.neovim.lspconfig
+                    if (lsp_name == 'rust_analyzer' or lsp_name == 'gopls') then return acc end
                     table.insert(acc, lsp_name)
                     vim.lsp.config[lsp_name].capabilities = capabilities
                 end
