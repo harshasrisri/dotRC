@@ -15,7 +15,6 @@ alias nvim='NVIM_APPNAME=harshasrisri-nvim nvim'
 
 ## List of Plugins
 <!-- `> sh plugin-info.sh 2>/dev/null` -->
-
 <!-- BEGIN mdsh -->
 | Plugin | Description |
 | ------                                                                                        | -----------                                                                                                                                               |
@@ -27,6 +26,7 @@ alias nvim='NVIM_APPNAME=harshasrisri-nvim nvim'
 | [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim)                         | Chat with GitHub Copilot in Neovim                                                                                                                        |
 | [decorated_yank](https://github.com/simondrake/decorated_yank)                                | decorated yank plugin for neovim                                                                                                                          |
 | [diffview.nvim](https://github.com/sindrets/diffview.nvim)                                    | Single tabpage interface for easily cycling through diffs for all modified files for any git rev.                                                         |
+| [floaterm](https://github.com/nvzone/floaterm)                                                | Beautiful floating terminal manager for Neovim                                                                                                            |
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets)                          | Set of preconfigured snippets for different languages.                                                                                                    |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                   | Git integration for buffers                                                                                                                               |
 | [go.nvim](https://github.com/ray-x/go.nvim)                                                   | G'day Nvimer, Joyful Gopher: Explore the Feature-Packed Go Plugin for Neovim                                                                              |
@@ -39,7 +39,7 @@ alias nvim='NVIM_APPNAME=harshasrisri-nvim nvim'
 | [lspkind-nvim](https://github.com/onsails/lspkind-nvim)                                       |                                                                                                                                                           |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                                  | A blazing fast and easy to configure neovim statusline plugin written in pure lua.                                                                        |
 | [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)                      | markdown preview plugin for (neo)vim                                                                                                                      |
-| [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim)                     | Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.                                                                            |
+| [mason-tool-installer.nvim](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim)     | Install and upgrade third party tools automatically                                                                                                       |
 | [mason.nvim](https://github.com/mason-org/mason.nvim)                                         | Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters.        |
 | [mini.ai](https://github.com/echasnovski/mini.ai)                                             |                                                                                                                                                           |
 | [mini.align](https://github.com/echasnovski/mini.align)                                       |                                                                                                                                                           |
@@ -64,6 +64,7 @@ alias nvim='NVIM_APPNAME=harshasrisri-nvim nvim'
 | [nvim-window](https://github.com/yorickpeterse/nvim-window)                                   | Easily jump between NeoVim windows.                                                                                                                       |
 | [outline.nvim](https://github.com/hedyhli/outline.nvim)                                       | Navigate code with an outline sidebar. Forked from symbols-outline.nvim.                                                                                  |
 | [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)                                      | plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.                                                |
+| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)          | Plugin to improve viewing Markdown files in Neovim                                                                                                        |
 | [rustaceanvim](https://github.com/mrcjkb/rustaceanvim)                                        | 🦀 Supercharge your Rust experience in Neovim! A heavily modified fork of rust-tools.nvim                                                                 |
 | [snacks.nvim](https://github.com/folke/snacks.nvim)                                           | 🍿 A collection of QoL plugins for Neovim                                                                                                                 |
 | [sqlite.lua](https://github.com/tami5/sqlite.lua)                                             |                                                                                                                                                           |
@@ -74,5 +75,6 @@ alias nvim='NVIM_APPNAME=harshasrisri-nvim nvim'
 | [vim-markdown-toc](https://github.com/mzlogin/vim-markdown-toc)                               | A vim 7.4+ plugin to generate table of contents for Markdown files.                                                                                       |
 | [vim-obsession](https://github.com/tpope/vim-obsession)                                       | obsession.vim: continuously updated session files                                                                                                         |
 | [vim-rsi](https://github.com/tpope/vim-rsi)                                                   | rsi.vim: Readline style insertion                                                                                                                         |
+| [volt](https://github.com/nvzone/volt)                                                        | Create blazing fast & beautiful reactive UI in Neovim                                                                                                     |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                                     | 💥   Create key bindings that stick. WhichKey helps you remember your Neovim keymaps, by showing available keybindings in a popup as you type.            |
 <!-- END mdsh -->

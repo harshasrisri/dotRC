@@ -1,226 +1,238 @@
 {
-  "markdown-preview.nvim": {
-    "url": "https://github.com/iamcco/markdown-preview.nvim",
-    "description": "markdown preview plugin for (neo)vim"
-  },
-  "which-key.nvim": {
-    "url": "https://github.com/folke/which-key.nvim",
-    "description": "💥   Create key bindings that stick. WhichKey helps you remember your Neovim keymaps, by showing available keybindings in a popup as you type."
-  },
-  "snacks.nvim": {
-    "url": "https://github.com/folke/snacks.nvim",
-    "description": "🍿 A collection of QoL plugins for Neovim"
-  },
-  "nvim-treesitter-textobjects": {
-    "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-    "description": ""
-  },
-  "mason-lspconfig.nvim": {
-    "url": "https://github.com/mason-org/mason-lspconfig.nvim",
-    "description": "Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim."
-  },
-  "rustaceanvim": {
-    "url": "https://github.com/mrcjkb/rustaceanvim",
-    "description": "🦀 Supercharge your Rust experience in Neovim! A heavily modified fork of rust-tools.nvim"
-  },
-  "barbecue.nvim": {
-    "url": "https://github.com/utilyre/barbecue.nvim",
-    "description": "Visual Studio Code inspired breadcrumbs plugin for the Neovim editor"
-  },
-  "vim-obsession": {
-    "url": "https://github.com/tpope/vim-obsession",
-    "description": "obsession.vim: continuously updated session files"
-  },
-  "nvim-surround": {
-    "url": "https://github.com/kylechui/nvim-surround",
-    "description": "Add/change/delete surrounding delimiter pairs with ease. Written with :heart: in Lua."
-  },
-  "nvim-dap": {
-    "url": "https://github.com/mfussenegger/nvim-dap",
-    "description": "Debug Adapter Protocol client implementation for Neovim"
-  },
-  "mini.comment": {
-    "url": "https://github.com/echasnovski/mini.comment",
-    "description": ""
-  },
-  "leetcode.nvim": {
-    "url": "https://github.com/kawre/leetcode.nvim",
-    "description": "A Neovim plugin enabling you to solve LeetCode problems."
-  },
-  "nvim-neoclip.lua": {
-    "url": "https://github.com/AckslD/nvim-neoclip.lua",
-    "description": "Clipboard manager neovim plugin with telescope integration"
-  },
-  "nui.nvim": {
-    "url": "https://github.com/MunifTanjim/nui.nvim",
-    "description": "UI Component Library for Neovim."
-  },
-  "mini.ai": {
-    "url": "https://github.com/echasnovski/mini.ai",
-    "description": ""
-  },
-  "nvim-dap-go": {
-    "url": "https://github.com/leoluz/nvim-dap-go",
-    "description": "An extension for nvim-dap providing configurations for launching go debugger (delve) and debugging individual tests"
-  },
-  "nvim-lspconfig": {
-    "url": "https://github.com/neovim/nvim-lspconfig",
-    "description": "Quickstart configs for Nvim LSP"
-  },
-  "treesj": {
-    "url": "https://github.com/wansmer/treesj",
-    "description": "Neovim plugin for splitting/joining blocks of code"
-  },
-  "copilot.lua": {
-    "url": "https://github.com/zbirenbaum/copilot.lua",
-    "description": "Fully featured & enhanced replacement for copilot.vim complete with API for interacting with Github Copilot"
-  },
-  "outline.nvim": {
-    "url": "https://github.com/hedyhli/outline.nvim",
-    "description": "Navigate code with an outline sidebar. Forked from symbols-outline.nvim. "
-  },
-  "iswap.nvim": {
-    "url": "https://github.com/mizlan/iswap.nvim",
-    "description": "Interactively select and swap function arguments, list elements, and much more. Powered by tree-sitter."
-  },
-  "nvim-navic": {
-    "url": "https://github.com/SmiteshP/nvim-navic",
-    "description": "Simple winbar/statusline plugin that shows your current code context"
-  },
-  "nvim-nio": {
-    "url": "https://github.com/nvim-neotest/nvim-nio",
-    "description": "A library for asynchronous IO in Neovim"
-  },
-  "kanagawa-paper.nvim": {
-    "url": "https://github.com/sho-87/kanagawa-paper.nvim",
-    "description": ""
-  },
-  "noice.nvim": {
-    "url": "https://github.com/folke/noice.nvim",
-    "description": "💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu."
-  },
-  "nvim-dap-virtual-text": {
-    "url": "https://github.com/theHamsta/nvim-dap-virtual-text",
-    "description": ""
-  },
-  "nvim-dap-ui": {
-    "url": "https://github.com/rcarriga/nvim-dap-ui",
-    "description": "A UI for nvim-dap"
-  },
-  "nvim-dap-python": {
-    "url": "https://github.com/mfussenegger/nvim-dap-python",
-    "description": "Mirror of https://codeberg.org/mfussenegger/nvim-dap-python"
+  "lazy.nvim": {
+    "url": "https://github.com/folke/lazy.nvim",
+    "description": "💤 A modern plugin manager for Neovim"
   },
   "leap.nvim": {
     "url": "https://github.com/ggandor/leap.nvim",
     "description": "Neovim's answer to the mouse 🦘"
   },
-  "mini.align": {
-    "url": "https://github.com/echasnovski/mini.align",
-    "description": ""
-  },
-  "hererocks": {
-    "url": "https://github.com/luarocks/hererocks",
-    "description": "Python script for installing Lua/LuaJIT and LuaRocks into a local directory"
-  },
-  "actions-preview.nvim": {
-    "url": "https://github.com/aznhe21/actions-preview.nvim",
-    "description": "Fully customizable previewer for LSP code actions."
-  },
-  "gitsigns.nvim": {
-    "url": "https://github.com/lewis6991/gitsigns.nvim",
-    "description": "Git integration for buffers"
-  },
-  "lualine.nvim": {
-    "url": "https://github.com/nvim-lualine/lualine.nvim",
-    "description": "A blazing fast and easy to configure neovim statusline plugin written in pure lua."
-  },
-  "CopilotChat.nvim": {
-    "url": "https://github.com/CopilotC-Nvim/CopilotChat.nvim",
-    "description": "Chat with GitHub Copilot in Neovim"
-  },
-  "go.nvim": {
-    "url": "https://github.com/ray-x/go.nvim",
-    "description": "G'day Nvimer, Joyful Gopher: Explore the Feature-Packed Go Plugin for Neovim"
-  },
   "plenary.nvim": {
     "url": "https://github.com/nvim-lua/plenary.nvim",
     "description": "plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice."
-  },
-  "nvim-autopairs": {
-    "url": "https://github.com/windwp/nvim-autopairs",
-    "description": "autopairs for neovim written in lua"
-  },
-  "nvim-window": {
-    "url": "https://github.com/yorickpeterse/nvim-window",
-    "description": "Easily jump between NeoVim windows."
-  },
-  "vim-illuminate": {
-    "url": "https://github.com/Rrethy/vim-illuminate",
-    "description": "illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching."
-  },
-  "lazy.nvim": {
-    "url": "https://github.com/folke/lazy.nvim",
-    "description": "💤 A modern plugin manager for Neovim"
-  },
-  "vim-markdown-toc": {
-    "url": "https://github.com/mzlogin/vim-markdown-toc",
-    "description": "A vim 7.4+ plugin to generate table of contents for Markdown files."
-  },
-  "nvim-spider": {
-    "url": "https://github.com/chrisgrieser/nvim-spider",
-    "description": "Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation."
-  },
-  "nvim-treesitter": {
-    "url": "https://github.com/nvim-treesitter/nvim-treesitter",
-    "description": "Nvim Treesitter configurations and abstraction layer"
-  },
-  "friendly-snippets": {
-    "url": "https://github.com/rafamadriz/friendly-snippets",
-    "description": "Set of preconfigured snippets for different languages. "
-  },
-  "diffview.nvim": {
-    "url": "https://github.com/sindrets/diffview.nvim",
-    "description": "Single tabpage interface for easily cycling through diffs for all modified files for any git rev."
-  },
-  "vim-rsi": {
-    "url": "https://github.com/tpope/vim-rsi",
-    "description": "rsi.vim: Readline style insertion"
-  },
-  "toggleterm.nvim": {
-    "url": "https://github.com/akinsho/toggleterm.nvim",
-    "description": "A neovim lua plugin to help easily manage multiple terminal windows"
-  },
-  "decorated_yank": {
-    "url": "https://github.com/simondrake/decorated_yank",
-    "description": "decorated yank plugin for neovim"
   },
   "nvim-web-devicons": {
     "url": "https://github.com/nvim-tree/nvim-web-devicons",
     "description": "Provides Nerd Font icons (glyphs) for use by neovim plugins"
   },
-  "ccls.nvim": {
-    "url": "https://github.com/ranjithshegde/ccls.nvim",
-    "description": "Neovim plugin for ccls language server. Leverages off-spec extensions to  LSP client with AST browser"
+  "nvim-surround": {
+    "url": "https://github.com/kylechui/nvim-surround",
+    "description": "Add/change/delete surrounding delimiter pairs with ease. Written with :heart: in Lua."
   },
-  "mason.nvim": {
-    "url": "https://github.com/mason-org/mason.nvim",
-    "description": "Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters."
+  "barbecue.nvim": {
+    "url": "https://github.com/utilyre/barbecue.nvim",
+    "description": "Visual Studio Code inspired breadcrumbs plugin for the Neovim editor"
   },
-  "telescope.nvim": {
-    "url": "https://github.com/nvim-telescope/telescope.nvim",
-    "description": "Find, Filter, Preview, Pick. All lua, all the time."
+  "nvim-navic": {
+    "url": "https://github.com/SmiteshP/nvim-navic",
+    "description": "Simple winbar/statusline plugin that shows your current code context"
   },
-  "blink.cmp": {
-    "url": "https://github.com/saghen/blink.cmp",
-    "description": "Performant, batteries-included completion plugin for Neovim "
+  "vim-markdown-toc": {
+    "url": "https://github.com/mzlogin/vim-markdown-toc",
+    "description": "A vim 7.4+ plugin to generate table of contents for Markdown files."
+  },
+  "nvim-treesitter": {
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter",
+    "description": "Nvim Treesitter configurations and abstraction layer"
+  },
+  "which-key.nvim": {
+    "url": "https://github.com/folke/which-key.nvim",
+    "description": "💥   Create key bindings that stick. WhichKey helps you remember your Neovim keymaps, by showing available keybindings in a popup as you type."
+  },
+  "nui.nvim": {
+    "url": "https://github.com/MunifTanjim/nui.nvim",
+    "description": "UI Component Library for Neovim."
+  },
+  "nvim-autopairs": {
+    "url": "https://github.com/windwp/nvim-autopairs",
+    "description": "autopairs for neovim written in lua"
+  },
+  "mini.ai": {
+    "url": "https://github.com/echasnovski/mini.ai",
+    "description": ""
+  },
+  "nvim-window": {
+    "url": "https://github.com/yorickpeterse/nvim-window",
+    "description": "Easily jump between NeoVim windows."
   },
   "sqlite.lua": {
     "url": "https://github.com/tami5/sqlite.lua",
     "description": ""
   },
+  "vim-illuminate": {
+    "url": "https://github.com/Rrethy/vim-illuminate",
+    "description": "illuminate.vim - (Neo)Vim plugin for automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching."
+  },
+  "nvim-neoclip.lua": {
+    "url": "https://github.com/AckslD/nvim-neoclip.lua",
+    "description": "Clipboard manager neovim plugin with telescope integration"
+  },
+  "telescope.nvim": {
+    "url": "https://github.com/nvim-telescope/telescope.nvim",
+    "description": "Find, Filter, Preview, Pick. All lua, all the time."
+  },
+  "noice.nvim": {
+    "url": "https://github.com/folke/noice.nvim",
+    "description": "💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu."
+  },
+  "vim-rsi": {
+    "url": "https://github.com/tpope/vim-rsi",
+    "description": "rsi.vim: Readline style insertion"
+  },
+  "markdown-preview.nvim": {
+    "url": "https://github.com/iamcco/markdown-preview.nvim",
+    "description": "markdown preview plugin for (neo)vim"
+  },
+  "decorated_yank": {
+    "url": "https://github.com/simondrake/decorated_yank",
+    "description": "decorated yank plugin for neovim"
+  },
+  "gitsigns.nvim": {
+    "url": "https://github.com/lewis6991/gitsigns.nvim",
+    "description": "Git integration for buffers"
+  },
+  "toggleterm.nvim": {
+    "url": "https://github.com/akinsho/toggleterm.nvim",
+    "description": "A neovim lua plugin to help easily manage multiple terminal windows"
+  },
+  "kanagawa-paper.nvim": {
+    "url": "https://github.com/sho-87/kanagawa-paper.nvim",
+    "description": ""
+  },
+  "mini.align": {
+    "url": "https://github.com/echasnovski/mini.align",
+    "description": ""
+  },
+  "nvim-spider": {
+    "url": "https://github.com/chrisgrieser/nvim-spider",
+    "description": "Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation."
+  },
+  "diffview.nvim": {
+    "url": "https://github.com/sindrets/diffview.nvim",
+    "description": "Single tabpage interface for easily cycling through diffs for all modified files for any git rev."
+  },
+  "lualine.nvim": {
+    "url": "https://github.com/nvim-lualine/lualine.nvim",
+    "description": "A blazing fast and easy to configure neovim statusline plugin written in pure lua."
+  },
+  "vim-obsession": {
+    "url": "https://github.com/tpope/vim-obsession",
+    "description": "obsession.vim: continuously updated session files"
+  },
+  "snacks.nvim": {
+    "url": "https://github.com/folke/snacks.nvim",
+    "description": "🍿 A collection of QoL plugins for Neovim"
+  },
+  "floaterm": {
+    "url": "https://github.com/nvzone/floaterm",
+    "description": "Beautiful floating terminal manager for Neovim"
+  },
+  "volt": {
+    "url": "https://github.com/nvzone/volt",
+    "description": "Create blazing fast & beautiful reactive UI in Neovim"
+  },
+  "CopilotChat.nvim": {
+    "url": "https://github.com/CopilotC-Nvim/CopilotChat.nvim",
+    "description": "Chat with GitHub Copilot in Neovim"
+  },
+  "copilot.lua": {
+    "url": "https://github.com/zbirenbaum/copilot.lua",
+    "description": "Fully featured & enhanced replacement for copilot.vim complete with API for interacting with Github Copilot"
+  },
+  "nvim-dap": {
+    "url": "https://github.com/mfussenegger/nvim-dap",
+    "description": "Debug Adapter Protocol client implementation for Neovim"
+  },
+  "nvim-dap-go": {
+    "url": "https://github.com/leoluz/nvim-dap-go",
+    "description": "An extension for nvim-dap providing configurations for launching go debugger (delve) and debugging individual tests"
+  },
+  "nvim-dap-python": {
+    "url": "https://github.com/mfussenegger/nvim-dap-python",
+    "description": "Mirror of https://codeberg.org/mfussenegger/nvim-dap-python"
+  },
+  "nvim-dap-ui": {
+    "url": "https://github.com/rcarriga/nvim-dap-ui",
+    "description": "A UI for nvim-dap"
+  },
+  "nvim-dap-virtual-text": {
+    "url": "https://github.com/theHamsta/nvim-dap-virtual-text",
+    "description": ""
+  },
+  "nvim-nio": {
+    "url": "https://github.com/nvim-neotest/nvim-nio",
+    "description": "A library for asynchronous IO in Neovim"
+  },
+  "hererocks": {
+    "url": "https://github.com/luarocks/hererocks",
+    "description": "Python script for installing Lua/LuaJIT and LuaRocks into a local directory"
+  },
+  "render-markdown.nvim": {
+    "url": "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+    "description": "Plugin to improve viewing Markdown files in Neovim"
+  },
+  "blink.cmp": {
+    "url": "https://github.com/saghen/blink.cmp",
+    "description": "Performant, batteries-included completion plugin for Neovim "
+  },
+  "friendly-snippets": {
+    "url": "https://github.com/rafamadriz/friendly-snippets",
+    "description": "Set of preconfigured snippets for different languages. "
+  },
+  "iswap.nvim": {
+    "url": "https://github.com/mizlan/iswap.nvim",
+    "description": "Interactively select and swap function arguments, list elements, and much more. Powered by tree-sitter."
+  },
+  "leetcode.nvim": {
+    "url": "https://github.com/kawre/leetcode.nvim",
+    "description": "A Neovim plugin enabling you to solve LeetCode problems."
+  },
   "lspkind-nvim": {
     "url": "https://github.com/onsails/lspkind-nvim",
     "description": ""
+  },
+  "mini.comment": {
+    "url": "https://github.com/echasnovski/mini.comment",
+    "description": ""
+  },
+  "nvim-treesitter-textobjects": {
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+    "description": ""
+  },
+  "outline.nvim": {
+    "url": "https://github.com/hedyhli/outline.nvim",
+    "description": "Navigate code with an outline sidebar. Forked from symbols-outline.nvim. "
+  },
+  "treesj": {
+    "url": "https://github.com/wansmer/treesj",
+    "description": "Neovim plugin for splitting/joining blocks of code"
+  },
+  "actions-preview.nvim": {
+    "url": "https://github.com/aznhe21/actions-preview.nvim",
+    "description": "Fully customizable previewer for LSP code actions."
+  },
+  "ccls.nvim": {
+    "url": "https://github.com/ranjithshegde/ccls.nvim",
+    "description": "Neovim plugin for ccls language server. Leverages off-spec extensions to  LSP client with AST browser"
+  },
+  "go.nvim": {
+    "url": "https://github.com/ray-x/go.nvim",
+    "description": "G'day Nvimer, Joyful Gopher: Explore the Feature-Packed Go Plugin for Neovim"
+  },
+  "mason-tool-installer.nvim": {
+    "url": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+    "description": "Install and upgrade third party tools automatically"
+  },
+  "mason.nvim": {
+    "url": "https://github.com/mason-org/mason.nvim",
+    "description": "Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters."
+  },
+  "nvim-lspconfig": {
+    "url": "https://github.com/neovim/nvim-lspconfig",
+    "description": "Quickstart configs for Nvim LSP"
+  },
+  "rustaceanvim": {
+    "url": "https://github.com/mrcjkb/rustaceanvim",
+    "description": "🦀 Supercharge your Rust experience in Neovim! A heavily modified fork of rust-tools.nvim"
   }
 }
