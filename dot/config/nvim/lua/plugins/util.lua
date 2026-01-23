@@ -49,41 +49,59 @@ return {
     },
 
     {
-        'akinsho/toggleterm.nvim',
-        cmd = 'ToggleTerm',
+        "nvzone/floaterm",
+        dependencies = "nvzone/volt",
         keys = {
-            {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>', desc = "Terminal in float window"},
-            {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>', desc = "Terminal in horizontal split"},
-            {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>', desc = "Terminal in vertical split"},
+            {'<leader>tf', '<cmd>FloatermToggle<CR>', desc = "Terminal(s) in a floating window"},
             {'<leader><Esc>', [[<C-\><C-n>]], mode = 't', desc = "Terminal Normal mode" },
-            {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't', desc = "Hide terminal" },
-            {
-                '<leader>tg',
-                function()
-                    require('toggleterm.terminal').Terminal:new({
-                        display_name = 'GitUI',
-                        cmd = 'gitui',
-                        hidden = true,
-                        direction = 'float',
-                    }):toggle()
-                end,
-                desc = "GitUI in float terminal",
-            }
+            {'<Esc><Esc>', '<cmd>FloatermToggle<CR>', mode = 't', desc = "Hide terminal" },
         },
         opts = {
-            size = function(term)
-                if term.direction == 'horizontal' then return vim.o.lines * 0.4
-                elseif term.direction == 'vertical' then return vim.o.columns * 0.4
-                end
-            end,
-            float_opts = {
-                width = function() return math.floor(vim.o.columns * 0.9) end,
-                height = function() return math.floor(vim.o.lines * 0.9) end,
-                border = 'curved',
-                title_pos = 'center',
+            size = { h = 80, w = 80 },
+            terminals = {
+                { name = "Scratch" },
+                { name = "GitUI", cmd = "gitui"},
             },
         },
+        cmd = "FloatermToggle",
     },
+
+    -- {
+    --     'akinsho/toggleterm.nvim',
+    --     cmd = 'ToggleTerm',
+    --     keys = {
+    --         {'<leader>tf', '<cmd>ToggleTerm direction=float name=" Scratch "<CR>', desc = "Terminal in float window"},
+    --         {'<leader>th', '<cmd>ToggleTerm direction=horizontal name=" Scratch "<CR>', desc = "Terminal in horizontal split"},
+    --         {'<leader>tv', '<cmd>ToggleTerm direction=vertical name=" Scratch "<CR>', desc = "Terminal in vertical split"},
+    --         {'<leader><Esc>', [[<C-\><C-n>]], mode = 't', desc = "Terminal Normal mode" },
+    --         {'<Esc><Esc>', '<cmd>ToggleTerm<CR>', mode = 't', desc = "Hide terminal" },
+    --         {
+    --             '<leader>tg',
+    --             function()
+    --                 require('toggleterm.terminal').Terminal:new({
+    --                     display_name = 'GitUI',
+    --                     cmd = 'gitui',
+    --                     hidden = true,
+    --                     direction = 'float',
+    --                 }):toggle()
+    --             end,
+    --             desc = "GitUI in float terminal",
+    --         }
+    --     },
+    --     opts = {
+    --         size = function(term)
+    --             if term.direction == 'horizontal' then return vim.o.lines * 0.4
+    --             elseif term.direction == 'vertical' then return vim.o.columns * 0.4
+    --             end
+    --         end,
+    --         float_opts = {
+    --             width = function() return math.floor(vim.o.columns * 0.9) end,
+    --             height = function() return math.floor(vim.o.lines * 0.9) end,
+    --             border = 'curved',
+    --             title_pos = 'center',
+    --         },
+    --     },
+    -- },
 
     {
         'simondrake/decorated_yank',
