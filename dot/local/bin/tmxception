@@ -6,12 +6,17 @@ alias tmux='tmux -L default'
 session_name="$(tmux display-message -p -F '#{session_name}')"
 
 popup_name="tmxception-${1:-scratch}"
-shift
-exec_cmd=${@:-zsh -l}
 
-[ -n "${debug}" ] && echo "tmxception: session_name = ${session_name}, popup_name = ${popup_name}" >> /tmp/tmxception
+if [ $# -gt 1 ]; then
+    [ -n "${debug}" ] && echo "tmxception: shift" >> /tmp/tmxception
+    shift 1
+fi
 
-if [ "${session_name}" == "${popup_name}" ];then
+exec_cmd=${*:-zsh -l}
+
+[ -n "${debug}" ] && echo "tmxception: session_name = ${session_name}, popup_name = ${popup_name}, exec_cmd = ${exec_cmd}" >> /tmp/tmxception
+
+if [ "${session_name}" == "${popup_name}" ]; then
     [ -n "${debug}" ] && echo "tmxception: caught inside intended popup. Detaching..." >> /tmp/tmxception
     tmux detach-client
 else
