@@ -1,4 +1,5 @@
 # Zsh configuration
+setopt EXTENDED_HISTORY # Record timestamp of command in HISTFILE
 setopt HIST_IGNORE_ALL_DUPS # Remove older command from the history if a duplicate is to be added.
 setopt SHARE_HISTORY # Share history between all zsh sessions
 setopt INC_APPEND_HISTORY # Write to history immediately, not on exit
@@ -7,6 +8,7 @@ setopt HIST_FIND_NO_DUPS # Don't show duplicates when searching
 setopt HIST_REDUCE_BLANKS # Remove extra blanks before recording
 HISTSIZE=50000 # Increase history size
 SAVEHIST=50000 # Save 50k lines to disk
+HISTORY_IGNORE="(ls|cd|cd ..|pwd|z|z *|exit|clear|history|.n|.z|.x|.rc|.w|.m|.ml|.gc|.gcl|.gi|.me|.p|.t|.v|.zm|.bin|.dot|gs|gl|gd|gss|gsi|gbr|gbrn|ll|la|lla|tree|which|lookup|lu|tml)" # Don't save these commands to history file
 bindkey -e # Set editor default keymap to emacs (`-e`) or vi (`-v`)
 setopt CORRECT # Prompt for spelling correction of commands.
 SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? ' # Customize spelling correction prompt.
