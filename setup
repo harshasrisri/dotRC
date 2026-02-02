@@ -12,30 +12,19 @@ fatal () {
     exit
 }
 
-ensure_installed() {
-    if [ ! -x "$(command -v "$1")" ]; then
-        echo "Program '$1' not found. Is it installed and in \$PATH?"
-        setup_can_continue=0
-        return
-    fi
-    echo "$1: installed"
-}
-
 check_dependencies() {
-    setup_can_continue=1
-
     for dep in "$@"; do
-        ensure_installed "$dep"
+        if [ ! -x "$(command -v "$dep")" ]; then
+            echo "WARNING: Program '$dep' not found. Ensure it is installed and in \$PATH"
+            return
+        fi
+        echo "$dep: installed"
     done
-
-    if [ $setup_can_continue -eq 0 ]; then
-        fatal "Dependencies not met. Aborting"
-    fi
 }
 
 update_repo() {
     echo "Updating Repo . . . "
-    if ! git pull --quiet; then
+    if ! git pull --rebase --autostash --quiet; then
         fatal "git pull failed. Can't update repo"
     fi
 
@@ -193,8 +182,8 @@ elif [[ -n "$subcommand" ]]; then
 fi
 
 # Normal mode - create symlinks
-check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta zoxide
 update_repo
 make_links
+check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta zoxide
 
 echo "Done!"
