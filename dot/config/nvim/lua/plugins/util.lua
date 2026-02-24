@@ -4,6 +4,7 @@ return {
 
     {
         'lewis6991/gitsigns.nvim',
+        event = 'VeryLazy',
         keys = {
             -- Actions
             { '<leader>gR', '<cmd>Gitsigns reset_buffer<CR>',    desc = "Git reset buffer" },
@@ -223,35 +224,6 @@ return {
             statuscolumn = { enabled = true },
             toggle = { enabled = true },
             words = { enabled = true },
-        },
-    },
-
-    {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        opts = {
-            suggestion = { enabled = false },
-        }
-    },
-
-    {
-        "CopilotC-Nvim/CopilotChat.nvim",
-        cmd = { 'CopilotChat', 'CopilotChatToggle', 'CopilotChatOpen' },
-        dependencies = {
-            { "zbirenbaum/copilot.lua" },
-            { "nvim-lua/plenary.nvim", branch = "master" },
-        },
-        build = "make tiktoken",
-        opts = {
-            model = 'claude-sonnet-4.5',
-            context = 'workspace',
-            allow_tools = true,
-            headers = {
-                user = '👤 You',
-                assistant = '🤖 Copilot',
-                tool = '🔧 Tool',
-            },
         },
     },
 }

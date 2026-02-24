@@ -1,10 +1,9 @@
 {
-  "CopilotChat.nvim": { "branch": "main", "commit": "743d6005fb412c85309d3f3aa45f18f3a2fb2098" },
   "actions-preview.nvim": { "branch": "master", "commit": "cb938c25edaac38d362555f19244a9cb85d561e8" },
   "barbecue.nvim": { "branch": "main", "commit": "3e31404f0b93a2c30d151abf0648650ac811c664" },
   "blink.cmp": { "branch": "main", "commit": "4b18c32adef2898f95cdef6192cbd5796c1a332d" },
   "ccls.nvim": { "branch": "main", "commit": "4b258c269d58cc5e37e55cf2316074e2740e5f57" },
-  "copilot.lua": { "branch": "master", "commit": "5c01badd42049a63ac9e5d6c8ea85aaf66cb940f" },
+  "codecompanion.nvim": { "branch": "main", "commit": "558518f8d78a44198cd428f6bf8bf48bfa38d76d" },
   "decorated_yank": { "branch": "main", "commit": "1aba0e0b89846148570e796a36d29460b644c005" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "floaterm": { "branch": "main", "commit": "fc2efaf25eeefcb33177d5807c0c745e125cf293" },
