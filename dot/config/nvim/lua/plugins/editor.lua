@@ -14,7 +14,6 @@ return {
         end,
         init = function()
             vim.g.mkdp_filetypes = { "markdown" }
-            -- vim.g.mkdp_auto_start = 1
             vim.g.mkdp_auto_close = 0
             vim.g.mkdp_combine_preview = 1
             vim.g.mkdp_theme = 'light'
@@ -36,9 +35,8 @@ return {
 
     {
         'MeanderingProgrammer/render-markdown.nvim',
+        ft = { "markdown" },
         dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-        ---@module 'render-markdown'
-        ---@type render.md.UserConfig
         opts = {
             completions = { lsp = { enabled = true } },
             preset = 'obsidian',
@@ -122,7 +120,6 @@ return {
 
     {
         'chrisgrieser/nvim-spider',
-        lazy = true,
         keys = {
             {"w", "<cmd>lua require('spider').motion('w')<CR>", mode = {"n", "o", "x"}},
             {"e", "<cmd>lua require('spider').motion('e')<CR>", mode = {"n", "o", "x"}},
@@ -146,7 +143,6 @@ return {
 
     {
         'yorickpeterse/nvim-window',
-        lazy = true,
         keys = { { '-', function () require('nvim-window').pick() end }, },
         opts = {
             chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', },
@@ -167,7 +163,6 @@ return {
 
     {
         'ggandor/leap.nvim',
-        event = 'BufReadPost',
         keys = {
             { 'gl', '<Plug>(leap-anywhere)', desc = "Go leap anywhere", mode = "n" },
             { 'gl', '<Plug>(leap)', desc = "Leap in buffer", mode = {"o", "x"}},

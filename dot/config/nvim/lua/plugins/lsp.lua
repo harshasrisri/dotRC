@@ -1,6 +1,17 @@
 -- populate completion engine with language specific LSP capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+local _capabilities
+local function get_capabilities()
+    if _capabilities then return _capabilities end
+    local caps = vim.lsp.protocol.make_client_capabilities()
+
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok and blink and blink.get_lsp_capabilities then
+        caps = vim.tbl_deep_extend("force", caps, blink.get_lsp_capabilities({}, false))
+    end
+
+    _capabilities = caps
+    return _capabilities
+end
 
 return {
     { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
@@ -10,22 +21,24 @@ return {
         'ranjithshegde/ccls.nvim',
         ft = { 'c', 'cpp'},
         dependencies = { 'nvim-lspconfig' },
-        opts = {
-            codelens = {
-                enable = true,
-                events = { 'BufWritePost', 'InsertLeave' },
-            },
-            lsp = {
-                lspconfig = {
-                    capabilities = capabilities,
-                    flags = { debounce_text_changes = 150 },
-                    init_options = {
-                        index = { threads = 16 },
-                        highlight = { lsRanges = true },
-                    },
+        opts = function ()
+            return {
+                codelens = {
+                    enable = true,
+                    events = { 'BufWritePost', 'InsertLeave' },
+                },
+                lsp = {
+                    lspconfig = {
+                        capabilities = get_capabilities(),
+                        flags = { debounce_text_changes = 150 },
+                        init_options = {
+                            index = { threads = 16 },
+                            highlight = { lsRanges = true },
+                        },
+                    }
                 }
             }
-        }
+        end
     },
 
     {
@@ -44,7 +57,7 @@ return {
             })
             require("go").setup ({
                 lsp_keymaps = false,
-                lsp_cfg = { capabilities = capabilities },
+                lsp_cfg = { capabilities = get_capabilities() },
             })
         end
     },
@@ -88,7 +101,7 @@ return {
                     local lsp_name = pack.spec.neovim.lspconfig
                     if (lsp_name == 'rust_analyzer' or lsp_name == 'gopls') then return acc end
                     table.insert(acc, lsp_name)
-                    vim.lsp.config[lsp_name].capabilities = capabilities
+                    vim.lsp.config[lsp_name].capabilities = get_capabilities()
                 end
                 return acc
             end)
@@ -133,6 +146,7 @@ return {
 
     {
         'WhoIsSethDaniel/mason-tool-installer.nvim',
+        cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
         dependencies = { 'mason-org/mason.nvim' },
         opts = {
             ensure_installed = {
