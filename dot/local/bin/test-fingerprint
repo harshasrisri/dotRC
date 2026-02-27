@@ -1,0 +1,134 @@
+#!/bin/bash
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo "========================================"
+echo "Fingerprint Authentication Test Script"
+echo "========================================"
+echo ""
+
+# Check if fprintd is installed
+echo -n "Checking if fprintd is installed... "
+if pacman -Qi fprintd &> /dev/null; then
+    echo -e "${GREEN}OK${NC}"
+else
+    echo -e "${RED}FAILED${NC}"
+    echo "  Install with: sudo pacman -S fprintd"
+    exit 1
+fi
+
+# Check if fprintd service exists (it's DBus-activated, not always running)
+echo -n "Checking if fprintd service exists... "
+if systemctl list-unit-files | grep -q fprintd.service; then
+    echo -e "${GREEN}OK${NC}"
+else
+    echo -e "${RED}FAILED${NC}"
+    echo "  fprintd.service not found"
+    exit 1
+fi
+
+# Check if fprintd can be activated
+echo -n "Checking if fprintd daemon is accessible... "
+if fprintd-list "$USER" &> /dev/null || systemctl status fprintd.service &> /dev/null; then
+    echo -e "${GREEN}OK${NC}"
+else
+    echo -e "${YELLOW}WARNING${NC}"
+    echo "  fprintd daemon may not be running (this is normal, it starts on-demand via DBus)"
+fi
+
+# Check for enrolled fingerprints
+echo -n "Checking for enrolled fingerprints... "
+ENROLLED=$(fprintd-list "$USER" 2>/dev/null | grep -c "finger")
+if [ "$ENROLLED" -gt 0 ]; then
+    echo -e "${GREEN}OK${NC} ($ENROLLED finger(s) enrolled)"
+else
+    echo -e "${RED}FAILED${NC}"
+    echo "  No fingerprints enrolled. Run: fprintd-enroll"
+    exit 1
+fi
+
+# Check PAM sudo configuration
+echo -n "Checking /etc/pam.d/sudo configuration... "
+if [ -f /etc/pam.d/sudo ]; then
+    if grep -q "pam_fprintd.so" /etc/pam.d/sudo; then
+        echo -e "${GREEN}OK${NC}"
+        
+        # Check if fprintd comes before unix
+        FPRINTD_LINE=$(grep -n "pam_fprintd.so" /etc/pam.d/sudo | head -1 | cut -d: -f1)
+        UNIX_LINE=$(grep -n "pam_unix.so" /etc/pam.d/sudo | head -1 | cut -d: -f1)
+        
+        if [ -n "$FPRINTD_LINE" ] && [ -n "$UNIX_LINE" ]; then
+            if [ "$FPRINTD_LINE" -lt "$UNIX_LINE" ]; then
+                echo -e "  ${GREEN}✓${NC} pam_fprintd.so is checked before pam_unix.so (correct order)"
+            else
+                echo -e "  ${YELLOW}⚠${NC} pam_fprintd.so comes after pam_unix.so (may prompt for password first)"
+            fi
+        fi
+        
+        # Check for max_tries and timeout parameters
+        if grep "pam_fprintd.so" /etc/pam.d/sudo | grep -q "max_tries"; then
+            echo -e "  ${GREEN}✓${NC} max_tries parameter found"
+        else
+            echo -e "  ${YELLOW}⚠${NC} max_tries parameter not set (recommended: max_tries=1)"
+        fi
+        
+        if grep "pam_fprintd.so" /etc/pam.d/sudo | grep -q "timeout"; then
+            echo -e "  ${GREEN}✓${NC} timeout parameter found"
+        else
+            echo -e "  ${YELLOW}⚠${NC} timeout parameter not set (recommended: timeout=10)"
+        fi
+    else
+        echo -e "${RED}FAILED${NC}"
+        echo "  pam_fprintd.so not found in /etc/pam.d/sudo"
+        exit 1
+    fi
+else
+    echo -e "${RED}FAILED${NC}"
+    echo "  /etc/pam.d/sudo does not exist"
+    exit 1
+fi
+
+# Check PAM polkit configuration for GUI prompts
+echo -n "Checking /etc/pam.d/polkit-1 configuration... "
+if [ -f /etc/pam.d/polkit-1 ]; then
+    if grep -q "pam_fprintd.so" /etc/pam.d/polkit-1; then
+        echo -e "${GREEN}OK${NC}"
+    else
+        echo -e "${YELLOW}WARNING${NC}"
+        echo "  pam_fprintd.so not found in /etc/pam.d/polkit-1"
+        echo "  GUI sudo prompts will not use fingerprint"
+    fi
+else
+    echo -e "${YELLOW}WARNING${NC}"
+    echo "  /etc/pam.d/polkit-1 does not exist"
+    echo "  GUI sudo prompts may not use fingerprint"
+fi
+
+# Test fingerprint verification
+echo ""
+echo "========================================"
+echo "Testing fingerprint verification..."
+echo "========================================"
+echo "Please scan your enrolled finger when prompted:"
+echo ""
+
+if fprintd-verify &> /dev/null; then
+    echo -e "${GREEN}✓ Fingerprint verification successful!${NC}"
+else
+    echo -e "${RED}✗ Fingerprint verification failed${NC}"
+    echo "  Make sure your finger is clean and properly placed on the reader"
+fi
+
+echo ""
+echo "========================================"
+echo "Configuration Summary"
+echo "========================================"
+echo ""
+echo "Current /etc/pam.d/sudo configuration:"
+grep -E "pam_fprintd|pam_unix" /etc/pam.d/sudo | head -5
+echo ""
+echo "Test complete!"
