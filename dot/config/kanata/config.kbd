@@ -1,0 +1,66 @@
+;; Kanata configuration converted from KMonad
+(defcfg
+  linux-dev /dev/input/event3
+  ;; Kanata doesn't have compose key support built-in like kmonad's cmp-seq
+  ;; You'll need to handle compose key separately via X11/Wayland settings
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rctl left down up   rght
+)
+
+(defalias
+  ;; tap-next in kmonad = tap-hold-press in kanata
+  ;; tap-hold-press activates hold on any other key press
+  xct (tap-hold-press 200 200 esc rctl)
+
+  ;; All tap-hold actions converted from kmonad format
+  ;; Syntax: (tap-hold tap-timeout hold-timeout tap-action hold-action)
+  grv (tap-hold 200 222 grv S-grv)
+  1 (tap-hold 200 222 1 S-1)
+  2 (tap-hold 200 222 2 S-2)
+  3 (tap-hold 200 222 3 S-3)
+  4 (tap-hold 200 222 4 S-4)
+  5 (tap-hold 200 222 5 S-5)
+  6 (tap-hold 200 222 6 S-6)
+  7 (tap-hold 200 222 7 S-7)
+  8 (tap-hold 200 222 8 S-8)
+  9 (tap-hold 200 222 9 S-9)
+  0 (tap-hold 200 222 0 S-0)
+  min (tap-hold 200 222 - S--)
+  eql (tap-hold 200 222 = S-=)
+  lbr (tap-hold 200 222 [ S-[)
+  rbr (tap-hold 200 222 ] S-])
+  sem (tap-hold 200 222 ; S-;)
+  com (tap-hold 200 222 , S-,)
+  dot (tap-hold 200 222 . S-.)
+  sls (tap-hold 200 222 / S-/)
+  bsl (tap-hold 200 222 \ S-\)
+  apo (tap-hold 200 222 ' S-')
+
+  ;; layer-toggle becomes layer-while-held in kanata
+  nvl (layer-while-held NaviLay)
+)
+
+(deflayer default
+  esc  _    _    _    _    _    _    _    _    _    _    _    _    ins
+  @grv @1   @2   @3   @4   @5   @6   @7   @8   @9   @0   @min @eql bspc
+  tab  q    w    e    r    t    y    u    i    o    p    @lbr @rbr @bsl
+  @nvl a    s    d    f    g    h    j    k    l    @sem @apo ret
+  lsft z    x    c    v    b    n    m    @com @dot @sls rsft
+  lctl lalt lmet           spc            @xct rmet left down up   rght
+)
+
+(deflayer NaviLay
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    _    _    _    _    _    home pgdn pgup end  _    _    _    _
+  _    _    _    _    _    _    left down up   rght _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _    _    _
+)
