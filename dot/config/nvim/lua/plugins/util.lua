@@ -175,9 +175,9 @@ return {
                 {
                     "<leader>//",
                     function()
-                        snacks.input({ win = { row = 0.33 }, prompt = "Search for > " }, function(input)
+                        snacks().input({ win = { row = 0.33 }, prompt = "Search for > " }, function(input)
                             if (input == "") then return end
-                            snacks.picker.grep({ regex = false, search = input, live = false })
+                            snacks().picker.grep({ regex = false, search = input, live = false })
                         end)
                     end,
                     desc = "Search with ripgrep",
