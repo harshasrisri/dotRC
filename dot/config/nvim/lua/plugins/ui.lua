@@ -14,6 +14,7 @@ return {
     {
         "sho-87/kanagawa-paper.nvim",
         lazy = false,
+        priority = 1000,
         opts = {
             gutter = true,
             dim_inactive = true,
@@ -26,6 +27,7 @@ return {
 
     {
         'nvim-lualine/lualine.nvim',
+        event = 'VeryLazy',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {
             options = {
