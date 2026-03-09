@@ -114,11 +114,17 @@ return {
         opts = {
             domains = {
                 github = {
-                    url = "github.com",
+                    url = os.getenv("NVIM_DECORATED_YANK_GITHUB_URL") or "github.com",
                     blob = "/blob/",
                     blame = "/blame/",
                     line_format = "#L%s-L%s",
                 },
+                gitlab = {
+                    url = os.getenv("NVIM_DECORATED_YANK_GITLAB_URL") or "gitlab.com",
+                    blob = "/-/blob/",
+                    blame = "/-/blame/",
+                    line_format = "#L%s-%s",
+                }
             }
         },
     },
