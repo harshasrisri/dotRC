@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 
 config.scrollback_lines = 100000
 
-require("ui")(config)
+require("fancy_ui")(config)
 require("keymap")(config)
 
 local status, local_config = pcall(require, "local")
