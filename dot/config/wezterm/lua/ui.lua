@@ -81,21 +81,17 @@ local function set_status()
             local nf = wezterm.nerdfonts
 
             -- Left Status - Show mode indicators
-            local domain = wezterm.mux.get_domain()
-            local domain_name = domain and domain:name() or 'unknown'
-            local left_seg = nf.md_remote_desktop .. '  Dom: ' .. string.upper(domain_name)
-            local left_bg = 'indianred'
-
             -- Check for copy mode or other pane modes
             local pane = window:active_pane()
             local mode = pane:get_user_vars().wezterm_mode
 
+            local left_seg = nf.md_alpha_n_box .. '  NORMAL'
+            local left_bg = 'indianred'
+
             if mode and mode ~= '' then
-                -- Show mode prominently (e.g., COPY, SEARCH)
                 left_seg = nf.md_content_copy .. ' ' .. string.upper(mode)
                 left_bg = 'orange'
             else
-                -- Check for active key table
                 local key_tbl = window:active_key_table()
                 if key_tbl then
                     left_seg = nf.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
