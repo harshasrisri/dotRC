@@ -54,7 +54,7 @@ local function format_tab_bar(config)
                 end
             end
 
-            local tab_bg, tab_fg, intensity, italic = common.tab_style(tab, hover)
+            local tab_bg, tab_fg, intensity, italic = common.tab_style(tab, false)
             return format_segment(tab_bg, tab_fg, tab_info, intensity, italic)
         end)
 

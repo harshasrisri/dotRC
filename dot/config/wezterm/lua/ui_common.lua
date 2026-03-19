@@ -147,7 +147,7 @@ end
 
 -- Returns tab_bg, tab_fg, intensity, italic based on tab state
 function M.tab_style(tab, hover)
-    local tab_bg = 'black'
+    local tab_bg = '#2a2020'
     local tab_fg = 'coral'
     local intensity = 'Normal'
     local italic = true

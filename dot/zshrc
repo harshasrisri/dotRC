@@ -75,7 +75,14 @@ bindkey -M vicmd 'j' history-substring-search-down
 POWERLEVEL9K_DISABLE_TERM_TITLE=true
 
 # Set terminal title to  + pwd
-_set_term_title() { print -Pn "\e]0;󱆃 %~\a" }
+_set_term_title() {
+    local cwd=${PWD/#$HOME/󰜥}
+    if [ -n "$SSH_CLIENT" ]; then
+        print -n "\e]0;󰣀 $cwd\a"
+    else
+        print -n "\e]0;󱆃 $cwd\a"
+    fi
+}
 add-zsh-hook precmd _set_term_title
 
 # Initialize zoxide
