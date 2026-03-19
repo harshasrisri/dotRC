@@ -6,6 +6,7 @@ local config = wezterm.config_builder()
 
 config.scrollback_lines = 100000
 
+-- require("retro_ui")(config)
 require("fancy_ui")(config)
 require("keymap")(config)
 
