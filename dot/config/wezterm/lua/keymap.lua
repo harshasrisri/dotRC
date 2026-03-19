@@ -117,6 +117,15 @@ local function init(config)
             }),
         }
     }
+
+    if wezterm.gui then
+        local copy_mode = wezterm.gui.default_key_tables().copy_mode
+        table.insert(copy_mode, map(backtick, 'NONE', action.Multiple {
+            action.CopyMode 'Close',
+            action.ActivateKeyTable { name = 'leader_keys', timeout_milliseconds = 1000 },
+        }))
+        config.key_tables.copy_mode = copy_mode
+    end
 end
 
 return init
