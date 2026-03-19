@@ -16,7 +16,7 @@ return {
             vim.g.mkdp_filetypes = { "markdown" }
             vim.g.mkdp_auto_close = 0
             vim.g.mkdp_combine_preview = 1
-            vim.g.mkdp_theme = 'light'
+            vim.g.mkdp_theme = 'dark'
             vim.g.mkdp_refresh_slow = 1
             -- if vim.loop.os_uname().sysname == 'Darwin' then
             --     vim.g.mkdp_browser = 'safari'
@@ -41,6 +41,12 @@ return {
             completions = { lsp = { enabled = true } },
             preset = 'obsidian',
         },
+    },
+
+    {
+        "yousefhadder/markdown-plus.nvim",
+        ft = "markdown",
+        opts = {},
     },
 
     {
