@@ -88,14 +88,28 @@ local function set_status()
             local left_seg = nf.md_alpha_n_box .. '  NORMAL'
             local left_bg = 'indianred'
 
+            local key_tbl_display = {
+                leader_keys  = { label = 'LEADER',  bg = 'indianred',      icon = nf.md_keyboard },
+                resize_panes = { label = 'RESIZE',   bg = 'steelblue',      icon = nf.md_resize },
+                split_pane   = { label = 'SPLIT',    bg = 'mediumseagreen', icon = nf.md_view_split_vertical },
+                quick_select = { label = 'SELECT',   bg = 'mediumpurple',   icon = nf.md_cursor_text },
+                copy_mode    = { label = 'COPY',     bg = 'orange',         icon = nf.md_content_copy },
+            }
+
             if mode and mode ~= '' then
                 left_seg = nf.md_content_copy .. ' ' .. string.upper(mode)
                 left_bg = 'orange'
             else
                 local key_tbl = window:active_key_table()
                 if key_tbl then
-                    left_seg = nf.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
-                    left_bg = 'purple'
+                    local display = key_tbl_display[key_tbl]
+                    if display then
+                        left_seg = display.icon .. ' ' .. display.label
+                        left_bg = display.bg
+                    else
+                        left_seg = nf.md_table_of_contents .. ' ' .. string.upper(key_tbl):gsub('_', ' ')
+                        left_bg = 'purple'
+                    end
                 end
             end
 
