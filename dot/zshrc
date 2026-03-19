@@ -72,6 +72,11 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # Load p10k config (to customize, run `p10k configure` or edit ~/.p10k.zsh)
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+POWERLEVEL9K_DISABLE_TERM_TITLE=true
+
+# Set terminal title to  + pwd
+_set_term_title() { print -Pn "\e]0;󱆃 %~\a" }
+add-zsh-hook precmd _set_term_title
 
 # Initialize zoxide
 if command -v zoxide >/dev/null 2>&1; then
