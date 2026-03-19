@@ -40,7 +40,7 @@ local function format_tab_bar(config)
     config.colors = {
         tab_bar = {
             background = common.TAB_BAR_BG,
-            inactive_tab_edge = '#444444',
+            inactive_tab_edge = '#3a2820',
         },
     }
 

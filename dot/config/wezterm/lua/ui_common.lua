@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 
 local M = {}
 
-M.TAB_BAR_BG = '#222222'
+M.TAB_BAR_BG = '#110e08'
 M.color_scheme = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/oxide.toml")
 
 function M.base_config(config)
@@ -167,19 +167,19 @@ end
 
 -- Returns tab_bg, tab_fg, intensity, italic based on tab state
 function M.tab_style(tab, hover)
-    local tab_bg = '#2a2020'
-    local tab_fg = 'coral'
+    local tab_bg = '#2a1e1a'
+    local tab_fg = '#c47a5a'
     local intensity = 'Normal'
     local italic = true
 
     if tab.is_active then
-        tab_bg = 'coral'
-        tab_fg = 'black'
+        tab_bg = '#e8714a'
+        tab_fg = '#0e0c08'
         intensity = 'Bold'
         italic = false
     elseif hover then
-        tab_fg = '#444444'
-        tab_bg = 'lightgoldenrod'
+        tab_fg = '#1a1208'
+        tab_bg = '#c8a050'
         intensity = 'Normal'
         italic = false
     end
