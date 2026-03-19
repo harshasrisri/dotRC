@@ -106,9 +106,24 @@ local function set_status()
             window:set_left_status(wezterm.format(format_element(Left, left_bg, 'black', left_seg, 'Normal', false)))
 
             -- Right Status
+            local util = require('util')
+            local cwd = window:active_pane():get_current_working_dir()
+            local cwd_str = nf.md_home
+            if cwd then
+                local cwd_path = cwd.file_path or tostring(cwd)
+                if type(cwd_path) == 'string' then
+                    local smart = util.smart_cwd(cwd_path, wezterm.home_dir)
+                    if smart == '~' then
+                        cwd_str = nf.md_home
+                    else
+                        cwd_str = smart
+                    end
+                end
+            end
+
             local colors = { 'gold', 'orange', 'indianred' }
             local segments = {
-                nf.oct_device_desktop .. '  WS: ' .. window:active_workspace(),
+                nf.cod_folder .. '  ' .. cwd_str,
                 string.format('%s %s %s %s', nf.cod_calendar, wezterm.strftime('%a %b %-d'), nf.fa_clock_o, wezterm.strftime('%H:%M:%S')),
                 'Wez ' .. nf.dev_terminal
             }
@@ -154,31 +169,14 @@ local function format_tab_bar(config)
             local tab_id = tonumber(tab.tab_index) + 1
             local util = require('util')
 
-            -- Get working directory
-            local cwd = tab.active_pane.current_working_dir
-            local cwd_str = ''
-            if cwd then
-                local cwd_path = cwd.file_path or cwd
-                if type(cwd_path) == 'string' then
-                    cwd_str = util.smart_cwd(cwd_path, wezterm.home_dir)
-                end
-            end
-
             -- Get process name
             local process = util.basename(tab.active_pane.foreground_process_name) or 'shell'
 
-            -- Build tab info with both process and cwd
-            local tab_info = ''
-            if cwd_str and #cwd_str > 0 then
-                tab_info = string.format('%s(%s)', process, cwd_str)
-            else
-                -- Fallback to process name only
-                tab_info = process
+            local tab_info = process
+            if not tab_info or #tab_info == 0 then
+                tab_info = tab.tab_title
                 if not tab_info or #tab_info == 0 then
-                    tab_info = tab.tab_title
-                    if not tab_info or #tab_info == 0 then
-                        tab_info = tab.active_pane.title or 'unknown'
-                    end
+                    tab_info = tab.active_pane.title or 'unknown'
                 end
             end
 
