@@ -77,9 +77,7 @@ POWERLEVEL9K_DISABLE_TERM_TITLE=true
 # Set terminal title to  + pwd
 _set_term_title() {
     local cwd=${PWD/#$HOME/󰜥}
-    if [ -n "$SSH_CLIENT" ]; then
-        print -n "\e]0;󰣀 $cwd\a"
-    else
+    if [ -z "$SSH_CLIENT" ]; then
         print -n "\e]0;󱆃 $cwd\a"
     fi
 }

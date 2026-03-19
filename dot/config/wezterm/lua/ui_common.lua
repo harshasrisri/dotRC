@@ -113,26 +113,46 @@ function M.resolve_mode(window)
     return left_seg, left_bg
 end
 
--- Returns cwd_display string (home icon at ~, folder icon + path elsewhere)
+-- Parses a terminal title set by a remote shell, e.g. "user@hostname: /path" or "hostname: /path"
+-- Returns hostname, cwd (both strings, or nil if pattern not matched)
+function M.parse_ssh_title(title)
+    if not title then return nil, nil end
+    local host, cwd = title:match('^[^@]+@([^:]+):%s*(.+)$')
+    if not host then
+        host, cwd = title:match('^([^:]+):%s*(.+)$')
+    end
+    return host, cwd
+end
+
+-- Returns cwd_display string.
+-- If foreground process is ssh, shows SSH icon + hostname parsed from pane title.
+-- Otherwise shows home icon at ~, folder icon + path elsewhere.
 function M.resolve_cwd(window)
     local nf = wezterm.nerdfonts
     local util = require('util')
 
-    local cwd = window:active_pane():get_current_working_dir()
-    local cwd_str = nf.md_home
+    local pane = window:active_pane()
+    local proc = pane:get_foreground_process_info()
+
+    if proc and util.basename(proc.name) == 'ssh' then
+        local host, _ = M.parse_ssh_title(pane:get_title())
+        return nf.md_ssh .. '  ' .. (host or 'ssh')
+    end
+
+    local cwd = pane:get_current_working_dir()
     if cwd then
         local cwd_path = cwd.file_path or tostring(cwd)
         if type(cwd_path) == 'string' then
             local smart = util.smart_cwd(cwd_path, wezterm.home_dir)
             if smart == '~' then
-                cwd_str = nf.md_home
+                return nf.md_home
             else
-                cwd_str = smart
+                return nf.cod_folder .. '  ' .. smart
             end
         end
     end
 
-    return cwd_str == nf.md_home and cwd_str or nf.cod_folder .. '  ' .. cwd_str
+    return nf.md_home
 end
 
 -- Returns segments table, colors table for the right status bar

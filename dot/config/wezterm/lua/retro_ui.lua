@@ -78,11 +78,17 @@ local function format_tab_bar(config)
             local tab_id = tonumber(tab.tab_index) + 1
             local process = util.basename(tab.active_pane.foreground_process_name) or 'shell'
 
-            local tab_info = process
-            if not tab_info or #tab_info == 0 then
-                tab_info = tab.tab_title
+            local tab_info
+            if process == 'ssh' then
+                local _, cwd = common.parse_ssh_title(tab.active_pane.title)
+                tab_info = nf.md_ssh .. '  ' .. (cwd or 'ssh')
+            else
+                tab_info = process
                 if not tab_info or #tab_info == 0 then
-                    tab_info = tab.active_pane.title or 'unknown'
+                    tab_info = tab.tab_title
+                    if not tab_info or #tab_info == 0 then
+                        tab_info = tab.active_pane.title or 'unknown'
+                    end
                 end
             end
 
