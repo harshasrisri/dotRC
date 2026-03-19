@@ -134,8 +134,8 @@ local function set_status()
             local colors = { 'gold', 'orange', 'indianred' }
             local segments = {
                 nf.cod_folder .. '  ' .. cwd_str,
-                string.format('%s %s %s %s', nf.cod_calendar, wezterm.strftime('%a %b %-d'), nf.fa_clock_o, wezterm.strftime('%H:%M:%S')),
-                'Wez ' .. nf.dev_terminal
+                nf.cod_calendar .. ' ' .. wezterm.strftime('%a %b %-d'),
+                nf.fa_clock_o .. ' ' .. wezterm.strftime('%H:%M:%S'),
             }
 
             local right_elements = {}
