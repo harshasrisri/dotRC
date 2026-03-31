@@ -1,4 +1,5 @@
 require('settings')
+require('autocmds')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -30,7 +31,6 @@ require("lazy").setup("plugins", {
 vim.api.nvim_create_autocmd("User", {
     pattern = "VeryLazy",
     callback = function ()
-        require('autocmds')
         require('mappings')
     end,
 })
