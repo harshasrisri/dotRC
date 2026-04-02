@@ -52,7 +52,7 @@ return {
             sections = {
                 lualine_a = {{'mode', fmt = function(s) return s:sub(1,1) end }, {'filename', path = 1}},
                 lualine_b = {{'filetype', icon_only = true}, 'lsp_status'},
-                lualine_c = {{'diagnostics', sources = {'nvim_lsp', 'nvim_diagnostic'}}},
+                lualine_c = {{'diagnostics', sources = {'nvim_diagnostic'}}},
                 lualine_x = {'searchcount', 'filesize'},
                 lualine_y = {'progress', 'location'},
                 lualine_z = {{show_macro_recording}, 'branch'},

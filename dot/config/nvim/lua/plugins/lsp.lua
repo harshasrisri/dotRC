@@ -74,8 +74,8 @@ return {
         'neovim/nvim-lspconfig',
         keys = {
             { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>' },
-            { '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>' },
-            { '<leader>lp', '<cmd>lua vim.diagnostic.goto_prev()<CR>' },
+            { '<leader>ln', '<cmd>lua vim.diagnostic.jump({count=1})<CR>' },
+            { '<leader>lp', '<cmd>lua vim.diagnostic.jump({count=-1})<CR>' },
             { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>' },
             {
                 '<leader>ll',
@@ -89,11 +89,16 @@ return {
         },
         config = function ()
             vim.lsp.inlay_hint.enable(true)
-            local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-            end
+            vim.diagnostic.config({
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = " ",
+                        [vim.diagnostic.severity.WARN]  = " ",
+                        [vim.diagnostic.severity.HINT]  = " ",
+                        [vim.diagnostic.severity.INFO]  = " ",
+                    },
+                },
+            })
 
             local installed_packages = require("mason-registry").get_installed_packages()
             local installed_lsp_names = vim.iter(installed_packages):fold({}, function(acc, pack)

@@ -21,7 +21,7 @@ vim.opt.expandtab     = true                     -- Insert 4 spaces when Tab is 
 vim.opt.formatoptions:append("rn")               -- Auto comment new comment lines, indents for numbered lists
 vim.opt.foldlevel     = 99                       -- Fold levels
 vim.opt.foldmethod    = 'expr'                   -- Fold based on treesitter's fold expr
-vim.opt.foldexpr      = 'nvim_treesitter#foldexpr()'
+vim.opt.foldexpr      = 'v:lua.vim.treesitter.foldexpr()'
 vim.opt.grepprg       = 'rg --vimgrep'           -- use ripgrep's vim mode as grep program
 vim.opt.hidden        = true                     -- Hide closed buffers instead of closing them.
 vim.opt.ignorecase    = true                     -- Ignore case while searching
@@ -40,7 +40,6 @@ vim.opt.smartindent   = true                     --
 vim.opt.splitbelow    = true                     -- Open a new split below the current one
 vim.opt.splitright    = true                     -- Open a new vertical split to the right of the current one
 vim.opt.tabstop       = 4                        -- Show a tabstop as 4 spaces
-vim.opt.termguicolors = true                     -- Set terminal to true colors
 vim.opt.title         = true                     -- Set terminal title to current file
 vim.opt.titlestring   = ' %t'                 -- nvim nerd font icon + basename
 vim.opt.timeoutlen    = 400                      -- Time interval to wait for mapped sequence to complete
