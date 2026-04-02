@@ -73,13 +73,22 @@ return {
     },
 
     {
-        'utilyre/barbecue.nvim',
+        'Bekaboo/dropbar.nvim',
         event = 'BufReadPost',
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons",
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {
+            bar = {
+                enable = function(buf, win, _)
+                    local ft = vim.bo[buf].filetype
+                    local exclude = { gitcommit = true, fterm = true, ['dap-repl'] = true, nvimtree = true }
+                    if exclude[ft] or ft:match('^dapui') then return false end
+                    return not vim.api.nvim_win_get_config(win).zindex
+                end,
+            },
         },
-        opts = { exclude_filetypes = { 'gitcommit', 'fterm', 'dapui*', 'dap-repl', 'nvimtree' } },
+        keys = {
+            { '<leader>lc', function() require('dropbar.api').pick() end,                desc = 'Pick breadcrumb context' },
+        },
     },
 
     {
