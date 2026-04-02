@@ -184,6 +184,6 @@ fi
 # Normal mode - create symlinks
 update_repo
 make_links
-check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta zoxide
+check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta zoxide jq
 
 echo "Done!"

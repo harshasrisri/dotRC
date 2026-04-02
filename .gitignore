@@ -4,3 +4,4 @@
 *.zwc
 .session/
 .docs/
+.agents
