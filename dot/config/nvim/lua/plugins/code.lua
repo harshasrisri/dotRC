@@ -1,4 +1,5 @@
 local leet_arg = "leetcode.nvim"
+local icon_cache = {}
 
 return {
     { 'echasnovski/mini.comment', event = 'BufReadPost', opts = {} },
@@ -88,51 +89,52 @@ return {
         "saghen/blink.cmp",
         event = { 'InsertEnter', 'CmdlineEnter' },
         dependencies = {
-            "rafamadriz/friendly-snippets",
-            { 'onsails/lspkind-nvim', dependencies = 'nvim-lspconfig' },
+            "nvim-tree/nvim-web-devicons",
+            {
+                "L3MON4D3/LuaSnip",
+                dependencies = "rafamadriz/friendly-snippets",
+                config = function()
+                    require("luasnip.loaders.from_vscode").lazy_load()
+                end,
+            },
         },
         version = "1.*",
         opts_extend = { "sources.default" },
         opts = {
-            fuzzy = { implementation = 'prefer_rust' },
+            fuzzy = { implementation = 'prefer_rust_with_warning' },
             signature = { enabled = true },
             cmdline = {
-                completion = { menu = { auto_show = true }},
+                completion = {
+                    menu = { auto_show = true },
+                    list = { selection = { preselect = false, auto_insert = false } },
+                },
+                keymap = {
+                    preset = 'none',
+                    ['<CR>']    = { 'accept', 'fallback' },
+                    ['<Tab>']   = { 'select_next', 'fallback' },
+                    ['<S-Tab>'] = { 'select_prev', 'fallback' },
+                },
             },
+            snippets = { preset = "luasnip" },
             keymap = {
-                preset = 'none',
-                ['<C-e>'] = { 'hide', 'show', 'fallback' },
-                ['<CR>'] = { 'select_and_accept', 'fallback' },
-                ['<Tab>'] = {
-                    function (cmp)
-                        local has_words_before = function()
-                            local col = vim.api.nvim_win_get_cursor(0)[2]
-                            return col ~= 0 and vim.api.nvim_get_current_line():sub(col, col):match("%s") == nil
-                        end
-                        if cmp.is_visible() then 
-                            if has_words_before() then return cmp.select_next() end
-                        end
-                    end,
-                    'snippet_forward',
-                    'fallback',
-                },
-                ['<S-Tab>'] = {
-                    function (cmp)
-                        if cmp.is_visible() then return cmp.select_prev()
-                        elseif cmp.snippet_active() then return cmp.snippet_backward()
-                        else return cmp.fallback() end
-                    end,
-                },
-                ['<Up>']    = { 'select_prev', 'fallback' },
-                ['<Down>']  = { 'select_next', 'fallback' },
-                ['<Right>'] = { 'show_documentation', 'fallback' },
-                ['<Left>']  = { 'hide_documentation', 'fallback' },
-                ['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
-                ['<C-u>']   = { 'scroll_documentation_up', 'fallback' },
-                ['<C-k>']   = { 'show_signature', 'hide_signature', 'fallback' },
+                preset = 'enter',
+                ['<Tab>']   = { 'select_next', 'snippet_forward', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+                ['<C-e>']   = { 'hide', 'show', 'fallback' },
+                ['<C-k>']   = { 'show_documentation', 'hide_documentation', 'fallback' },
             },
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
+                providers = {
+                    buffer = {
+                        min_keyword_length = 3,
+                        opts = {
+                            get_bufnrs = function()
+                                return { vim.api.nvim_get_current_buf() }
+                            end,
+                        },
+                    },
+                },
             },
             completion = {
                 ghost_text = { enabled = true },
@@ -144,27 +146,26 @@ return {
                         components = {
                             kind_icon = {
                                 text = function(ctx)
-                                    local icon = ctx.kind_icon
-                                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                                        local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                                        if dev_icon then icon = dev_icon end
-                                    else
-                                        icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol", })
+                                    if ctx.source_name == "Path" then
+                                        local entry = icon_cache[ctx.label] or { require("nvim-web-devicons").get_icon(ctx.label) }
+                                        icon_cache[ctx.label] = entry
+                                        local dev_icon = entry[1]
+                                        if dev_icon then return dev_icon .. ctx.icon_gap end
                                     end
-                                    return icon .. ctx.icon_gap
+                                    return ctx.kind_icon .. ctx.icon_gap
                                 end,
-
                                 highlight = function(ctx)
-                                    local hl = ctx.kind_hl
-                                    if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                                        local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                                        if dev_icon then hl = dev_hl end
+                                    if ctx.source_name == "Path" then
+                                        local entry = icon_cache[ctx.label] or { require("nvim-web-devicons").get_icon(ctx.label) }
+                                        icon_cache[ctx.label] = entry
+                                        local dev_hl = entry[2]
+                                        if dev_hl then return dev_hl end
                                     end
-                                    return hl
+                                    return ctx.kind_hl
                                 end,
-                            }
-                        }
-                    }
+                            },
+                        },
+                    },
                 },
             },
         },
