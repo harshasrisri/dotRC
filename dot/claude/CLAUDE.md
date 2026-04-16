@@ -41,6 +41,9 @@
 - The subagent returns a structured block — key facts, IDs, decisions, and verbatim quotes for any ambiguous parts — not a lossy prose summary
 - If re-querying the source may be needed, write the full extraction to `.session/extraction-<slug>.md` and read sections on demand via `Read` with offset/limit
 - Main context only receives the structured output
+- In the same vein, try to use pre-existing command line tools like JQ instead of writing ad-hoc Python scripts.
+    - Check for other similar tools that could make the job easier or do the task better.
+    - Ask for it to be installed and made available if not already present.
 
 ### Context Efficiency
 - When running bash commands, pipe output through grep/head/tail where possible

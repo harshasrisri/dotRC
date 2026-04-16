@@ -41,6 +41,9 @@
 - The subagent returns a structured block — key facts, IDs, decisions, and verbatim quotes for any ambiguous parts — not a lossy prose summary
 - If re-querying the source may be needed, write the full extraction to `.session/extraction-<slug>.md` and read sections on demand via `Read` with offset/limit
 - Main context only receives the structured output
+- In the same vein, try to use pre-existing command line tools like JQ instead of writing ad-hoc Python scripts.
+    - Check for other similar tools that could make the job easier or do the task better.
+    - Ask for it to be installed and made available if not already present.
 
 ### Context Efficiency
 - When running bash commands, pipe output through grep/head/tail where possible
@@ -135,3 +138,35 @@ general:
     # Formatting/display
     - delta
 ```
+
+<!-- ghost-managed:mcp-configuration-assistance:start -->
+# Ghost MCP Configuration Assistance
+
+## MCP Configuration Assistance
+
+When a user attempts to use an MCP tool (SharePoint, Slack, Salesforce, etc.) and it returns a configuration error or the tool is not available:
+
+If the expected MCP tools are not available at all (for example, no `*` tools are available):
+- IMMEDIATELY tell the user to run: `ghost setup mcp install && ghost setup mcp configure`
+- Explain that this reinstalls MCP server scripts and regenerates tool configuration.
+- Do not attempt unrelated fallbacks such as local repo exploration, ad hoc HTTP requests, or non-MCP tooling before giving this remediation.
+
+If the tool returned an error mentioning `not configured` or `missing`:
+- Present the remediation command from the error message.
+- Offer to help the user run it.
+- If the tool needs values that do not have safe defaults, prompt the user for a sample URL or config entry before configuring it.
+
+Treat errors such as `unknown MCP server`, missing `*_tools`, or complete absence of the expected tool namespace as "tools not available at all".
+
+For detailed diagnostics on any MCP server:
+- Run: `ghost setup mcp doctor`
+- Present the remediation steps from the output for the relevant server.
+
+For missing MCP settings values:
+- Use: `ghost setup mcp settings set <key> <value>`
+
+After any configuration change:
+- Remind the user to restart their IDE or tool for MCP config changes to take effect.
+
+Do NOT proactively check MCP configuration. Only assist when the user encounters an issue.
+<!-- ghost-managed:mcp-configuration-assistance:end -->
