@@ -78,7 +78,7 @@ POWERLEVEL9K_DISABLE_TERM_TITLE=true
 _set_term_title() {
     local cwd=${PWD/#$HOME/󰜥}
     if [ -z "$SSH_CLIENT" ]; then
-        print -n "\e]0;󱆃 $(basename $SHELL)\a"
+        print -n "\e]0;󱆃 $(basename $SHELL): $(basename $cwd)\a"
     fi
 }
 add-zsh-hook precmd _set_term_title
