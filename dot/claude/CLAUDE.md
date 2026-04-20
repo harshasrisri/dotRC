@@ -96,6 +96,14 @@ After bootstrapping, add the hooks block pointing to `~/.agents/scripts/`:
       ]
     }
   ],
+  "PreToolUse": [
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {"type": "command", "command": "bash ~/.agents/scripts/deny-destructive.sh", "timeout": 5}
+      ]
+    }
+  ],
   "Stop": [
     {
       "matcher": "*",
@@ -107,6 +115,11 @@ After bootstrapping, add the hooks block pointing to `~/.agents/scripts/`:
   ]
 }
 ```
+
+`deny-destructive.sh` — a `PreToolUse` hook that hard-blocks destructive Bash patterns
+(`rm -rf /~.`, `git reset --hard`, `git push --force` to main/master, `dd of=/dev/`, piped
+execution, fork bombs, SQL `DROP/TRUNCATE`, system power commands). Safe-by-default: a script
+failure results in passthrough to `defaultMode: "plan"` approval, not auto-allow.
 
 Also add the following `permissions` block manually after bootstrapping:
 
