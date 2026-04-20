@@ -26,5 +26,5 @@ fi
 
 if [[ -n "$msg" ]]; then
   msg+="Apply these lessons proactively throughout this session."
-  printf '{"systemMessage": %s}' "$(printf '%s' "$msg" | jq -Rs .)"
+  printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":%s}}' "$(printf '%s' "$msg" | jq -Rs .)"
 fi

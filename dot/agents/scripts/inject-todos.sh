@@ -20,6 +20,6 @@ if [[ -f "$todo_file" && -s "$todo_file" ]]; then
     msg+="$(head -100 "$todo_file")"$'\n\n'
     msg+="Review these todos. Mark items complete with [x] as you finish them. "
     msg+="Update $todo_file as work progresses."
-    printf '{"systemMessage": %s}' "$(printf '%s' "$msg" | jq -Rs .)"
+    printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":%s}}' "$(printf '%s' "$msg" | jq -Rs .)"
   fi
 fi
