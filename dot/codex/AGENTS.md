@@ -35,15 +35,22 @@
 - Point at logs, errors, failing tests - then resolve them
 - Zero context switching required from the user
 - Go fix failing CI tests without being told how
+- Try the simplest, most targeted fix first — do not refactor around the bug
+- If first fix fails, pause and re-examine assumptions before trying again — do not iterate blindly
 
 ### 7. Offload Large External Payloads
 - For MCP/CLI queries likely to return >100 lines (Slack threads, Jira tickets, Outlook email, SharePoint docs, MR/pipeline output), use a subagent to fetch and extract
 - The subagent returns a structured block — key facts, IDs, decisions, and verbatim quotes for any ambiguous parts — not a lossy prose summary
 - If re-querying the source may be needed, write the full extraction to `.session/extraction-<slug>.md` and read sections on demand via `Read` with offset/limit
 - Main context only receives the structured output
-- In the same vein, try to use pre-existing command line tools like JQ instead of writing ad-hoc Python scripts.
-    - Check for other similar tools that could make the job easier or do the task better.
-    - Ask for it to be installed and made available if not already present.
+- Prefer pre-installed CLI tools over ad-hoc scripts. The available tools and their versions are injected into context at session start — use that list before writing one-off Python/shell scripts.
+    - If a better tool for the job isn't installed, suggest it to the user with the install command rather than working around it.
+
+### 8. Scope Discipline
+- When given a bug report, start with the most targeted fix — do not over-explore the codebase first
+- Keep scope narrow by default. Do not broaden the task unless explicitly asked
+- Deliver the minimal working version first, then iterate if requested
+- If unsure about scope, ask — don't assume the user wants a comprehensive solution
 
 ### Context Efficiency
 - When running bash commands, pipe output through grep/head/tail where possible
@@ -72,7 +79,7 @@ Ephemeral session tasks (work breakdown for the current session) use built-in ta
 
 ## Core Principles
 
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code. Start with the narrowest fix, not a refactor.
 - **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 - **Uncertainty is valid**: "I don't know" is always a valid answer, preferred over confident guesses.
@@ -85,6 +92,7 @@ It contains shared scripts and lessons used by both CC and Codex.
 `~/.codex/config.toml` and `~/.codex/settings.yaml` are not in dotfiles (contain work-specific auth/endpoints).
 
 The hook scripts in `~/.agents/scripts/` are invoked by Codex automatically via its hook configuration.
+`inject-tools.sh` and `inject-git-context.sh` run at session start, injecting installed tool versions and current git state (branch, status, recent commits).
 Add the following to `~/.codex/settings.yaml` manually after bootstrapping:
 
 ```yaml

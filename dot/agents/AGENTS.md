@@ -14,6 +14,8 @@ Scripts in `~/.agents/scripts/` are invoked by the harness on hook events:
 
 - `inject-lessons.sh` — `UserPromptSubmit`: injects global + project lessons into context
 - `inject-todos.sh` — `UserPromptSubmit`: injects pending project todos into context
+- `inject-tools.sh` — `SessionStart`: probes installed tool versions and injects the list into context (once per session)
+- `inject-git-context.sh` — `SessionStart`: injects current branch, uncommitted file status, and recent commits (once per session)
 - `remind-lessons.sh` — `Stop`: reminds agent to capture lessons before finishing
 - `remind-todos.sh` — `Stop`: reminds agent to update todo status before finishing
 
