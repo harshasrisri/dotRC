@@ -15,7 +15,9 @@ return {
 
     {
         'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
+        build = { ':TSUpdate', function()
+            dofile(vim.fn.stdpath('config') .. '/lua/plugins/patches/nvim-treesitter-query-predicates.lua')
+        end },
         lazy = vim.fn.argc(-1) == 0, -- load early when opening file on CLI
         keys = { "<CR>", desc = "Initiate treesitter incremental selecion" },
         dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects'},
