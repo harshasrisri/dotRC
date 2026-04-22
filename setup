@@ -2,103 +2,142 @@
 # Script to setup my Working Environment.
 # Sriharsha Mucheli : harshasrisri@gmail.com
 
-set -e
+set -euo pipefail
 
 dot_dir="$PWD/dot"
 repo_dir="$PWD"
 
-fatal () {
-    echo "FATAL: $*"
-    exit
+usage() {
+    cat <<EOF
+Usage: $0 [subcommand] [options]
+
+Subcommands:
+  (none)              Check prerequisite tools — warns on missing, no errors
+  install [tool...]   Symlink dotfiles; optionally limit to specific tool(s)
+                      Tool names match top-level directories under dot/
+                      e.g.: ./setup install nvim tmux zsh
+                      Without a tool argument, installs all dotfiles
+  clean [--force]     Show stale symlinks (dry-run); --force removes them
+
+Examples:
+  ./setup                    # Check all prerequisite tools
+  ./setup install            # Symlink all dotfiles + update repo
+  ./setup install nvim zsh   # Symlink only nvim and zsh configs
+  ./setup clean              # Dry-run: show stale symlinks
+  ./setup clean --force      # Remove stale symlinks
+EOF
+}
+
+fatal() {
+    echo "FATAL: $*" >&2
+    exit 1
 }
 
 check_dependencies() {
+    local missing=0
     for dep in "$@"; do
-        if [ ! -x "$(command -v "$dep")" ]; then
-            echo "WARNING: Program '$dep' not found. Ensure it is installed and in \$PATH"
-            return
+        if command -v "$dep" >/dev/null 2>&1; then
+            echo "  $dep: installed"
+        else
+            echo "  WARNING: '$dep' not found — ensure it is installed and in \$PATH"
+            missing=$((missing + 1))
         fi
-        echo "$dep: installed"
     done
+    if [[ $missing -gt 0 ]]; then
+        echo "$missing prerequisite(s) missing."
+    else
+        echo "All prerequisites installed."
+    fi
 }
 
 update_repo() {
-    echo "Updating Repo . . . "
+    echo "Updating repo..."
     if ! git pull --rebase --autostash --quiet; then
-        fatal "git pull failed. Can't update repo"
+        fatal "git pull failed. Can't update repo."
     fi
+    [[ -e "$dot_dir" ]] || fatal "No $dot_dir! Please 'git pull' or 'git clone' again."
+}
 
-    if [ ! -e "$dot_dir" ]; then
-        fatal "No $dot_dir!! Please \"git pull\" or \"git clone\" again."
+# Link all git-tracked files under a given dot subdirectory (or all of dot/).
+link_files() {
+    local prefix="$1"
+    local files
+    files=$(git ls-files "$prefix")
+    if [[ -z "$files" ]]; then
+        echo "  No tracked files found under $prefix" >&2
+        return 1
     fi
+    while IFS= read -r file; do
+        local dotfile="$HOME/.${file#"$(basename "$dot_dir")"/}"
+        mkdir -p "$(dirname "$dotfile")"
+        ln -vsnf "$PWD/$file" "$dotfile"
+    done <<< "$files"
 }
 
 make_links() {
-    echo "Linking dot files . . ."
-    for file in $(git ls-files "$dot_dir"/); do
-        dotfile="$HOME/.${file#"$(basename "$dot_dir")"/}"
-        mkdir -p "$(dirname "$dotfile")"
-        echo -ne "\t"
-        ln -vsnf "$PWD/${file}" "${dotfile}"
-    done
+    local tools=("$@")
+    if [[ ${#tools[@]} -eq 0 ]]; then
+        echo "Linking all dotfiles..."
+        link_files "$dot_dir/"
+    else
+        for tool in "${tools[@]}"; do
+            # Special groupings for tools whose files live at dot/ root level
+            case "$tool" in
+                zsh)
+                    echo "Linking zsh configs..."
+                    for f in zshrc zshenv myenv myshrc; do
+                        [[ -e "$dot_dir/$f" ]] && link_files "$dot_dir/$f"
+                    done
+                    continue
+                    ;;
+            esac
+            # Otherwise check dot/<tool> then dot/config/<tool>
+            local tool_dir
+            if [[ -d "$dot_dir/$tool" ]]; then
+                tool_dir="$dot_dir/$tool"
+            elif [[ -d "$dot_dir/config/$tool" ]]; then
+                tool_dir="$dot_dir/config/$tool"
+            else
+                echo "  WARNING: No directory for '$tool' (checked dot/$tool and dot/config/$tool) — skipping" >&2
+                continue
+            fi
+            echo "Linking $tool configs..."
+            link_files "$tool_dir/"
+        done
+    fi
 }
 
 find_stale_links() {
-    local stale_links=()
-
-    # Search directories where symlinks are created
-    local search_dirs=(
-        "$HOME/.config"
-        "$HOME/.local"
-    )
-
-    # Also check top-level dotfiles in $HOME (non-recursive)
-    while IFS= read -r -d '' link; do
-        # Check if it's a symlink
+    local search_dirs=("$HOME/.config" "$HOME/.local")
+    local _process_link
+    _process_link() {
+        local link="$1"
         if [[ -L "$link" ]]; then
-            local target
+            local target rel_path
             target=$(readlink "$link")
-
-            # Check if it points to our repo's dot directory
             if [[ "$target" == "$repo_dir/dot/"* ]]; then
-                # Extract relative path from repo
-                local rel_path="${target#"$repo_dir"/dot/}"
-
-                # Check if source file exists in git
+                rel_path="${target#"$repo_dir"/dot/}"
                 if ! git ls-files --error-unmatch "dot/$rel_path" &>/dev/null; then
-                    stale_links+=("$link")
+                    echo "$link"
                 fi
             fi
         fi
+    }
+
+    while IFS= read -r -d '' link; do
+        _process_link "$link"
     done < <(find "${search_dirs[@]}" -type l -print0 2>/dev/null)
 
-    # Check top-level dotfiles in $HOME (only files starting with .)
     while IFS= read -r -d '' link; do
-        if [[ -L "$link" ]]; then
-            local target
-            target=$(readlink "$link")
-
-            if [[ "$target" == "$repo_dir/dot/"* ]]; then
-                local rel_path="${target#"$repo_dir"/dot/}"
-
-                if ! git ls-files --error-unmatch "dot/$rel_path" &>/dev/null; then
-                    stale_links+=("$link")
-                fi
-            fi
-        fi
+        _process_link "$link"
     done < <(find "$HOME" -maxdepth 1 -name '.*' -type l -print0 2>/dev/null)
-
-    printf '%s\n' "${stale_links[@]}"
 }
 
 clean_stale_links() {
     local force=0
-    if [[ "$1" == "--force" ]]; then
-        force=1
-    fi
+    [[ "${1:-}" == "--force" ]] && force=1
 
     echo "Scanning for stale symlinks..."
-
     local stale_links=()
     while IFS= read -r link; do
         [[ -n "$link" ]] && stale_links+=("$link")
@@ -110,24 +149,18 @@ clean_stale_links() {
     fi
 
     if [[ $force -eq 0 ]]; then
-        # Dry-run mode - just show what would be removed
         echo "Found ${#stale_links[@]} stale symlink(s):"
         for link in "${stale_links[@]}"; do
-            local target
-            target=$(readlink "$link")
-            echo "  $link -> $target"
+            echo "  $link -> $(readlink "$link")"
         done
         echo ""
-        echo "Run './setup --clean --force' to remove them."
+        echo "Run './setup clean --force' to remove them."
     else
-        # Actually remove the symlinks
         local removed=0
         for link in "${stale_links[@]}"; do
             if rm "$link" 2>/dev/null; then
                 echo "Removed: $link"
                 removed=$((removed + 1))
-
-                # Try to remove parent directory if empty
                 local parent
                 parent=$(dirname "$link")
                 if [[ -d "$parent" ]] && rmdir "$parent" 2>/dev/null; then
@@ -139,51 +172,44 @@ clean_stale_links() {
     fi
 }
 
-# Parse command line arguments
+# ── Dispatch ──────────────────────────────────────────────────────────────────
+
 subcommand="${1:-}"
-force_mode=0
 
-if [[ "$subcommand" == "clean" ]]; then
-    shift
+case "$subcommand" in
+    clean|help|--help|-h) ;;
+    *)
+        echo "Checking prerequisites..."
+        check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta zoxide jq
+        echo ""
+        ;;
+esac
 
-    # Parse flags for clean subcommand
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            --force)
-                force_mode=1
-                shift
-                ;;
-            *)
-                echo "Unknown option for clean: $1"
-                echo "Usage: $0 clean [--force]"
-                echo "  --force       Actually remove stale symlinks"
-                exit 1
-                ;;
-        esac
-    done
-
-    # Run cleanup and exit
-    if [[ $force_mode -eq 1 ]]; then
-        clean_stale_links --force
-    else
-        clean_stale_links
-    fi
-    exit 0
-elif [[ -n "$subcommand" ]]; then
-    echo "Unknown subcommand: $subcommand"
-    echo "Usage: $0 [clean [--force]]"
-    echo ""
-    echo "Subcommands:"
-    echo "  clean         Show stale symlinks (dry-run by default)"
-    echo "  clean --force Remove stale symlinks"
-    echo ""
-    echo "Without arguments, creates symlinks for all dotfiles"
-    exit 1
-fi
-
-# Normal mode - create symlinks
-update_repo
-make_links
-check_dependencies git zsh nvim rg fzf bat eza tmux vim fd delta zoxide jq
-
-echo "Done!"
+case "$subcommand" in
+    "")
+        echo "To install configs: ./setup install [tool...]"
+        echo "Available tools: zsh zim wezterm tmux nvim vim git kanata agents claude codex"
+        ;;
+    install)
+        shift
+        update_repo
+        make_links "$@"
+        echo "Done!"
+        ;;
+    clean)
+        shift
+        flag="${1:-}"
+        if [[ -n "$flag" && "$flag" != "--force" ]]; then
+            echo "Unknown option for clean: $flag" >&2
+            usage; exit 1
+        fi
+        clean_stale_links "$flag"
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    *)
+        echo "Unknown subcommand: $subcommand" >&2
+        usage; exit 1
+        ;;
+esac
