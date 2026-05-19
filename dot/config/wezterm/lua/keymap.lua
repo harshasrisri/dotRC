@@ -1,5 +1,10 @@
 local wezterm = require("wezterm")
 local action = wezterm.action
+local mc_ok, mc = pcall(dofile, wezterm.home_dir .. "/github/harshasrisri/mission_control.wez/plugin/init.lua")
+if not mc_ok then
+    wezterm.log_error("mission_control failed to load: " .. tostring(mc))
+    mc = nil
+end
 
 local function map(key, mods, fn)
     return { key = key, mods = mods, action = fn }
@@ -54,6 +59,7 @@ local function init(config)
             map( 'j', 'NONE', action.ActivatePaneDirection('Down') ),
             map( 'h', 'NONE', action.ActivatePaneDirection('Left') ),
             map( 'l', 'NONE', action.ActivatePaneDirection('Right') ),
+            map( 'f', 'NONE', action.ActivateKeyTable { name = 'mission_control', one_shot = true, timeout_milliseconds = 1000 } ),
             map( 's', 'NONE', action.ActivateKeyTable { name = 'split_pane' } ),
             map( 'r', 'NONE', action.ActivateKeyTable { name = 'resize_panes', one_shot = false, } ),
             map( 'Space', 'NONE', action.ActivateKeyTable { name = 'quick_select' } ),
@@ -61,6 +67,12 @@ local function init(config)
             map( ';', 'NONE', action.ActivateCommandPalette ),
             map( ':', 'NONE', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
         },
+        mission_control = mc and {
+            map( 'f', 'NONE', action.ActivateLastTab ),
+            map( 's', 'NONE', mc.action.activate{} ),
+            map( 'p', 'NONE', mc.action.peek{ peek_seconds = 3 } ),
+            map( 'Escape', 'NONE', 'PopKeyTable' ),
+        } or {},
         resize_panes = {
             map( 'k', 'NONE', action.AdjustPaneSize { 'Up', 5 } ),
             map( 'j', 'NONE', action.AdjustPaneSize { 'Down', 5 } ),
