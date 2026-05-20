@@ -2,8 +2,14 @@ local wezterm = require("wezterm")
 local action = wezterm.action
 local mc_ok, mc = pcall(dofile, wezterm.home_dir .. "/github/harshasrisri/mission_control.wez/plugin/init.lua")
 if not mc_ok then
-    wezterm.log_error("mission_control failed to load: " .. tostring(mc))
-    mc = nil
+    wezterm.log_warn("mission_control: local load failed, trying plugin registry: " .. tostring(mc))
+    mc_ok, mc = pcall(function()
+        return wezterm.plugin.require("https://github.com/harshasrisri/mission_control.wez")
+    end)
+    if not mc_ok then
+        wezterm.log_error("mission_control: " .. tostring(mc))
+        mc = nil
+    end
 end
 
 local function map(key, mods, fn)
