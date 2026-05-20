@@ -18,6 +18,9 @@ function M.base_config(config)
     config.window_padding = { left = 1, right = 1, top = 1, bottom = 1 }
     config.bold_brightens_ansi_colors = true
 
+    config.send_composed_key_when_left_alt_is_pressed = false
+    config.send_composed_key_when_right_alt_is_pressed = false
+
     config.window_background_opacity = 0.95
     config.macos_window_background_blur = 20
 
