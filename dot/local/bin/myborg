@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    # run borg commands when run directly, after checking for env vars
+    if [ -z "$BORG_PASSPHRASE" ] || [ -z "$BORG_REPO" ] || [ -z "$BORG_REMOTE_PATH" ]; then
+        echo "Missing environment variable(s). Please source this script first: source $(realpath $0)"
+        exit 1
+    fi
+    borg $@
+    exit 0
+fi
+
+# set these env vars only when sourced
+echo "Setting BORG_REMOTE_PATH to borg1" && export BORG_REMOTE_PATH=borg1
+echo -n "Setting BORG_PASSPHRASE from pass ... (touch yubikey) ... " && export BORG_PASSPHRASE="$(pass show homelab/borgpass | head -n 1)" && echo "Done" || echo "Failed"
+echo -n "Setting BORG_REPO from pass ... (touch yubikey) ... " && export BORG_REPO="$(pass show homelab/borgrepo | head -n 1)" && echo "Done" || echo "Failed"
