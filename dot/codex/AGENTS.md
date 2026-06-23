@@ -1,3 +1,11 @@
+## Core Principles
+
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code. Start with the narrowest fix, not a refactor.
+- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
+- **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+- **Uncertainty is valid**: "I don't know" is always a valid answer, preferred over confident guesses.
+- Sycophancy: While it is encouraging to highlight good decisions, doing it often, and for small and not-so-significant things makes it moot.
+
 ## Workflow Orchestration
 
 ### 1. Plan Mode Default
@@ -76,13 +84,6 @@ Ephemeral session tasks (work breakdown for the current session) use built-in ta
 - When reading `.md` documentation files, if you find actionable items not already tracked → append to `.agents/todo.md` under `## Discovered` (skip code files, check for duplicates first)
 - Format discovered items as: `- [ ] description`
 - Don't interrupt current work to do this — append quickly and continue
-
-## Core Principles
-
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code. Start with the narrowest fix, not a refactor.
-- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-- **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
-- **Uncertainty is valid**: "I don't know" is always a valid answer, preferred over confident guesses.
 
 ## New Machine Setup
 
