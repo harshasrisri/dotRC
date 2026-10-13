@@ -11,11 +11,11 @@ log() {
 
 scan_plugin_urls() {
   log "Scanning plugin URLs in $PLUGIN_DIR..."
-  find "$PLUGIN_DIR" -name config -type f -print0 | \
-    xargs -0 grep url | \
-    cut -d'=' -f2 | \
-    sed 's/\.git//;s/^[[:space:]]*//' | \
-    awk -F/ '{print $NF "|" $0}'
+  find "$PLUGIN_DIR" -mindepth 1 -maxdepth 1 -type d | while read -r dir; do
+    name=$(basename "$dir")
+    url=$(grep -m1 url "$dir/.git/config" 2>/dev/null | cut -d'=' -f2 | sed 's/\.git//;s/^[[:space:]]*//;s/[[:space:]]*$//')
+    [ -n "$url" ] && printf '%s|%s\n' "$name" "$url"
+  done
 }
 
 backup_or_create_cache() {

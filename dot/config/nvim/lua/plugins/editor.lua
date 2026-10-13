@@ -5,32 +5,47 @@ return {
     { 'echasnovski/mini.align', event = 'BufReadPost', opts = {}, version = '*', },
     { 'mzlogin/vim-markdown-toc', ft = 'markdown'},
 
+    -- {
+    --     "iamcco/markdown-preview.nvim",
+    --     ft = { "markdown" },
+    --     build = function ()
+    --         require('lazy').load({ plugins = {'markdown-preview.nvim'}})
+    --         vim.fn["mkdp#util#install"]()
+    --     end,
+    --     init = function()
+    --         vim.g.mkdp_filetypes = { "markdown" }
+    --         vim.g.mkdp_auto_close = 0
+    --         vim.g.mkdp_combine_preview = 1
+    --         vim.g.mkdp_theme = 'dark'
+    --         vim.g.mkdp_refresh_slow = 1
+    --         -- if vim.loop.os_uname().sysname == 'Darwin' then
+    --         --     vim.g.mkdp_browser = 'safari'
+    --         -- end
+    --         vim.g.mkdp_preview_options = {
+    --             maid = {
+    --                 diagramMarginX = 10,
+    --                 actorMargin = 10,
+    --                 boxMargin = 10,
+    --                 boxTextMargin = 10,
+    --                 messageMargin = 10,
+    --             }
+    --         }
+    --     end,
+    -- },
+
     {
-        "iamcco/markdown-preview.nvim",
+        "sammaji/markdown-preview.nvim",
         ft = { "markdown" },
-        build = function ()
-            require('lazy').load({ plugins = {'markdown-preview.nvim'}})
-            vim.fn["mkdp#util#install"]()
-        end,
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-            vim.g.mkdp_auto_close = 0
-            vim.g.mkdp_combine_preview = 1
-            vim.g.mkdp_theme = 'dark'
-            vim.g.mkdp_refresh_slow = 1
-            -- if vim.loop.os_uname().sysname == 'Darwin' then
-            --     vim.g.mkdp_browser = 'safari'
-            -- end
-            vim.g.mkdp_preview_options = {
-                maid = {
-                    diagramMarginX = 10,
-                    actorMargin = 10,
-                    boxMargin = 10,
-                    boxTextMargin = 10,
-                    messageMargin = 10,
-                }
-            }
-        end,
+        opts = {},
+    },
+
+    {
+        "selimacerbas/mdkite.nvim",
+        ft = { "markdown" },
+        dependencies = { "selimacerbas/kitehost.nvim" },
+        opts = {
+            instance_mode = "multi",
+        },
     },
 
     {
