@@ -74,7 +74,7 @@ local function init(config)
             map( ':', 'NONE', action.ShowLauncherArgs { flags = 'FUZZY|TABS|DOMAINS|COMMANDS' } ),
         },
         mission_control = mc and {
-            map( 'f', 'NONE', action.ActivateLastTab ),
+            map( 'f', 'NONE', mc.action.toggle{} ),
             map( 's', 'NONE', mc.action.activate{} ),
             map( 'p', 'NONE', mc.action.peek{ peek_seconds = 3 } ),
             map( 'Escape', 'NONE', 'PopKeyTable' ),
