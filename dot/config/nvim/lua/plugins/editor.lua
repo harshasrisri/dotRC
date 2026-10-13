@@ -36,7 +36,15 @@ return {
     {
         "sammaji/markdown-preview.nvim",
         ft = { "markdown" },
-        opts = {},
+        opts = {
+            theme_css = vim.fn.expand("~/.cache/nvim/markdown-preview/theme.css"),
+            preview_options = {
+                maid = {
+                    layout = "elk",
+                    theme = "redux-dark-color",
+                },
+            },
+        },
     },
 
     {
