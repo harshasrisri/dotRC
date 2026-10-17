@@ -37,6 +37,8 @@ return {
         "sammaji/markdown-preview.nvim",
         ft = { "markdown" },
         opts = {
+            combine_preview = true,
+            port = 8089,
             theme_css = vim.fn.expand("~/.cache/nvim/markdown-preview/theme.css"),
             preview_options = {
                 maid = {
