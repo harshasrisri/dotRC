@@ -280,6 +280,9 @@ wezcopy() {
   fi
 }
 
-alias ywd='realpath ${PWD} | wezcopy'
+ywd() {
+    local arg=${1:-$PWD}
+    realpath "${arg}" | wezcopy
+}
 
 # vim: ft=sh

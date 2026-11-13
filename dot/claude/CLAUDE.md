@@ -6,6 +6,15 @@
 - **Uncertainty is valid**: "I don't know" is always a valid answer, preferred over confident guesses.
 - Sycophancy: While it is encouraging to highlight good decisions, doing it often, and for small and not-so-significant things makes it moot.
 
+### Code Design Priorities
+
+Optimize code around reducing **state, coupling, complexity, and code — in that order**.
+
+- Accept more coupling if it makes the code more stateless.
+- Accept more complexity if it reduces coupling.
+- Accept duplicated code if it reduces complexity.
+- De-dupe only when it does not increase state, coupling, or complexity.
+
 ## Workflow Orchestration
 
 ### 1. Plan Mode Default
